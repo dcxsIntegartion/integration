@@ -337,8 +337,6 @@
 			<artifactId>javassist</artifactId>
 			<version>${javassist_version}</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
