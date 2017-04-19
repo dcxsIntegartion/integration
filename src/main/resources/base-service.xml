@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+	default-autowire="byName">
+
+    <aop:aspectj-autoproxy/>
+
+	<context:component-scan base-package="team.union.*" />
+	<!-- 定时器bean开始 
+	<task:annotation-driven />
+    <bean id="testTask" class="team.union.nonbusiness.timer.service.ITimerServiceImpl"></bean>  
+    <task:scheduled-tasks>  
+        <task:scheduled ref="testTask" method="test" cron="0 0/10 * * * ?" />
+    </task:scheduled-tasks> 
+	 	 定时器bean结束 -->
+
+   <util:properties id="gmallDataSourceProps" location="classpath:jdbc_mysql.properties"/> 
+
+    <!-- 数据库链接池  -->
+    <bean id="masterdataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="#{gmallDataSourceProps['jdbc_url']}" />
+        <property name="username" value="#{gmallDataSourceProps['jdbc_user']}" />
+        <property name="password" value="#{gmallDataSourceProps['jdbc_password']}" />
+        <property name="filters" value="stat"/>
+        <property name="maxActive" value="200" />
+        <property name="initialSize" value="1" />
+        <property name="maxWait" value="60000" />
+        <property name="minIdle" value="1" />
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+    </bean>
+  
+	<bean id="dataSource" class="team.union.nonbusiness.datasource.DynamicDataSource">
+        <property name="targetDataSources">  
+              <map key-type="java.lang.String">  
+                  <!-- write -->
+                 <entry key="master" value-ref="masterdataSource"/>  
+                 <!-- read -->
+                <!--  <entry key="slave" value-ref="slavedataSource"/>  --> 
+              </map>  
+        </property>
+        <property name="defaultTargetDataSource" ref="masterdataSource"/>  
+    </bean>
+	<aop:aspectj-autoproxy />
+	<bean id="manyDataSourceAspect" class="team.union.nonbusiness.datasource.DataSourceAspect" />
+	<aop:config>
+		<aop:aspect order="0" id="c" ref="manyDataSourceAspect">
+			<aop:pointcut id="tx"
+				expression="execution(* team.union.*.*.service..*.*(..))" />
+			<aop:before pointcut-ref="tx" method="before" />
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- Myibatis配置 -->
+	<bean id="baseSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/base-mybatis-Configuration.xml">
+		</property>										   
+		<property name="mapperLocations" value="classpath*:team/union/**/mapper/**/*.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 由spring管理mybatis的事物 -->  
+    <bean id="baseTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource"></property>  
+    </bean> 
+    <tx:annotation-driven order="10" transaction-manager="baseTransactionManager" />
+    
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		 <property name="basePackage" value="team.union.*.*.dao" />
+		 <property name="sqlSessionFactory" ref="baseSessionFactory" /> 	
+	</bean>
+</beans>
