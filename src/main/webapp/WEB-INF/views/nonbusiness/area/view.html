@@ -1,0 +1,210 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>关联用户信息</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<!-- page plugin -->
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/scripts/lib/validform/style.css">	
+
+<!-- page plugin end -->
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<script src="../../new_ui/scripts/vendor/modernizr.js"></script>
+
+<style type="text/css">
+a:hover{
+	text-decoration:none;
+}
+.info {
+	border: 1px solid #ccc;
+	padding: 2px 20px 2px 5px;
+	color: #666;
+	position: absolute;
+	display: none;
+	line-height: 20px;
+	background-color: #fff;
+}
+.inp_btn{
+	width:100%;
+	height:28px;
+	border:1px solid #999;
+	z-index:9999;
+	position:relative;
+}
+.inp_btn i{
+	width:28px;
+	height:28px;
+	position:absolute;
+	right:0;
+	top:0;
+	background:url("../../images/pic-icon-add-user.png") no-repeat center;
+	background-size:25px 25px;
+}
+.inp_btn span{
+	margin:0 3px;
+	height:28px;
+	line-height:28px;
+	position:relative;
+}
+.inp_btn span img{
+	width:14px;
+	height:14px;
+	position:absolute;
+	top:-7px;
+	right:-7px;
+}
+.inp_btn span:hover{
+	color:#ff0000;
+	cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<div class="row">
+			<div class="col-md-12">
+          		<div class="ibox float-e-margins">
+          			<div class="ibox-title">
+              <h5><i class="fa fa-building-o"></i>  城市 / 用户关联</h5>
+              <div class="inline-btns">
+                <a href="#" class="btn btn-sm btn-primary">返回</a>
+                <a href="#" class="btn btn-sm btn-white mls">取消</a>
+              </div>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <form action="#" class="form-horizontal">
+                <div class="form-body">
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">城市：</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control input-sm" id="cityName" name="cityName">
+						<input type="hidden" id="cityCode" name="cityCode">
+					</div>
+                  </div>
+                  <div class="form-group">
+                  	<label class="col-md-3 control-label">选择管理员：</label>
+                  	<div class="col-md-4">
+                  	 <a  > <!-- class="fancybox_iframe"  href="/dcxs/dcxs/common/html/userSelectList.html"  -->
+						<!-- <input id="userId" type="hidden" class="form-control input-sm" value="" />  -->
+						<!-- <input readonly="readonly" id="usersName" type="text" class="form-control input-sm" placeholder="" value=""/> -->
+						<p class="inp_btn">
+							<i></i>
+							<span id="single">重卡在新<img src="../../images/pic-icon-del-user.png"></span>
+							<span>dsfg ds </span>
+							<span>dfsg </span>
+							<span>dfgdf</span>
+						</p>
+					 </a>
+					 <div><a href=”#”>123</a><a href=”#”>1233</a></div>
+					</div>
+                  </div>
+                </div>
+               </form>
+              </div>
+              <div class="modal-footer">
+				<button id="saveBtn" class="btn btn-primary">确定</button>
+			  </div>
+          		</div>
+          	</div>
+		</div>
+	</div>
+	
+	<script src="../../new_ui/scripts/vendor.js"></script>
+	<!-- page plugin -->
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<!-- page plugin end -->
+	<script src="../../new_ui/scripts/main.js"></script>
+	<script src="../../new_ui/layerui/layer/layer.js"></script>
+	<script type="text/javascript">
+	$("#single").click(function(){
+		alert("single");
+	});
+	var userIds = [];
+	var userNames = [];
+	$(function(){
+		var str = "<div><a href='#'>123</a></div>";
+		$("#usersName").html(str);
+		String.prototype.getQueryString = function(name)   
+		{   
+		   var reg = new RegExp("(^|&|\\?)"+ name +"=([^&]*)(&|$)"), r;   
+		   if ( r=this.match(reg) ) return unescape(r[2]);   
+		   return null;   
+		};
+		var url=window.location.href;
+		//alert(url);
+		//设置页面数据
+		$("#cityName").val(decodeURI(decodeURI(url.getQueryString("cityName"))));
+		$("#cityCode").val(decodeURI(decodeURI(url.getQueryString("cityCode"))));
+		var userInfo = url.getQueryString("userInfo");
+		if (userInfo != "") {
+			userInfo = decodeURI(decodeURI(userInfo));
+			userInfo = JSON.parse(userInfo);
+			console.log("userInfo",userInfo);
+			for(var i in userInfo){
+				userIds.push(userInfo[i].userId);
+				userNames.push(userInfo[i].userName);
+			}
+		}
+		
+		
+		$("#saveBtn").bind("click",function(){
+			var model ={};
+			model.cityCode = $("#cityCode").val();
+			model.userId = $("#userId").val();
+			//model.coCity.userId = $
+			
+			$.ajax({
+	            type: "POST",
+	            url: basePath+"/area/coCity/linkCityAndUser",
+	            data: JSON.stringify(model),
+	            contentType:"application/json",
+	            dataType: "json",
+	            success: function(data){
+	        		if(data.status==1){
+	        			layer.msg("城市-用户关联成功！");
+	        			window.history.back(-1);
+	        		}else{
+	        			layer.msg(data.info);
+	        		}
+				},
+				error:function(data) {
+				}
+	        });
+		});
+		
+		
+	});
+	function fnLoadBuild(userId,userName){
+		var user_Id = $("#userId").val();
+		var users_Name = $("#usersName").val();
+		
+		if(user_Id == null || user_Id == 'undefined'){
+			$("#userId").val(userId);
+			$("#usersName").val(userName);	
+		}else{
+			$("#userId").val(user_Id+","+userId);
+			$("#usersName").val(users_Name+","+userName);
+		}
+	}	
+	</script>
+</body>
+</html>

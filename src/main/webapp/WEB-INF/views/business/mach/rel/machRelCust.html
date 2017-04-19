@@ -1,0 +1,271 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>新增用户</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../../new_ui/styles/vendor.css">
+<link rel="stylesheet" href="../../../new_ui/scripts/lib/validform/style.css">	
+<link rel="stylesheet" href="../../../new_ui/styles/main.css">
+
+<script src="../../../new_ui/scripts/vendor.js"></script>
+<script src="../../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+<script src="../../../new_ui/scripts/main.js"></script>
+<script src="../../../new_ui/layerui/layer/layer.js"></script>
+<script src="../../../new_ui/scripts/plugins/jquery-ui.min.js"></script>
+
+</head>
+<body>
+	<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>
+									<i class="fa fa-sliders"></i> 客户层级管理
+								</h5>
+							</div>
+							<div class="ibox-content form">
+								<form id ="viewForm" class="form-horizontal">
+									<div class="modal-body">
+										<div class="form-body">
+											<input type="hidden" id="id" name="id" value="">
+											<input type="hidden" id="areaCode" name="areaCode" value="110229">
+											<div class="form-group">
+												<label class="col-md-3 control-label">机构名称：</label>
+												<div class="col-md-4">
+													<input datatype="*2-25" maxlength="25" nullmsg="请输入用户姓名！"
+														errormsg="输入用户姓名，2~25字！" id="machName" name="machName" value="测试机构" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入机构名称，2~25字！</div>
+											</div>
+											<div class="form-group">
+												<a class="fancybox_iframe" href="../mach/rel/userTable.html">
+												<input id="companyName" name="companyName" onfocus="this.blur();" type="text" class="form-control input-sm" placeholder="合作商账号">
+												</a>
+											</div>
+											<div class="grid_wrapper">
+												 <table id="searchTable" class="table table-condensed table-bordered table-hover">
+									                  <tr>
+									                  	<th w_check="true" w_index="user_id" width="2%;"/>
+									                    <th w_index="user_id" width="15%;" w_hidden="true">用户编号</th>
+									                    <th w_index="account_id" w_hidden="true">账户编号</th>
+									                    <th w_index="user_name" width="10%;">用户姓名</th>
+									                    <th w_index="user_mobilephone" width="10%">联系方式</th>
+									                    <th w_index="account_login_name" width="10%;">登陆账号</th>
+									                    <th w_index="accuont_create_time" width="15%;">账号创建时间</th>
+									                    <th w_index="account_is_use" width="15%;" w_render="fnAccountStatus">账号状态</th>
+									                    <th w_render="operate" width="10%;">操作</th>
+									                  </tr>
+								                </table>
+											</div>
+											<div class="grid_wrapper">
+								                <div class="mbm">
+								                  <input type="hidden" id="ids">
+								                  <button id="btn_refresh" type="button" class="btn btn-sm btn-primary">刷新</button>
+								                  <button id="btn_create" type="button" onclick="add()" class="btn btn-sm btn-primary">新增</button>
+								                  <button id="btn_export" type="button" class="btn btn-sm btn-primary">导出</button>
+								                </div>
+								                <table id="searchCustTable" class="table table-condensed table-bordered table-hover">
+								                  <tr>
+								                    <th w_index="wechat_name" width="10%;">微信名称</th>
+								                    <th w_index="ID" width="10%;">账号名称</th>
+								                    <th w_index="role_type" w_align="left" width="10%;">角色</th>
+								                    <th w_render="showImg" w_align="left" width="15%;">头像</th>
+								                    <th w_index="project_id" width="15%;">所属项目</th>
+								                    <th w_index="mechanism_id" width="15%;">所属机构</th>
+								                    <th w_index="dvpt_no" width="15%;">发展人数</th>
+								                    <th w_index="total_no" width="15%;">总人数</th>
+								                    <th w_render="state" width="10%;">操作</th>
+								                  </tr>
+								                </table>
+								            </div>
+										</div>
+									</div>
+									<div class="form-actions">
+				                      <div class="row">
+				                        <div class="col-md-offset-3 col-md-9">
+				                          <button onclick="javascript:window.history.back(-1);" type="button" class="btn btn-default"
+											data-dismiss="modal">取消</button>
+										  <button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+				                        </div>
+				                      </div>
+				                    </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script src="../../../new_ui/scripts/vendor.js"></script>
+<!-- page plugin -->
+<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+<!-- page plugin end -->
+<script src="../../../new_ui/scripts/jquery.placeholder.js"></script>
+<!--start 机构管理者信息处理  -->
+<script type="text/javascript">
+   $(function() {
+   	$('input, textarea').placeholder();//让IE8，IE9支持placeholder
+   	window.fnAccountStatus = function(record, rowIndex, colIndex, options){
+   		
+       	if(record.account_is_use == 1){
+       		 return '<span style="color:#3EC07F">启用</span>';
+       	}
+       	
+       	if(record.account_is_use == 0){
+       		 return '<span style="color:#EB5413">锁定</span>';
+       	}
+   	}
+   	function getCheckedRecords() {
+   		var records = "";
+   		$('#searchTable tr').each(function() {
+   			if ($(this).find('td:eq(0)>input:checked').length == 1) {
+   				records += gridObj.getRowRecord($(this)).user_id + ",";
+   			}
+   		});
+   		return records;
+   	}
+   	window.deleteUser = function(userId){
+   		layer.confirm("确定要删除该用户的信息?", {icon: 3, title:'提示'}, 
+   				function(index){
+	    			$.ajax({
+	    				type : "DELETE",
+	    				url : basePath+"/sys/user/delete/"+userId,
+	    				dataType : "json",
+	    				success : function(data) {
+	    					if(data.status==1){
+	    						layer.msg("删除成功");
+	    						window.setTimeout(function(){
+	    							layer.close(index);
+		        				    gridObj.refreshPage();
+	    						},200);
+	    					}else{
+	    						layer.msg(data.info);
+	    					}
+	    				}
+	    			});
+   				    
+   				});
+   	}
+   	
+   	window.updateIsUse = function(state,accountId){
+   		$.ajax({
+			type : "PUT",
+			url : basePath+"/sys/user/update_state?accountId="+accountId+"&state="+state,
+			dataType : "json",
+			success : function(data) {
+				if(data.status==1){
+					layer.msg("修改用户登录账户状态成功",{
+						time:1000
+					});
+					window.setTimeout(function(){
+       				    gridObj.refreshPage();
+					},200);
+				}else{
+					layer.msg(data.info);
+				}
+			}
+		});
+   		
+   	}
+   	window.forUpdate = function(userId){
+   		window.location.href=basePath+"/sys/user/update?id="+userId;
+   	}
+   	
+   	window.operate =function(record, rowIndex, colIndex, options) {
+   			var is_use =  gridObj.getRecordIndexValue(record, 'account_is_use');
+   	    	var op_html ='';
+   	    	op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'user_id') + '\');">编辑</a>';
+   	    	//op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="deleteUser(\'' + gridObj.getRecordIndexValue(record, 'user_id') + '\');">删除</a>';
+   	    	if(is_use==0){
+   	    		op_html+= '<a  href="javascript:void(0);" class="btn btn-success btn-xs mhx" onclick="updateIsUse(1,\'' + gridObj.getRecordIndexValue(record, 'account_id') + '\');">启用</a>';
+   	    	}else{
+   	    		op_html+= '<a  href="javascript:void(0);" class="btn btn-danger btn-xs mhx" onclick="updateIsUse(0,\'' + gridObj.getRecordIndexValue(record, 'account_id') + '\');">停用</a>';
+   	    	}
+   	    	//op_html+= '<a  href="javascript:void(0);" class="btn btn-info btn-xs mhx" onclick="popedoms(\'' + gridObj.getRecordIndexValue(record, 'user_id') + '\');">角色分配</a>';
+   			return op_html;
+   	}
+   	
+   
+   	
+   	window.doSearch = function(){
+   		gridObj.options.otherParames = {roleName:$("#machName").val()};
+   		gridObj.page(1);
+       }
+   	
+   	window.gridObj = $.fn.bsgrid.init('searchTable', {
+            url : basePath+'/sys/user/list',
+            pageSizeSelect: true,
+            stripeRows: true,
+            otherParames: {roleName:$("#machName").val()},
+            pageSize: 10,
+            pagingLittleToolbar:false
+        });
+})	
+</script>
+<!--end -->
+<!--start 机构所属地区经纪人信息处理  -->
+<script type="text/javascript">
+/** 列表操作按钮 **/ 
+/** 柔和 **/
+var soft =   ["#FFFFCC","#FFCCCC","#CCFFFF","#99CCCC","#99CC99","#CCCCCC",
+              "#CCFF99","#FFCC99","#FF6666","#FF9966","#CCCCFF","#FFFF99"]; 
+/** 明亮 **/
+var bright = ["#FF9900","#CCFF00","#CC3399","#FF0033","#FF9966","#99CC33",
+              "#FF6600","#993366","#333399","#66CCCC","#CCFF66","#FF99CC"];
+/** 鲜艳 **/
+var colorful=["#CC9999","#FFFF99","#666699","#FF9900","#FFFF00","#0099CC",
+              "#CCCC99","#CC3399","#99CC00","#009933","#FF6600","#009966"];
+/** 所有颜色 **/
+var allColer  = [];
+	allColer =  soft.concat(bright).concat(colorful);
+/** 已经使用颜色 **/
+var usedColer = [];	
+	
+	alert(allColer.length);
+function state(record, rowIndex, colIndex, options) {
+	var tr = $('#searchCustTable tr')[rowIndex+1];
+	//$(tr).attr("class","danger");
+	$(tr).attr("bgcolor",soft[rowIndex]);
+	
+	//$('#searchCustTable tr')[rowIndex-1].attr("bgcolor",soft[0]);
+	var op_html ='';
+	var id = record.id;
+	return op_html;
+};
+/** 列表图片 **/
+function showImg(record, rowIndex, colIndex, options){
+	var show_html = "";
+	var img_url = "../../new_ui/images/example_image.jpg";
+	show_html = "<img src="+ img_url +"  class='img-rounded img-responsive'/>";
+	return show_html;
+}
+function doSearch(){
+	gridObj.options.otherParames = {areaCode:$("#areaCode").val()};
+	gridObj.page(1);
+}
+
+$(function(){
+	gridObj = $.fn.bsgrid.init('searchCustTable', {
+		 url : basePath+"/cust/modelLv/page",
+         pageSizeSelect: true,
+         stripeRows: true,
+         otherParames: {areaCode:$("#areaCode").val()},
+         pageSize: 3,
+         pagingLittleToolbar:false
+    });
+});
+</script>
+<!--end -->
+</body>
+</html>

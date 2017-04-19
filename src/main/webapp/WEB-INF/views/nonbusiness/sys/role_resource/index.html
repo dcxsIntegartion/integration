@@ -1,0 +1,161 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>店铺列表</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<!-- page plugin -->
+<link rel="stylesheet" type="text/css"
+	href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<!-- page plugin end -->
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">
+<link href="../../ui/jquery-easyui-1.3.3/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+<link href="../../ui/jquery-easyui-1.3.3/themes/icon.css" rel="stylesheet" type="text/css" />
+<script src="../../new_ui/scripts/vendor/modernizr.js"></script>
+<script src="../../new_ui/scripts/ie9.js"></script>
+<!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+
+
+</head>
+<body style="min-width: 400px">
+	<input type="hidden" id="roleId" value="${roleId}">
+	<div class="wrapper wrapper-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="col-xs-2">
+					</div>
+					<div class="col-xs-8">
+						<ul id="resource_view" class="ztree"></ul>
+						<div class="modal-footer" style="text-align: center;">
+								<button id="btnClose" type="button" class="btn btn-default"
+									data-dismiss="modal">取消</button>
+								<button type="button" id="btnSave" class="btn btn-primary">确定</button>
+							</div>
+					</div>
+					<div class="col-xs-2">
+					</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+	<script src="../../new_ui/scripts/vendor.js"></script>
+	<!-- page plugin -->
+	<script type="text/javascript"
+		src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+	<script type="text/javascript"
+		src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+	<!-- page plugin end -->
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script src="../../new_ui/layerui/layer/layer.js"></script>
+	<script src="../../new_ui/scripts/main.js"></script>
+	<script src="../../ui/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+	<script src="../../new_ui/layerui/layer/layer.js"></script>
+	<script type="text/javascript">
+		$(function(){
+		
+			/**
+			 * 处理服务器返回的树形节点
+			 */
+			var parseChildren = function(data,topNodeId) {
+				if (data.childSize > 0 && data.children.length == 0) {
+					data.state = "closed";
+				}
+				if(data.children&&data.children.length>0)
+				for ( var i = 0; i < data.children.length; i++) {
+					parseChildren(data.children[i]);
+				}
+			};
+			
+			var treeResolver=function(data,topNodeId)
+			{
+				var result =[];
+				parseChildren(data);
+				if(data.id==topNodeId)
+				{
+					result.push(data);
+				}else if(data instanceof Array){
+					result = data;
+				}else
+				{
+					result=data.children;
+				}
+			   	return result;
+			};
+			
+			
+			$("#resource_view").tree({
+				checkbox:true,
+				url:basePath+"/sys/role_resource/loadResorucesByRoleId?roleId=${roleId}",
+				onBeforeExpand:function(){
+					$(this).tree("options").url=basePath+"/sys/resource/tree";
+				},
+				onBeforeLoad:function(node,param){
+					if(node!=null){
+						if(node.attributes["check_state"]==0)
+						{
+							param.check_state=0;
+						}
+						
+						if(node.checked)
+							param.checked=node.checked;
+					}
+					
+				},
+				loadFilter: function(data){  
+					data.hideCheck=true;
+					return treeResolver(data,"1");
+			    } 
+			});
+			
+			$("#btnClose").click(function(){
+					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+       				parent.layer.close(index);
+			});
+			
+			$("#btnSave").click(function(){
+				var nodes = $('#resource_view').tree('getChecked','self');	
+				var model ={};
+				model.roleId="${roleId}";
+				model.resourcesIds=[];
+				for(var i=0;i<nodes.length;i++)
+				{
+					model.resourcesIds.push(nodes[i].id);
+				}
+				
+				$.ajax({
+    	            type: "POST",
+    	            url: basePath+"/sys/role_resource/update",
+    	            data: JSON.stringify(model),
+    	            contentType:"application/json",
+    	            dataType: "json",
+    	            success: function(data){
+    	            	layer.msg("修改成功");
+    	            	window.setTimeout(function(){
+   	            			var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+   	       					parent.layer.close(index);
+	   	            	},500);
+    				},
+    				error:function(data) {
+    				},
+    				complete:function(){
+    					
+    				}
+    	        });
+			});
+			
+		});
+	</script>
+</body>
+</html>

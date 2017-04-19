@@ -1,0 +1,208 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>ui_comp</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../../new_ui/styles/vendor.css">
+<!-- page plugin -->
+<link rel="stylesheet" type="text/css" href="../../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css" href="../../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" type="text/css" href="../../../new_ui/scripts/lib/validform/style.css">	
+<!-- page plugin end -->
+<link rel="stylesheet" href="../../../new_ui/styles/main.css">
+<script src="../../../new_ui/scripts/vendor/modernizr.js"></script>
+<!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+
+
+</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<ol class="breadcrumb">
+			<li>您的位置：</li>
+			<li><a href="/index.html">主页</a></li>
+			<li class="active">系统管理</li>
+			<li class="active">用户管理</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							<i class="fa fa-building-o"></i> 系统管理 / 用户管理
+						</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<form id="user_search_form" class="form-inline mbl">
+		                <div class="form-body">
+		                 	
+							<div class="form-group">
+								<input id="userName" name="userName" type="text" class="form-control input-sm" placeholder="用户姓名">
+							</div>
+							<div class="form-group">
+								<input id="accountLoginName" name="accountLoginName" type="text" class="form-control input-sm" placeholder="登陆账号">
+							</div>
+							<div class="form-group">
+								<button type="button" onclick="doSearch()"
+									class="btn btn-sm btn-primary">
+									<i class="fa fa-search"></i>搜索
+								</button>
+								<button type="reset" class="btn btn-sm mls">重置</button>
+							</div>
+					</div>
+              </form>
+						<div class="grid_wrapper">
+							<div class="mbm">
+								<button id="btn_create" type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal">添加新用户</button>
+							</div>
+							 <table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
+				                  <tr>
+				                    <th w_index="user_id" width="15%;" w_hidden="true">用户编号</th>
+				                    <th w_index="account_id" w_hidden="true">账户编号</th>
+				                    <th w_index="user_name" width="10%;">用户姓名</th>
+				                    <th w_index="user_mobilephone" width="10%">联系方式</th>
+				                    <th w_index="account_login_name" width="10%;">登陆账号</th>
+				                    <th w_index="accuont_create_time" width="15%;">账号创建时间</th>
+				                    <th w_index="account_is_use" width="15%;" w_render="fnAccountStatus">账号状态</th>
+				                    <th w_render="operate" width="10%;">操作</th>
+				                  </tr>
+			                </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../new_ui/scripts/vendor.js"></script>
+	<!-- page plugin -->
+	<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+	<script type="text/javascript" src="../../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script src="../../../new_ui/layerui/layer/layer.js"></script>
+	<!-- page plugin end -->
+	<script src="../../../new_ui/scripts/main.js"></script>
+	<script src="../../../new_ui/scripts/jquery.placeholder.js"></script>
+	<script type="text/javascript">
+    $(function() {
+    	$('input, textarea').placeholder();//让IE8，IE9支持placeholder
+    	window.fnAccountStatus = function(record, rowIndex, colIndex, options){
+    		
+	       	if(record.account_is_use == 1){
+	       		 return '<span style="color:#3EC07F">启用</span>';
+	       	}
+	       	
+	       	if(record.account_is_use == 0){
+	       		 return '<span style="color:#EB5413">锁定</span>';
+	       	}
+    	}
+    	
+    	window.deleteUser = function(userId){
+    		layer.confirm("确定要删除该用户的信息?", {icon: 3, title:'提示'}, 
+    				function(index){
+		    			$.ajax({
+		    				type : "DELETE",
+		    				url : basePath+"/sys/user/delete/"+userId,
+		    				dataType : "json",
+		    				success : function(data) {
+		    					if(data.status==1){
+		    						layer.msg("删除成功");
+		    						window.setTimeout(function(){
+		    							layer.close(index);
+			        				    gridObj.refreshPage();
+		    						},200);
+		    					}else{
+		    						layer.msg(data.info);
+		    					}
+		    				}
+		    			});
+    				    
+    				});
+    		
+    	}
+    	
+    	window.updateIsUse = function(state,accountId){
+    		$.ajax({
+				type : "PUT",
+				url : basePath+"/sys/user/update_state?accountId="+accountId+"&state="+state,
+				dataType : "json",
+				success : function(data) {
+					if(data.status==1){
+						layer.msg("修改用户登录账户状态成功",{
+							time:1000
+						});
+						window.setTimeout(function(){
+        				    gridObj.refreshPage();
+						},200);
+					}else{
+						layer.msg(data.info);
+					}
+				}
+			});
+    		
+    	}
+    	window.forUpdate = function(userId){
+    		window.location.href=basePath+"/sys/user/update?id="+userId;
+    	}
+    	
+    	window.operate =function(record, rowIndex, colIndex, options) {
+    			var is_use =  gridObj.getRecordIndexValue(record, 'account_is_use');
+    	    	var op_html ='';
+    	    	op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'user_id') + '\');">编辑</a>';
+    	    	//op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="deleteUser(\'' + gridObj.getRecordIndexValue(record, 'user_id') + '\');">删除</a>';
+    	    	if(is_use==0){
+    	    		op_html+= '<a  href="javascript:void(0);" class="btn btn-success btn-xs mhx" onclick="updateIsUse(1,\'' + gridObj.getRecordIndexValue(record, 'account_id') + '\');">启用</a>';
+    	    	}else{
+    	    		op_html+= '<a  href="javascript:void(0);" class="btn btn-danger btn-xs mhx" onclick="updateIsUse(0,\'' + gridObj.getRecordIndexValue(record, 'account_id') + '\');">停用</a>';
+    	    	}
+    	    	op_html+= '<a  href="javascript:void(0);" class="btn btn-info btn-xs mhx" onclick="popedoms(\'' + gridObj.getRecordIndexValue(record, 'user_id') + '\');">角色分配</a>';
+    			return op_html;
+    	}
+    	
+    	$("#btn_create").bind("click",function(){
+    		window.location.href="userAdd.html";
+    	});
+    	
+    	window.popedoms = function(userId){
+    		var url =basePath+"/sys/user_role/update_view?userId="+userId;
+    		layer.open({
+			    type: 2,
+			    title: '用户角色分配',
+			    shadeClose: true,
+			    maxmin: true, //开启最大化最小化按钮
+			    shade: 0.8,
+			    area: ['680px', '99%'],
+			    content: url //iframe的url
+			}); 
+    		
+    	}
+    	
+    	
+    	window.doSearch = function(){
+    		gridObj.options.otherParames = $("#user_search_form").serializeArray();
+    		gridObj.page(1);
+        }
+    	
+    	window.gridObj = $.fn.bsgrid.init('searchTable', {
+             url : basePath+'/sys/user/list',
+             pageSizeSelect: true,
+             stripeRows: true,
+             otherParames: $("#user_search_form").serializeArray(),
+             pageSize: 10,
+             pagingLittleToolbar:false
+         });
+		
+	})	
+    </script>
+</body>

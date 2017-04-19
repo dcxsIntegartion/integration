@@ -1,0 +1,203 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>ui_comp</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../../new_ui/styles/vendor.css">
+<!-- page plugin -->
+<link rel="stylesheet" type="text/css" href="../../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css" href="../../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" type="text/css" href="../../../new_ui/scripts/lib/validform/style.css">	
+<!-- page plugin end -->
+<link rel="stylesheet" href="../../../new_ui/styles/main.css">
+<script src="../../../new_ui/scripts/vendor/modernizr.js"></script>
+<!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+
+
+</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<ol class="breadcrumb">
+			<li>您的位置：</li>
+			<li><a href="/index.html">主页</a></li>
+			<li class="active">系统管理</li>
+			<li class="active">角色管理</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							<i class="fa fa-building-o"></i> 系统管理 /角色管理
+						</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<form id="role_search_form" class="form-inline mbl">
+		                <div class="form-body">
+		                 	
+							<div class="form-group">
+								<input id="roleName" name="roleName" type="text" class="form-control input-sm" placeholder="角色名称">
+							</div>
+							
+							<div class="form-group">
+								<button type="button" onclick="doSearch()"
+									class="btn btn-sm btn-primary">
+									<i class="fa fa-search"></i>搜索
+								</button>
+								<button type="reset" class="btn btn-sm mls">重置</button>
+							</div>
+						</div>
+             		 </form>
+						<div class="grid_wrapper">
+							<div class="mbm">
+								<button id="btn_create" type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal">添加角色</button>
+							</div>
+							 <table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
+				                  <tr>
+				                    <th w_index="roleId" width="15%;">角色编号</th>
+				                    <th w_index="roleName" width="10%;">角色名称</th>
+				                    <th w_index="roleDescription" width="10%;">角色描述</th>
+				                    <th w_index="roleIsUse" width="10%" w_render="fnStatus">启用状态</th>
+				                    <th w_render="operate" width="10%;">操作</th>
+				                  </tr>
+			                </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../new_ui/scripts/vendor.js"></script>
+	<!-- page plugin -->
+	<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+	<script type="text/javascript" src="../../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script src="../../../new_ui/layerui/layer/layer.js"></script>
+	<!-- page plugin end -->
+	<script src="../../../new_ui/scripts/main.js"></script>
+	<script src="../../../new_ui/scripts/jquery.placeholder.js"></script>
+	<script type="text/javascript">
+    $(function() {
+    	$('input, textarea').placeholder();//让IE8，IE9支持placeholder
+    	window.fnStatus = function(record, rowIndex, colIndex, options){
+    		
+	       	if(record.roleIsUse == 1){
+	       		 return '<span style="color:#3EC07F">启用</span>';
+	       	}
+	       	
+	       	if(record.roleIsUse == 0){
+	       		 return '<span style="color:#EB5413">停用</span>';
+	       	}
+    	}
+    	
+    	
+    	window.deleteRole = function(roleId){
+    		layer.confirm("确定要删除该角色信息?", {icon: 3, title:'提示'}, 
+    				function(index){
+		    			$.ajax({
+		    				type : "DELETE",
+		    				url : basePath+"/sys/role/delete/"+roleId,
+		    				dataType : "json",
+		    				success : function(data) {
+		    					if(data.status==1){
+		    						layer.msg("删除成功");
+		    						window.setTimeout(function(){
+		    							layer.close(index);
+			        				    gridObj.refreshPage();
+		    						},200);
+		    					}else{
+		    						layer.msg(data.info);
+		    					}
+		    				}
+		    			});
+    				    
+    				});
+    		
+    	}
+    	
+    	window.updateIsUse = function(state,roleId){
+    		$.ajax({
+				type : "PUT",
+				url : basePath+"/sys/role/update_state?roleId="+roleId+"&state="+state,
+				dataType : "json",
+				success : function(data) {
+					if(data.status==1){
+						layer.msg("修改角色状态成功",{
+							time:1000
+						});
+						window.setTimeout(function(){
+        				    gridObj.refreshPage();
+						},400);
+					}else{
+						layer.msg(data.info);
+					}
+				}
+			});
+    		
+    	}
+    	window.forUpdate = function(roleId){
+    		window.location.href=basePath+"/sys/role/update?roleId="+roleId;
+    	}
+    	
+    	window.operate =function(record, rowIndex, colIndex, options) {
+    			var is_use =  gridObj.getRecordIndexValue(record, 'roleIsUse');
+    	    	var op_html ='';
+    	    	op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'roleId') + '\');">编辑</a>';
+    	    	op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="deleteRole(\'' + gridObj.getRecordIndexValue(record, 'roleId') + '\');">删除</a>';
+    	    	if(is_use==0){
+    	    		op_html+= '<a  href="javascript:void(0);" class="btn btn-success btn-xs mhx" onclick="updateIsUse(1,\'' + gridObj.getRecordIndexValue(record, 'roleId') + '\');">启用</a>';
+    	    	}else{
+    	    		op_html+= '<a  href="javascript:void(0);" class="btn btn-danger btn-xs mhx" onclick="updateIsUse(0,\'' + gridObj.getRecordIndexValue(record, 'roleId') + '\');">停用</a>';
+    	    	}
+    	    	op_html+= '<a  href="javascript:void(0);" class="btn btn-info btn-xs mhx" onclick="popedoms(\'' + gridObj.getRecordIndexValue(record, 'roleId') + '\');">权限分配</a>';
+    			return op_html;
+    	}
+    	
+    	window.popedoms = function(roleId){
+    		var url =basePath+"/sys/role_resource/update_view?roleId="+roleId;
+    		layer.open({
+			    type: 2,
+			    title: '角色资源分配',
+			    shadeClose: true,
+			    maxmin: true, //开启最大化最小化按钮
+			    shade: 0.8,
+			    area: ['680px', '99%'],
+			    content: url //iframe的url
+			}); 
+    		
+    	}
+    	
+    	$("#btn_create").bind("click",function(){
+    		window.location.href="roleAdd.html";
+    	});
+    	
+    	window.doSearch = function(){
+    		gridObj.options.otherParames = $("#role_search_form").serializeArray();
+    		gridObj.page(1);
+        }
+    	
+    	window.gridObj = $.fn.bsgrid.init('searchTable', {
+             url : basePath+'/sys/role/list',
+             pageSizeSelect: true,
+             stripeRows: true,
+             otherParames: $("#role_search_form").serializeArray(),
+             pageSize: 10,
+             pagingLittleToolbar:false
+         });
+		
+	})	
+    </script>
+</body>

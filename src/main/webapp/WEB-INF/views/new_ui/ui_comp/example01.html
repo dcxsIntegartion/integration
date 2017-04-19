@@ -1,0 +1,244 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>ui_comp</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="../styles/vendor.css">
+    <!-- page plugin -->
+    <link rel="stylesheet" type="text/css" href="../styles/plugins/grid/bsgrid.all.min.css">
+    <!-- page plugin end -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="../scripts/vendor/modernizr.js"></script>
+    <!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+    
+    
+  </head>
+  <body>
+    <div class="wrapper wrapper-content">
+      <ol class="breadcrumb">
+        您的位置：
+        <li><a href="/index.html">主页</a></li>
+        <li class="active">物业</li>
+        <li class="active">公告管理</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5><i class="fa fa-building-o"></i>  物业 / 公告管理</h5>
+              <div class="inline-btns">
+                <a href="#" class="btn btn-sm btn-primary">返回</a>
+                <a href="#" class="btn btn-sm btn-white mls">取消</a>
+              </div>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <form action="#" class="form-inline mbl">
+                <div class="form-body">
+                  <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="文本输入框">
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control input-sm" placeholder="审核状态">
+                      <option value="">审核状态</option>
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                      <option>Option 4</option>
+                      <option>Option 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control input-sm" placeholder="费用类型">
+                      <option value="">费用类型</option>
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                      <option>Option 4</option>
+                      <option>Option 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control input-sm" placeholder="申请类型">
+                      <option value="">申请类型</option>
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                      <option>Option 4</option>
+                      <option>Option 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-daterange input-group" id="datetime_01">
+                      <input type="text" class="input-sm form-control date" name="start" placeholder="申请日期"/>
+                      <span class="input-group-addon">到</span>
+                      <input type="text" class="input-sm form-control date" name="end" placeholder="申请日期"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="文本输入框">
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control input-sm" placeholder="审核状态">
+                      <option value="">审核状态</option>
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                      <option>Option 4</option>
+                      <option>Option 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control input-sm" placeholder="费用类型">
+                      <option value="">费用类型</option>
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                      <option>Option 4</option>
+                      <option>Option 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control input-sm" placeholder="申请类型">
+                      <option value="">申请类型</option>
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                      <option>Option 4</option>
+                      <option>Option 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-daterange  input-group" id="datetime_01">
+                      <input type="text" class="input-sm form-control date" name="start" placeholder="申请日期"/>
+                      <span class="input-group-addon">到</span>
+                      <input type="text" class="input-sm form-control date" name="end" placeholder="申请日期"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>搜索</button>
+                    <button type="button" class="btn btn-sm mls">重置</button>
+                  </div>
+                </div>
+              </form>
+              <div class="grid_wrapper">
+                <div class="mbm">
+                  <input type="hidden" id="ids">
+                  <button id="btn_refresh" type="button" class="btn btn-sm btn-primary">刷新</button>
+                  <button id="btn_create" type="button" class="btn btn-sm btn-primary">新增</button>
+                  <button id="btn_check" type="button" class="btn btn-sm btn-primary">审核</button>
+                  <button id="btn_delete" type="button" class="btn btn-sm btn-primary">删除</button>
+                  <button id="btn_export" type="button" class="btn btn-sm btn-primary">导出</button>
+                  <button id="btn_update"type="button" class="btn btn-sm btn-primary">修改</button>
+                  <button id="btn_offline"type="button" class="btn btn-sm btn-primary">下线</button>
+                  <button id="move_up"type="button" class="btn btn-sm btn-primary">上移</button>
+                  <button id="move_down"type="button" class="btn btn-sm btn-primary">下移</button>
+                </div>
+                <table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
+                  <tr>
+                    <th w_index="XH" width="5%;">XH</th>
+                    <th w_index="ID" width="5%;">ID</th>
+                    <th w_index="CHAR" w_align="left" width="15%;">CHAR</th>
+                    <th w_index="TEXT" w_align="left" width="30%;">TEXT</th>
+                    <th w_index="DATE" width="15%;">DATE</th>
+                    <th w_index="TIME" width="15%;">TIME</th>
+                    <th w_index="NUM" width="5%;">NUM</th>
+                    <th w_render="operate" width="10%;">Operate</th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../scripts/vendor.js"></script>
+    <!-- page plugin -->
+    <script type="text/javascript" src="../scripts/plugins/grid/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="../scripts/plugins/grid/bsgrid.all.min.js"></script>
+    <!-- page plugin end -->
+    <script src="../scripts/main.js"></script>
+    <script type="text/javascript">
+    var gridObj;
+    function operate(record, rowIndex, colIndex, options) {
+        return '<a  href="#" class="btn btn-primary btn-xs mhx" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">操作</a><a  href="#" class="btn btn-danger btn-xs mhx">删除</a>';
+    }
+    $(function(){
+      gridObj = $.fn.bsgrid.init('searchTable', {
+          localData: localData,
+          // autoLoad: false,
+          pageSizeSelect: true,
+          stripeRows: true,
+          pageSize: 10
+      });
+      $('#datetime_01 .date[name=start]')
+        .datetimepicker({
+          clearBtn: true,
+          keyboardNavigation: false,
+          language: "zh-CN",
+          autoclose: true,
+          todayHighlight: true,
+          format: 'yyyy-mm-dd hh:ii'
+        })
+        .on('changeDate', function(ev){
+          var value = $(this).val();
+          console.log(value);
+          $('#datetime_01 .date[name=end]').datetimepicker('setStartDate', value);
+        });
+      $('#datetime_01 .date[name=end]').datetimepicker({
+        clearBtn: true,
+        keyboardNavigation: false,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+    })
+    var localData = [
+    {
+        "ID": 202,
+        "CHAR": "1",
+        "TEXT": "TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_1",
+        "NUM": 11.2,
+        "XH": 1
+    },
+    {
+        "ID": 201,
+        "CHAR": "111",
+        "TEXT": "TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_2",
+        "XH": 2
+    },
+    {
+        "ID": 200,
+        "CHAR": "200",
+        "TEXT": "TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_3",
+        "XH": 3
+    },
+    {
+        "ID": 199,
+        "CHAR": "199",
+        "XH": 4
+    },
+    {
+        "ID": 32,
+        "CHAR": "34",
+        "NUM": 12.1,
+        "XH": 5
+    }];
+    </script>
+  </body>
+</html>

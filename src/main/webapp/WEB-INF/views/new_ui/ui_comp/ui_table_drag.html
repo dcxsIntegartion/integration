@@ -1,0 +1,189 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>ui_comp</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+
+    <link rel="stylesheet" href="../styles/vendor.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="../scripts/vendor/modernizr.js"></script>
+    <!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+    
+    
+  </head>
+  <body>
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="row page-heading">
+        <h4><i class="fa fa-flask"></i>  UI组件 / 表格拖拽</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>多个表格间拖拽</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <p>基于<a href="http://jqueryui.com/">jQuery-ui</a>的sortable组件</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <table class="table table-bordered table-hover" >
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                      </tr>
+                    </thead>
+                    <tbody class="draggable connected-table">
+                      <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table></div>
+                  <div class="col-md-6">
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Username</th>
+                        </tr>
+                      </thead>
+                      <tbody class="draggable connected-table">
+                        <tr>
+                          <td>1</td>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                <h5>单个表格的行进行拖拽</h5>
+                <div class="ibox-tools">
+                  <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                  </a>
+                  <a class="close-link">
+                    <i class="fa fa-times"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="ibox-content">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Username</th>
+                    </tr>
+                  </thead>
+                  <tbody class="draggable">
+                    <tr>
+                      <td>1</td>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="../scripts/vendor.js"></script>
+      
+      <!-- page plugin -->
+      <script src="../scripts/plugins/jquery-ui.min.js"></script>
+      <!-- page plugin end -->
+
+      <script src="../scripts/main.js"></script>
+
+      <script type="text/javascript">
+        // Return a helper with preserved width of cells 修复拖拽时tr的宽度
+      var fixHelper = function(e, ui) {
+        ui.children().each(function() {
+          $(this).width($(this).width());
+        });
+        return ui;
+      };
+      $( ".draggable" )
+      .sortable({
+        helper: fixHelper,
+        placeholder: "ui-state-highlight"
+      }).disableSelection();
+      $( ".connected-table" )
+      .sortable({
+        helper: fixHelper,
+        connectWith: ".connected-table",
+        placeholder: "ui-state-highlight"
+      }).disableSelection();
+      </script>
+    </body>
+  </html>

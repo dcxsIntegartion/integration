@@ -1,0 +1,379 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+    <title>地区管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+    <!-- page plugin -->
+    <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+    <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+    <!-- page plugin end -->
+    <link rel="stylesheet" href="../../new_ui/styles/main.css">
+    <link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">
+	<!-- 检测用户浏览器HTML5和CSS3能力的JavaScript库 -->
+    <script src="../../new_ui/scripts/vendor/modernizr.js"></script>
+    <!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+    
+    
+  </head>
+  <body>
+    <div class="wrapper wrapper-content">
+      <ol class="breadcrumb">
+        您的位置：
+        <li><a href="/index.html">主页</a></li>
+        <li class="active">地区管理</li>
+        <li class="active">开通地区</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5><i class="fa fa-building-o"></i>  地区管理 / 开通地区</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <div class="row">
+                <div class="col-sm-3">
+                  <ul id="treeDemo" class="ztree"></ul>
+                </div>
+                <div class="col-sm-9">
+                  <form action="#" class="form-inline mbl" id="search_form">
+                    <div class="form-body">
+                      <div class="form-group" style="display: none;">
+                        <input type="hidden" id="cityCode" name="cityCode" value="">
+                      	<input type="hidden" id="levelNumber" name="levelNumber" value="">
+                      </div>                      
+                      <div class="form-group">
+                        <div class="input-daterange input-group" id="datetime_01">
+                          <input type="text" class="input-sm form-control date" id="openStart" name="openStart" placeholder="开通日期"/>
+                          <span class="input-group-addon">到</span>
+                          <input type="text" class="input-sm form-control date" id="openEnd" name="openEnd" placeholder="开通日期"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-daterange input-group" id="datetime_02">
+                          <input type="text" class="input-sm form-control date" id="closeStart" name="closeStart" placeholder="关闭日期"/>
+                          <span class="input-group-addon">到</span>
+                          <input type="text" class="input-sm form-control date" id="closeEnd" name="closeEnd" placeholder="关闭日期"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control input-sm" id="status" name="status" placeholder="开通状态">
+                          <option value="">开通状态</option>
+                        </select>
+                      </div>
+                  
+                      <div class="form-group">
+                        <button type="button" onclick="doSearch();" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>查询</button>
+                        <button type="reset" onclick="resetFun();" class="btn btn-sm mls">重置</button>
+                      </div>
+                      
+                      <div class="form-group">
+                        <div id="validform"></div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="grid_wrapper">
+                    <div class="mbm">
+                      <input type="hidden" id="ids">
+<!--                       <button id="btn_create" type="button" class="btn btn-sm btn-primary">新增</button>
+                      <button id="btn_export" type="button" class="btn btn-sm btn-primary">导出</button> -->
+                    </div>
+                    <table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
+                      <tr>
+                      	<th w_num="line" width="3%">序号</th>
+                      	<th w_index="cityName"  width="10%;">开通地区</th>
+                        <th w_index="openTime" width="10%;">开通时间</th>                        
+                        <th w_index="closeTime" width="15%;">关闭时间</th>
+                        <th w_render="showStatus"  width="10%;">开通状态</th>
+                        <th w_render="operate" width="10%;">操作</th>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     <script src="../../new_ui/scripts/vendor.js"></script>
+    <!-- page plugin -->
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/zTree_v3/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/zTree_v3/jquery.ztree.excheck-3.5.js"></script>
+    <!-- page plugin end -->
+    <script src="../../new_ui/scripts/main.js"></script>
+    <script src="../../new_ui/scripts/city.js"></script>
+    <script type="text/javascript">
+    var gridObj;
+    var localData=[{}];
+    function operate(record, rowIndex, colIndex, options) {
+    	var operate = '';/* "<a href=/dcxs/dcxs/area/view.html?userInfo="+encodeURI(encodeURI(userInfo))+"&cityCode="+
+    			record.CITY_CODE+"&cityName="+encodeURI(encodeURI(record.CITY_NAME))+
+    			" class='btn btn-primary btn-xs mhx'>关联角色</a>" */
+   		if(record.openStutas=="2"){
+   			return operate+='<a href="javascript:void(0);" class="btn btn-danger btn-xs mhx" onclick="openlish(\'' + 
+   					record.cityId + ','+record.levelNumber +','+record.cityCode+','+1+'\')">关闭</a>';	
+       	}else{
+       		return operate+='<a href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="openlish(\'' + 
+       				record.cityId+','+record.levelNumber +','+record.cityCode+','+2+'\')">开通</a>';
+       	}
+    }
+    /** 展示状态 */
+    function showStatus(record, rowIndex, colIndex, options) {
+   		if(record.openStutas=="2"){
+       		return "<span style='color:#3EC07F'>已开通</span>";
+       	}else{
+       		return "<span style='color:#EB5413'>未开通</span>";
+       	}    	  	
+    }
+    var flag = true;//时间验证状态
+    //查询
+    function doSearch() {
+    	if(!flag){
+    		return;
+    	}
+    	gridObj.options.otherParames = $("#search_form").serializeArray();
+		//alert(JSON.stringify(gridObj.options.otherParames));
+		gridObj.page(1);
+	}
+    //刷新表单
+    function doFresh() {   
+		gridObj.refreshPage();
+	}
+    //刷新当前页
+    function freshCurPage(){
+    	var pageNo = gridObj.getCurPage();
+    	gridObj.gotoPage(pageNo)
+    }
+    //开通和关闭
+    function openlish(idCode){
+   	 var openUrl = "";
+   	 idCode = idCode.split(",");
+   	 var id = idCode[0];
+   	 var levelNumber = idCode[1];
+   	 var cityCode = idCode[2];
+   	 var status = idCode[3];
+	 openUrl = basePath+"/nonbis/cityCode/updataStatus";
+	$.ajax({
+		url: openUrl,
+		dataType: "json",
+		type : "post",
+		data:{
+			"status":status,
+			"cityId":id,
+			"levelNumber":levelNumber,
+			"cityCode":cityCode
+		},
+		success: function(data){
+			doFresh();
+		}
+	});		
+   }
+ 	//查询树开始
+ 	var setting = {            
+		callback: {
+			onClick: zTreeOnClick
+		} 
+	};
+	$.ajax({
+	  	url:basePath+"/nonbis/cityCode/getProvinceAndCity",
+	  	type:"get",
+	  	success:function(data){   		
+	  		var json = getProvinceAndCityJson(data,2);
+	  		$.fn.zTree.init($("#treeDemo"), setting, json);      		
+	  	}
+	  });
+	//查询树结束
+	//节点点击事件
+	function zTreeOnClick(event, treeId, treeNode) {
+ 	   var cityCode = treeNode.cityCode;
+ 	   if(cityCode!="100000"){
+ 		  var levelNumber = treeNode.levelNumber;
+ 	 	   $("#cityCode").val(cityCode);
+ 	 	   $("#levelNumber").val(levelNumber);
+ 	 	   doSearch(); 
+ 	   } 	   
+ 	};  
+	
+    //bsgrid
+    function fnInitTable(){
+  	  gridObj = $.fn.bsgrid.init('searchTable', {
+      	  url : basePath+'/nonbis/cityCode/page',
+            pageSizeSelect: true,
+            stripeRows: true,
+            otherParames: $("#search_form").serializeArray(),
+            pageSize: 10,
+            pagingLittleToolbar:false
+        });   
+    }
+    $(function(){    	
+      setTimeout('fnInitTable()',50);  
+      //开通时间
+      $('#datetime_01 .date[name=openStart]')
+        .datetimepicker({
+          clearBtn: true,
+          minView: "month",
+          keyboardNavigation: false,
+          language: "zh-CN",
+          autoclose: true,
+          todayHighlight: true,
+          format: 'yyyy-mm-dd hh:ii:ss'
+        })
+        .on("show",function(){
+    	  var value = $("#openEnd").val();
+		  if(!value){
+			  $('#datetime_01 .date[name=openStart]').datetimepicker('setEndDate',null); 
+		  }else{
+			  $('#datetime_01 .date[name=openStart]').datetimepicker('setEndDate',value); 
+		  } 
+      });
+      
+      $('#datetime_01 .date[name=openEnd]').datetimepicker({
+        clearBtn: true,
+        minView: "month",
+        keyboardNavigation: false,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii:ss'
+      }).on("show",function(){
+    	  var value = $("#openStart").val();
+		  if(!value){
+			  $('#datetime_01 .date[name=openEnd]').datetimepicker('setStartDate',null); 
+		  }else{
+			  $('#datetime_01 .date[name=openEnd]').datetimepicker('setStartDate',value);
+		  }  
+      });
+      //关闭时间
+      $('#datetime_02 .date[name=closeStart]')
+      .datetimepicker({
+        clearBtn: true,
+        minView: "month",
+        keyboardNavigation: false,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii:ss'
+      })
+      .on("show",function(){
+    	  var value = $("#closeEnd").val();
+		  if(!value){
+			  $('#datetime_02 .date[name=closeStart]').datetimepicker('setEndDate',null); 
+		  }else{
+			  $('#datetime_02 .date[name=closeStart]').datetimepicker('setEndDate',value);
+		  }  
+      });
+	    $('#datetime_02 .date[name=closeEnd]').datetimepicker({
+	      clearBtn: true,
+	      minView: "month",
+	      keyboardNavigation: false,
+	      language: "zh-CN",
+	      autoclose: true,
+	      todayHighlight: true,
+	      format: 'yyyy-mm-dd hh:ii:ss'
+	    }).on("show",function(){
+	    	  var value = $("#closeStart").val();
+			  if(!value){
+				  $('#datetime_02 .date[name=closeEnd]').datetimepicker('setStartDate',null); 
+			  }else{
+				  $('#datetime_02 .date[name=closeEnd]').datetimepicker('setStartDate',value);
+			  }  
+	      });              
+    //时间验证函数
+      function validDate(dateId){
+     	 var date = $("#"+dateId).val();
+     	 var reg = /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-)) (20|21|22|23|[0-1]?\d):[0-5]?\d:[0-5]?\d$/;
+     	 if(date!=""){
+     		 if(!reg.test(date)){
+     			$("#validform").html("输入的时间格式不对！如：YYYY-MM-DD HH:mm:ss");
+        		$("#validform").addClass("Validform_wrong");
+        		return false;
+     		 }     		 
+     	 } 
+     	 return true;     	 
+      }
+      //时间大小比较
+      function compareTime(sDateId,eDateId,msg){
+    	  var sDate = $("#"+sDateId).val();
+    	  var eDate = $("#"+eDateId).val();
+    	  if(msg==null){
+    		  msg = "结束时间不能小于开始时间";
+    	  }
+    	  if(sDate!=""&&eDate!=""){
+      		 var start = new Date(sDate.replace(/-/g,"/"));
+      		 var end = new Date(eDate.replace(/-/g,"/"));
+      		 if(end<start){
+      			 
+      			 $("#validform").html(msg);
+      			 $("#validform").addClass("Validform_wrong");
+      			 return false;
+      		 }      		
+      	 }
+    	 return true;
+      }
+    
+      //开通时间调用
+      $('#datetime_01').change(function(){
+    	  /* var openId = $(this).attr("id")
+    	  if(openId="openStart"){
+    		  var value = $("#openStart").val();
+    		  if(!value){
+    			  $('#datetime_01 .date[name=openEnd]').datetimepicker('setStartDate',null); 
+    		  } 
+    	  } */
+     	 if(validDate("openStart")&&validDate("openEnd")){
+     		 if(compareTime("openStart","openEnd")){
+     			successValid();
+     			flag = true;
+     		 }else{
+     			 flag = false;
+     		 }   		
+     	 }else{
+     		flag = false;
+     	 }
+      });
+    //关闭时间调用
+      $('#datetime_02').change(function(){
+      	 if(validDate("closeStart")&&validDate("closeEnd")){
+      		 if(compareTime("closeStart","closeEnd")){
+      			successValid();
+      			flag = true;
+     		 }else{
+     			 flag = false;
+     		 }   		
+     	 }else{
+     		flag = false;
+     	 }   
+
+      });
+   	 });
+  	//时间验证通过调用函数
+    function successValid(){
+		 $("#validform").html("");
+		 $("#validform").removeClass("Validform_wrong");
+    }
+  	//重置按钮调用函数
+    function resetFun(){
+  	  successValid();
+  	  flag = true;
+    }
+  </script>
+ </body>
+</html>

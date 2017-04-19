@@ -1,0 +1,131 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>新增机构</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+
+<script type="text/javascript" src="../../new_ui/scripts/vendor.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/main.js"></script>
+<script type="text/javascript" src="../../support/web_support.js"></script>
+<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+
+
+<script type="text/javascript" src="js/upload.js"></script>
+<script type="text/javascript" src="js/view.js"></script>
+<script type="text/javascript" src="js/drop_down_cityCode.js"></script>
+
+</head>
+<body onunload="unload()">
+	<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>
+									<i class="fa fa-sliders"></i> 机构管理
+								</h5>
+							</div>
+							<div class="ibox-content form">
+								<form id ="viewForm" class="form-horizontal">
+									<div class="modal-body">
+										<div class="form-body">
+											<input type="hidden" id="id" name="id" value="">
+											<div class="form-group">
+												<label class="col-md-3 control-label">机构名称：</label>
+												<div class="col-md-4">
+													<input datatype="*2-25" maxlength="25" nullmsg="请输入用户姓名！"
+														errormsg="输入用户姓名，2~25字！" id="machName" name="machName" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入机构名称，2~25字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">机构地址：</label>
+												<div class="col-md-4">
+													<input datatype="*2-40" maxlength="40" nullmsg="请输入用户电话，最多40个字！"
+														errormsg="请输入用户电话，最多40个字！" id="machDress" name="machDress" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入机构地址，11位！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">管理区域选择：</label>
+												<div class="col-md-2">
+													<input type="hidden" id="areaCode"  name="areaCode" />
+													<select class="form-control input-sm" id="provienceCode" name="provienceCode">
+								                      <option value="">省</option>
+								                    </select>
+												</div>
+												<div class="col-md-2">
+													<select class="form-control input-sm" id="cityCode" name="cityCode">
+								                      <option value="">市</option>
+								                    </select>
+												</div>
+												<div class="col-md-2">
+													<select class="form-control input-sm" id="countryCode" name="countryCode">
+								                      <option value="">县/区</option>
+								                    </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">机构经度：</label>
+												<div class="col-md-4">
+													<input  maxlength="8" id="machLng" name="machLng" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入机构经度！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">机构纬度：</label>
+												<div class="col-md-4">
+													<input  maxlength="8" id="machLat" name="machLat" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入机构纬度！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">机构介绍：</label>
+												<div class="col-md-4">
+													<textarea datatype="*0-200" maxlength="200" 
+														errormsg="最多输入200个字" id="machIndro" name="machIndro" class="form-control input-sm">
+													 </textarea>
+												</div>
+												<div class="Validform_checktip">请输入机构介绍！</div>
+											</div>
+											<div  class="dropzone" id="machImg">
+									                                   介绍图片：<input type="hidden" name="machImg" value="">
+									            <div class="fallback">
+									                <input name="file" type="file" multiple />
+									            </div>
+									        </div>
+										</div>
+									</div>
+									<div class="form-actions">
+				                      <div class="row">
+				                        <div class="col-md-offset-3 col-md-9">
+				                          <button onclick="javascript:window.history.back(-1);" type="button" class="btn btn-default"
+											data-dismiss="modal">取消</button>
+										  <button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+				                        </div>
+				                      </div>
+				                    </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

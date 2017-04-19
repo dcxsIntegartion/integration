@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>ui_comp</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="../styles/vendor.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <!-- page plugin css -->
+    
+    <!-- page plugin css end -->
+    <script src="../scripts/vendor/modernizr.js"></script>
+    <!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+    
+    
+  </head>
+  <body>
+    <div class="wrapper wrapper-content animated fadeInUp">
+      
+      <ol class="breadcrumb">
+        您的位置：
+        <li><a href="/index.html">主页</a></li>
+        <li class="active">UI组件</li>
+        <li class="active">步骤组件</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5><i class="fa fa-building-o"></i>  UI组件 / 步骤组件</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <h4>steps操作说明</h4>
+              <ul class="list">
+                <li>本组件基于<a href="http://www.jquery-steps.com/Examples#basic-form" target="_blank">jquery-steps插件</a></li>
+                <li>本例当中使用的设置：headerTag: h3，bodyTag: "section"就是将#steps_demo里的h3作为每个步骤的标签，将section作为每个步骤的内容</li>
+                <li>内容当中需要js控制的部分，必须写在<code>$("#steps_demo").steps({})</code>执行完成后面</li>
+              </ul>
+              <div id="steps_demo" class="mtl">
+                <h3>Keyboard</h3>
+                <section>
+                  <p>Try the keyboard navigation by clicking arrow left or right!</p>
+                </section>
+                <h3>Effects</h3>
+                <section>
+                  <p>Wonderful transition effects.</p>
+                </section>
+                <h3>Pager</h3>
+                <section>
+                  <p>The next and previous buttons help you to navigate through your content.</p>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../scripts/vendor.js"></script>
+    
+    <!-- page plugin -->
+    <script src="../scripts/plugins/jquery.steps.min.js"></script>
+    <!-- page plugin end -->
+    <script src="../scripts/main.js"></script>
+    <script type="text/javascript">
+    $(function(){
+      $("#steps_demo").steps({
+          headerTag: "h3",
+          bodyTag: "section",
+          transitionEffect: "slideLeft",
+          autoFocus: true,
+          onStepChanging: function (event, currentIndex, newIndex)//step改变之前
+          {
+            return true;
+          },
+          onStepChanged: function (event, currentIndex, priorIndex)//step改变之后
+          {
+            
+          },
+          onFinishing: function (event, currentIndex)
+          {
+            return true;
+          },
+          onFinished: function (event, currentIndex)
+          {
+              alert("Submitted!");
+          }
+      });
+    })
+    </script>
+  </body>
+</html>

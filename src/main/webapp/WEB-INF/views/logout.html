@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>运营平台错误</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="shortcut icon" href="new_ui/ic_launcher_logo.png">
+<script>
+if (self !== top) {
+	window.parent.location.href = "";
+};
+</script>
+</head>
+<body class="login">
+	<input type="hidden" value="ABCDEFGHIJKLMNOPQRSTOVWXYZ0123456789" title="该隐藏表单不能删除">
+	<div class="login-panel">
+		<div class="main-logo">
+			<img src="/order-web/new_ui/images/login/logo.png" alt="logo" />
+			<h3>运营平台</h3> 
+		</div>
+		<div class="logout-page mtl">
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				
+				  <strong>${session.errorMsg}</strong>
+				 
+			</div>
+			<% if(session.errorMsg == "你已被抢占登录" || session.errorMsg == "你的会话过期，请重新登录" || session.errorMsg == "505内部错误") {%>
+			<a class="btn btn-primary" href="/${session.serverPath}/logout"><i class="icon-arrow-left"></i>&nbsp;&nbsp;重新登录</a>
+		   <%}else{%>
+		   <a class="btn btn-primary" href="/${session.serverPath}"><i class="icon-arrow-left"></i>&nbsp;&nbsp;返回首页</a>
+		   <%}%>
+		</div>
+	</div>
+
+	<div class="copyright">
+		<strong>Copyright</strong>
+	</div>
+	<script src="/order-web/new_ui/scripts/vendor.js"></script>
+</body>
+</html>

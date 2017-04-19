@@ -1,0 +1,464 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>店铺列表</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../../new_ui/styles/vendor.css">
+<!-- page plugin -->
+<link rel="stylesheet" type="text/css"
+	href="../../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<!-- page plugin end -->
+<link rel="stylesheet" href="../../../new_ui/styles/main.css">
+<link rel="stylesheet" href="../../../new_ui/scripts/lib/validform/style.css">
+<link href="../../../new_ui/jquery-easyui-1.3.3/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+<link href="../../../new_ui/jquery-easyui-1.3.3/themes/icon.css" rel="stylesheet" type="text/css" />
+<script src="../../../new_ui/scripts/vendor/modernizr.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+
+
+</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<ol class="breadcrumb">
+			您的位置：
+			<li><a href="/index.html">主页</a></li>
+			<li class="active">系统管理</li>
+			<li class="active">资源管理</li>
+		</ol>
+		<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							<i class="fa fa-building-o"></i>系统管理 / 资源管理
+						</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<ul id="resource_view" class="ztree"></ul>
+							</div>
+							<div class="col-sm-8">
+								<form id="resource_form"  action="#" class="form-horizontal">
+									<div class="form-body">
+										<input type="hidden" id="resourcesId">
+										<input type="hidden" id="resourcesParentId">
+										<div class="form-group">
+											<label class="col-md-3 control-label">资源名称</label>
+											<div class="col-md-5">
+												<input type="text" value="" id="resourcesName" class="form-control input-sm" placeholder="" maxlength="8"  datatype="*4-25" nullmsg="请输入资源名称,2~8字！" errormsg="请输入资源名称,2~8字！"/>
+											</div>
+											<div class="Validform_checktip"></div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">是否启用</label>
+											<div class="col-md-5">
+												<div class="radio-list">
+													<label class="radio-inline">
+														<input type="radio" value="1" name="resourcesIsUse" class="i-checks" name="flat-radio-2" />启用
+													</label>
+													<label class="radio-inline">
+														<input type="radio" value="0" name="resourcesIsUse" class="i-checks" name="flat-radio-2" />停用 
+													</label>
+												</div>
+											</div>
+											<div class="Validform_checktip"></div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">访问路径</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm" placeholder="" id="resourcesUrl"/>
+											</div>
+											<div class="Validform_checktip"></div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">资源描述</label>
+											<div class="col-md-5">
+												<textarea id="resourcesDescription" class="form-control input-sm" rows="3"></textarea>
+											</div>
+										</div>
+
+										<div class="form-actions">
+											<div class="row">
+												<div class="col-md-offset-3 col-md-9">
+													<button id="moveUp" type="button" class="btn btn-default">&lt;</button>
+													<button id="moveUpTop" type="button" class="btn btn-default">&lt;&lt;</button>
+													<button id="moveDownBottom" type="button" class="btn btn-default">&gt;&gt;</button>
+													<button id="moveDown" type="button" class="btn btn-default">&gt;</button>
+												</div>
+											</div>
+											<div class="row">
+												&nbsp;
+											</div>
+											<div class="row">
+												<div class="col-md-offset-3 col-md-9">
+													<button id="btnUpdate" type="submit" class="btn btn-default"><i class="fa fa-save"></i>保存</button>
+													<button id="btnAdd" type="button" class="btn btn-default"><i class="fa fa-plus-square"></i>新增</button>
+													<button id="btnDelete" type="button" class="btn btn-default"><i class="fa fa-trash-o"></i>删除</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<script src="../../../new_ui/scripts/vendor.js"></script>
+	<!-- page plugin -->
+	<script type="text/javascript"
+		src="../../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+	<script type="text/javascript"
+		src="../../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+	<!-- page plugin end -->
+	<script type="text/javascript" src="../../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script src="../../../new_ui/layerui/layer/layer.js"></script>
+	<script src="../../../new_ui/scripts/main.js"></script>
+	<script src="../../../ui/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			
+			//定义该变量用于存储客户端资源排序信息
+			var ResourcesSort=function()
+			{
+				var sortMap=[];
+				this.add= function(resourcesId,resourcesSortId)
+				{
+					for(var index=0;index<sortMap.length;index++)
+					{
+						var map = sortMap[index];
+						//如果srotMap中已存在,更新排序号
+						if(map["resourcesId"]==resourcesId)
+						{
+							map["resourcesSortId"]=resourcesSortId;
+							return;
+						}
+					}
+					var model ={"resourcesId":resourcesId,"resourcesSortId":resourcesSortId};
+					sortMap.push(model);
+				};
+				this.getSortMap= function(){
+					return sortMap;
+				};
+				this.clear= function(){
+					sortMap=[];
+				};
+			};
+			var sortContainer = new ResourcesSort();
+			
+			$("#moveUp").bind("click",function(){
+				var _selected = $("#resource_view").tree("getSelected");
+				if(!_selected)
+				{
+					layer.msg("点击左侧资源视图选择你要操作的资源!");
+					return;
+				}
+				var $current =$(_selected.target.parentNode);
+				var $prev =$(_selected.target.parentNode).prev();
+				if($prev.length==0)
+				{
+					layer.msg("该节点已移至顶部，不能再进行移动!");
+					return;
+				}
+				_selected.attributes.resourcesSortId=_selected.attributes.resourcesSortId-1;
+				var _prevNode =$("resource_view").tree("getData",$prev.children()[0]);
+				_prevNode.attributes.resourcesSortId=_prevNode.attributes.resourcesSortId+1;
+				$current.insertBefore($prev);
+				sortContainer.add(_selected.id,_selected.attributes.resourcesSortId);
+				sortContainer.add(_prevNode.id,_prevNode.attributes.resourcesSortId);
+			});
+			
+			$("#moveUpTop").bind("click",function(){
+				var _selected = $("#resource_view").tree("getSelected");
+				if(!_selected)
+				{
+					layer.msg("点击左侧资源视图选择你要操作的资源!");
+					return;
+				}
+				var $prev =$(_selected.target.parentNode).prevAll();
+				if($prev.length==0)
+				{
+					layer.msg("该节点已移至顶部，不能再进行移动!");
+					return;
+				}
+				_selected.attributes.resourcesSortId=1;
+				for(var i=0;i<$prev.length;i++)
+				{
+					var preNode=$("resource_view").tree("getData",$prev[i].children[0]);
+					preNode.attributes.resourcesSortId=preNode.attributes.resourcesSortId+1;
+					sortContainer.add(preNode.id,preNode.attributes.resourcesSortId);
+				}
+				sortContainer.add(_selected.id,_selected.attributes.resourcesSortId);
+				$(_selected.target.parentNode).insertBefore($(_selected.target.parentNode).parent().find("li:first"));
+			});
+			
+			$("#moveDownBottom").bind("click",function(){
+				var _selected = $("#resource_view").tree("getSelected");
+				if(!_selected)
+				{
+					layer.msg("点击左侧资源视图选择你要操作的资源!");
+					return;
+				}
+				var $nextAll =$(_selected.target.parentNode).nextAll();
+				if($nextAll.length==0)
+				{
+					layer.msg("该节点已移至底部，不能再进行移动!");
+					return;
+				}
+				$last =$(_selected.target.parentNode).parent().find("li:last");
+				var lastNode =$("resource_view").tree("getData",$last.children()[0]);
+				_selected.attributes.resourcesSortId=lastNode.attributes.resourcesSortId;
+				
+				
+				for(var i=0;i<$nextAll.length;i++)
+				{
+					var nextNode=$("resource_view").tree("getData",$nextAll[i].children[0]);
+					nextNode.attributes.resourcesSortId=nextNode.attributes.resourcesSortId-1;
+					sortContainer.add(nextNode.id,nextNode.attributes.resourcesSortId);
+				}
+				sortContainer.add(_selected.id,_selected.attributes.resourcesSortId);
+				$(_selected.target.parentNode).insertAfter($last);
+			});
+			
+			$("#moveDown").bind("click",function(){
+				var _selected = $("#resource_view").tree("getSelected");
+				if(!_selected)
+				{
+					layer.msg("点击左侧资源视图选择你要操作的资源!");
+					return;
+				}
+				var $current =$(_selected.target.parentNode);
+				var $next =$(_selected.target.parentNode).next();
+				if($next.length==0)
+				{
+					layer.msg("该节点已移至底部，不能再进行移动!");
+					return;
+				}
+				$current.insertAfter($next);
+				_selected.attributes.resourcesSortId=_selected.attributes.resourcesSortId+1;
+				var _nextNode =$("resource_view").tree("getData",$next.children()[0]);
+				_nextNode.attributes.resourcesSortId=_nextNode.attributes.resourcesSortId-1;
+				
+				sortContainer.add(_selected.id,_selected.attributes.resourcesSortId);
+				sortContainer.add(_nextNode.id,_nextNode.attributes.resourcesSortId);
+				
+			});
+			
+			/**
+			 * 处理服务器返回的树形节点
+			 */
+			var parseChildren = function(data,topNodeId) {
+				if (data.childSize > 0 && data.children.length == 0) {
+					data.state = "closed";
+				}
+				if(data.children&&data.children.length>0)
+				for ( var i = 0; i < data.children.length; i++) {
+					parseChildren(data.children[i]);
+				}
+			};
+			
+			var treeResolver=function(data,topNodeId)
+			{
+				var result =[];
+				parseChildren(data);
+				if(data.id==topNodeId)
+				{
+					result.push(data);
+				}else if(data instanceof Array){
+					result = data;
+				}else
+				{
+					result=data.children;
+				}
+			   	return result;
+			};
+			$("#resource_view").tree({
+				url:basePath+"/sys/resource/tree",
+				checkbox:false,
+				onBeforeSelect:function(node){
+					//if(node.id==1){
+						//return false;
+					//}
+				},
+				onSelect:function(node){
+					$.ajax({
+						type : "GET",
+						url : basePath+"/sys/resource/find?id="+node.id,
+						dataType : "json",
+						success : function(data) {
+							$("#resourcesDescription").text(data.resourcesDescription);
+							$("#resourcesUrl").val(data.resourcesUrl);
+							$('input[name="resourcesIsUse"][value="'+data.resourcesIsUse+'"]').iCheck('check');
+							$("#resourcesName").val(data.resourcesName);
+							$("#resourcesId").val(data.resourcesId);
+							$("#resourcesParentId").val(data.resourcesParentId);
+						}
+					 });
+				},
+				loadFilter: function(data){  
+					return treeResolver(data,"1");
+			    } 
+			});
+			
+			$("#btnAdd").bind("click",function(){
+				var $selected =$("#resource_view").tree("getSelected");
+				//未选择任何节点
+				if(!$selected)
+				{
+					layer.msg("点击左侧资源视图选择你要操作的资源!");
+					return;
+				}
+				var url =basePath+"/sys/resource/save?resourceId="+$selected.id;
+				layer.open({
+				    type: 2,
+				    title: '新增资源',
+				    shadeClose: true,
+				    maxmin: true, //开启最大化最小化按钮
+				    shade: 0.8,
+				    area: ['680px', '99%'],
+				    content: url //iframe的url
+				}); 
+				
+			});
+			
+			$("#btnDelete").bind("click",function(){
+				var $selected =$("#resource_view").tree("getSelected");
+				//未选择任何节点
+				if(!$selected)
+				{
+					layer.msg("点击左侧资源视图选择你要操作的资源!");
+					return;
+				}
+				var url =basePath+"/sys/resource/delete/"+$selected.id;
+				$.ajax({
+					type : "DELETE",
+					url : url,
+					dataType : "json",
+					success : function(data) {
+						if(data.status==1){
+							layer.msg("删除资源信息成功！");
+							$('#resource_form')[0].reset() 
+							window.setTimeout(function(){
+								$("#resource_view").tree("remove",$selected.target);
+							},400);
+						}else{
+							layer.msg(data.info);
+						}
+					}
+				 });
+			});
+			
+			//register callback after add execute!
+			window.saveCallBack = function(_data){
+				var _selected = $("#resource_view").tree("getSelected");
+				if(_selected.state=="closed"){
+					$('#resource_view').tree("expand",_selected.target);
+				}else
+					{
+						$('#resource_view').tree('append', {
+							parent: _selected.target,
+							data: [{
+								id: _data.resourcesId,
+								text: _data.resourcesName,
+								children:[],
+								state:"open",
+								attributes:[{"resourcesSortId":_data.resourcesSortId}]
+							}]
+						});
+					}
+			};
+			
+			
+			var submitHtml = $('#btnUpdate').html();
+			var resource_form = $('#resource_form').Validform({
+				tiptype:function(msg,o,cssctl){
+					if(!o.obj.is("form")){
+						var objtip=o.obj.parent().siblings(".Validform_checktip");
+						cssctl(objtip,o.type);
+						objtip.text(msg);
+					}
+				},
+				callback:function($form){
+					submitToggle(1,submitHtml);
+					var model ={};
+					model.resources = {};
+					model.resources.resourcesId =$("#resourcesId").val();
+					model.resources.resourcesParentId =$("#resourcesParentId").val();
+					model.resources.resourcesName =$("#resourcesName").val();
+					model.resources.resourcesIsUse =$('input[name="resourcesIsUse"]:checked').val();
+					model.resources.resourcesUrl =$("#resourcesUrl").val();
+					model.resources.resourcesDescription =$("#resourcesDescription").val()||$("#resourcesDescription").text();
+					
+					
+					model.resourcesSortable=sortContainer.getSortMap();
+					var $selected =$("#resource_view").tree("getSelected");
+					//未选择任何节点
+					if(!$selected)
+					{
+						layer.msg("点击左侧资源视图选择你要操作的资源!");
+						return;
+					}
+					
+					$.ajax({
+	    	            type: "PUT",
+	    	            url: basePath+"/sys/resource/update",
+	    	            data: JSON.stringify(model),
+	    	            contentType:"application/json",
+	    	            dataType: "json",
+	    	            success: function(data){
+	   	            			layer.msg("修改资源信息成功！");
+	   	            			$selected.text=data.resourcesName;
+	   							$("#resource_view").tree("update",$selected);
+	   							//清空排序信息数组
+	   							sortContainer.clear();
+	    				},
+	    				error:function(data) {
+	    				},
+	    				complete:function(){
+	    					submitToggle(0,submitHtml);
+	    				}
+	    	        });
+					
+					//表单验证通过进行回掉处理
+					return false;
+				}
+			});
+			
+			/** 设置提交提示信息 */
+			function submitToggle(status, submitHtml) {
+				if (status == 0) {
+					$('#saveBtn').html(submitHtml).attr('disabled', false);
+				} else {
+					$('#saveBtn').html('<i class="fa fa-spin fa-spinner"></i>    正在提交').attr('disabled', true);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

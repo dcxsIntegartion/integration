@@ -1,0 +1,454 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>ui_comp</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+
+    <link rel="stylesheet" href="../styles/vendor.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <!-- page plugin css -->
+    <link rel="stylesheet" href="../styles/plugins/dropzone.css">
+    <!-- page plugin css end -->
+    <script src="../scripts/vendor/modernizr.js"></script>
+    <!--[if lt IE 9]>
+    <script src="../scripts/ie9.js"></script>
+    <![endif]-->
+    
+    
+  </head>
+  <body>
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="row page-heading">
+        <h4><i class="fa fa-flask"></i>  UI组件 / 其他表单组件</h4>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>文件上传组件</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <h4>浏览器默认上传样式</h4>
+              <form action="#fake">
+                <div class="form-group">
+                  <div class="pull-left">
+                    <input type="file">
+                    <p class="help-block">文件上传的提示信息</p>
+                  </div>
+                  <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+              </form>
+              <h4>自定义单文件上传样式</h4>
+              <form class="upload_form" action="/upload/temp">
+                <div class="file_upload">
+                  <div class="alert alert-danger upload_message hidden">
+                    <span class="alert_cont"></span>
+                    <button type="button" class="close"><span>&times;</span></button></div>
+                  <div class="from-group">
+                    <div class="input-icon">
+                      <i class="fa fa-file"></i>
+                      <input class="form-control input-sm file_name" type="text" placeholder="请上传您的文件..." readonly>
+                    </div>
+                  </div>
+                  <a href="#" class="btn btn-primary explore_btn">
+                    浏览
+                    <input name="file" type="file" />
+                    <input type="hidden" name="filename" />
+                  </a>
+                  <a href="#" class="btn btn-success upload_btn" data-loading-text='<i class="fa fa-spinner fa-spin"></i>上传中...'>
+                    上传
+                  </a>
+                </div>
+              </form>
+              <h4>自定义图片上传样式</h4>
+              <form class="upload_form" action="/upload/temp">
+                <div class="file_upload">
+                  <img src="../images/wireframe/white-image.png" alt="" class="img-thumbnail upload_preview">
+                  <div class="alert alert-danger upload_message hidden">
+                    <span class="alert_cont"></span>
+                    <button type="button" class="close"><span>&times;</span></button></div>
+                  <div class="from-group">
+                    <div class="input-icon">
+                      <i class="fa fa-file"></i>
+                      <input class="form-control file_name" type="text" placeholder="请上传您的文件..." readonly>
+                    </div>
+                  </div>
+                  <a class="btn btn-primary explore_btn">
+                    浏览
+                    <input name="file" type="file" />
+                    <input type="hidden" name="filename" />
+                  </a>
+                  <a class="btn btn-success upload_btn" data-loading-text='<i class="fa fa-spinner fa-spin"></i>上传中...'>
+                    上传
+                  </a>
+                </div>
+              </form>
+              <h4>多文件上传组件，基于DropzoneJS插件: <a href="http://www.dropzonejs.com/" target="_blank">http://www.dropzonejs.com/</a></h4>
+              <form action="/upload/temp" class="dropzone" id="my-dropzone">
+                  <div class="fallback">
+                      <input name="file" type="file" multiple />
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>iCheck优化输入框样式插件</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <p>给需要添加icheck样式的input添加class<code>.i-checks</code></p>
+              <h4>添加class<code>.i-checks</code>的input</h4>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>复选框</label>
+                    <div class="checkbox-list">
+                      <label><input type="checkbox" class="i-checks" /> Checkbox 1</label>
+                      <label><input type="checkbox" class="i-checks" /> Checkbox 2</label>
+                      <label><input type="checkbox" class="i-checks" checked="" disabled="" /> disabled="" and checked=""</label>
+                      <label><input type="checkbox" class="i-checks"  disabled="" /> disabled=""</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>单选框</label>
+                    <div class="checkbox-list">
+                      <label><input type="radio" class="i-checks" name="flat-radio" /> radio 1</label>
+                      <label><input type="radio" class="i-checks" name="flat-radio" /> radio 2</label>
+                      <label><input type="radio" class="i-checks" name="flat-radio" checked="" disabled="" /> disabled="" and checked=""</label>
+                      <label><input type="radio" class="i-checks" name="flat-radio" disabled="" /> disabled=""</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4>不添加class<code>.i-checks</code>的默认input</h4>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>复选框</label>
+                    <div class="checkbox-list">
+                      <label><input type="checkbox" /> Checkbox 1</label>
+                      <label><input type="checkbox" /> Checkbox 2</label>
+                      <label><input type="checkbox" checked="" disabled="" /> disabled="" and checked=""</label>
+                      <label><input type="checkbox"  disabled="" /> disabled=""</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>单选框</label>
+                    <div class="checkbox-list">
+                      <label><input type="radio" name="flat-radio" /> radio 1</label>
+                      <label><input type="radio" name="flat-radio" /> radio 2</label>
+                      <label><input type="radio" name="flat-radio" checked="" disabled="" /> disabled="" and checked=""</label>
+                      <label><input type="radio" name="flat-radio" disabled="" /> disabled=""</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4>iCheck的参数及回调时间</h4>
+              <a href="http://www.bootcss.com/p/icheck/#options">点击详情</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>日期+时间选择器 datetimepicker</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <h3>
+              Data picker
+              </h3>
+              <p>
+              通过鼠标就能轻松选择日期+时间的插件，具体的js方法<a href="http://www.bootcss.com/p/bootstrap-datetimepicker/">点击详情</a>
+              </p>
+              <div class="form-group">
+                <label class="font-noraml">基本选择</label>
+                <div class="input-group date" id="datetime_1">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                  <input type="text" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">图标在右</label>
+                <div class="input-group date" id="datetime_1_2">
+                  <input type="text" class="form-control input-sm"/>
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">清除按钮（日期界面）</label>
+                <div class="input-group date" id="datetime_1_3">
+                  <input type="text" class="form-control input-sm"/>
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">清除按钮（右边图标）</label>
+                <div class="input-group date" id="datetime_1_4">
+                  <input type="text" class="form-control input-sm"/>
+                  <span class="input-group-addon clear-btn"><i class="glyphicon glyphicon-remove"></i></span>
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">起始界面：月份视图</label>
+                <div class="input-group date" id="datetime_2">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                  <input type="text" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">起始界面：年份视图</label>
+                <div class="input-group date" id="datetime_3">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                  <input type="text" class="form-control input-sm" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">起始界面：选择月份</label>
+                <div class="input-group date" id="datetime_4">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                  <input type="text" class="form-control input-sm" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">不选择小时分钟</label>
+                <div class="input-group date" id="datetime_5">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                  <input type="text" class="form-control input-sm" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">起始界面：选择小时</label>
+                <div class="input-group date" id="datetime_6">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                  <input type="text" class="form-control input-sm" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="font-noraml">时间范围</label>
+                <div class="input-daterange input-group" id="datetime_7">
+                  <input type="text" class="input-sm form-control date" name="start" />
+                  <span class="input-group-addon">到</span>
+                  <input type="text" class="input-sm form-control date" name="end" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../scripts/vendor.js"></script>
+    
+
+    <!-- page plugin -->
+      <script src="../scripts/plugins/dropzone.min.js"></script>
+    <!-- page plugin end -->
+    <script src="../scripts/main.js"></script>
+    <script type="text/javascript">
+    $(function(){
+      Dropzone.options.myDropzone = {
+          paramName: "file", // The name that will be used to transfer the file
+          addRemoveLinks: true,
+          maxFilesize: 2, // MB
+          maxFiles: 8,
+          acceptedFiles: 'image/*',
+          dictDefaultMessage: '拖动图片到这里，或者点击上传',
+          dictInvalidFileType: '请上传jpg,jpeg,png,gif等图片格式的文件',
+          dictFileTooBig: '文件过大，请上传小于2M的文件',
+          dictRemoveFile: '删除',
+          dictCancelUpload: '取消',
+          dictCancelUploadConfirmation: '您确定要取消上传吗？',
+          dictMaxFilesExceeded: '最多只能上传8个文件',
+          init: function() {
+              this.on("success", function(file, response) {
+                  console.log(response.filename,response.fileurl);
+              });
+              this.on("addedfile", function(file) { 
+                console.log("Added file."); 
+              });
+              this.on("removedfile", function(file) { 
+                console.log("Removed file.");
+                if ($.inArray(file.name, mockFilesNames) > -1) {//如果删除的是已存在的图片，则需要更新maxFiles的设置
+                  this.options.maxFiles++;
+                };
+              });
+
+              //如果要显示已上传的文件，就需要以下的代码初始化
+              // Create the mock file:
+              var mockFiles = [
+                  { name: "filename1.jpg", size: 12345, url: "http://img.xiaba.cvimage.cn/552b6f584b7959dd220000b6.jpg" },
+                  { name: "filename2.jpg", size: 12345, url: "http://img.xiaba.cvimage.cn/552b5dcc4b79592b1600026d.jpg" },
+                  { name: "filename3.jpg", size: 12345, url: "http://img.xiaba.cvimage.cn/552b6f0e4b7959dd220000aa.jpg" },
+              ],mockFilesNames = [];
+              for (var i = 0; i < mockFiles.length; i++) {
+                  // Call the default addedfile event handler
+                  this.emit("addedfile", mockFiles[i]);
+
+                  // And optionally show the thumbnail of the file:
+                  this.emit("thumbnail", mockFiles[i] , mockFiles[i].url);
+
+                  // Make sure that there is no progress bar, etc...
+                  this.emit("complete", mockFiles[i]);
+
+                  mockFilesNames.push(mockFiles[i].name);//存储初始时已有文件的name
+              };
+
+              // 规定了最大文件数，在这里要减去已存在的文件数 If you use the maxFiles option, make sure you adjust it to the correct amount:
+              var existingFileCount = mockFiles.length; // The number of files already uploaded
+              this.options.maxFiles = this.options.maxFiles - existingFileCount;
+          }
+      };
+        //datetimepicker 日期+时间
+      $('#datetime_1,#datetime_1_2').datetimepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        calendarWeeks: true,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_1_3').datetimepicker({
+        todayBtn: "linked",
+        clearBtn: true,
+        keyboardNavigation: false,
+        calendarWeeks: true,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        pickerPosition: "bottom-left",
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_1_4').datetimepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        calendarWeeks: true,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        pickerPosition: "bottom-left",
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_2').datetimepicker({
+        startView: 3,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_3').datetimepicker({
+        startView: 4,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_4').datetimepicker({
+        keyboardNavigation: false,
+        autoclose: true,
+        todayHighlight: true,
+        language: "zh-CN",
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_4').datetimepicker({
+        keyboardNavigation: false,
+        autoclose: true,
+        todayHighlight: true,
+        language: "zh-CN",
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_4').datetimepicker({
+        keyboardNavigation: false,
+        autoclose: true,
+        todayHighlight: true,
+        language: "zh-CN",
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_5').datetimepicker({
+        minView: 'month',
+        keyboardNavigation: false,
+        autoclose: true,
+        language: "zh-CN",
+        todayHighlight: true,
+        format: 'yyyy-mm-dd'
+      });
+      $('#datetime_6').datetimepicker({
+        startView: 'day',
+        keyboardNavigation: false,
+        autoclose: true,
+        todayHighlight: true,
+        language: "zh-CN",
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#datetime_7 .date[name=start]')
+        .datetimepicker({
+          clearBtn: true,
+          keyboardNavigation: false,
+          language: "zh-CN",
+          autoclose: true,
+          todayHighlight: true,
+          format: 'yyyy-mm-dd hh:ii'
+        })
+        .on('changeDate', function(ev){
+          var value = $(this).val();
+          console.log(value);
+          $('#datetime_7 .date[name=end]').datetimepicker('setStartDate', value);
+        });
+      $('#datetime_7 .date[name=end]').datetimepicker({
+        clearBtn: true,
+        keyboardNavigation: false,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii'
+      });
+    })
+    </script>
+  </body>
+</html>

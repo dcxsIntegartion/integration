@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>销售平台</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="shortcut icon" href="new_ui/ic_launcher_logo.png">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<link rel="stylesheet" href="new_ui/styles/vendor.css">
+<link rel="stylesheet" href="new_ui/styles/main.css">
+<link rel="stylesheet" href="new_ui/styles/login.css">
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="new_ui/scripts/vendor/modernizr.js"></script>
+<script>
+	if (self !== top) {
+		window.top.location.href = document.location.href;
+	};
+</script>
+</head>
+<body class="login">
+	<div class="login-panel">
+		<div class="main-logo">
+			<h3>销售平台</h3>
+		</div>
+		<div class="login-page mtl">
+			<form method="post" action="j_spring_security_check"
+				class="login-form">
+				<div class="alert alert-warning alert-dismissable hidden">
+					<button aria-hidden="true" data-dismiss="alert" class="close"
+						type="button">×</button>
+					错误提示消息
+				</div>
+				<div class="form-group">
+					<label class="login-field-icon icon-user" for="login-name"></label>
+					<input type="text" name="j_username" value="" id="accountLoginName"
+						class="form-control login-field" th:value="${session.j_username}"
+						placeholder="用户名" value=""/>
+				</div>
+				<div class="form-group">
+					<label class="login-field-icon icon-lock" for="login-pass"></label>
+					<input id="accountLoginPassword" value="" type="password" name="j_password"
+						class="form-control login-field" placeholder="密码" value=""/>
+				</div>
+				<div class="form-group pull-right" style="margin-right: 0;">
+					<button class="btn btn-primary" type="button" id="login_button">
+						登&nbsp;&nbsp;录&nbsp;&nbsp;<i class="icon-arrow-right"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="copyright">
+		<strong>Copyright</strong>
+	</div>
+	<script src="new_ui/scripts/vendor.js"></script>
+	<script src="new_ui/scripts/main.js"></script>
+	<script src="new_ui/layerui/layer/layer.js"></script>
+	<script src="new_ui/scripts/jquery.placeholder.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('input, textarea').placeholder();
+			$("#accountLoginName").focus();
+			$("#login_button").click(
+					function() {
+						var name = $("#accountLoginName").val();
+						var pwd = $("#accountLoginPassword").val();
+						if (name && pwd) {
+							var model = {};
+							model.accountLoginName = $("#accountLoginName").val();
+							model.accountLoginPassword = $("#accountLoginPassword").val();
+							
+							$.ajax({
+			    	            type: "POST",
+			    	            url: basePath+"/sys/user/login",
+			    	            data: JSON.stringify(model),
+			    	            contentType:"application/json",
+			    	            dataType: "json",
+			    	            success: function(data){
+			   	            		if(data.status==1){
+			   	            			layer.msg("登陆成功");
+			   	            			window.location.href= basePath+"/index"
+			   	            		}else{
+			   	            			layer.msg(data.info);
+			   	            		}
+			    	            },
+			    				error:function(data) {
+			    				},
+			    				complete:function(){
+			    					
+			    				}
+			    	        });
+						} else {
+							if (!name && !pwd) {
+								layer.msg("请输入用户名和密码！");
+							} else if (name && !pwd) {
+								layer.msg("请输入密码！");
+							} else if (!name && pwd) {
+								layer.msg("请输入用户名！");
+							}
+						}
+					});
+
+			document.onkeydown = function(event) {
+				var e = event || window.event
+						|| arguments.callee.caller.arguments[0];
+
+				if (e && e.keyCode == 13) { // enter 键
+					document.getElementById('login_button').click();
+				}
+			};
+
+		});
+	</script>
+</body>
+</html>

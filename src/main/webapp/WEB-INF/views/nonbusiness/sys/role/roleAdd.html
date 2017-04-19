@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>角色新增</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+
+<link rel="stylesheet" href="../../../new_ui/styles/vendor.css">
+<!-- page plugin -->
+<link rel="stylesheet" type="text/css" href="../../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css" href="../../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" type="text/css" href="../../../new_ui/scripts/lib/validform/style.css">	
+
+<!-- page plugin end -->
+<link rel="stylesheet" href="../../../new_ui/styles/main.css">
+<script src="../../../new_ui/scripts/vendor/modernizr.js"></script>
+
+
+<!--[if lt IE 9]>
+    <script src="../../../new_ui/scripts/ie9.js"></script>
+    <![endif]-->
+
+<style type="text/css">
+.info {
+	border: 1px solid #ccc;
+	padding: 2px 20px 2px 5px;
+	color: #666;
+	position: absolute;
+	display: none;
+	line-height: 20px;
+	background-color: #fff;
+}
+</style>
+
+</head>
+<body>
+	<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>
+									<i class="fa fa-sliders"></i> 角色管理/新增角色
+								</h5>
+							</div>
+							<div class="ibox-content form">
+								<form action="#" id="roleForm" class="form-horizontal">
+									<div class="modal-body">
+										<div class="form-body">
+											<div class="form-group">
+												<label class="col-md-3 control-label">角色名称：</label>
+												<div class="col-md-4">
+													<input type="text" class="form-control input-sm" datatype="*2-16" maxlength="16" nullmsg="请输入角色名称！"
+														errormsg="输入用户角色名称，2~16字！" id="roleName">
+												</div>
+												<div class="Validform_checktip">输入角色名称，2~16字</div>
+											</div>
+
+											<div class="form-group">
+												<label class="col-md-3 control-label">角色描述：</label>
+												<div class="col-md-4">
+													<textarea class="form-control input-sm" maxlength="100" id="roleDescription" ></textarea>
+												</div>
+												<div class="Validform_checktip">输入角色描述信息</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button onclick="javascript:window.history.back(-1);" type="button" class="btn btn-default"
+											data-dismiss="modal">取消</button>
+										<button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../new_ui/scripts/vendor.js"></script>
+	<!-- page plugin -->
+	<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+	<script type="text/javascript" src="../../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<!-- page plugin end -->
+	<script src="../../../new_ui/scripts/main.js"></script>
+	<script src="../../../new_ui/layerui/layer/layer.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			var submitHtml = $('#saveBtn').html();
+			var org_form = $('#roleForm').Validform({
+				tiptype:function(msg,o,cssctl){
+					if(!o.obj.is("form")){
+						var objtip=o.obj.parent().siblings(".Validform_checktip");
+						cssctl(objtip,o.type);
+						objtip.text(msg);
+					}
+				},
+				callback:function($form){
+					submitToggle(1,submitHtml);
+					var model ={};
+					model.roleName =$("#roleName").val();
+					model.roleDescription =$("#roleDescription").val()||$("#roleDescription").val();
+					model.roleParentId =1;
+					$.ajax({
+	    	            type: "POST",
+	    	            url: basePath+"/sys/role/save",
+	    	            data: JSON.stringify(model),
+	    	            contentType:"application/json",
+	    	            dataType: "json",
+	    	            success: function(data){
+	   	            		if(data.status==1){
+	   	            			layer.msg("新增角色信息成功！");
+	   	            			window.setTimeout(function(){
+	   	            				window.history.back(-1);
+	   	            			},300);
+	   	            			
+	   	            		}else{
+	   	            			layer.msg(data.info);
+	   	            		}
+	    				},
+	    				error:function(data) {
+	    				},
+	    				complete:function(){
+	    					submitToggle(0,submitHtml);
+	    				}
+	    	        });
+					//表单验证通过进行回掉处理
+					return false;
+				}
+			});
+			
+			/** 设置提交提示信息 */
+			function submitToggle(status, submitHtml) {
+				if (status == 0) {
+					$('#saveBtn').html(submitHtml).attr('disabled', false);
+				} else {
+					$('#saveBtn').html('<i class="fa fa-spin fa-spinner"></i>    正在提交').attr('disabled', true);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

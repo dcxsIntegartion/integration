@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>新增用户</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<!-- page plugin -->
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/scripts/lib/validform/style.css">	
+
+<!-- page plugin end -->
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<script src="../../new_ui/scripts/vendor/modernizr.js"></script>
+
+
+<!--[if lt IE 9]>
+    <script src="../../new_ui/scripts/ie9.js"></script>
+    <![endif]-->
+
+<style type="text/css">
+</style>
+</head>
+<body style="min-width: 500px;">
+ <div class="col-xs-12">
+	<div class="wrapper wrapper-content animated fadeInUp" >
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tab-content ">
+            <div id="tab-1" class="tab-pane active">
+              <div class="ibox">
+				<div class="ibox-title">
+					<h5>
+						<i class="fa fa-sliders"></i> 用户管理/编辑用户信息
+					</h5>
+				</div>
+				<div class="ibox-content form" >
+				<form id="updPwdForm" class="form-horizontal">
+				 	<div class="form-body">
+						<div class="form-group">
+							<div class="col-md-4"  >
+								<input type="hidden" id="userId" value='${users_account.users.userId!""}'>
+								<input disabled="disabled" value='${users_account.account.accountLoginName!""}' type="text" id="accountLoginName"  class="form-control input-sm">
+							</div>
+							<div class="Validform_checktip"></div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4"  >
+								<input value="" type="text"  id="oldPassword" name="oldPassword"  class="form-control input-sm" datatype="*6-16" maxlength="16" nullmsg="请输入旧密码！" placeholder="旧密码">
+							</div>
+							<div class="Validform_checktip" style="float: right;"></div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4" >
+								<input value="" type="text"  id="accountLoginPassword" name="accountLoginPassword"  class="form-control input-sm" datatype="*6-16" maxlength="16" nullmsg="请输入新密码！" placeholder="新密码">
+							</div>
+							<div class="Validform_checktip" style="float: right;"></div>
+						</div>
+						<div class="modal-footer">
+						<button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+						<button id="btnClose" type="button" class="btn btn-default"
+							data-dismiss="modal">取消</button>
+						</div>
+					</div>
+					
+				</form>
+				</div>
+		 </div>
+		</div>
+		</div>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	<script src="../../new_ui/scripts/vendor.js"></script>
+	<!-- page plugin -->
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<!-- page plugin end -->
+	<script src="../../new_ui/scripts/main.js"></script>
+	<script src="../../new_ui/layerui/layer/layer.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			
+			var submitHtml = $('#saveBtn').html();
+			var org_form = $('#updPwdForm').Validform({
+				tiptype:function(msg,o,cssctl){
+					if(!o.obj.is("form")){
+						var objtip=o.obj.parent().siblings(".Validform_checktip");
+						cssctl(objtip,o.type);
+						objtip.text(msg);
+					}
+				},
+				callback:function($form){
+					submitToggle(1,submitHtml);
+					var model =new Object();
+					model.userId = $("#userId").val();
+					model.oldPassword = $("#oldPassword").val();
+					model.accountLoginPassword = $("#accountLoginPassword").val();
+					$.ajax({
+						type: "POST",
+	    	            url: basePath+"/sys/user/updatePwd",
+	    	            data: model,
+	    	            dataType: "json",
+	    	            success: function(data){
+	   	            		if(data.status==1){
+	   	            			layer.msg(data.info);
+	   	            			window.setTimeout(function(){
+	   	            				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		   	        				parent.layer.close(index);
+	    	   	            	},500);
+	   	            		}else{
+	   	            			layer.msg(data.info);
+	   	            		}
+	    				},
+	    				error:function(data) {
+	    				},
+	    				complete:function(){
+	    					submitToggle(0,submitHtml);
+	    				}
+	    	        });
+					//表单验证通过进行回掉处理
+					return false;
+				}
+			});
+			
+			
+			$("#btnClose").click(function(){
+				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+   				parent.layer.close(index);
+			});
+		});
+			/** 设置提交提示信息 */
+			function submitToggle(status, submitHtml) {
+				if (status == 0) {
+					$('#saveBtn').html(submitHtml).attr('disabled', false);
+				} else {
+					$('#saveBtn').html('<i class="fa fa-spin fa-spinner"></i>    正在提交').attr('disabled', true);
+				}
+			}
+	</script>
+</body>
+</html>

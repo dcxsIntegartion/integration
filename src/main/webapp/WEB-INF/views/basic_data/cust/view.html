@@ -1,0 +1,147 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>新增用户</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+
+
+<script src="../../new_ui/scripts/vendor.js"></script>
+<script src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+<script src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+<script src="../../new_ui/scripts/main.js"></script>
+<script src="../../support/web_support.js"></script>
+<script src="../../new_ui/layerui/layer/layer.js"></script>
+
+<script src="js/upload.js"></script>
+<script src="js/view.js"></script>
+<script type="text/javascript" src="js/drop_down_cityCode.js"></script>
+
+</head>
+<body onunload="unload()">
+	<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>
+									<i class="fa fa-sliders"></i> 客户层级管理
+								</h5>
+							</div>
+							<div class="ibox-content form">
+								<form id ="viewForm" class="form-horizontal">
+									<div class="modal-body">
+										<div class="form-body">
+											<input type="hidden" id="id" name="id" value="">
+											<div class="form-group">
+												<label class="col-md-3 control-label">用户姓名：</label>
+												<div class="col-md-4">
+													<input datatype="*2-25" maxlength="25" nullmsg="请输入用户姓名！"
+														errormsg="输入用户姓名，2~25字！" id="trueName" name="trueName" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">输入用户姓名，2~25字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">用户电话：</label>
+												<div class="col-md-4">
+													<input datatype="/^\d{11}$/" maxlength="11" nullmsg="请输入用户电话，11位！"
+														errormsg="输入用户电话，11位！" id="phone" name="phone" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">输入用户电话，11位！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">邀请人电话：</label>
+												<div class="col-md-4">
+													<input datatype="/^\d{11}$/" maxlength="11" nullmsg="请输入用户电话，11位！"
+														errormsg="请输入用户电话，11位！" id="inviterMp" name="inviterMp" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入用户电话，11位！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">客户所在区域选择：</label>
+												<div class="col-md-2">
+													<input type="hidden" id="areaCode"  name="areaCode" />
+													<select class="form-control input-sm" id="provienceCode" name="provienceCode">
+								                      <option value="">省</option>
+								                    </select>
+												</div>
+												<div class="col-md-2">
+													<select class="form-control input-sm" id="cityCode" name="cityCode">
+								                      <option value="">市</option>
+								                    </select>
+												</div>
+												<div class="col-md-2">
+													<select class="form-control input-sm" id="countryCode" name="countryCode">
+								                      <option value="">县/区</option>
+								                    </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">性别：</label>
+												<div class="col-md-4">
+													<select id="gender" name="gender" class="form-control input-sm">
+								                      <option value="0">未知</option>
+								                      <option value="1">男</option>
+								                      <option value="2">女</option>
+								                    </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">所属项目：</label>
+												<div class="col-md-4">
+													<input datatype="*"  nullmsg="请选择用户所属项目！"
+													 id="projectName" type="text" class="form-control input-sm">
+													 <input type="hidden" id="projectId" name="projectId" value="1">
+												</div>
+												<div class="Validform_checktip">请选择用户所属项目！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">所属机构：</label>
+												<div class="col-md-4">
+													<input datatype="*" maxlength="25" nullmsg="请选择用户所属机构！"
+													 id="mechanismName" type="text" class="form-control input-sm">
+													 <input type="hidden" id="mechanismId" name="mechanismId" value="1">
+												</div>
+												<div class="Validform_checktip">请选择用户所属机构！</div>
+											</div>
+											<div  class="dropzone" id="headImg">
+									                                   个人头像：<input type="hidden" name="headImg" value="">
+									            <div class="fallback">
+									                <input name="file" type="file" multiple />
+									            </div>
+									        </div>
+									        <div  class="dropzone" id="introImg">
+									       		 介绍图片：<input type="hidden" name="introImg" value="">
+									        </div>
+										</div>
+									</div>
+									<div class="form-actions">
+				                      <div class="row">
+				                        <div class="col-md-offset-3 col-md-9">
+				                          <button onclick="javascript:window.history.back(-1);" type="button" class="btn btn-default"
+											data-dismiss="modal">取消</button>
+										  <button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+				                        </div>
+				                      </div>
+				                    </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>销售平台</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="renderer" content="webkit">
+        <link rel="shortcut icon" href="new_ui/ic_launcher_logo.png">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="new_ui/styles/vendor.css">
+        <link rel="stylesheet" href="new_ui/styles/plugins/fancybox/jquery.fancybox.css">
+        <link rel="stylesheet" href="new_ui/styles/main.css">
+        <link rel="stylesheet" href="new_ui/styles/index.css">
+        <script src="new_ui/scripts/vendor/modernizr.js"></script>
+    </head>
+    <body class="index">
+        <nav class="navbar navbar-inverse" id="top_nav">
+            <div class="container-fluid">
+                <p class="navbar-text navbar-right">
+                <span href="#" class="navbar-link" style="margin:0px;">
+                  <i class="icon-user"></i>
+                  <span id="userTrueNameSpan" style="margin:0px;">你好，${session.user.userName}</span>
+                </span>                  
+                <span>|</span>
+                 <a href="#" class="navbar-link" onclick="updatePwd()"><i class="icon-lock"></i>修改密码</a> 
+                <!--  <a class="fancybox_iframe navbar-link" href="/eshop-web/sys/user/forUpdatePwd"><i class="icon-lock"></i>修改密码</a> -->
+                <span>|</span>
+                <!-- https://demo.ddb.com:8443/cas/logout?service=http://localhost:8080/base-web -->
+                <a href="" class="navbar-link" data-toggle="modal" data-target="#logoutBtn" ><i class="icon-logout"></i>安全退出</a>
+                </p>
+            </div>
+        </nav>
+        <nav class="navbar navbar-default" id="main_nav">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#index_menu_toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="">销售平台</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="index_menu_toggle">
+                    <ul class="nav navbar-nav">
+                       <%
+    						 for(item in menu.children ){
+						%>
+                        <li class="nav_item dropdown">
+                            <a href='${item.data.resources_url!""}'>${item.text}<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+	                            <%
+	    						 for(sub_item in item.children ){
+								%>
+                                <li><a href='${sub_item.data.resources_url!""}'>${sub_item.text}</a></li>
+                               	<%}%>
+                            </ul>
+                        </li>
+                        <%
+                        }
+                        %>
+                    </ul>
+                     
+                </div>
+            </div>
+        </nav>
+        <div id="main_cont">
+            <nav id="left_nav">
+            <ul class="nav nav-pills nav-stacked"></ul>
+        </nav>
+        <div id="right_cont">
+            <iframe id="iframe" href=""  width="100%" frameborder="0"></iframe>
+        </div>
+    </div>
+    <div id="logoutBtn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+      <div class="modal-dialog" style="margin-top: 20%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">提示</h4>
+          </div>
+          <div class="modal-body">
+            <p>确定注销此次会话，退出系统吗?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default"  data-dismiss="modal">取  消</button>
+            <button type="button" class="btn btn-primary" onclick="logout(this)" data-dismiss="modal" >确  定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+        <div class="pull-right">
+            <strong>销售平台</strong> 
+        </div>
+        <div>
+            <strong>Copyright</strong> 
+        </div>
+    </div>
+    <script src="new_ui/scripts/jquery.min.js"></script>
+    <script src="new_ui/scripts/vendor.js"></script>
+    <script src="new_ui/scripts/plugins/fancybox.js"></script>
+    <script src="new_ui/scripts/index.js"></script>
+    <script src="new_ui/scripts/main.js"></script>
+    <script src="new_ui/scripts/plugins/jquery.cookie.js"></script>
+    <script src="new_ui/layerui/layer/layer.js"></script>
+    <script type="text/javascript">
+    $(function(){
+    	var drop_list = $("ul[class='nav navbar-nav']");
+		var first_drop = drop_list.find('li[class]').eq(0);
+		var first_li = first_drop.find('li').eq(0);
+		first_li.find('a').click();
+    });
+    
+	var logout = function() {
+		var url = basePath+"/sys/user/logout";
+		$.ajax({
+			url: url,
+			success: function(data){
+				window.location.href = "login.html";
+			}
+		});
+	}
+	
+	var updatePwd = function(){
+		var url = basePath+"/sys/user/forUpdatePwd";
+		layer.open({
+		    type: 2,
+		    title: '修改密码',
+		    shadeClose: true,
+		    maxmin: false, //开启最大化最小化按钮
+//		    shade: 0.8,
+		    area: ['600px', '450px'],
+		    content: url //iframe的url
+		}); 
+		
+	}
+	
+    </script>
+</body>
+</html>
