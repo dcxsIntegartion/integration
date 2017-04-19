@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.union.business.mach.dao.BisMachDao" >
+  <resultMap id="BaseResultMap" type="team.union.business.mach.model.BisMach" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="mach_name" property="machName" jdbcType="VARCHAR" />
+    <result column="mach_img" property="machImg" jdbcType="VARCHAR" />
+    <result column="mach_indro" property="machIndro" jdbcType="VARCHAR" />
+    <result column="mach_dress" property="machDress" jdbcType="VARCHAR" />
+    <result column="mach_area" property="machArea" jdbcType="VARCHAR" />
+    <result column="mach_area_code" property="machAreaCode" jdbcType="VARCHAR" />
+    <result column="mach_lng" property="machLng" jdbcType="VARCHAR" />
+    <result column="mach_lat" property="machLat" jdbcType="VARCHAR" />
+    <result column="mach_user_id" property="machUserId" jdbcType="BIGINT" />
+    <result column="mach_creat_time" property="machCreatTime" jdbcType="TIMESTAMP" />
+    <result column="mach_state" property="machState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mach_name, mach_img, mach_indro, mach_dress, mach_area, mach_area_code, mach_lng, 
+    mach_lat, mach_user_id, mach_creat_time, mach_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from bis_mach
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from bis_mach
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="team.union.business.mach.model.BisMach" >
+    insert into bis_mach (id, mach_name, mach_img, 
+      mach_indro, mach_dress, mach_area, 
+      mach_area_code, mach_lng, mach_lat, 
+      mach_user_id, mach_creat_time, mach_state
+      )
+    values (#{id,jdbcType=BIGINT}, #{machName,jdbcType=VARCHAR}, #{machImg,jdbcType=VARCHAR}, 
+      #{machIndro,jdbcType=VARCHAR}, #{machDress,jdbcType=VARCHAR}, #{machArea,jdbcType=VARCHAR}, 
+      #{machAreaCode,jdbcType=VARCHAR}, #{machLng,jdbcType=VARCHAR}, #{machLat,jdbcType=VARCHAR}, 
+      #{machUserId,jdbcType=BIGINT}, #{machCreatTime,jdbcType=TIMESTAMP}, #{machState,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="team.union.business.mach.model.BisMach" >
+    insert into bis_mach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="machName != null" >
+        mach_name,
+      </if>
+      <if test="machImg != null" >
+        mach_img,
+      </if>
+      <if test="machIndro != null" >
+        mach_indro,
+      </if>
+      <if test="machDress != null" >
+        mach_dress,
+      </if>
+      <if test="machArea != null" >
+        mach_area,
+      </if>
+      <if test="machAreaCode != null" >
+        mach_area_code,
+      </if>
+      <if test="machLng != null" >
+        mach_lng,
+      </if>
+      <if test="machLat != null" >
+        mach_lat,
+      </if>
+      <if test="machUserId != null" >
+        mach_user_id,
+      </if>
+      <if test="machCreatTime != null" >
+        mach_creat_time,
+      </if>
+      <if test="machState != null" >
+        mach_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="machName != null" >
+        #{machName,jdbcType=VARCHAR},
+      </if>
+      <if test="machImg != null" >
+        #{machImg,jdbcType=VARCHAR},
+      </if>
+      <if test="machIndro != null" >
+        #{machIndro,jdbcType=VARCHAR},
+      </if>
+      <if test="machDress != null" >
+        #{machDress,jdbcType=VARCHAR},
+      </if>
+      <if test="machArea != null" >
+        #{machArea,jdbcType=VARCHAR},
+      </if>
+      <if test="machAreaCode != null" >
+        #{machAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="machLng != null" >
+        #{machLng,jdbcType=VARCHAR},
+      </if>
+      <if test="machLat != null" >
+        #{machLat,jdbcType=VARCHAR},
+      </if>
+      <if test="machUserId != null" >
+        #{machUserId,jdbcType=BIGINT},
+      </if>
+      <if test="machCreatTime != null" >
+        #{machCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machState != null" >
+        #{machState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.union.business.mach.model.BisMach" >
+    update bis_mach
+    <set >
+      <if test="machName != null" >
+        mach_name = #{machName,jdbcType=VARCHAR},
+      </if>
+      <if test="machImg != null" >
+        mach_img = #{machImg,jdbcType=VARCHAR},
+      </if>
+      <if test="machIndro != null" >
+        mach_indro = #{machIndro,jdbcType=VARCHAR},
+      </if>
+      <if test="machDress != null" >
+        mach_dress = #{machDress,jdbcType=VARCHAR},
+      </if>
+      <if test="machArea != null" >
+        mach_area = #{machArea,jdbcType=VARCHAR},
+      </if>
+      <if test="machAreaCode != null" >
+        mach_area_code = #{machAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="machLng != null" >
+        mach_lng = #{machLng,jdbcType=VARCHAR},
+      </if>
+      <if test="machLat != null" >
+        mach_lat = #{machLat,jdbcType=VARCHAR},
+      </if>
+      <if test="machUserId != null" >
+        mach_user_id = #{machUserId,jdbcType=BIGINT},
+      </if>
+      <if test="machCreatTime != null" >
+        mach_creat_time = #{machCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machState != null" >
+        mach_state = #{machState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.union.business.mach.model.BisMach" >
+    update bis_mach
+    set mach_name = #{machName,jdbcType=VARCHAR},
+      mach_img = #{machImg,jdbcType=VARCHAR},
+      mach_indro = #{machIndro,jdbcType=VARCHAR},
+      mach_dress = #{machDress,jdbcType=VARCHAR},
+      mach_area = #{machArea,jdbcType=VARCHAR},
+      mach_area_code = #{machAreaCode,jdbcType=VARCHAR},
+      mach_lng = #{machLng,jdbcType=VARCHAR},
+      mach_lat = #{machLat,jdbcType=VARCHAR},
+      mach_user_id = #{machUserId,jdbcType=BIGINT},
+      mach_creat_time = #{machCreatTime,jdbcType=TIMESTAMP},
+      mach_state = #{machState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 多条件查询 -->
+  <select id="selVo" resultMap="BaseResultMap" parameterType="hashmap">
+      select * from bis_mach
+  </select>
+  <select id="selMap" resultType="hashmap" parameterType="hashmap">
+      select * from bis_mach
+  </select>
+</mapper>
