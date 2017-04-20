@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import team.union.nonbusiness.com.excp.CommonRunTimeException;
@@ -302,4 +306,17 @@ public class ToolsUtil {
 		}
 		return stringBuilder.toString();
 	}
+	/**
+	 * 特殊字符过滤
+	 * @param str
+	 * @return
+	 * @throws PatternSyntaxException
+	 */
+	public static String StringFilter(String   str) throws PatternSyntaxException {      
+		  // 清除掉所有特殊字符   
+		  String regEx="[`~@#$%^&*()+=|{}''\\[\\]<>/~@#￥%……&*（）——+|{}【】‘”“’]";//"[`~$^()=''[]<>~@#￥%&*（）——+|{}【】]";   
+		  Pattern   p   =   Pattern.compile(regEx);      
+		  Matcher   m   =   p.matcher(str);      
+		  return   m.replaceAll("").trim();      
+	}  
 }
