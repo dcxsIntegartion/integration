@@ -1,0 +1,248 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>物资分类</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/scripts/lib/validform/style.css">
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<script type="text/javascript" src="../../new_ui/scripts/vendor/modernizr.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/vendor.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/main.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/jquery.placeholder.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/zTree_v3/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/zTree_v3/jquery.ztree.excheck-3.5.js"></script>
+<style type="text/css">
+<!--
+.btns {
+	float: right;
+	margin-right: 20px;
+	margin-top: 20px;
+	overflow: hidden;
+}
+-->
+</style>
+</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<ol class="breadcrumb">
+			<li>您的位置：</li>
+			<li><a href="/index.html">主页</a></li>
+			<li class="active">相关配置</li>
+			<li class="active">物资分类</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							<i class="fa fa-building-o"></i> 相关配置 / 物资分类
+						</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-3">
+								<ul class="ztree" id="materialTypeTree">
+								</ul>
+							</div>
+							<div class="col-md-9" style="margin-top: 60px">
+								<div class="form-body">
+									<div class="form-group">
+										<label class="col-md-3 control-label"
+											style="text-align: right;">物资编号</label>
+										<div class="col-md-9">
+											<input id="materialNum" type="text"
+												class="form-control input-sm" readonly="">&nbsp; <span
+												class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label"
+											style="text-align: right;">物资名称</label>
+										<div class="col-md-9">
+											<input id="materialName" type="text"
+												class="form-control input-sm">&nbsp; <span
+												class="help-block"></span>
+										</div>
+									</div>
+										<div class="form-group">
+										<label class="col-md-3 control-label"
+											style="text-align: right;">是否重点物资</label>
+										<div class="col-md-9">
+											<select class="form-control input-sm" id="materialType">
+												<option value="0">否</option>
+												<option value="1" selected="selected">是</option>
+											</select> &nbsp; <span class="help-block"></span>
+										</div>
+									</div>
+									</div>
+										<div class="form-group">
+										<label class="col-md-3 control-label"
+											style="text-align: right;">状态</label>
+										<div class="col-md-9">
+											<select class="form-control input-sm" id="materialState">
+												<option value="0">停用</option>
+												<option value="1" selected="selected">启用</option>
+											</select> <span class="help-block"></span>
+										</div>
+									</div>
+								</div>
+								<div class="btns">
+									<button class="btn btn-w-m btn-primary" type="button"
+										id="addBtn">添加子类</button>
+									<button class="btn btn-w-m btn-primary" type="button"
+										id="editBtn">修改</button>
+<!-- 									<button class="btn btn-w-m btn-danger" type="button" -->
+<!-- 										id="deleteBtn">删除</button> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var setting = {
+			data : {
+				key : {
+					name : "materialName"
+				}
+			},
+			view : {
+				selectedMulti : false
+			},
+			callback : {
+				onClick : zTreeOnClick
+			}
+		};
+		$(function() {
+			//接受的是selectNum这个参数
+			var args = decodeURIComponent(location.href).split("?")[1];
+			var materialNum;
+			if (args != null) {
+				args = args.split("&");
+				materialNum = args[0].split("=")[1];
+			}
+			$.ajax({
+				url : basePath + "/nonbis/materialType/findAllTreeNode",
+				type : "get",
+				success : function(data) {
+					var json = JSON.parse(data);
+					$.fn.zTree.init($("#materialTypeTree"), setting, json);
+					if (materialNum != null) {
+						var treeObj = $.fn.zTree
+								.getZTreeObj("materialTypeTree");
+						var node = treeObj.getNodeByParam("materialNum",
+								materialNum, null);
+						$('#materialNum').val(node.materialNum);
+						$('#materialName').val(node.materialName);
+						$('#materialType').val(node.materialType);
+						$('#materialState').val(node.materialState);
+						treeObj.selectNode(node);
+					}
+				}
+			});
+			$("#addBtn").bind(
+					"click",
+					function() {
+						var treeObj = $.fn.zTree
+								.getZTreeObj("materialTypeTree");
+						var nodes = treeObj.getSelectedNodes();
+						if (nodes.length == 0) {
+							alert('请选择一个节点作为上级物资类型。');
+							return;
+						}
+						if (nodes.length > 1) {
+							alert('只能选择一个父节点，请重新选择。');
+							return;
+						}
+						var node = nodes[0];
+						if (node.level == 3) {
+							alert('不能在末级小类下添加子类。');
+							return;
+						}
+						window.location.href = "add.html?pid="
+								+ node.materialTypeId + "&pname="
+								+ node.materialName + "&level=" + node.level;
+					});
+			$("#editBtn").bind("click", function() {
+				var treeObj = $.fn.zTree.getZTreeObj("materialTypeTree");
+				var nodes = treeObj.getSelectedNodes();
+				if (nodes.length == 0) {
+					alert('请先选择一个节点。');
+					return;
+				}
+				if (nodes.length > 1) {
+					alert('只能选择一个节点，请重新选择。');
+					return;
+				}
+				var node = nodes[0];
+				if (node.level == 0) {
+					alert('不能修改根节点。');
+					return;
+				}
+				if($("#materialName").val() == "") {
+					alert('物资名称不能为空。');
+					return;
+				}
+				if($("#materialType").val() == null) {
+					alert('请选择是否重点物资。');
+					return;
+				}
+				if($("#materialState").val() == null) {
+					alert('请选择物资状态。');
+					return;
+				}
+				var model = {};
+				model.materialTypeId = node.materialTypeId;
+				model.materialName = $("#materialName").val();
+				model.materialType = $("#materialType").val();
+				model.materialState = $("#materialState").val();
+				$.ajax({
+					type : "POST",
+					url : basePath + "/nonbis/materialType/saveOrUpdate",
+					data : JSON.stringify(model),
+					contentType : "application/json",
+					dataType : "json",
+					success : function(data) {
+						if (data.status == 1) {
+							node.materialName = $("#materialName").val();
+							node.materialType = $("#materialType").val();
+							node.materialState = $("#materialState").val();
+							treeObj.updateNode(node);
+							layer.msg("修改物资类型成功！");
+						} else {
+							layer.msg(data.info);
+						}
+					},
+					error : function(data) {
+					}
+				});
+			});
+		});
+		function zTreeOnClick(event, treeId, treeNode) {
+			$('#materialNum').val(treeNode.materialNum);
+			$('#materialName').val(treeNode.materialName);
+			$('#materialType').val(treeNode.materialType);
+			$('#materialState').val(treeNode.materialState);
+		};
+	</script>
+</body>

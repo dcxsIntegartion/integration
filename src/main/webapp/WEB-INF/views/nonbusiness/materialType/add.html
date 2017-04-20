@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>新增物资类型</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" type="text/css" href="../../new_ui/scripts/lib/validform/style.css">
+<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<script src="../../new_ui/scripts/vendor/modernizr.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/vendor.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+<script src="../../ui/js/plugins/ajaxFileUpload/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/main.js"></script>
+<script src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+<script type="text/javascript" src="../../support/web_support.js"></script>
+<style type="text/css">
+.info {
+	border: 1px solid #ccc;
+	padding: 2px 20px 2px 5px;
+	color: #666;
+	position: absolute;
+	display: none;
+	line-height: 20px;
+	background-color: #fff;
+}
+</style>
+
+</head>
+<body>
+	<div class="col-md-12">
+		<div class="ibox">
+			<div class="ibox-title">
+				<h5>
+					<i class="fa fa-sliders"></i> 物资分类/新增物资类型
+				</h5>
+			</div>
+			<div class="ibox-content form">
+				<div class="modal-body">
+					<div class="form-body">
+						<form action="#" id="commodityForm" class="form-horizontal">
+							<input type="hidden" name="superiorMaterialId"
+								id="superiorMaterialId"> <input type="hidden"
+								name="level" id="level">
+							<div class="form-group">
+								<label class="col-md-3 control-label">上级物资名称：</label>
+								<div class="col-md-4">
+									<input type="text" disabled="" id="pname"
+										class="form-control input-sm">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">物资名称：</label>
+								<div class="col-md-4">
+									<input type="text" class="form-control input-sm"
+										id="materialName" name="materialName">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">是否重点物资：</label>
+								<div class="col-md-4">
+									<select class="form-control input-sm" id="materialType" name="materialType">
+												<option value="0">否</option>
+												<option value="1" selected="selected">是</option>
+											</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">状态：</label>
+								<div class="col-md-4">
+									<select class="form-control input-sm" id="materialState" name="materialState">
+												<option value="0">停用</option>
+												<option value="1" selected="selected">启用</option>
+											</select> 
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button onclick="javascript:window.history.back(-1);" type="button"
+						class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="saveBtn" onclick="submitData()" class="btn btn-primary">确定</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var model = {};
+		$(function() {
+			var args = decodeURIComponent(location.href).split("?")[1];
+			args = args.split("&");
+			var superiorMaterialId = args[0].split("=")[1];
+			var pname = args[1].split("=")[1];
+			var level = args[2].split("=")[1];
+			$('#pname').val(pname);
+			$('#superiorMaterialId').val(superiorMaterialId);
+			$('#level').val(Number(level) + 1);
+		});
+
+		//提交数据
+		function submitData() {
+			var modelArr = [ "materialName", "superiorMaterialId", "level", "materialType", "materialState"];
+			var modelUtils = new ModelUtils(modelArr);
+			var model = modelUtils.initModel();
+			if (model.superiorMaterialId == "undefined") {
+				model.superiorMaterialId = null;
+			}
+			if (model.materialName == "") {
+				alert("物资类型名称不能为空");
+				return;
+			}
+
+			$.ajax({
+				type : "POST",
+				url : basePath + "/nonbis/materialType/saveOrUpdate",
+				data : JSON.stringify(model),
+				contentType : "application/json",
+				dataType : "json",
+				success : function(data) {
+					if (data.status == 1) {
+						layer.msg("新增物资类型成功！");
+						window.location.href = "index.html?selectNum=" + data.data.materialNum;
+					} else {
+						layer.msg(data.info);
+					}
+				},
+				error : function(data) {
+				}
+			});
+		}
+	</script>
+</body>
+</html>
