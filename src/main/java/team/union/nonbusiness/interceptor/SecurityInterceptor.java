@@ -9,13 +9,11 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import team.union.nonbusiness.sys.service.UserService;
 import team.union.nonbusiness.sys.utils.WebUtils;
 
 
@@ -26,16 +24,13 @@ import team.union.nonbusiness.sys.utils.WebUtils;
  */
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
-	@Autowired
-	private UserService userService;
-
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		if (handler instanceof HandlerMethod) {
 			String uri = request.getRequestURI();
-			//图片上传/接收短信/发送短信/修改密码
-			if(uri.endsWith("/upload") || uri.endsWith("/receiveShortMessage") || uri.endsWith("/sendShortMessage")){
+			//微信jssdk/接收短信/发送短信/修改密码
+			if(uri.endsWith("/wechat/config/jssdk")|| uri.endsWith("/receiveShortMessage") || uri.endsWith("/sendShortMessage")){
 			 	return true;
 			}
 			
@@ -59,7 +54,6 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		}
 		return super.preHandle(request, response, handler);
 	}
-	
 	/**
 	 * 通过session判断浏览器用户是否登陆
 	 * 通过token判断app用户是否登陆

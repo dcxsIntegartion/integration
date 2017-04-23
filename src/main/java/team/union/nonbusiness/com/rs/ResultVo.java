@@ -12,9 +12,6 @@ import java.io.Serializable;
  */
 public class ResultVo implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3507890824241560895L;
 	/** 返回信息 */
 	private String info;

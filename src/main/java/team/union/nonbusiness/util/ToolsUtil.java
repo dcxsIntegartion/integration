@@ -20,9 +20,6 @@ import javax.crypto.spec.SecretKeySpec;
 import team.union.nonbusiness.com.excp.CommonRunTimeException;
 import team.union.nonbusiness.com.excp.ExcptionEnums;
 
-
-
-
 /**
  * 
  * @author		yinxb
@@ -33,24 +30,6 @@ import team.union.nonbusiness.com.excp.ExcptionEnums;
  */
 public class ToolsUtil {
 	
-	/**
-	 * 35位数值生成器,利用uuid + 4位随机数
-	 * 
-	 */
-	public static String GetUUID(){
-		return UUID.randomUUID().toString().replaceAll("-", "")+
-				(int)(Math.random()*900+100);
-	}
-	/**
-	 * 区域code码字符串封装成数组
-	 */
-	public static String[] getArrayByAreaCode(String areaCode){
-		String[] strArarry = null;
-		if(isNotEmpty(areaCode)){
-			strArarry = areaCode.split(",");
-		}
-		return strArarry;
-	}
 	/**
 	 * 验证是否不为空
 	 * @param obj 验证对象 字符串java.util.List<?>列表
@@ -96,32 +75,15 @@ public class ToolsUtil {
 		}
 		return false;
 	}
-
 	
 	/**
-	 * 格式化文件大小
-	 * @param fileSize
-	 * @return
-	 * @author 岳雷
+	 * 35位数值生成器,利用uuid + 4位随机数
+	 * 
 	 */
-	public static String FormetFileSize(long fileSize) {
-		String formetFileSize = "";
-		DecimalFormat df = new DecimalFormat("#.00");
-		if (fileSize < 1024) {
-			formetFileSize = df.format((double) fileSize) + "B";
-		} else if (fileSize < 1048576) {
-			formetFileSize = df.format((double) fileSize / 1024) + "K";
-		} else if (fileSize < 1073741824) {
-			formetFileSize = df.format((double) fileSize / 1048576) + "M";
-		} else {
-			formetFileSize = df.format((double) fileSize / 1073741824) + "G";
-		}
-		if (fileSize == 0) {
-			formetFileSize = fileSize + formetFileSize;
-		}
-		return formetFileSize;
+	public static String GetUUID(){
+		return UUID.randomUUID().toString().replaceAll("-", "")+
+				(int)(Math.random()*900+100);
 	}
-
 	/**
 	 * 密码生成器
 	 * @param 密码长度
@@ -174,8 +136,33 @@ public class ToolsUtil {
 		}
 		return tempList;
 	}
+	
 
 	
+	/**
+	 * 格式化文件大小
+	 * @param fileSize
+	 * @return
+	 * @author 岳雷
+	 */
+	public static String FormetFileSize(long fileSize) {
+		String formetFileSize = "";
+		DecimalFormat df = new DecimalFormat("#.00");
+		if (fileSize < 1024) {
+			formetFileSize = df.format((double) fileSize) + "B";
+		} else if (fileSize < 1048576) {
+			formetFileSize = df.format((double) fileSize / 1024) + "K";
+		} else if (fileSize < 1073741824) {
+			formetFileSize = df.format((double) fileSize / 1048576) + "M";
+		} else {
+			formetFileSize = df.format((double) fileSize / 1073741824) + "G";
+		}
+		if (fileSize == 0) {
+			formetFileSize = fileSize + formetFileSize;
+		}
+		return formetFileSize;
+	}
+
 	/**
 	 * //1.从旧文件拷贝内容到新文件 
 	 * //2.删除旧文件
@@ -256,7 +243,16 @@ public class ToolsUtil {
 		}
 		return false;
 	}
-	
+	/**
+	 * 区域code码字符串封装成数组
+	 */
+	public static String[] getArrayByAreaCode(String areaCode){
+		String[] strArarry = null;
+		if(isNotEmpty(areaCode)){
+			strArarry = areaCode.split(",");
+		}
+		return strArarry;
+	}
 	/**
 	 * 判断是不是特别行政区
 	 * 是返回true 不是返回false
