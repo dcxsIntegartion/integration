@@ -29,8 +29,4 @@ public class BasicDataConfig {
 			this.msg = msg;
 		}
 	}
-	/** 客户层级  级数**/
-	public static int CUST_MODEL_LV = 6;
-	
-	
 }

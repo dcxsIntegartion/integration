@@ -16,15 +16,17 @@
 	default-autowire="byName">
 
     <aop:aspectj-autoproxy/>
-
 	<context:component-scan base-package="team.union.*" />
-	<!-- 定时器bean开始 
+	<!-- 定时器bean开始  
+    fixed-delay="1000"  每秒触发一次
+    initial-delay="3000"  启动后延迟3秒后开始首次触发
+    -->
 	<task:annotation-driven />
-    <bean id="testTask" class="team.union.nonbusiness.timer.service.ITimerServiceImpl"></bean>  
+    <bean id="WeChatTask" class="team.union.we_chat.config.WeChatTask"></bean>  
     <task:scheduled-tasks>  
-        <task:scheduled ref="testTask" method="test" cron="0 0/10 * * * ?" />
+        <task:scheduled ref="WeChatTask" fixed-delay="7100000" initial-delay="3000" method="getTokenAndTicket" />
     </task:scheduled-tasks> 
-	 	 定时器bean结束 -->
+	<!-- 定时器bean结束 -->
 
    <util:properties id="gmallDataSourceProps" location="classpath:jdbc_mysql.properties"/> 
 
