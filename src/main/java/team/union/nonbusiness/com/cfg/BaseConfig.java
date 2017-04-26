@@ -2,7 +2,6 @@ package team.union.nonbusiness.com.cfg;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.URISyntaxException;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -37,10 +36,6 @@ public class BaseConfig {
 	/********文件路径************/
 	public static String ArticleAttachmentPhysicalPath;
 	public static String ArticleAttachmentVituralPath;
-	public static void main(String[] args) throws URISyntaxException {
-		String path = BaseConfig.class.getClassLoader().getResource("").toURI().getPath();
-		System.out.println(path);
-	}
 	/**********报表路径******************/
 	public static String ExportFormPath;
 	private static Logger logger= Logger.getLogger(BaseConfig.class);

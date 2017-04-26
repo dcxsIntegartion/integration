@@ -35,7 +35,7 @@ public class Uploader {
 	protected static String IMAGEUPFLOAD = "images";
 	protected static String FILEUPFLOAD = "file";
 	// 文件大小常量, 单位kb
-	protected static final int MAX_SIZE = 3*1024;
+	protected static final int MAX_SIZE = 5*1024;
 	// 输出文件地址
 	protected String url = "";
 	// 上传文件名
