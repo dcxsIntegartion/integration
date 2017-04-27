@@ -2,7 +2,10 @@ package team.union.nonbusiness.upload.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import team.union.nonbusiness.upload.model.NonbizUpload;
+import team.union.nonbusiness.upload.utils.WebImagesUploader;
 
 
 /**
@@ -12,6 +15,19 @@ import team.union.nonbusiness.upload.model.NonbizUpload;
  * @Date	2016-4-27 下午11:43:41
  */
 public interface IUploadService {
+	/**
+	 * 上传图片
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 */
+	public WebImagesUploader uplodImg(WebImagesUploader uploader) throws Exception;
+	/**
+	 * 上传文件
+	 * @param request
+	 * @return
+	 */
+	public WebImagesUploader uplodFile(WebImagesUploader uploader)throws Exception;
 	/**
 	 * 为传入对象id绑定文件（图片）url
 	 * @return   uuid

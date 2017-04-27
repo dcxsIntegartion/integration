@@ -20,7 +20,8 @@ import team.union.nonbusiness.sys.model.Account;
 import team.union.nonbusiness.sys.model.AccountCriteria;
 import team.union.nonbusiness.sys.model.Users;
 import team.union.nonbusiness.sys.service.UserService;
-import team.union.nonbusiness.sys.utils.MD5Utils;
+import team.union.nonbusiness.util.MD5Utils;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import team.union.nonbusiness.com.cfg.BaseConfig;
 import team.union.nonbusiness.upload.model.NonbizUpload;
 import team.union.nonbusiness.upload.service.IUploadService;
 import team.union.nonbusiness.upload.utils.WebImagesUploader;
@@ -35,12 +34,7 @@ public class UploadAPI {
 	@RequestMapping(value="/img")
 	public NonbizUpload imagesUp(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		WebImagesUploader uploader = new WebImagesUploader(request);
-		String[] fileType = {".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp",".xls"};
-	    uploader.setAllowFiles(fileType);
-	    uploader.setMaxSize(30000); //单位KB
-	    uploader.setPhysicalPath(BaseConfig.ArticlePicturePhysicalPath);
-	    uploader.setVituralPath(BaseConfig.ArticlePictureVituralPath);
-		uploader.upload();
+		uploadService.uplodImg(uploader);
 		NonbizUpload vo = new NonbizUpload();
 		vo.setObjId(uploader.getUuid());
 		vo.setName(uploader.getOriginalName());
@@ -52,12 +46,7 @@ public class UploadAPI {
 	@RequestMapping(value="/file")
 	public NonbizUpload fileUp(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		WebImagesUploader uploader = new WebImagesUploader(request);
-		String[] fileType = {".xls"};
-	    uploader.setAllowFiles(fileType);
-	    uploader.setMaxSize(30000); //单位KB
-	    uploader.setPhysicalPath(BaseConfig.ArticleAttachmentPhysicalPath);
-	    uploader.setVituralPath(BaseConfig.ArticleAttachmentVituralPath);
-		uploader.upload();
+		uploadService.uplodFile(uploader);
 		NonbizUpload vo = new NonbizUpload();
 		vo.setName(uploader.getOriginalName());
 		vo.setUrl(uploader.getUrl());

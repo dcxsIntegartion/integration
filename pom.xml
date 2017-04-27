@@ -42,8 +42,7 @@
 		<!-- mybatis -->
 		<mybatis_spring_version>1.2.1</mybatis_spring_version>
 		<mybatis_version>3.2.3</mybatis_version>
-		<!-- quartz -->
-		<quartz_vresion>2.2.1</quartz_vresion>
+	
 		<!-- pingyin4j -->
 		<pinyin4j_version>2.5.0</pinyin4j_version>
 
@@ -373,12 +372,6 @@
 			<version>${fastjson_version}</version>
 		 </dependency>
 		 
-		<!-- 定时器包 -->
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>${quartz_vresion}</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<finalName>integration</finalName>

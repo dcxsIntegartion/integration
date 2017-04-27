@@ -1,41 +1,33 @@
 package team.union.nonbusiness.upload.service.impl;
 
-import team.union.nonbusiness.com.cfg.BaseConfig;
 import team.union.nonbusiness.upload.service.IUEditorService;
-import java.io.BufferedReader;  
+import team.union.nonbusiness.util.FileUtils;
 import java.io.File;  
-import java.io.FileInputStream;  
-import java.io.FileNotFoundException;  
-import java.io.IOException;  
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
-import java.net.URL;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+@Transactional(rollbackFor = Exception.class)
 public class UEditorService implements IUEditorService{
 
-    /* @param name   文件名  不包含路径 
-     */  
-    public static  String getSrcPath(String name)  
-    {  
+    /**
+     * @param packagePath 文件所在包路径
+     * @return 
+     */
+    public String readUEditorJson(String packagePath){  
         String result=null;  
-        URL urlpath = UEditorService.class.getClassLoader().getResource(name);   
-        String path=urlpath.toString();  
-        //remove the head "file:",if it exists  
-        if(path.startsWith("file"))  
-        {  
-            path=path.substring(5);  
-        }  
-        path.replace("/", File.separator);  
-        result=path;  
-        return result;  
-    }  
-	public static void main(String[] args) {
-//		UEditorService  ue= new UEditorService();
+        String urlpath;
 		try {
-			System.out.println( UEditorService.class.getClassLoader().getResource("").toURI().getPath());
+			urlpath = UEditorService.class.getClassLoader().getResource("").toURI().getPath()+
+					  packagePath;
+			urlpath.replace("/", File.separator);  
+			result = FileUtils.ReadFile(urlpath);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-	
+		}   
+        return result;  
+    }  
 }
