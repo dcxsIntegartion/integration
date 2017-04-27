@@ -1,7 +1,7 @@
 $(function() {
     $('input, textarea').placeholder();//让IE8，IE9支持placeholder
     window.fnStatus = function(record, rowIndex, colIndex, options){
-    	switch(record.couponStatus){
+    	switch(record.coupon_status){
     	case 1:
     		return '<span style="color:#3EC07F">已上线</span>';
     	case 2:
@@ -15,17 +15,17 @@ $(function() {
     //操作
     window.operate =function(record, rowIndex, colIndex, options) {
     	var op_html ='';
-    	op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'couponId') + '\');">编辑</a>';
-    	op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="forDetail(\'' + gridObj.getRecordIndexValue(record, 'couponId') + '\');">详情</a>';
+    	op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'coupon_id') + '\');">编辑</a>';
+    	op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="forDetail(\'' + gridObj.getRecordIndexValue(record, 'coupon_id') + '\');">详情</a>';
 		return op_html;
     }
     //编辑
     window.forUpdate = function(Id){
-//		window.location.href=basePath+"/bis/coupon/update?couponId="+Id;
+    	window.location.href = "baseViewUpdate.html?type=update&id="+Id;
 	}
     //查看详细
     window.forDetail = function(Id){
-//		window.location.href=basePath+"/bis/coupon/update?couponId="+Id;
+    	window.location.href = "baseViewUpdate.html?type=view&id="+Id;
 	}
 	//搜索
 	window.doSearch = function(){
