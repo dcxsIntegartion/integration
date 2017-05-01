@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.union.business.commodity.dao.BisCommodityDao">
+	<resultMap id="BaseResultMap"
+		type="team.union.business.commodity.model.BisCommodity">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="commodity_price" property="commodityPrice"
+			jdbcType="DECIMAL" />
+		<result column="commodity_old_price" property="commodityOldPrice"
+			jdbcType="DECIMAL" />
+		<result column="commodity_store_id" property="commodityStoreId"
+			jdbcType="BIGINT" />
+		<result column="commodity_num" property="commodityNum"
+			jdbcType="INTEGER" />
+		<result column="commodity_quality" property="commodityQuality"
+			jdbcType="DECIMAL" />
+		<result column="commodity_pic" property="commodityPic"
+			jdbcType="VARCHAR" />
+		<result column="commodity_sort_num" property="commoditySortNum"
+			jdbcType="INTEGER" />
+		<result column="commodity_introduction" property="commodityIntroduction"
+			jdbcType="VARCHAR" />
+		<result column="commodity_status" property="commodityStatus"
+			jdbcType="INTEGER" />
+		<result column="homepage_show" property="homepageShow"
+			jdbcType="INTEGER" />
+		<result column="timing_off" property="timingOff" jdbcType="TIMESTAMP" />
+		<result column="timing_begain" property="timingBegain"
+			jdbcType="TIMESTAMP" />
+		<result column="is_timing" property="isTiming" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, commodity_name, commodity_price, commodity_old_price,
+		commodity_store_id, commodity_num,
+		commodity_quality, commodity_pic, commodity_sort_num, commodity_introduction,
+		commodity_status,
+		homepage_show, timing_off, timing_begain, is_timing
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="team.union.business.commodity.model.BisCommodityExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from bis_commodity
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from bis_commodity
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from bis_commodity
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="team.union.business.commodity.model.BisCommodityExample">
+		delete from bis_commodity
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="team.union.business.commodity.model.BisCommodity">
+		insert into bis_commodity (id, commodity_name, commodity_price,
+		commodity_old_price, commodity_store_id, commodity_num,
+		commodity_quality, commodity_pic, commodity_sort_num,
+		commodity_introduction, commodity_status,
+		homepage_show, timing_off, timing_begain,
+		is_timing)
+		values (#{id,jdbcType=BIGINT}, #{commodityName,jdbcType=VARCHAR},
+		#{commodityPrice,jdbcType=DECIMAL},
+		#{commodityOldPrice,jdbcType=DECIMAL},
+		#{commodityStoreId,jdbcType=BIGINT}, #{commodityNum,jdbcType=INTEGER},
+		#{commodityQuality,jdbcType=DECIMAL},
+		#{commodityPic,jdbcType=VARCHAR},
+		#{commoditySortNum,jdbcType=INTEGER},
+		#{commodityIntroduction,jdbcType=VARCHAR},
+		#{commodityStatus,jdbcType=INTEGER},
+		#{homepageShow,jdbcType=INTEGER}, #{timingOff,jdbcType=TIMESTAMP}, #{timingBegain,jdbcType=TIMESTAMP},
+		#{isTiming,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="team.union.business.commodity.model.BisCommodity">
+		insert into bis_commodity
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="commodityName != null">
+				commodity_name,
+			</if>
+			<if test="commodityPrice != null">
+				commodity_price,
+			</if>
+			<if test="commodityOldPrice != null">
+				commodity_old_price,
+			</if>
+			<if test="commodityStoreId != null">
+				commodity_store_id,
+			</if>
+			<if test="commodityNum != null">
+				commodity_num,
+			</if>
+			<if test="commodityQuality != null">
+				commodity_quality,
+			</if>
+			<if test="commodityPic != null">
+				commodity_pic,
+			</if>
+			<if test="commoditySortNum != null">
+				commodity_sort_num,
+			</if>
+			<if test="commodityIntroduction != null">
+				commodity_introduction,
+			</if>
+			<if test="commodityStatus != null">
+				commodity_status,
+			</if>
+			<if test="homepageShow != null">
+				homepage_show,
+			</if>
+			<if test="timingOff != null">
+				timing_off,
+			</if>
+			<if test="timingBegain != null">
+				timing_begain,
+			</if>
+			<if test="isTiming != null">
+				is_timing,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="commodityName != null">
+				#{commodityName,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityPrice != null">
+				#{commodityPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityOldPrice != null">
+				#{commodityOldPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityStoreId != null">
+				#{commodityStoreId,jdbcType=BIGINT},
+			</if>
+			<if test="commodityNum != null">
+				#{commodityNum,jdbcType=INTEGER},
+			</if>
+			<if test="commodityQuality != null">
+				#{commodityQuality,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityPic != null">
+				#{commodityPic,jdbcType=VARCHAR},
+			</if>
+			<if test="commoditySortNum != null">
+				#{commoditySortNum,jdbcType=INTEGER},
+			</if>
+			<if test="commodityIntroduction != null">
+				#{commodityIntroduction,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityStatus != null">
+				#{commodityStatus,jdbcType=INTEGER},
+			</if>
+			<if test="homepageShow != null">
+				#{homepageShow,jdbcType=INTEGER},
+			</if>
+			<if test="timingOff != null">
+				#{timingOff,jdbcType=TIMESTAMP},
+			</if>
+			<if test="timingBegain != null">
+				#{timingBegain,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isTiming != null">
+				#{isTiming,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="team.union.business.commodity.model.BisCommodityExample"
+		resultType="java.lang.Integer">
+		select count(*) from bis_commodity
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update bis_commodity
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.commodityName != null">
+				commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.commodityPrice != null">
+				commodity_price = #{record.commodityPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="record.commodityOldPrice != null">
+				commodity_old_price = #{record.commodityOldPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="record.commodityStoreId != null">
+				commodity_store_id = #{record.commodityStoreId,jdbcType=BIGINT},
+			</if>
+			<if test="record.commodityNum != null">
+				commodity_num = #{record.commodityNum,jdbcType=INTEGER},
+			</if>
+			<if test="record.commodityQuality != null">
+				commodity_quality = #{record.commodityQuality,jdbcType=DECIMAL},
+			</if>
+			<if test="record.commodityPic != null">
+				commodity_pic = #{record.commodityPic,jdbcType=VARCHAR},
+			</if>
+			<if test="record.commoditySortNum != null">
+				commodity_sort_num = #{record.commoditySortNum,jdbcType=INTEGER},
+			</if>
+			<if test="record.commodityIntroduction != null">
+				commodity_introduction =
+				#{record.commodityIntroduction,jdbcType=VARCHAR},
+			</if>
+			<if test="record.commodityStatus != null">
+				commodity_status = #{record.commodityStatus,jdbcType=INTEGER},
+			</if>
+			<if test="record.homepageShow != null">
+				homepage_show = #{record.homepageShow,jdbcType=INTEGER},
+			</if>
+			<if test="record.timingOff != null">
+				timing_off = #{record.timingOff,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.timingBegain != null">
+				timing_begain = #{record.timingBegain,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.isTiming != null">
+				is_timing = #{record.isTiming,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update bis_commodity
+		set id = #{record.id,jdbcType=BIGINT},
+		commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+		commodity_price = #{record.commodityPrice,jdbcType=DECIMAL},
+		commodity_old_price = #{record.commodityOldPrice,jdbcType=DECIMAL},
+		commodity_store_id = #{record.commodityStoreId,jdbcType=BIGINT},
+		commodity_num = #{record.commodityNum,jdbcType=INTEGER},
+		commodity_quality = #{record.commodityQuality,jdbcType=DECIMAL},
+		commodity_pic = #{record.commodityPic,jdbcType=VARCHAR},
+		commodity_sort_num = #{record.commoditySortNum,jdbcType=INTEGER},
+		commodity_introduction = #{record.commodityIntroduction,jdbcType=VARCHAR},
+		commodity_status = #{record.commodityStatus,jdbcType=INTEGER},
+		homepage_show = #{record.homepageShow,jdbcType=INTEGER},
+		timing_off = #{record.timingOff,jdbcType=TIMESTAMP},
+		timing_begain = #{record.timingBegain,jdbcType=TIMESTAMP},
+		is_timing = #{record.isTiming,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="team.union.business.commodity.model.BisCommodity">
+		update bis_commodity
+		<set>
+			<if test="commodityName != null">
+				commodity_name = #{commodityName,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityPrice != null">
+				commodity_price = #{commodityPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityOldPrice != null">
+				commodity_old_price = #{commodityOldPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityStoreId != null">
+				commodity_store_id = #{commodityStoreId,jdbcType=BIGINT},
+			</if>
+			<if test="commodityNum != null">
+				commodity_num = #{commodityNum,jdbcType=INTEGER},
+			</if>
+			<if test="commodityQuality != null">
+				commodity_quality = #{commodityQuality,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityPic != null">
+				commodity_pic = #{commodityPic,jdbcType=VARCHAR},
+			</if>
+			<if test="commoditySortNum != null">
+				commodity_sort_num = #{commoditySortNum,jdbcType=INTEGER},
+			</if>
+			<if test="commodityIntroduction != null">
+				commodity_introduction = #{commodityIntroduction,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityStatus != null">
+				commodity_status = #{commodityStatus,jdbcType=INTEGER},
+			</if>
+			<if test="homepageShow != null">
+				homepage_show = #{homepageShow,jdbcType=INTEGER},
+			</if>
+			<if test="timingOff != null">
+				timing_off = #{timingOff,jdbcType=TIMESTAMP},
+			</if>
+			<if test="timingBegain != null">
+				timing_begain = #{timingBegain,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isTiming != null">
+				is_timing = #{isTiming,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="team.union.business.commodity.model.BisCommodity">
+		update bis_commodity
+		set commodity_name = #{commodityName,jdbcType=VARCHAR},
+		commodity_price = #{commodityPrice,jdbcType=DECIMAL},
+		commodity_old_price = #{commodityOldPrice,jdbcType=DECIMAL},
+		commodity_store_id = #{commodityStoreId,jdbcType=BIGINT},
+		commodity_num = #{commodityNum,jdbcType=INTEGER},
+		commodity_quality = #{commodityQuality,jdbcType=DECIMAL},
+		commodity_pic = #{commodityPic,jdbcType=VARCHAR},
+		commodity_sort_num = #{commoditySortNum,jdbcType=INTEGER},
+		commodity_introduction = #{commodityIntroduction,jdbcType=VARCHAR},
+		commodity_status = #{commodityStatus,jdbcType=INTEGER},
+		homepage_show = #{homepageShow,jdbcType=INTEGER},
+		timing_off = #{timingOff,jdbcType=TIMESTAMP},
+		timing_begain = #{timingBegain,jdbcType=TIMESTAMP},
+		is_timing = #{isTiming,jdbcType=INTEGER}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
