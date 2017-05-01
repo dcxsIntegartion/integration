@@ -2,7 +2,7 @@
 <html class="no-js">
 	<head>
 	<meta charset="UTF-8">
-	<title>优惠券管理</title>
+	<title>优惠券新增</title>
 	<meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -10,20 +10,14 @@
     <meta name="renderer" content="webkit">
     <!-- common start -->
     <link rel="stylesheet" href="../../new_ui/styles/vendor.css">
-    <!-- page plugin -->
     <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
-    <!-- page plugin end -->
     <link rel="stylesheet" href="../../new_ui/styles/main.css">
     <link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
     <script src="../../new_ui/scripts/vendor.js"></script>
-    <!-- page plugin -->
     <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
     <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
-    <!-- page plugin end -->
     <script src="../../new_ui/scripts/main.js"></script>
-    <!-- page plugin end -->
 	<script src="../../new_ui/scripts/jquery.placeholder.js"></script>
-	
 	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
 	<script type="text/javascript" src="../../support/web_support.js"></script>
 	<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
@@ -32,8 +26,8 @@
     <!-- common end -->
     
     <!-- page js -->
-    <script type="text/javascript" src="js/upload.js"></script>
-    <script src="js/viewOrUpdate.js"></script>
+    <script src="js/add.js"></script>
+    <script src="js/upload.js"></script>
 	</head>
 	<body>
 		<div class="wrapper wrapper-content animated fadeInUp">
@@ -44,7 +38,7 @@
 							<div class="ibox">
 								<div class="ibox-title">
 									<h5>
-										<i class="fa fa-sliders"></i> 优惠券详情
+										<i class="fa fa-sliders"></i> 优惠券新增
 									</h5>
 								</div>
 								<div class="ibox-content form">
@@ -55,29 +49,28 @@
 												<div class="form-group">
 													<label class="col-md-3 control-label">优惠券名称：</label>
 													<div class="col-md-4">
-														<input 
-															 readonly="readonly"
+														<input datatype="*2-25" maxlength="25"
 															id="couponName" name="couponName" type="text" class="form-control input-sm">
 													</div>
-													<!-- <div class="Validform_checktip">请输入优惠券名称，2~25字！</div> -->
+													<div class="Validform_checktip">请输入优惠券名称，2~25字！</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-3 control-label">优惠券金额：</label>
 													<div class="col-md-4">
-														<input 
-															  readonly="readonly"
-															id="couponMoney" name="couponMoney" type="text" class="form-control input-sm">
+														<input  id="couponMoney" name="couponMoney" datatype="/^(0|[1-9]\d*)$/"
+															type="number" class="form-control input-sm">
 													</div>
+													<div class="Validform_checktip">请输入优惠券金额！</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-3 control-label">消费满：</label>
 													<div class="col-md-4">
-														<input id="couponBaseLine" name="couponBaseLine" readonly="readonly"
-													 		type="text" class="form-control input-sm">
+														<input id="couponBaseLine" name="couponBaseLine" datatype="/^(0|[1-9]\d*)$/"
+													 		type="number" class="form-control input-sm">
 													</div>
 													<div class="Validform_checktip">元可使用！</div>
 												</div>
-												<div class="form-group">
+												<!-- <div class="form-group">
 													<label class="col-md-3 control-label">优惠券状态：</label>
 													<div class="col-md-4">
 														 <select class="form-control input-sm"  name="couponStatus">
@@ -87,34 +80,29 @@
 										                      <option value="4">未生效</option>
 										                 </select>
 													</div>
-												</div>
+												</div> -->
 												<div class="form-group">
 													<label class="col-md-3 control-label">有效期范围：</label>
 													<div class="col-md-4">
-									                    <div class="input-daterange input-group" id="datetime_01">
-									                      <input type="text" readonly="readonly" class="input-sm form-control date" name="couponValidityStart"/>
+														<div class="input-daterange input-group" id="datetime_01">
+									                      <input type="text" class="input-sm form-control date" name="couponValidityStart" placeholder="点击选择开始日期"/>
 									                      <span class="input-group-addon">到</span>
-									                      <input type="text" readonly="readonly" class="input-sm form-control date" name="couponValidityEnd"/>
+									                      <input type="text" class="input-sm form-control date" name="couponValidityEnd" placeholder="点击选择截止日期"/>
 									                    </div>
-								                    </div>
-								                  </div>
+													</div>
+												</div>
 												<div class="form-group">
 													<label class="col-md-3 control-label">领取截止时间：</label>
 													<div class="col-md-4">
-														<input type="text" class="input-sm form-control date" readonly="readonly" name="couponReceiveEnd"/>
+														<input  id="couponReceiveEnd" name="couponReceiveEnd" 
+														type="datetime" class="form-control input-sm" placeholder="点击选择日期">
 													</div>
 													<div class="Validform_checktip">为空则为有效期截止时间！</div>
 												</div>
 												<div class="form-group">
-													<label class="col-md-3 control-label">创建时间：</label>
-													<div class="col-md-4">
-														<input type="text" class="input-sm form-control date" readonly="readonly" name="couponCreateTime"/>
-													</div>
-												</div>
-												<div class="form-group">
 													<label class="col-md-3 control-label">发放数量：</label>
 													<div class="col-md-4">
-														<input id="couponGrantNum" readonly="readonly" name="couponGrantNum"
+														<input id="couponGrantNum" name="couponGrantNum" datatype="/^(0|[1-9]\d*)$/"
 													 		type="number" class="form-control input-sm">
 													</div>
 													<div class="Validform_checktip">领取优惠券超出此数自动下线，0表示无限！</div>
@@ -125,7 +113,7 @@
 														<input id="couponReceiveTimes" name="couponReceiveTimes" datatype="/^(0|[1-9]\d*)$/"
 													 		type="number" class="form-control input-sm">
 													</div>
-													<div class="Validform_checktip">每个用户可领取优惠券此数，0表示无限！</div>
+													<div class="Validform_checktip">每个用户可领取优惠券次数，0表示无限！</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-3 control-label">每次领取的张数：</label>
@@ -133,7 +121,7 @@
 														<input id="couponEveryNum" name="couponEveryNum" datatype="/^(0|[1-9]\d*)$/"
 													 		type="number" class="form-control input-sm">
 													</div>
-													<div class="Validform_checktip"></div> 
+													<div class="Validform_checktip">每个用户可领取优惠券此数，0表示无限！</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-3 control-label">排序：</label>
@@ -150,16 +138,10 @@
 															id="couponDes" name="couponDes" class="form-control input-sm">
 														 </textarea>
 													</div>
-													<!-- <div class="Validform_checktip">请输入机构介绍！</div> -->
+													<!-- <div class="Validform_checktip">请输入优惠券描述！</div> -->
 												</div>
-												<!-- <div  class="dropzone form-group" id="couponShareImg">
-													<label class="col-md-3 control-label">分享图片：</label>
-													<div class="col-md-4">
-														<img alt="" id="couponImg" src="">
-											         </div>
-										        </div> -->
-										        <div  class="dropzone" id="couponShareImg">
-										                                   分享图片：<input type="hidden" name="couponShareImg" value="">
+												<div  class="dropzone form-group" id=couponShareImg>
+													  介绍图片：<input type="hidden" name="couponShareImg" value="">
 										            <div class="fallback">
 										                <input name="file" type="file" multiple />
 										            </div>

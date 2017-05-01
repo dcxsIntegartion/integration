@@ -14,21 +14,33 @@ import com.github.pagehelper.PageHelper;
 import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
-import team.union.business.coupon.dao.BisCouponDao;
-import team.union.business.coupon.model.BisCoupon;
-import team.union.business.coupon.service.IBisCouponService;
+import team.union.business.coupon.dao.BisCouponUserDao;
+import team.union.business.coupon.model.BisCouponUser;
+import team.union.business.coupon.service.IBisCouponUserService;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
-public class BisCouponServiceImpl implements IBisCouponService {
+public class BisCouponUserServiceImpl implements IBisCouponUserService {
 
 	@Autowired
-	private BisCouponDao couponDao;
+	private BisCouponUserDao couponUserDao;
 	@Override
-	public BsgridVo<HashMap<String, Object>> paging(
-			Map<String, Object> parm, int curPage, int pageSize) {
+	public BsgridVo<HashMap<String, Object>> paging(Map<String, Object> parm,
+			int curPage, int pageSize) {
 		PageHelper.startPage(curPage, pageSize);
-		List<HashMap<String, Object>> data =  couponDao.selMap(parm);
+		List<HashMap<String, Object>> data =  couponUserDao.selMap(parm);
+		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;
+		BsgridVo<HashMap<String, Object>> bsgridVo = new BsgridVo<HashMap<String, Object>>();
+		bsgridVo.setCurPage(curPage);
+		bsgridVo.setData(pageData);
+		bsgridVo.setSuccess(true);
+		bsgridVo.setTotalRows(pageData.getTotal());
+		return bsgridVo;
+	}
+	@Override
+	public BsgridVo<HashMap<String, Object>> usePaging(Map<String, Object> parm, int curPage, int pageSize) {
+		PageHelper.startPage(curPage, pageSize);
+		List<HashMap<String, Object>> data =  couponUserDao.selUseMap(parm);
 		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;
 		BsgridVo<HashMap<String, Object>> bsgridVo = new BsgridVo<HashMap<String, Object>>();
 		bsgridVo.setCurPage(curPage);
@@ -40,34 +52,27 @@ public class BisCouponServiceImpl implements IBisCouponService {
 
 	@Override
 	public List<HashMap<String, Object>> selMapLst(Map<String, Object> parm) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<BisCoupon> selVoLst(Map<String, Object> parm) {
+	public List<BisCouponUser> selVoLst(Map<String, Object> parm) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Result selById(Long Id) {
-		Result result = new Result();
-		BisCoupon vo = couponDao.selectByPrimaryKey(Id);
-		if(vo!=null){
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setData(vo);
-		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-		}
-		return result;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Result add(BisCoupon vo) {
+	public Result add(BisCouponUser vo) {
 		Result result = new Result();
-		if(null!=vo && null == vo.getCouponId()){
-			couponDao.insert(vo);
+		if(null!=vo ){
+			couponUserDao.insert(vo);
 			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
 			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
 		}else{
@@ -78,11 +83,11 @@ public class BisCouponServiceImpl implements IBisCouponService {
 	}
 
 	@Override
-	public Result update(BisCoupon vo) {
+	public Result update(BisCouponUser vo) {
 		Result result = new Result();
 		if(null!=vo &&
-			null != couponDao.selectByPrimaryKey(vo.getCouponId())){
-			couponDao.updateByPrimaryKeySelective(vo);
+			null != couponUserDao.selectByPrimaryKey(vo.getPonUserId())){
+			couponUserDao.updateByPrimaryKeySelective(vo);
 			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
 			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
 		}else{
@@ -93,38 +98,15 @@ public class BisCouponServiceImpl implements IBisCouponService {
 	}
 
 	@Override
-	public Result updateBySelective(BisCoupon vo) {
+	public Result updateBySelective(BisCouponUser vo) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Result delById(Long id) {
-		Result result = new Result();
-		if (null != id) {
-			BisCoupon coupon = new BisCoupon();
-			coupon.setCouponId(id);
-			coupon.setCouponIsEnable(1);
-			couponDao.updateByPrimaryKeySelective(coupon);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-		}
-		return result;
-	}
-
-	@Override
-	public String getImgUrl(String objId) {
-		return couponDao.getImgUrl(objId);
-	}
-
-	@Override
-	public Result batchBan(Integer couponIsBan) {
-		Result result = new Result();
-		if(null != couponIsBan){
-			couponDao.batchBan(couponIsBan);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-		}
-		return result;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

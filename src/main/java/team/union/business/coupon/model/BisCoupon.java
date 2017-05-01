@@ -19,8 +19,9 @@ public class BisCoupon implements Serializable{
 	* @Fields serialVersionUID : TODO 
 	*/
 	private static final long serialVersionUID = 1L;
-	private long couponId;
-	private float couponMoney;			//优惠券金额
+	private Long couponId;
+	private String couponName;			//优惠券名称
+	private Integer couponMoney;		//优惠券金额
 	private Integer couponBaseLine;		//最低消费金额
 	private Date couponValidityStart;	//有效开始时间
 	private Date couponValidityEnd;		//有效结束时间
@@ -30,25 +31,32 @@ public class BisCoupon implements Serializable{
 	private Integer couponEveryNum;		//每次可领取数量
 	private Integer couponSort;			//排序
 	private String couponDes;			//优惠券描述
-	private Integer couponType;			//类型
-	private String couponShareDes;		//分享描述
-	private String couponShareTitle;	//分享标题
 	private String couponShareImg;		//分享图片
-	private String couponName;			//优惠券名称
+	private String couponShareTitle;	//分享标题
+	private String couponShareDes;		//分享描述
 	private Integer couponStatus;		//状态
 	private Integer couponRemainNum;	//剩余数量
+	private Date couponCreateTime;		//创建时间
+	private Integer couponType;			//类型
+	private Integer couponIsEnable;		//是否删除，1：删除，0：正常，默认0
+	private Integer couponIsBan;		//是否启用，1：禁用，0：启用，默认0
 	
-	
-	public long getCouponId() {
+	public Long getCouponId() {
 		return couponId;
 	}
-	public void setCouponId(long couponId) {
+	public void setCouponId(Long couponId) {
 		this.couponId = couponId;
 	}
-	public float getCouponMoney() {
+	public String getCouponName() {
+		return couponName;
+	}
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+	public Integer getCouponMoney() {
 		return couponMoney;
 	}
-	public void setCouponMoney(float couponMoney) {
+	public void setCouponMoney(Integer couponMoney) {
 		this.couponMoney = couponMoney;
 	}
 	public Integer getCouponBaseLine() {
@@ -105,17 +113,11 @@ public class BisCoupon implements Serializable{
 	public void setCouponDes(String couponDes) {
 		this.couponDes = couponDes;
 	}
-	public Integer getCouponType() {
-		return couponType;
+	public String getCouponShareImg() {
+		return couponShareImg;
 	}
-	public void setCouponType(Integer couponType) {
-		this.couponType = couponType;
-	}
-	public String getCouponShareDes() {
-		return couponShareDes;
-	}
-	public void setCouponShareDes(String couponShareDes) {
-		this.couponShareDes = couponShareDes;
+	public void setCouponShareImg(String couponShareImg) {
+		this.couponShareImg = couponShareImg;
 	}
 	public String getCouponShareTitle() {
 		return couponShareTitle;
@@ -123,17 +125,11 @@ public class BisCoupon implements Serializable{
 	public void setCouponShareTitle(String couponShareTitle) {
 		this.couponShareTitle = couponShareTitle;
 	}
-	public String getCouponShareImg() {
-		return couponShareImg;
+	public String getCouponShareDes() {
+		return couponShareDes;
 	}
-	public void setCouponShareImg(String couponShareImg) {
-		this.couponShareImg = couponShareImg;
-	}
-	public String getCouponName() {
-		return couponName;
-	}
-	public void setCouponName(String couponName) {
-		this.couponName = couponName;
+	public void setCouponShareDes(String couponShareDes) {
+		this.couponShareDes = couponShareDes;
 	}
 	public Integer getCouponStatus() {
 		return couponStatus;
@@ -146,6 +142,30 @@ public class BisCoupon implements Serializable{
 	}
 	public void setCouponRemainNum(Integer couponRemainNum) {
 		this.couponRemainNum = couponRemainNum;
-	} 
+	}
+	public Date getCouponCreateTime() {
+		return couponCreateTime;
+	}
+	public void setCouponCreateTime(Date couponCreateTime) {
+		this.couponCreateTime = couponCreateTime;
+	}
+	public Integer getCouponType() {
+		return couponType;
+	}
+	public void setCouponType(Integer couponType) {
+		this.couponType = couponType;
+	}
+	public Integer getCouponIsEnable() {
+		return couponIsEnable;
+	}
+	public void setCouponIsEnable(Integer couponIsEnable) {
+		this.couponIsEnable = couponIsEnable;
+	}
+	public Integer getCouponIsBan() {
+		return couponIsBan;
+	}
+	public void setCouponIsBan(Integer couponIsBan) {
+		this.couponIsBan = couponIsBan;
+	}
 	
 }

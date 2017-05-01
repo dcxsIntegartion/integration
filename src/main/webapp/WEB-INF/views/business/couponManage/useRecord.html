@@ -2,7 +2,7 @@
 <html class="no-js">
 	<head>
 	<meta charset="UTF-8">
-	<title>优惠券管理</title>
+	<title>优惠券领取记录</title>
 	<meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -10,23 +10,23 @@
     <meta name="renderer" content="webkit">
     <!-- common start -->
     <link rel="stylesheet" href="../../new_ui/styles/vendor.css">
-    <!-- page plugin -->
     <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
-    <!-- page plugin end -->
     <link rel="stylesheet" href="../../new_ui/styles/main.css">
+    <link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
     <script src="../../new_ui/scripts/vendor.js"></script>
-    <!-- page plugin -->
     <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
     <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
-    <!-- page plugin end -->
     <script src="../../new_ui/scripts/main.js"></script>
-    <!-- page plugin end -->
 	<script src="../../new_ui/scripts/jquery.placeholder.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="../../support/web_support.js"></script>
 	<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+	<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
     <!-- common end -->
     
     <!-- page js -->
-    <script src="js/index.js"></script>
+    <script src="js/useRecord.js"></script>
 	</head>
 	<body>
 		<div class="wrapper wrapper-content">
@@ -34,14 +34,14 @@
 			<li>您的位置：</li>
 			<li><a href="/index.html">主页</a></li>
 			<li class="active">优惠券管理</li>
-			<li class="active">优惠券</li>
+			<li class="active">优惠券领取记录</li>
 		</ol>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
 						<h5>
-							<i class="fa fa-building-o"></i> 优惠券管理 /优惠券
+							<i class="fa fa-building-o"></i> 优惠券管理 /优惠券领取记录
 						</h5>
 						<div class="ibox-tools">
 							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -54,10 +54,20 @@
 							<form id="role_search_form" class="form-inline mbl">
 								<div class="form-body">
 									<div class="form-group">
-										<input id="couponName" name="couponName" type="text" class="form-control input-sm" placeholder="请输入优惠券名称">
+										<input id="ponUserId" name="ponUserId" type="hidden">
 									</div>
 									<div class="form-group">
-					                    <select class="form-control input-sm" placeholder="请选择优惠券状态" name="couponStatus">
+									    <div class="input-daterange input-group" id="datetime_01">
+									         <input type="text"  class="input-sm form-control date" name="startDate" placeholder="请输入开始日期"/>
+									         <span class="input-group-addon">到</span>
+									         <input type="text" class="input-sm form-control date" name="endDate" placeholder="请输入结束日期"/>
+									    </div>
+								     </div>
+								     <div class="form-group">
+					                    <input type="text" class="form-control input-sm" name="couponName" placeholder="优惠券名称">
+					                 </div>
+					                 <div class="form-group">
+					                    <select class="form-control input-sm" name="couponStatus">
 					                      <option value="" selected="selected">请选择优惠券状态</option>
 					                      <option value="1">已上线</option>
 					                      <option value="2">已过期</option>
@@ -65,7 +75,7 @@
 					                      <option value="4">未生效</option>
 					                    </select>
 					                  </div>
-					                  <div class="form-group">
+					                 <div class="form-group">
 										<button type="button" onclick="doSearch()"
 											class="btn btn-sm btn-primary">
 											<i class="fa fa-search"></i>搜索
@@ -78,12 +88,13 @@
 						<div class="grid_wrapper">
 							<table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
 				                  <tr>
-				                  	<th w_index="coupon_id" width="10%;" w_hidden="true">编号</th>
-				                    <th w_index="coupon_name" width="10%;">名称</th>
-				                    <th w_index="coupon_validity_start" width="10%;">有效期开始时间</th>
-				                    <th w_index="coupon_validity_end" width="10%;">有效期结束时间</th>
-				                    <th w_index="coupon_status" width="10%" w_render="fnStatus">状态</th>
-				                    <th w_render="operate" width="10%;">操作</th>
+				                  	<th w_index="pon_user_id" width="10%;" w_hidden="true">编号</th>
+				                    <th w_index="coupon_name" width="10%;">优惠券名称</th>
+				                    <th w_index="coupon_id" width="10%">优惠券编号</th>
+				                    <th w_index="user_name" width="10%;">领取人</th>
+				                    <th w_index="use_time" width="10%;">使用时间</th>
+				                    <th w_index="use_person" width="10%;">使用人</th>
+				                    <th w_index="coupon_status" width="10%;" w_render="fnStatus">优惠券状态</th>
 				                  </tr>
 			                </table>
 						</div>

@@ -19,4 +19,18 @@ public interface BisCouponDao extends IDao<BisCoupon> {
 	* @Create Date:   2017年4月27日
 	 */
 	public List<HashMap<String, Object>> selMap(Map<String, Object> parm);
+	
+	/**
+	 * 
+	* 方法名:          getImgUrl
+	* 方法功能描述:    根据objId获取图片路径
+	* @param objId
+	* @return  
+	* @return:        String
+	* @Author:        zh
+	* @Create Date:   2017年4月30日
+	 */
+	public String getImgUrl(String objId);
+	
+	public void batchBan(Integer couponIsBan);
 }

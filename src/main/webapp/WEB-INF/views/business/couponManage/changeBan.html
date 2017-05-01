@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+	<meta charset="UTF-8">
+	<title>优惠券启用</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <!-- common start -->
+    <link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+    <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+    <link rel="stylesheet" href="../../new_ui/styles/main.css">
+    <link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
+    <script src="../../new_ui/scripts/vendor.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+    <script src="../../new_ui/scripts/main.js"></script>
+	<script src="../../new_ui/scripts/jquery.placeholder.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="../../support/web_support.js"></script>
+	<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+	<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+    <!-- common end -->
+    
+    <!-- page js -->
+    <script src="js/changeEnable.js"></script>
+	</head>
+	<body>
+		<div class="wrapper wrapper-content">
+			 <ol class="breadcrumb">
+			<li>您的位置：</li>
+			<li><a href="/index.html">主页</a></li>
+			<li class="active">优惠券管理</li>
+			<li class="active">优惠券启用</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							<i class="fa fa-building-o"></i> 优惠券管理 /优惠券启用
+						</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="btnArea">
+							<form id="role_search_form" class="form-horizontal">
+								<div class="form-body">
+									<div class="form-group">
+										<label class="col-md-3 control-label">否启用优惠券:</label>
+										<div class="col-md-5">
+											<div class="radio-list">
+												<label class="radio-inline">
+													<input type="radio" value="0" id="first" name="couponIsBan" class="i-checks"/>启用
+												</label>
+												<label class="radio-inline">
+													<input type="radio" value="1" id="second" name="couponIsBan" class="i-checks" />关闭 
+												</label>
+											</div>
+										</div>
+										<div class="Validform_checktip"></div>
+									</div>
+					                <div class="form-group">
+					                	<div class="col-md-5"></div>
+					                	<div class="col-md-5">
+											<button type="button" onclick="doSearch()"
+												class="btn btn-sm btn-primary">
+												<i class="fa fa-search"></i>保存
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>

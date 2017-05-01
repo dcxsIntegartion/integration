@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.union.business.coupon.dao.BisCouponUserDao">
+
+	<!-- 条件分页查询 领取记录-->
+	<select id="selMap" resultType="hashmap" parameterType="hashmap">
+      select 
+      	cu.pon_user_id,
+      	cu.recevie_time,
+      	c.coupon_id,
+      	c.coupon_name,
+      	c.coupon_status,
+      	u.user_name,
+      	uk.user_name use_person
+      from 
+      	bis_coupon c,
+      	bis_coupon_user cu,
+      	sys_users u,
+      	sys_users uk
+      <where>
+      	cu.coupon_id = c.coupon_id
+      	and 
+      	cu.user_id = u.user_id
+      	and
+      	cu.use_person_id = uk.user_id
+      	and
+      	c.coupon_isEnable = 0
+      	<if test="startDate != null and startDate != ''">
+      		<![CDATA[
+      		and cu.recevie_time >= #{startDate,jdbcType=TIMESTAMP}
+      		]]> 
+      	</if>
+      	<if test="endDate != null and endDate != ''">
+      		<![CDATA[
+      		and cu.recevie_time <= #{endDate,jdbcType=TIMESTAMP}
+      		]]> 
+      	</if>
+      	<if test="couponName != null and couponName != ''">
+      		and c.coupon_name like CONCAT('%',#{couponName,jdbcType=VARCHAR},'%')
+      	</if>
+      	<if test="couponStatus != null and couponStatus != ''">
+      		and c.coupon_status = #{couponStatus,jdbcType=INTEGER}
+      	</if>
+      </where>
+      order by
+      		cu.recevie_time desc,c.coupon_sort desc
+  	</select>
+  	<!-- 分页查询使用记录 -->
+  	<select id="selUseMap" resultType="hashmap" parameterType="hashmap">
+      select 
+      	cu.pon_user_id,
+      	cu.recevie_time,
+      	cu.use_time,
+      	c.coupon_id,
+      	c.coupon_name,
+      	c.coupon_status,
+      	u.user_name,
+      	uk.user_name use_person
+      from 
+      	bis_coupon c,
+      	bis_coupon_user cu,
+      	sys_users u,
+      	sys_users uk
+      <where>
+      	cu.coupon_id = c.coupon_id
+      	and 
+      	cu.user_id = u.user_id
+      	and
+      	cu.use_person_id = uk.user_id
+      	and
+      	cu.use_time is not null
+      	and
+      	c.coupon_isEnable = 0
+      	<if test="startDate != null and startDate != ''">
+      		<![CDATA[
+      		and cu.use_time >= #{startDate,jdbcType=TIMESTAMP}
+      		]]> 
+      	</if>
+      	<if test="endDate != null and endDate != ''">
+      		<![CDATA[
+      		and cu.use_time <= #{endDate,jdbcType=TIMESTAMP}
+      		]]> 
+      	</if>
+      	<if test="couponName != null and couponName != ''">
+      		and c.coupon_name like CONCAT('%',#{couponName,jdbcType=VARCHAR},'%')
+      	</if>
+      	<if test="couponStatus != null and couponStatus != ''">
+      		and c.coupon_status = #{couponStatus,jdbcType=INTEGER}
+      	</if>
+      </where>
+      order by
+      		cu.recevie_time desc,c.coupon_sort desc
+  	</select>
+  	<!-- 新增 -->
+  	<insert id="insert" parameterType="team.union.business.coupon.model.BisCouponUser" >
+	    insert into bis_coupon_user (pon_user_id, user_id, coupon_id, 
+	      recevie_time)
+	    values 
+	    (#{ponUserId,jdbcType=BIGINT}, 
+	    #{userId,jdbcType=BIGINT}, 
+	    #{couponId,jdbcType=BIGINT}, 
+	      NOW())
+	  </insert>
+	  
+	 <update id="updateByPrimaryKeySelective" parameterType="team.union.business.coupon.model.BisCouponUser" >
+	    update bis_coupon_user
+	    <set >
+	      <if test="useTime != null and useTime != ''" >
+	        use_time = #{useTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="orderId != null and orderId != ''" >
+	        order_id = #{orderId,jdbcType=BIGINT},
+	      </if>
+	      <if test="usePersonId != null and usePersonId != ''" >
+	        use_person_id = #{usePersonId,jdbcType=BIGINT},
+	      </if>
+	    </set>
+	    where pon_user_id = #{ponUserId,jdbcType=BIGINT}
+	 </update>
+</mapper>

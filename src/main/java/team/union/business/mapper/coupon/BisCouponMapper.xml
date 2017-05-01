@@ -4,10 +4,47 @@
 	<resultMap type="team.union.business.coupon.model.BisCoupon" id="BaseResultMap">
 		<id column="coupon_id" property="couponId" jdbcType="BIGINT" />
     	<result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+    	<result column="coupon_money" property="couponMoney" jdbcType="INTEGER" />
+    	<result column="coupon_base_line" property="couponBaseLine" jdbcType="INTEGER" />
+    	<result column="coupon_validity_start" property="couponValidityStart" jdbcType="TIMESTAMP" />
+    	<result column="coupon_validity_end" property="couponValidityEnd" jdbcType="TIMESTAMP" />
+    	<result column="coupon_receive_end" property="couponReceiveEnd" jdbcType="TIMESTAMP" />
+    	<result column="coupon_create_time" property="couponCreateTime" jdbcType="TIMESTAMP" />
+    	<result column="coupon_grant_num" property="couponGrantNum" jdbcType="INTEGER" />
+    	<result column="coupon_receive_times" property="couponReceiveTimes" jdbcType="INTEGER" />
+    	<result column="coupon_every_num" property="couponEveryNum" jdbcType="INTEGER" />
+    	<result column="coupon_sort" property="couponSort" jdbcType="INTEGER" />
+    	<result column="coupon_des" property="couponDes" jdbcType="VARCHAR" />
+    	<result column="coupon_type" property="couponType" jdbcType="INTEGER" />
+    	<result column="coupon_share_des" property="couponShareDes" jdbcType="VARCHAR" />
+    	<result column="coupon_share_title" property="couponShareTitle" jdbcType="VARCHAR" />
+    	<result column="coupon_share_img" property="couponShareImg" jdbcType="VARCHAR" />
+    	<result column="coupon_status" property="couponStatus" jdbcType="INTEGER" />
+    	<result column="coupon_remain_num" property="couponRemainNum" jdbcType="INTEGER" />
+    	
+    	<result column="coupon_isEnable" property="couponIsEnable" jdbcType="INTEGER" />
+    	<result column="coupon_isBan" property="couponIsBan" jdbcType="INTEGER" />
 	</resultMap>
+	<sql id="Base_Column_List" >
+	    coupon_id,coupon_name,coupon_money,coupon_base_line,coupon_validity_start,coupon_validity_end,
+	    coupon_receive_end,coupon_create_time,coupon_grant_num,coupon_receive_times,coupon_every_num,
+	    coupon_sort,coupon_des,coupon_type,coupon_share_des,coupon_share_title,coupon_share_img,coupon_status,
+	    coupon_remain_num,coupon_isEnable,coupon_isBan
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from bis_coupon
+	    where coupon_id = #{id,jdbcType=BIGINT}
+	  </select>
+	<select id="getImgUrl" resultType="java.lang.String" parameterType="java.lang.String">
+	 	select u.url from nonbiz_upload u
+	 		where u.obj_id = #{objId,jdbcType=VARCHAR}
+	</select>
 	<select id="selMap" resultType="hashmap" parameterType="hashmap">
       select * from bis_coupon
       <where>
+      	coupon_isEnable = 0
       	<if test="couponName != null and couponName != ''">
       		and coupon_name like CONCAT('%',#{couponName,jdbcType=VARCHAR},'%')
       	</if>
@@ -15,5 +52,102 @@
       		and coupon_status = #{couponStatus,jdbcType=INTEGER}
       	</if>
       </where>
+      order by
+	    	coupon_sort desc,coupon_create_time desc
   	</select>
+  	<update id="updateByPrimaryKeySelective" parameterType="team.union.business.coupon.model.BisCoupon" >
+    update bis_coupon
+    <set >
+      <if test="couponName != null and couponName != ''" >
+        coupon_name = #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponBaseLine != null and couponBaseLine != ''" >
+        coupon_base_line = #{couponBaseLine,jdbcType=INTEGER},
+      </if>
+      <if test="couponMoney != null and couponMoney != ''" >
+        coupon_money = #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="couponValidityStart != null and couponValidityStart != ''" >
+        coupon_validity_start = #{couponValidityStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponValidityEnd != null and couponValidityEnd != ''" >
+        coupon_validity_end = #{couponValidityEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponReceiveEnd != null and couponReceiveEnd != ''" >
+        coupon_receive_end = #{couponReceiveEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponCreateTime != null and couponCreateTime != ''" >
+        coupon_create_time = #{couponCreateTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="couponGrantNum != null and couponGrantNum != ''" >
+        coupon_grant_num = #{couponGrantNum,jdbcType=INTEGER},
+      </if>
+      <if test="couponReceiveTimes != null and couponReceiveTimes != ''" >
+        coupon_receive_times = #{couponReceiveTimes,jdbcType=INTEGER},
+      </if>
+      <if test="couponEveryNum != null and couponEveryNum != ''" >
+        coupon_every_num = #{couponEveryNum,jdbcType=INTEGER},
+      </if>
+      <if test="couponSort != null and couponSort != ''" >
+        coupon_sort = #{couponSort,jdbcType=INTEGER},
+      </if>
+      
+      <if test="couponDes != null and couponDes != ''" >
+        coupon_des = #{couponDes,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null and couponType != ''" >
+        coupon_type = #{couponType,jdbcType=INTEGER},
+      </if>
+      <if test="couponShareDes != null and couponShareDes != ''" >
+        coupon_share_des = #{couponShareDes,jdbcType=VARCHAR},
+      </if>
+      <if test="couponShareTitle != null and couponShareTitle != ''" >
+        coupon_share_title = #{couponShareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="couponShareImg != null and couponShareImg != ''" >
+        coupon_share_img = #{couponShareImg,jdbcType=VARCHAR},
+      </if>
+      <if test="couponStatus != null and couponStatus != ''" >
+        coupon_status = #{couponStatus,jdbcType=INTEGER},
+      </if>
+      <if test="couponRemainNum != null and couponRemainNum != ''" >
+        coupon_remain_num = #{couponRemainNum,jdbcType=INTEGER},
+      </if>
+      
+       <if test="couponIsEnable != null and couponIsEnable != ''" >
+        coupon_isEnable = #{couponIsEnable,jdbcType=INTEGER},
+      </if>
+       <if test="couponIsBan != null and couponIsBan != ''" >
+        coupon_isBan = #{couponIsBan,jdbcType=INTEGER},
+      </if>
+    </set>
+    where coupon_id = #{couponId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!-- 禁用全部优惠券 -->
+  <update id="batchBan" parameterType="java.lang.Integer">
+  		update bis_coupon set coupon_isBan = #{couponIsBan,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insert" parameterType="team.union.business.coupon.model.BisCoupon" >
+    insert into bis_coupon (coupon_id, coupon_name, coupon_money, 
+      coupon_base_line, coupon_validity_start, coupon_validity_end, 
+      coupon_receive_end, coupon_create_time, coupon_grant_num, 
+      coupon_receive_times, coupon_every_num, coupon_sort,
+      coupon_des,coupon_type,coupon_share_des,
+      coupon_share_title,coupon_share_img,coupon_status,
+      coupon_remain_num,coupon_isEnable,coupon_isBan
+      )
+    values (#{couponId,jdbcType=BIGINT}, #{couponName,jdbcType=VARCHAR}, #{couponMoney,jdbcType=INTEGER}, 
+      #{couponBaseLine,jdbcType=INTEGER}, #{couponValidityStart,jdbcType=TIMESTAMP}, #{couponValidityEnd,jdbcType=TIMESTAMP}, 
+      #{couponReceiveEnd,jdbcType=TIMESTAMP}, NOW(), #{couponGrantNum,jdbcType=INTEGER}, 
+      #{couponReceiveTimes,jdbcType=INTEGER}, #{couponEveryNum,jdbcType=INTEGER}, #{couponSort,jdbcType=INTEGER},
+      #{couponDes,jdbcType=VARCHAR},#{couponType,jdbcType=INTEGER},#{couponShareDes,jdbcType=VARCHAR},
+      #{couponShareTitle,jdbcType=VARCHAR},
+      #{couponShareImg,jdbcType=VARCHAR},
+      #{couponStatus,jdbcType=INTEGER},#{couponRemainNum,jdbcType=INTEGER},
+      0,0
+      )
+  </insert>
 </mapper>

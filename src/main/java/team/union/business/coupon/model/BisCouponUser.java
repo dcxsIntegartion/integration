@@ -19,30 +19,31 @@ public class BisCouponUser implements Serializable{
 	* @Fields serialVersionUID : TODO 
 	*/
 	private static final long serialVersionUID = 1L;
-	private String ponUserId;
-	private long userId;		//用户ID
-	private long couponId;		//优惠券ID
+	private Long ponUserId;
+	private Long userId;		//用户ID
+	private Long couponId;		//优惠券ID
 	private Date receiveTime;	//领取时间
 	private Date useTime;		//使用时间
-	private long orderId;   	//使用的订单id
+	private Long orderId;   	//使用的订单id
+	private Long usePersonId;	//使用者id
 	
 	
-	public String getPonUserId() {
+	public Long getPonUserId() {
 		return ponUserId;
 	}
-	public void setPonUserId(String ponUserId) {
+	public void setPonUserId(Long ponUserId) {
 		this.ponUserId = ponUserId;
 	}
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	public long getCouponId() {
+	public Long getCouponId() {
 		return couponId;
 	}
-	public void setCouponId(long couponId) {
+	public void setCouponId(Long couponId) {
 		this.couponId = couponId;
 	}
 	public Date getReceiveTime() {
@@ -57,10 +58,16 @@ public class BisCouponUser implements Serializable{
 	public void setUseTime(Date useTime) {
 		this.useTime = useTime;
 	}
-	public long getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+	public Long getUserPersonId() {
+		return usePersonId;
+	}
+	public void setUserPersonId(Long usePersonId) {
+		this.usePersonId = usePersonId;
 	}
 }
