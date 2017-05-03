@@ -27,6 +27,7 @@ public class BisCouponServiceImpl implements IBisCouponService {
 	@Override
 	public BsgridVo<HashMap<String, Object>> paging(
 			Map<String, Object> parm, int curPage, int pageSize) {
+		this.refreshCoupon();
 		PageHelper.startPage(curPage, pageSize);
 		List<HashMap<String, Object>> data =  couponDao.selMap(parm);
 		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;
@@ -125,6 +126,12 @@ public class BisCouponServiceImpl implements IBisCouponService {
 			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
 		}
 		return result;
+	}
+
+	@Override
+	public void refreshCoupon() {
+		couponDao.updateCouponOnline();
+		couponDao.updateCouponState();
 	}
 
 }

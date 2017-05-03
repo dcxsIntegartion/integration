@@ -32,5 +32,34 @@ public interface BisCouponDao extends IDao<BisCoupon> {
 	 */
 	public String getImgUrl(String objId);
 	
+	/**
+	 * 
+	* 方法名:  batchBan
+	* 方法功能描述:    修改全部优惠券是否启用
+	* @param couponIsBan
+	* @return void    
+	* @Author:   zh
+	* @Create Date:   2017年5月3日
+	 */
 	public void batchBan(Integer couponIsBan);
+	
+	/**
+	 * 
+	* 方法名:  updateCouponState
+	* 方法功能描述:    将过期优惠券状态改变
+	* @return void    
+	* @Author:   zh
+	* @Create Date:   2017年5月3日
+	 */
+	public void updateCouponState();
+	
+	/**
+	 * 
+	* 方法名:  updateCouponOnline
+	* 方法功能描述:   将达到上线条件的优惠券改为上线条件
+	* @return void    
+	* @Author:   zh
+	* @Create Date:   2017年5月3日
+	 */
+	public void updateCouponOnline();
 }

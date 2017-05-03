@@ -32,8 +32,8 @@ $(function(){
 	            success: function(data){
 	            		if(data.state==1){
 	            			layer.msg("添加优惠券成功！");
-//	            			onunload_state = false;
-//	            			window.location.href="index.html";
+	            			//返回上一页
+		            		window.history.back(-1);
 	            		}else{
 	            			layer.msg(data.msg);
 	            		}

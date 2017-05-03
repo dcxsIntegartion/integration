@@ -16,6 +16,7 @@ import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.coupon.dao.BisCouponUserDao;
 import team.union.business.coupon.model.BisCouponUser;
+import team.union.business.coupon.service.IBisCouponService;
 import team.union.business.coupon.service.IBisCouponUserService;
 
 @Repository
@@ -24,9 +25,12 @@ public class BisCouponUserServiceImpl implements IBisCouponUserService {
 
 	@Autowired
 	private BisCouponUserDao couponUserDao;
+	@Autowired
+	private IBisCouponService couponService;
 	@Override
 	public BsgridVo<HashMap<String, Object>> paging(Map<String, Object> parm,
 			int curPage, int pageSize) {
+		couponService.refreshCoupon();
 		PageHelper.startPage(curPage, pageSize);
 		List<HashMap<String, Object>> data =  couponUserDao.selMap(parm);
 		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;
@@ -39,6 +43,7 @@ public class BisCouponUserServiceImpl implements IBisCouponUserService {
 	}
 	@Override
 	public BsgridVo<HashMap<String, Object>> usePaging(Map<String, Object> parm, int curPage, int pageSize) {
+		couponService.refreshCoupon();
 		PageHelper.startPage(curPage, pageSize);
 		List<HashMap<String, Object>> data =  couponUserDao.selUseMap(parm);
 		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;
