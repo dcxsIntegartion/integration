@@ -8,6 +8,28 @@ var modelUtils = new ModelUtils(field);
 /** 提交按钮 **/
 var submitHtml = $('#saveBtn').html();
 $(function(){
+	/** 时间插件 **/
+	$('#activityStartTime')
+	 .datetimepicker({
+	   clearBtn: true,
+	   keyboardNavigation: false,
+	   language: "zh-CN",
+	   autoclose: true,
+	   todayHighlight: true,
+	   format: 'yyyy-mm-dd hh:ii'
+	 })
+	 .on('changeDate', function(ev){
+	   var value = $(this).val();
+	   $('#couponValidityEnd').datetimepicker('setStartDate', value);
+	 });
+   $('#activityEndTime').datetimepicker({
+     clearBtn: true,
+     keyboardNavigation: false,
+     language: "zh-CN",
+     autoclose: true,
+     todayHighlight: true,
+     format: 'yyyy-mm-dd hh:ii'
+   });	
 	/** 查、改、增页面控制 **/
 	viewLoadControlle();
 	var org_form = $('#viewForm').Validform({
@@ -81,4 +103,10 @@ function viewLoadControlle(){
 			}
 	    });
 	}
+	
+	
+	
+	//商品选择步骤：
+	//1·每选择一个弹出输入数量和价格框
+	//2.每选择一次将商品id传入后台刷新列表，将选中的商品、价格、数量显示在选中列表
 }

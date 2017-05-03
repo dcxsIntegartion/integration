@@ -45,6 +45,19 @@ function operate(record, rowIndex, colIndex, options) {
 	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-danger btn-xs mhx" onclick="del(\'' + id + '\');">删除</a>';
 	return op_html;
 };
+/** 活动状态 **/
+function activity_status(record, rowIndex, colIndex, options) {
+	var op_html ='';
+	var activity_status = record.activity_status;
+	if (activity_status == 1) {
+		op_html+= "<span>开启</span>"
+	}else if (activity_status == 2) {
+		op_html+= "<span>关闭</span>"
+	}else if (activity_status == 3) {
+	op_html+= "<span>已结束</span>"
+	}
+	return op_html;
+};
 
 
 /** 查询 **/
