@@ -41,11 +41,11 @@ public class WeChatTask {
     		   			 .sendGet(WE_CHAT.ticketUrl.getValue(), params);
        //获取到js-SDK的ticket并赋值保存
        String jsapi_ticket = (String) JsonUtil.gsonToMap(jsticket.toString()).get("ticket");
-       WE_CHAT.access_token.setValue(jsapi_ticket);
-        
+       WE_CHAT.jsapi_ticket.setValue(jsapi_ticket);
+       WE_CHAT.timestamp.setValue(Long.toString(System.currentTimeMillis() / 1000));
        System.out.println("jsapi_ticket================================================" + jsapi_ticket);
        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"token为=============================="+access_token);
-
+       
    }
 
 }

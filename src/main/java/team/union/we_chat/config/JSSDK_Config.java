@@ -1,6 +1,5 @@
 package team.union.we_chat.config;
 import java.security.MessageDigest;
-import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.UUID;
@@ -23,23 +22,22 @@ public class JSSDK_Config {
     */
    public static HashMap<String, String> jsSDK_Sign(String url) throws Exception {
        String nonce_str = create_nonce_str();
-       String timestamp= ""+new Date().getTime();
        String jsapi_ticket=WE_CHAT.jsapi_ticket.getValue();
        // 注意这里参数名必须全部小写，且必须有序
        String  string1 = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonce_str
-               + "&timestamp=" + timestamp  + "&url=" + url;
+               + "&timestamp=" + WE_CHAT.timestamp.getValue()  + "&url=" + url;
        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
        crypt.reset();
        crypt.update(string1.getBytes("UTF-8"));
        String signature = byteToHex(crypt.digest());
        HashMap<String, String> jssdk=new HashMap<String, String>();
        jssdk.put("appId",WE_CHAT.Appid.getValue());
-       jssdk.put("timestamp", timestamp);
+       jssdk.put("timestamp", WE_CHAT.timestamp.getValue());
        jssdk.put("nonceStr", nonce_str);
        jssdk.put("signature", signature);
        return jssdk;
    }
-    
+  
    private static String byteToHex(final byte[] hash) {
        Formatter formatter = new Formatter();
        for (byte b : hash) {
