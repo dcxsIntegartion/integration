@@ -107,18 +107,20 @@
 </div>    
 </div>    
 </body>    
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript">
     function jssdk() {
+    	var url = location.href.split('#')[0];
+    	alert(url);
+    	alert(url.split('?')[0]+"?"+encodeURIComponent(url.split('?')[1]));
         $.ajax({
-            url : "http://integration.ngrok.cc/integration/wechat/config/jssdk",
+            url : "/integration/wechat/config/jssdk",
             type : 'post',
-            //dataType : 'json',
-            //contentType : "application/x-www-form-urlencoded; charset=utf-8",
+            contentType : "application/x-www-form-urlencoded; charset=utf-8",
             data : {
-                'url' : location.href.split('#')[0]
+                'url' : location.href
+          		//url.split('?')[0]+"?"+encodeURIComponent(url.split('?')[1])
             },
             success : function(data) {
                 wx.config({
@@ -151,12 +153,11 @@
         var reg = /MicroMessenger\/[5-9]/i;
         return reg.test(ua);
     }
- 
     window.onload = function() {
-        //     if (isWeiXin5() == false) {
-        //           alert("您的微信版本低于5.0，无法使用微信支付功能，请先升级！");
-        //         }
-        jssdk();
+	            if (isWeiXin5() == false) {
+	                  alert("您的微信版本低于5.0，无法使用微信支付功能，请先升级！");
+	                }
+    jssdk();
     };
 </script>
 <script src="js/demo.js"> </script>    
