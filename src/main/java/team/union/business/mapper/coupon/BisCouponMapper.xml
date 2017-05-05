@@ -124,6 +124,26 @@
     where coupon_id = #{couponId,jdbcType=BIGINT}
   </update>
   
+  <!-- 将过期优惠券状态改变 -->
+  <update id="updateCouponState">
+  	<![CDATA[
+  	update bis_coupon set coupon_status = 2
+  	where	
+  		coupon_status not in(2,3)
+  		and coupon_validity_end < NOW()
+  	]]> 
+  </update>
+  
+   <!-- 将满足条件的优惠券上线 -->
+  <update id="updateCouponOnline">
+  	<![CDATA[
+  	update bis_coupon set coupon_status = 1
+  	where	
+  		coupon_status = 4
+  		and coupon_validity_end > NOW()
+  		and coupon_validity_start <= NOW()
+  	]]> 
+  </update>
   
   <!-- 禁用全部优惠券 -->
   <update id="batchBan" parameterType="java.lang.Integer">

@@ -47,6 +47,14 @@ $(function() {
 	    gridObj.options.otherParames = $("#role_search_form").serializeArray();
 	    gridObj.page(1);
 	}
+	//新增
+	window.doCreate = function(){
+		window.location.href = "add.html";
+	}
+	//优惠券启用、禁用
+	window.doBan = function(){
+		window.location.href = "changeBan.html";
+	}
 	//表格
 	window.gridObj = $.fn.bsgrid.init('searchTable', {
 	    url : basePath+'/bis/coupon/queryAll',

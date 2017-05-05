@@ -31,7 +31,9 @@ function doSearch(){
         dataType: "json",
         success: function(data){
         		if(data.state==1){
-        			layer.msg("保存成功")
+        			layer.msg("保存成功");
+        			//返回上一页
+            		window.history.back(-1);
         		}else{
         			layer.msg(data.msg);
         		}

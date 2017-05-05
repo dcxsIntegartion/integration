@@ -35,78 +35,116 @@
 						<div class="ibox">
 							<div class="ibox-title">
 								<h5>
-									<i class="fa fa-sliders"></i> 机构管理
+									<i class="fa fa-sliders"></i> 特价活动
 								</h5>
 							</div>
 							<div class="ibox-content form">
 								<form id ="viewForm" class="form-horizontal">
 									<div class="modal-body">
 										<div class="form-body">
-											<input type="hidden" id="id" name="id" value="">
 											<div class="form-group">
-												<label class="col-md-3 control-label">机构名称：</label>
+												<label class="col-md-3 control-label">活动名称：</label>
 												<div class="col-md-4">
-													<input datatype="*2-25" maxlength="25" nullmsg="请输入用户姓名！"
-														errormsg="输入用户姓名，2~25字！" id="machName" name="machName" type="text" class="form-control input-sm">
+													<input datatype="*2-15" maxlength="15" nullmsg="请输入活动名称！"
+														errormsg="输入活动名称，2~15字！" id="activityName" name="activityName" type="text" class="form-control input-sm">
 												</div>
-												<div class="Validform_checktip">请输入机构名称，2~25字！</div>
+												<div class="Validform_checktip">请输入活动名称，2~15字！</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-3 control-label">机构地址：</label>
+												<label class="col-md-3 control-label">活动开始时间：</label>
 												<div class="col-md-4">
-													<input datatype="*2-40" maxlength="40" nullmsg="请输入用户电话，最多40个字！"
-														errormsg="请输入用户电话，最多40个字！" id="machDress" name="machDress" type="text" class="form-control input-sm">
-												</div>
-												<div class="Validform_checktip">请输入机构地址，11位！</div>
-											</div>
-											<div class="form-group">
-												<label class="col-md-3 control-label">管理区域选择：</label>
-												<div class="col-md-2">
-													<input type="hidden" id="areaCode"  name="areaCode" />
-													<select class="form-control input-sm" id="provienceCode" name="provienceCode">
-								                      <option value="">省</option>
-								                    </select>
-												</div>
-												<div class="col-md-2">
-													<select class="form-control input-sm" id="cityCode" name="cityCode">
-								                      <option value="">市</option>
-								                    </select>
-												</div>
-												<div class="col-md-2">
-													<select class="form-control input-sm" id="countryCode" name="countryCode">
-								                      <option value="">县/区</option>
-								                    </select>
+													<div class="input-daterange input-group" id="datetime_01">
+								                      <input required="required" type="text" class="input-sm form-control date" id="activityStartTime" name="activityStartTime" placeholder="点击选择开始日期"/>
+								                    </div>
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-3 control-label">机构经度：</label>
+												<label class="col-md-3 control-label">活动结束时间：</label>
 												<div class="col-md-4">
-													<input  maxlength="8" id="machLng" name="machLng" type="text" class="form-control input-sm">
+													<div class="input-daterange input-group" id="datetime_01">
+								                      <input required="required" type="text" class="input-sm form-control date" id="activityEndTime" name="activityEndTime" placeholder="点击选择开始日期"/>
+								                    </div>
 												</div>
-												<div class="Validform_checktip">请输入机构经度！</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-3 control-label">机构纬度：</label>
+												<label class="col-md-3 control-label">活动店铺：</label>
 												<div class="col-md-4">
-													<input  maxlength="8" id="machLat" name="machLat" type="text" class="form-control input-sm">
+													<input  nullmsg="请选择活动店铺！"
+														errormsg="请选择活动店铺！" id="activityStoreName" name="activityStoreName" type="text" class="form-control input-sm">
+														<input type="hidden" id="activityStoreId" name="activityStoreId" value="">
 												</div>
-												<div class="Validform_checktip">请输入机构纬度！</div>
+												<div class="Validform_checktip">请选择活动店铺！</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-3 control-label">机构介绍：</label>
+												<label class="col-md-3 control-label">活动说明：</label>
 												<div class="col-md-4">
-													<textarea datatype="*0-200" maxlength="200" 
-														errormsg="最多输入200个字" id="machIndro" name="machIndro" class="form-control input-sm">
-													 </textarea>
+													<textarea datatype="*4-15" maxlength="150"  nullmsg="请输入活动说明！"
+														errormsg="输入活动说明，4~150字！" id="activityExplain" name="activityExplain" type="text"  class="form-control input-sm" rows="3">
+													</textarea>
 												</div>
-												<div class="Validform_checktip">请输入机构介绍！</div>
+												<div class="Validform_checktip">请输入活动说明，4~150字！</div>
 											</div>
-											<div  class="dropzone" id="machImg">
-									                                   介绍图片：<input type="hidden" name="machImg" value="">
+											<div class="form-group">
+												<label class="col-md-3 control-label">分享标题：</label>
+												<div class="col-md-4">
+													<input datatype="*2-15" maxlength="15" nullmsg="请输分享标题！"
+														errormsg="输入分享标题，2~15字！" id="shareTitle" name="shareTitle" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入分享标题，2~15字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">分享描述：</label>
+												<div class="col-md-4">
+													<textarea datatype="*4-15" maxlength="150"  nullmsg="请输入分享描述！"
+														errormsg="输入分享描述，4~150字！" id="shareDescribe" name="shareDescribe" type="text"  class="form-control input-sm" rows="3">
+													</textarea>
+												</div>
+												<div class="Validform_checktip">请输入分享描述，4~150字！</div>
+											</div>
+											<div  class="dropzone" id="activityPic">
+									                                   活动图片：<input type="hidden" name="activityPic" value="">
 									            <div class="fallback">
 									                <input name="file" type="file" multiple />
 									            </div>
 									        </div>
+											<div  class="dropzone" id="sharePic">
+									                                   活动图片：<input type="hidden" name="sharePic" value="">
+									            <div class="fallback">
+									                <input name="file" type="file" multiple />
+									            </div>
+									        </div>
+									        <!-- 未选择的商品 -->
+									        <div class="grid_wrapper">
+								                <div class="mbm">
+								                  <input type="hidden" id="ids">
+								                  <button id="btn_refresh" type="button" class="btn btn-sm btn-primary">刷新</button>
+								                </div>
+								                <table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
+								                  <tr>
+								                    <th w_index="activity_name" width="15%;">商品名称</th>
+								                    <th w_index="store_name" width="15%;">货号</th>
+								                    <th w_index="activity_start_time" width="15%;">价格</th>
+								                    <th w_index="activity_end_time" width="15%;">库存</th>
+								                    <th w_render="activity_status" width="15%;">销量</th>
+								                    <th w_render="operate" width="10%;">操作</th>
+								                  </tr>
+								                </table>
+							              </div>
+							              <!-- 已选择的商品 -->
+									        <div class="grid_wrapper">
+								                <table id="selectedTable" class="table table-condensed table-bordered table-striped table-hover">
+								                  <tr>
+								                    <th w_index="activity_name" width="15%;">商品名称</th>
+								                    <th w_index="store_name" width="15%;">货号</th>
+								                    <th w_index="activity_start_time" width="15%;">原价</th>
+								                    <th w_index="activity_end_time" width="15%;">现价</th>
+								                    <th w_index="activity_end_time" width="15%;">库存</th>
+								                    <th w_index="activity_end_time" width="15%;">活动库存</th>
+								                    <th w_render="activity_status" width="15%;">销量</th>
+								                    <th w_render="operate" width="10%;">操作</th>
+								                  </tr>
+								                </table>
+							              </div>
 										</div>
 									</div>
 									<div class="form-actions">
