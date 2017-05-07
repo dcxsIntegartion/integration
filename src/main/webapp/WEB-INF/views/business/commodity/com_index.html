@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+	<meta charset="UTF-8">
+	<title>优惠券管理</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <!-- common start -->
+    <link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+    <!-- page plugin -->
+    <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+    <!-- page plugin end -->
+    <link rel="stylesheet" href="../../new_ui/styles/main.css">
+    <link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
+    <script src="../../new_ui/scripts/vendor.js"></script>
+    <!-- page plugin -->
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+    <!-- page plugin end -->
+    <script src="../../new_ui/scripts/main.js"></script>
+    <!-- page plugin end -->
+	<script src="../../new_ui/scripts/jquery.placeholder.js"></script>
+	
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="../../support/web_support.js"></script>
+	<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+	<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+    <!-- common end -->
+    
+    <!-- page js -->
+    <script type="text/javascript" src="js/com_index.js"></script>
+	</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<ol class="breadcrumb">
+			<li>您的位置：</li>
+			<li><a href="/index.html">主页</a></li>
+			<li class="active">商品</li>
+			<li class="active">商品管理</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							<i class="fa fa-building-o"></i> 商品 /商品管理
+						</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="btnArea">
+							<form id="role_search_form" class="form-inline mbl">
+								<div class="form-body">
+									<div class="form-group">
+										<input id="commodityName" name="commodityName" type="text" class="form-control input-sm" placeholder="商品标题/货号">
+									</div>
+									<div class="form-group">
+										<!-- ajax 加载 -->
+										<select name="commodityType" id="commodityType" class="form-control input-sm" placeholder="请选择商品分类">
+											<option>请选择商品分类</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<select name="commodityStatus" id="commodityStatus" class="form-control input-sm" placeholder="请选择商品状态">
+											<option>请选择商品状态</option>
+											<option value="1">上架</option>
+											<option value="2">下架</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<button type="button" onclick="doSearch()"
+											class="btn btn-sm btn-primary">
+											<i class="fa fa-search"></i>搜索
+										</button>
+										<button type="button" class="btn btn-sm btn-primary" onclick="">批量删除</button>
+										<button type="button" class="btn btn-sm btn-primary" onclick="">批量上架</button>
+										<button type="button" class="btn btn-sm btn-primary" onclick="">批量下架</button>
+										<button type="reset" class="btn btn-sm mls">重置</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="grid_wrapper">
+							<table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
+								<tr>
+									<th w_index="id" width="10%;" w_hidden="true">编号</th>
+				                    <th w_index="commodity_name" width="20%;">商品标题</th>
+				                    <th w_index="commodity_number" width="10%;">货号</th>
+				                    <th w_index="commodity_price" width="10%;">价格</th>
+				                    <th w_index="commodity_num" width="10%">库存</th>
+				                    <th w_index="commodity_sale_num" width="10%">实际销量</th>
+				                    <th w_index="commodity_sale_add" width="10%">基础销量</th>
+				                    <th w_index="commodity_status" width="10%" w_render="fnStatus">上架</th>
+				                    <th w_render="operate" width="10%;">操作</th>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

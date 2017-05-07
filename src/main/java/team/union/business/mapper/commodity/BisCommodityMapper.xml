@@ -18,6 +18,10 @@
 			jdbcType="DECIMAL" />
 		<result column="commodity_pic" property="commodityPic"
 			jdbcType="VARCHAR" />
+		<result column="commodity_pic2" property="commodityPic2"
+			jdbcType="VARCHAR" />
+		<result column="commodity_pic3" property="commodityPic3"
+			jdbcType="VARCHAR" />
 		<result column="commodity_sort_num" property="commoditySortNum"
 			jdbcType="INTEGER" />
 		<result column="commodity_introduction" property="commodityIntroduction"
@@ -30,78 +34,28 @@
 		<result column="timing_begain" property="timingBegain"
 			jdbcType="TIMESTAMP" />
 		<result column="is_timing" property="isTiming" jdbcType="INTEGER" />
+		<result column="commodity_creat_time" property="commodityCreatTime" jdbcType="TIMESTAMP" />
+		<result column="commodity_type_id" property="commodityTypeId" jdbcType="BIGINT" />
+		<result column="commodity_volume" property="commodityVolume" jdbcType="INTEGER" />
+		<result column="commodity_number" property="commodityNumber" jdbcType="INTEGER" />
+		<result column="commodity_num_decrease" property="commodityNumDecrease" jdbcType="INTEGER" />
+		<result column="commodity_sale_num" property="commoditySaleNum" jdbcType="INTEGER" />
+		<result column="commodity_sale_add" property="commoditySaleAdd" jdbcType="INTEGER" />
+		<result column="commodity_del" property="commodityDel" jdbcType="INTEGER" />
 	</resultMap>
-	<sql id="Example_Where_Clause">
-		<where>
-			<foreach collection="oredCriteria" item="criteria" separator="or">
-				<if test="criteria.valid">
-					<trim prefix="(" suffix=")" prefixOverrides="and">
-						<foreach collection="criteria.criteria" item="criterion">
-							<choose>
-								<when test="criterion.noValue">
-									and ${criterion.condition}
-								</when>
-								<when test="criterion.singleValue">
-									and ${criterion.condition} #{criterion.value}
-								</when>
-								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
-									#{criterion.secondValue}
-								</when>
-								<when test="criterion.listValue">
-									and ${criterion.condition}
-									<foreach collection="criterion.value" item="listItem"
-										open="(" close=")" separator=",">
-										#{listItem}
-									</foreach>
-								</when>
-							</choose>
-						</foreach>
-					</trim>
-				</if>
-			</foreach>
-		</where>
-	</sql>
-	<sql id="Update_By_Example_Where_Clause">
-		<where>
-			<foreach collection="example.oredCriteria" item="criteria"
-				separator="or">
-				<if test="criteria.valid">
-					<trim prefix="(" suffix=")" prefixOverrides="and">
-						<foreach collection="criteria.criteria" item="criterion">
-							<choose>
-								<when test="criterion.noValue">
-									and ${criterion.condition}
-								</when>
-								<when test="criterion.singleValue">
-									and ${criterion.condition} #{criterion.value}
-								</when>
-								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
-									#{criterion.secondValue}
-								</when>
-								<when test="criterion.listValue">
-									and ${criterion.condition}
-									<foreach collection="criterion.value" item="listItem"
-										open="(" close=")" separator=",">
-										#{listItem}
-									</foreach>
-								</when>
-							</choose>
-						</foreach>
-					</trim>
-				</if>
-			</foreach>
-		</where>
-	</sql>
 	<sql id="Base_Column_List">
 		id, commodity_name, commodity_price, commodity_old_price,
 		commodity_store_id, commodity_num,
-		commodity_quality, commodity_pic, commodity_sort_num, commodity_introduction,
+		commodity_quality, commodity_pic, 
+		commodity_pic2, commodity_pic3, 
+		commodity_sort_num, commodity_introduction,
 		commodity_status,
-		homepage_show, timing_off, timing_begain, is_timing
+		homepage_show, timing_off, timing_begain, is_timing,
+		commodity_creat_time,commodity_type_id,commodity_volume,
+		commodity_number,commodity_num_decrease,commodity_sale_num,
+		commodity_sale_add,commodity_del
 	</sql>
-	<select id="selectByExample" resultMap="BaseResultMap"
+	<!-- <select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="team.union.business.commodity.model.BisCommodityExample">
 		select
 		<if test="distinct">
@@ -115,7 +69,31 @@
 		<if test="orderByClause != null">
 			order by ${orderByClause}
 		</if>
+	</select> -->
+	<!-- 分页查询 -->
+	<select id="selMap" resultType="hashmap" parameterType="hashmap">
+		select 
+		<include refid="Base_Column_List" />
+		from bis_commodity
+		<where>
+			commodity_del = 0
+			<if test="commodityName != null and commodityName != ''">
+				and (commodity_name like CONCAT('%',#{commodityName,jdbcType=VARCHAR},'%')
+					or
+					commodity_number = #{commodityName}
+				)
+			</if>
+			<if test="commodityTypeId != null and commodityTypeId != ''">
+				and commodity_type_id = #{commodityTypeId,jdbcType=BIGINT}
+			</if>
+			<if test="commodityStatus != null and commodityStatus != ''">
+				and commodity_status = #{commodityStatus,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by
+			commodity_creat_time desc,commodity_sort_num desc
 	</select>
+	<!-- 根据id 查询单个商品详细信息 -->
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Long">
 		select
@@ -123,36 +101,162 @@
 		from bis_commodity
 		where id = #{id,jdbcType=BIGINT}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from bis_commodity
-		where id = #{id,jdbcType=BIGINT}
-	</delete>
-	<delete id="deleteByExample"
-		parameterType="team.union.business.commodity.model.BisCommodityExample">
-		delete from bis_commodity
-		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
-		</if>
-	</delete>
+	<!-- 批量操作：删除，上架，下架 -->
+	<update id="batchOpearate" parameterType="hashmap">
+		update bis_commodity
+		<set>
+			<if test="del != null and del != ''">
+				commodity_del = 1,
+			</if>
+			<if test="onSale != null and onSale != ''">
+				commodity_status = 1
+			</if>
+			<if test="offSale != null and offSale != ''">
+				commodity_status = 2
+			</if>
+		</set>
+		<where>
+			<if test="data != null and data != ''">
+				and id in
+				<foreach collection="data" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</update>
+	<!-- 自动上架 -->
+	<update id="onSaleAuto">
+	<![CDATA[
+		update bis_commodity
+		set
+		commodity_status = 1
+		where
+		commodity_status != 1 
+		and is_timing = 1
+		and timing_begain <= NOW()
+		and timing_off > NOW()
+	]]> 
+	</update>
+	<!-- 自动下架 -->
+	<update id="offSaleAuto">
+	<![CDATA[
+		update bis_commodity
+		set
+		commodity_status = 2
+		where
+		commodity_status != 2 
+		and is_timing = 1
+		and timing_off < NOW()
+	]]> 
+	</update>
+	<!-- 编辑单个商品 -->
+	<update id="updateOne" parameterType="team.union.business.commodity.model.BisCommodity">
+		update bis_commodity
+		<set>
+			<if test="commodityName != null and commodityName != ''">
+				commodity_name = #{commodityName,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityPrice != null and commodityPrice != ''">
+				commodity_price = #{commodityPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityOldPrice != null and commodityOldPrice != ''">
+				commodity_old_price = #{commodityOldPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityStoreId != null commodityStoreId != ''">
+				commodity_store_id = #{commodityStoreId,jdbcType=BIGINT},
+			</if>
+			<if test="commodityNum != null commodityNum != ''">
+				commodity_num = #{commodityNum,jdbcType=INTEGER},
+			</if>
+			<if test="commodityQuality != null and commodityQuality != ''">
+				commodity_quality = #{commodityQuality,jdbcType=DECIMAL},
+			</if>
+			<if test="commodityPic != null and commodityPic != ''">
+				commodity_pic = #{commodityPic,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityPic2 != null and commodityPic2 != ''">
+				commodity_pic2 = #{commodityPic2,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityPic3 != null and commodityPic3 != ''">
+				commodity_pic3 = #{commodityPic3,jdbcType=VARCHAR},
+			</if>
+			<if test="commoditySortNum != null and commoditySortNum != ''">
+				commodity_sort_num = #{commoditySortNum,jdbcType=INTEGER},
+			</if>
+			<if test="commodityIntroduction != null and commodityIntroduction != ''">
+				commodity_introduction = #{commodityIntroduction,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityStatus != null and commodityStatus != ''">
+				commodity_status = #{commodityStatus,jdbcType=INTEGER},
+			</if>
+			<if test="homepageShow != null and homepageShow != ''">
+				homepage_show = #{homepageShow,jdbcType=INTEGER},
+			</if>
+			<if test="timingOff != null and timingOff != ''">
+				timing_off = #{timingOff,jdbcType=TIMESTAMP},
+			</if>
+			<if test="timingBegain != null and timingBegain != ''">
+				timing_begain = #{timingBegain,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isTiming != null and isTiming != ''">
+				is_timing = #{isTiming,jdbcType=INTEGER},
+			</if>
+			
+			<if test="commodityCreatTime != null and commodityCreatTime != ''">
+				commodity_creat_time = #{commodityCreatTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="commodityTypeId != null and commodityTypeId != ''">
+				commodity_type_id = #{commodityTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="commodityVolume != null and commodityVolume != ''">
+				commodity_volume = #{commodityVolume,jdbcType=INTEGER},
+			</if>
+			<if test="commodityNumber != null and commodityNumber != ''">
+				is_timing = #{commodityNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityNumDecrease != null and commodityNumDecrease != ''">
+				commodity_num_decrease = #{commodityNumDecrease,jdbcType=INTEGER},
+			</if>
+			<if test="commoditySaleAdd != null and commoditySaleAdd != ''">
+				commodity_sale_add = #{commoditySaleAdd,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id=#{id,jdbcType=BIGINT}
+	</update>
+	<!-- 新增商品 -->
 	<insert id="insert" parameterType="team.union.business.commodity.model.BisCommodity">
 		insert into bis_commodity (id, commodity_name, commodity_price,
 		commodity_old_price, commodity_store_id, commodity_num,
-		commodity_quality, commodity_pic, commodity_sort_num,
+		commodity_quality, commodity_pic, 
+		commodity_pic2,commodity_pic3,
+		commodity_sort_num,
 		commodity_introduction, commodity_status,
 		homepage_show, timing_off, timing_begain,
-		is_timing)
+		is_timing,
+		commodity_creat_time,commodity_type_id,commodity_volume,
+		commodity_number,commodity_num_decrease,commodity_sale_num,
+		commodity_sale_add,commodity_del)
 		values (#{id,jdbcType=BIGINT}, #{commodityName,jdbcType=VARCHAR},
 		#{commodityPrice,jdbcType=DECIMAL},
 		#{commodityOldPrice,jdbcType=DECIMAL},
 		#{commodityStoreId,jdbcType=BIGINT}, #{commodityNum,jdbcType=INTEGER},
 		#{commodityQuality,jdbcType=DECIMAL},
 		#{commodityPic,jdbcType=VARCHAR},
+		#{commodityPic2,jdbcType=VARCHAR},
+		#{commodityPic3,jdbcType=VARCHAR},
 		#{commoditySortNum,jdbcType=INTEGER},
 		#{commodityIntroduction,jdbcType=VARCHAR},
 		#{commodityStatus,jdbcType=INTEGER},
 		#{homepageShow,jdbcType=INTEGER}, #{timingOff,jdbcType=TIMESTAMP}, #{timingBegain,jdbcType=TIMESTAMP},
-		#{isTiming,jdbcType=INTEGER})
+		#{isTiming,jdbcType=INTEGER},
+		now(),#{commodityTypeId,jdbcType=BIGINT},#{commodityVolume,jdbcType=INTEGER},
+		#{commodityNumber,jdbcType=VARCHAR},#{commodityNumDecrease,jdbcType=INTEGER},
+		0,#{commoditySaleAdd,jdbcType=INTEGER},0)
 	</insert>
+	
+	
+	<!-- 以下暂时不需要 -->
+	<!-- 
 	<insert id="insertSelective" parameterType="team.union.business.commodity.model.BisCommodity">
 		insert into bis_commodity
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -258,6 +362,18 @@
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from bis_commodity
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="team.union.business.commodity.model.BisCommodityExample">
+		delete from bis_commodity
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
 	<update id="updateByExampleSelective" parameterType="map">
 		update bis_commodity
 		<set>
@@ -398,5 +514,5 @@
 		timing_begain = #{timingBegain,jdbcType=TIMESTAMP},
 		is_timing = #{isTiming,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}
-	</update>
+	</update> -->
 </mapper>
