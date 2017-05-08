@@ -15,10 +15,15 @@ $(function() {
 	    var op_html ='';
 	    op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'id') + '\');">编辑</a>';
 	    op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-danger btn-xs mhx" onclick="forDel(\'' + gridObj.getRecordIndexValue(record, 'id') + '\');">删除</a>';
-	    var isSale = ridObj.getRecordIndexValue(record, 'commodity_status')==1?"下架":"上架";
-	    op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="forChangeStatus(\'' + gridObj.getRecordIndexValue(record, 'id') + '\');">isSale</a>';
+	    var isSale = gridObj.getRecordIndexValue(record, 'commodity_status')==1?"下架":"上架";
+	    op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="forChangeStatus(\'' + gridObj.getRecordIndexValue(record, 'id') + '\');">'+isSale+'</a>';
 		return op_html;
 	 }
+	//搜索
+	window.doSearch = function(){
+		   gridObj.options.otherParames = $("#role_search_form").serializeArray();
+		   gridObj.page(1);
+	}
 	//表格
 	window.gridObj = $.fn.bsgrid.init('searchTable', {
 		url : basePath+'/bis/commodity/allPaging',
@@ -58,10 +63,13 @@ function initCommodityTypeSelect(){
 //编辑
 function forUpdate(commodityId){
 	//跳转页面
-	
+	window.location.href = "commodityEdit.html?commodityId="+commodityId;
 }
 //删除
 function forDel(commodityId){
+	var arr = new Array();
+	arr.push(commodityId);
+	$("#deleteFrm #deleteIds").val(arr);
 	layer.alert('确认删除', {
 		  skin: 'layui-layer-molv' //样式类名 自定义样式
 		  ,closeBtn: 1  // 是否显示关闭按钮
@@ -72,6 +80,7 @@ function forDel(commodityId){
 		    	type:"post",
 		    	url:basePath+"/bis/commodity/delete",
 		    	contentType:"application/x-www-form-urlencoded",
+		    	data:$("#deleteFrm").serializeArray(),
 		    	dataType: "json",
 		    	success:function(data){
 		    		if(data.state == "1" || data.state == 'y'){

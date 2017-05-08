@@ -72,27 +72,27 @@ public class BisCommodityController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/findOne")
 	@ResponseBody
-	public Result findOne(@RequestBody Long id,HttpServletRequest req){
+	public Result findOne(@RequestParam Long id,HttpServletRequest req){
 		return commodityService.selById(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/dele")
 	@ResponseBody
-	public Result delete(@RequestBody Long[] ids,HttpServletRequest req){
+	public Result delete(@RequestParam Long[] ids,HttpServletRequest req){
 		List<Long> list = Arrays.asList(ids);
 		return commodityService.batchDel(list);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/batchOn")
 	@ResponseBody
-	public Result batchOn(@RequestBody Long[] ids,HttpServletRequest req){
+	public Result batchOn(@RequestParam Long[] ids,HttpServletRequest req){
 		List<Long> list = Arrays.asList(ids);
 		return commodityService.batchOnSale(list);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/batchOff")
 	@ResponseBody
-	public Result batchOff(@RequestBody Long[] ids,HttpServletRequest req){
+	public Result batchOff(@RequestParam Long[] ids,HttpServletRequest req){
 		List<Long> list = Arrays.asList(ids);
 		return commodityService.batchOffSale(list);
 	}
