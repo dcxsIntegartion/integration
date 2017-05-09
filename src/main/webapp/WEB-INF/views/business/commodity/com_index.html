@@ -44,7 +44,13 @@
 		</ol>
 		<div style="display:none">
 			<form action="" id="deleteFrm">
-				<input type="hidden" id="deleteIds">
+				<input type="hidden" id="deleteIds" name="ids">
+			</form>
+			<form action="" id="upFrm">
+				<input type="hidden" id="upIds" name="ids">
+			</form>
+			<form action="" id="offFrm">
+				<input type="hidden" id="offIds" name="ids">
 			</form>
 		</div>
 		<div class="row">
@@ -85,9 +91,10 @@
 											class="btn btn-sm btn-primary">
 											<i class="fa fa-search"></i>搜索
 										</button>
-										<button type="button" class="btn btn-sm btn-primary" onclick="">批量删除</button>
-										<button type="button" class="btn btn-sm btn-primary" onclick="">批量上架</button>
-										<button type="button" class="btn btn-sm btn-primary" onclick="">批量下架</button>
+										<button type="button" class="btn btn-sm btn-primary" onclick="batchDelete()">批量删除</button>
+										<button type="button" class="btn btn-sm btn-primary" onclick="batchUp()">批量上架</button>
+										<button type="button" class="btn btn-sm btn-primary" onclick="batchOff()">批量下架</button>
+										<button type="button" class="btn btn-sm btn-primary" onclick="addCommodity()">新增</button>
 										<button type="reset" class="btn btn-sm mls">重置</button>
 									</div>
 								</div>

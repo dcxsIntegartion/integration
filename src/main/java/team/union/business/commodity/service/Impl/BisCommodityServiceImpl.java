@@ -55,7 +55,6 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 	}
 	@Override
 	public Result add(BisCommodity vo) {
-		this.refresh();
 		Result result = new Result();
 		if(null!=vo && null == vo.getId()){
 			commodityDao.insert(vo);
@@ -69,10 +68,8 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 	}
 	@Override
 	public Result update(BisCommodity vo) {
-		this.refresh();
 		Result result = new Result();
-		if(null!=vo &&
-			null != commodityDao.selectByPrimaryKey(vo.getId())){
+		if(null!=vo && null != commodityDao.selectByPrimaryKey(vo.getId())){
 			commodityDao.updateOne(vo);
 			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
 			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
@@ -85,7 +82,6 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 	//批量删除
 	@Override
 	public Result batchDel(List<Long> ids) {
-		this.refresh();
 		Result result = new Result();
 		if (null != ids && ids.size() > 0) {
 			Map<String, Object> map = new HashMap<>();

@@ -22,7 +22,6 @@ $(function(){
 //提交修改
 function doSearch(){
 	var ban = $(".checked input[name='couponIsBan']").val();
-	console.log(ban);
 	$.ajax({
         type: "post",
         url:  basePath+'/bis/coupon/isBan',

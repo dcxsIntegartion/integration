@@ -1,5 +1,4 @@
 var view_url = basePath+"/bis/commodity/";
-var commodityId = getQueryString("commodityId");
 /** 提交按钮 **/
 var submitHtml = $('#saveBtn').html();
 var field = ["id","commodityName","commodityPrice","commodityOldPrice",
@@ -8,8 +7,12 @@ var field = ["id","commodityName","commodityPrice","commodityOldPrice",
 	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];
 var modelUtils = new ModelUtils(field);
 $(function(){
-	initPageData();
+	$("#first").parent().addClass("checked");
+	$("#commodityStatusfirst").parent().addClass("checked");
+	$("#homepageShowsecond").parent().addClass("checked");
+	$("#isTimingsecond").parent().addClass("checked");
 	datePickerTool();
+	//
 	var org_form = $('#viewForm').Validform({
 		tiptype:function(msg,o,cssctl){
 			if(!o.obj.is("form")){
@@ -37,20 +40,21 @@ $(function(){
 			model.commodityStatus = $("#commodityStatusDiv .checked input[name='commodityStatus']").val();
 			model.homepageShow = $(".checked input[name='homepageShow']").val();
 			model.isTiming = $(".checked input[name='isTiming']").val();
-			editAjax(model);
+			addAjax(model);
 		}
 	});
 });
-function editAjax(model){
+
+function addAjax(model){
 	$.ajax({
         type: "post",
-        url:  view_url+"update",
+        url:  view_url+"add",
         data: JSON.stringify(model),
         contentType:"application/json",
         dataType: "json",
         success: function(data){
         		if(data.state==1){
-        			layer.msg("商品信息修改成功！");
+        			layer.msg("添加商品成功！");
         			//返回上一页
             		window.history.back(-1);
         		}else{
@@ -63,53 +67,6 @@ function editAjax(model){
 		complete:function(){
 		}
 	});
-}
-//初始化页面数据
-function initPageData(){
-	$.ajax({
-        type: "post",
-        async:false,
-        url:  view_url+"findOne?id="+commodityId,
-        success: function(data){
-        	if(data.state==1){
-        		modelUtils.fillData(data.data);
-        		radioFill(data.data);
-        	}
-		},
-		error:function(data) {
-		}
-    });
-}
-//单选按钮填充
-function radioFill(data){
-	if(data.commodityNumDecrease == 0 ||
-			data.commodityNumDecrease == "0"){
-		$("#first").parent().addClass("checked");
-	}else{
-		$("#second").parent().addClass("checked");
-	}
-	
-	if(data.commodityStatus == 1 ||
-			data.commodityStatus == "1"){
-		$("#commodityStatusfirst").parent().addClass("checked");
-	}else{
-		$("#commodityStatussecond").parent().addClass("checked");
-	}
-//	$('input[name="commodityStatus"][value="'+data.commodityStatus+'"]').iCheck('check');
-	
-	if(data.homepageShow == 1 ||
-			data.homepageShow == "1"){
-		$("#homepageShowfirst").parent().addClass("checked");
-	}else{
-		$("#homepageShowsecond").parent().addClass("checked");
-	}
-	
-	if(data.isTiming == 1 ||
-			data.isTiming == "1"){
-		$("#isTimingfirst").parent().addClass("checked");
-	}else{
-		$("#isTimingsecond").parent().addClass("checked");
-	}
 }
 //日期空间
 function datePickerTool(){
