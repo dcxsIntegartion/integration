@@ -20,9 +20,18 @@ $(function(){
 			var model = modelUtils.initModel();
 			/** 上传图片字段赋值 **/
 			model.couponShareImg=saveRel(couponShareImg);
-			model.couponValidityStart=model.couponValidityStart+":00";
-			model.couponValidityEnd=model.couponValidityEnd+":00";
-			model.couponReceiveEnd=model.couponReceiveEnd+":00";
+			if(model.couponValidityStart != undefined && model.couponValidityStart != null 
+					&& model.couponValidityStart != ""){
+				model.couponValidityStart=model.couponValidityStart+":00";
+			}
+			if(model.couponValidityEnd != undefined && model.couponValidityEnd != null 
+					&& model.couponValidityEnd != ""){
+				model.couponValidityEnd=model.couponValidityEnd+":00";
+			}
+			if(model.couponReceiveEnd != undefined && model.couponReceiveEnd != null 
+					&& model.couponReceiveEnd != ""){
+				model.couponReceiveEnd=model.couponReceiveEnd+":00";
+			}
 			$.ajax({
 	            type: "post",
 	            url:  view_url,

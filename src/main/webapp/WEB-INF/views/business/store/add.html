@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>新增特价活动</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+<link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
+<link rel="stylesheet" href="../../new_ui/styles/main.css">
+<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+
+<script type="text/javascript" src="../../new_ui/scripts/vendor.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="../../new_ui/scripts/main.js"></script>
+<script type="text/javascript" src="../../support/web_support.js"></script>
+<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css"> -->
+   <!--  <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script> -->
+    <!-- <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script> -->
+	<!-- <script src="../../new_ui/scripts/jquery.placeholder.js"></script> -->
+
+<script type="text/javascript" src="js/upload.js"></script>
+<script type="text/javascript" src="js/add.js"></script>
+
+</head>
+<body onunload="unload()">
+	<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>
+									<i class="fa fa-sliders"></i> 门店添加
+								</h5>
+							</div>
+							<div class="ibox-content form">
+								<form id ="viewForm" class="form-horizontal">
+									<div class="modal-body">
+										<div class="form-body">
+											<div class="form-group">
+												<label class="col-md-3 control-label">门店名称：</label>
+												<div class="col-md-4">
+													<input datatype="*2-15" maxlength="15" nullmsg="请输入门店名称！"
+														errormsg="输入门店名称，2~15字！" id="storeName" name="storeName" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入门店名称，2~15字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">门店地址：</label>
+												<div class="col-md-4">
+													<input  datatype="*2-50" maxlength="50"  nullmsg="请输入门店地址！"
+														errormsg="请输入门店地址，2~50字！" id="storeAddress" name="storeAddress" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入门店地址！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">门店电话：</label>
+												<div class="col-md-4">
+													<input  maxlength="50"  nullmsg="请输入门店电话！"
+														 id="storePhone" name="storePhone" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入门店电话！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">门店简介：</label>
+												<div class="col-md-4">
+													<textarea datatype="*4-150" maxlength="150"  nullmsg="请输入门店简介！"
+														errormsg="输入门店简介，4~150字！" id="storeIntroduction" name="storeIntroduction" type="text"  class="form-control input-sm" rows="3">
+													</textarea>
+												</div>
+												<div class="Validform_checktip">请输入门店简介，4~150字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">门店经度：</label>
+												<div class="col-md-4">
+													<input  maxlength="50"  nullmsg="请输入门店经度！"
+														 id="storeLongitude" name="storeLongitude" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入门店经度！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">门店纬度：</label>
+												<div class="col-md-4">
+													<input  maxlength="50"  nullmsg="请输入门店纬度！"
+														 id="storeLatitude" name="storeLatitude" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入门店纬度！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">排序：</label>
+												<div class="col-md-4">
+													<input datatype="/^\d+$/" maxlength="8" errormsg="输入正确的排序，正整数！" 
+														 id="storeSortNum" value="0" name="storeSortNum" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入排序！</div>
+											</div>
+											<div  class="dropzone form-group" id="storePic">
+									                                   图片：<input type="hidden" name="storePic" value="">
+									            <div class="fallback">
+									                <input name="file" type="file" multiple />
+									            </div>
+									        </div>
+										</div>
+									</div>
+									<div class="form-actions">
+				                      <div class="row">
+				                        <div class="col-md-offset-3 col-md-9">
+				                          <button onclick="javascript:window.history.back(-1);" type="button" class="btn btn-default"
+											data-dismiss="modal">取消</button>
+										  <button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+				                        </div>
+				                      </div>
+				                    </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

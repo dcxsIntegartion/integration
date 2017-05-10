@@ -1,6 +1,7 @@
 package team.union.business.store.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BisStoreExample {
@@ -771,6 +772,126 @@ public class BisStoreExample {
 
         public Criteria andStoreSortNumNotBetween(Long value1, Long value2) {
             addCriterion("store_sort_num not between", value1, value2, "storeSortNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeIsNull() {
+            addCriterion("store_creat_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeIsNotNull() {
+            addCriterion("store_creat_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeEqualTo(Date value) {
+            addCriterion("store_creat_time =", value, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeNotEqualTo(Date value) {
+            addCriterion("store_creat_time <>", value, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeGreaterThan(Date value) {
+            addCriterion("store_creat_time >", value, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("store_creat_time >=", value, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeLessThan(Date value) {
+            addCriterion("store_creat_time <", value, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeLessThanOrEqualTo(Date value) {
+            addCriterion("store_creat_time <=", value, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeIn(List<Date> values) {
+            addCriterion("store_creat_time in", values, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeNotIn(List<Date> values) {
+            addCriterion("store_creat_time not in", values, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeBetween(Date value1, Date value2) {
+            addCriterion("store_creat_time between", value1, value2, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreCreatTimeNotBetween(Date value1, Date value2) {
+            addCriterion("store_creat_time not between", value1, value2, "storeCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusIsNull() {
+            addCriterion("store_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusIsNotNull() {
+            addCriterion("store_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusEqualTo(Integer value) {
+            addCriterion("store_status =", value, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusNotEqualTo(Integer value) {
+            addCriterion("store_status <>", value, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusGreaterThan(Integer value) {
+            addCriterion("store_status >", value, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("store_status >=", value, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusLessThan(Integer value) {
+            addCriterion("store_status <", value, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("store_status <=", value, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusIn(List<Integer> values) {
+            addCriterion("store_status in", values, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusNotIn(List<Integer> values) {
+            addCriterion("store_status not in", values, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusBetween(Integer value1, Integer value2) {
+            addCriterion("store_status between", value1, value2, "storeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("store_status not between", value1, value2, "storeStatus");
             return (Criteria) this;
         }
     }

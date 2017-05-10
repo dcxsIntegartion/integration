@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+	<meta charset="UTF-8">
+	<title>优惠券管理</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <!-- common start -->
+    <link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+    <!-- page plugin -->
+    <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+    <!-- page plugin end -->
+    <link rel="stylesheet" href="../../new_ui/styles/main.css">
+    <link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
+    <script src="../../new_ui/scripts/vendor.js"></script>
+    <!-- page plugin -->
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+    <!-- page plugin end -->
+    <script src="../../new_ui/scripts/main.js"></script>
+    <!-- page plugin end -->
+	<script src="../../new_ui/scripts/jquery.placeholder.js"></script>
+	
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="../../support/web_support.js"></script>
+	<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+	<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+    <!-- common end -->
+    
+    <!-- page js -->
+    <script type="text/javascript" src="js/commodityEdit.js"></script>
+    <script type="text/javascript" src="js/upload.js"></script>
+	</head>
+<body>
+	<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>
+									<i class="fa fa-sliders"></i> 商品信息编辑
+								</h5>
+							</div>
+							<div class="ibox-content form">
+								<form id ="viewForm" class="form-horizontal">
+									<div class="modal-body">
+										<div class="form-body">
+											<input type="hidden" name="id">
+											<div class="form-group">
+												<label class="col-md-3 control-label">商品标题：</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-sm"
+														id="commodityName" name="commodityName" datatype="*2-50" maxlength="50">
+												</div>
+												<div class="Validform_checktip">请输入优惠券名称，2~50字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">现价：</label>
+												<div class="col-md-4"><!-- /^-?\d+\.?\d{0,2}$/ -->
+													<input type="text" class="form-control input-sm"
+														id="commodityPrice" name="commodityPrice" datatype="/^-?\d+\.?\d{0,2}$/">
+												</div>
+												<div class="Validform_checktip">请输入数字，最多两位小数！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">原价：</label>
+												<div class="col-md-4"><!--  ^\d+(?:\.\d{1,2})?$-->
+													<input type="text" class="form-control input-sm"
+														id="commodityOldPrice" name="commodityOldPrice" datatype="/^-?\d+\.?\d{0,2}$/">
+												</div>
+												<div class="Validform_checktip">请输入数字，最多两位小数！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">基础销量：</label>
+												<div class="col-md-4">
+													<input type="number" class="form-control input-sm"
+														id="commoditySaleAdd" name="commoditySaleAdd" datatype="/^(0|[1-9]\d*)$/">
+												</div>
+												<div class="Validform_checktip">虚构的额外销量！只能输入整数</div>
+											</div>
+											<div  class="dropzone form-group" id="commodityPic">
+													  商品图片1：<input type="hidden" name="commodityPic" value="">
+										            <div class="fallback">
+										                <input name="file" type="file" multiple />
+										            </div>
+										    </div>
+										    <div  class="dropzone form-group" id="commodityPic2">
+													  商品图片2：<input type="hidden" name="commodityPic2" value="">
+										            <div class="fallback">
+										                <input name="file" type="file" multiple />
+										            </div>
+										    </div>
+										    <div  class="dropzone form-group" id="commodityPic3">
+													  商品图片3：<input type="hidden" name="commodityPic3" value="">
+										            <div class="fallback">
+										                <input name="file" type="file" multiple />
+										            </div>
+										    </div>
+										    <div class="form-group">
+												<label class="col-md-3 control-label">库存：</label>
+												<div class="col-md-4">
+													<input type="number" class="form-control input-sm"
+														id="commodityNum" name="commodityNum" datatype="/^(0|[1-9]\d*)$/">
+												</div>
+												<div class="Validform_checktip">只能输入整数</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">货号：</label>
+												<div class="col-md-4">
+													<input type="text" class="form-control input-sm"
+														id="commodityNumber" name="commodityNumber" datatype="/^[0-9a-zA-Z]*$/g" maxlength="20">
+												</div>
+												<div class="Validform_checktip">数字字母组合，少于20字</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">排序：</label>
+												<div class="col-md-4">
+													<input type="number" class="form-control input-sm"
+														id="commoditySortNum" name="commoditySortNum" datatype="/^(0|[1-9]\d*)$/">
+												</div>
+												<div class="Validform_checktip">只能输入整数，排序越大在搜索结果中越靠前</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">库存计数:</label>
+												<div class="col-md-5">
+													<div class="radio-list" id="commodityNumDecrease">
+														<label class="radio-inline">
+															<input type="radio" value="0" id="first" name="commodityNumDecrease" class="i-checks"/>拍下减库存
+														</label>
+														<label class="radio-inline">
+															<input type="radio" value="1" id="second" name="commodityNumDecrease" class="i-checks" />付款减库存
+														</label>
+													</div>
+												</div>
+												<div class="Validform_checktip"></div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">是否上架:</label>
+												<div class="col-md-5">
+													<div class="radio-list" id="commodityStatusDiv">
+														<label class="radio-inline">
+															<input type="radio" value="1" id="commodityStatusfirst" name="commodityStatus" class="i-checks"/>上架
+														</label>
+														<label class="radio-inline">
+															<input type="radio" value="2" id="commodityStatussecond" name="commodityStatus" class="i-checks" />下架
+														</label>
+													</div>
+												</div>
+												<div class="Validform_checktip"></div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">首页显示:</label>
+												<div class="col-md-5">
+													<div class="radio-list">
+														<label class="radio-inline">
+															<input type="radio" value="1" id="homepageShowfirst" name="homepageShow" class="i-checks"/>是
+														</label>
+														<label class="radio-inline">
+															<input type="radio" value="2" id="homepageShowsecond" name="homepageShow" class="i-checks" />否
+														</label>
+													</div>
+												</div>
+												<div class="Validform_checktip"></div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">定时上/下架:</label>
+												<div class="col-md-5">
+													<div class="radio-list">
+														<label class="radio-inline">
+															<input type="radio" value="1" id="isTimingfirst" name="isTiming" class="i-checks"/>是
+														</label>
+														<label class="radio-inline">
+															<input type="radio" value="0" id="isTimingsecond" name="isTiming" class="i-checks" />否
+														</label>
+													</div>
+												</div>
+												<div class="Validform_checktip"></div>
+											</div>
+											<div class="form-group">
+													<label class="col-md-3 control-label">定时上架时间：</label>
+													<div class="col-md-4">
+														<input  id="timingBegain" name="timingBegain"  datatype="*2-20" maxlength="20"
+														type="datetime" class="form-control input-sm date" placeholder="点击选择日期">
+													</div>
+													<div class="Validform_checktip"></div>
+											</div>
+											<div class="form-group">
+													<label class="col-md-3 control-label">定时下架时间：</label>
+													<div class="col-md-4">
+														<input  id="timingOff" name="timingOff" datatype="*2-20" maxlength="20"
+														type="datetime" class="form-control input-sm date" placeholder="点击选择日期">
+													</div>
+													<div class="Validform_checktip"></div>
+											</div>
+											<div class="form-group">
+												<!-- 富文本框，待处理 -->
+													<label class="col-md-3 control-label">商品描述：</label>
+													<div class="col-md-8">
+														<textarea  id="commodityIntroduction" name="commodityIntroduction">
+														</textarea>
+													</div>
+													<div class="Validform_checktip"></div>
+											</div>
+										</div>
+									</div>
+									<div class="form-actions">
+					                   <div class="row">
+					                       <div class="col-md-offset-3 col-md-9">
+					                          <button onclick="javascript:window.history.back(-1);" type="button" class="btn btn-default"
+												data-dismiss="modal">取消</button>
+											  <button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+					                       </div>
+					                    </div>
+					                </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

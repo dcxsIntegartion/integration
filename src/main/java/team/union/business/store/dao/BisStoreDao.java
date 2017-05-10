@@ -1,6 +1,9 @@
 package team.union.business.store.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import team.union.business.store.model.BisStore;
 import team.union.business.store.model.BisStoreExample;
@@ -33,4 +36,11 @@ public interface BisStoreDao {
     int updateByPrimaryKeySelective(BisStore record);
 
     int updateByPrimaryKey(BisStore record);
+
+    /**
+     * 店铺列表查询
+     * @param parm
+     * @return
+     */
+	List<HashMap<String, Object>> selectPage(Map<String, Object> parm);
 }

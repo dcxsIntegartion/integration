@@ -162,10 +162,10 @@
 			<if test="commodityOldPrice != null and commodityOldPrice != ''">
 				commodity_old_price = #{commodityOldPrice,jdbcType=DECIMAL},
 			</if>
-			<if test="commodityStoreId != null commodityStoreId != ''">
+			<if test="commodityStoreId != null and commodityStoreId != ''">
 				commodity_store_id = #{commodityStoreId,jdbcType=BIGINT},
 			</if>
-			<if test="commodityNum != null commodityNum != ''">
+			<if test="commodityNum != null">
 				commodity_num = #{commodityNum,jdbcType=INTEGER},
 			</if>
 			<if test="commodityQuality != null and commodityQuality != ''">
@@ -180,16 +180,16 @@
 			<if test="commodityPic3 != null and commodityPic3 != ''">
 				commodity_pic3 = #{commodityPic3,jdbcType=VARCHAR},
 			</if>
-			<if test="commoditySortNum != null and commoditySortNum != ''">
+			<if test="commoditySortNum != null">
 				commodity_sort_num = #{commoditySortNum,jdbcType=INTEGER},
 			</if>
 			<if test="commodityIntroduction != null and commodityIntroduction != ''">
 				commodity_introduction = #{commodityIntroduction,jdbcType=VARCHAR},
 			</if>
-			<if test="commodityStatus != null and commodityStatus != ''">
+			<if test="commodityStatus != null">
 				commodity_status = #{commodityStatus,jdbcType=INTEGER},
 			</if>
-			<if test="homepageShow != null and homepageShow != ''">
+			<if test="homepageShow != null">
 				homepage_show = #{homepageShow,jdbcType=INTEGER},
 			</if>
 			<if test="timingOff != null and timingOff != ''">
@@ -198,7 +198,7 @@
 			<if test="timingBegain != null and timingBegain != ''">
 				timing_begain = #{timingBegain,jdbcType=TIMESTAMP},
 			</if>
-			<if test="isTiming != null and isTiming != ''">
+			<if test="isTiming != null">
 				is_timing = #{isTiming,jdbcType=INTEGER},
 			</if>
 			
@@ -208,16 +208,16 @@
 			<if test="commodityTypeId != null and commodityTypeId != ''">
 				commodity_type_id = #{commodityTypeId,jdbcType=BIGINT},
 			</if>
-			<if test="commodityVolume != null and commodityVolume != ''">
+			<if test="commodityVolume != null">
 				commodity_volume = #{commodityVolume,jdbcType=INTEGER},
 			</if>
 			<if test="commodityNumber != null and commodityNumber != ''">
-				is_timing = #{commodityNumber,jdbcType=VARCHAR},
+				commodity_number = #{commodityNumber,jdbcType=VARCHAR},
 			</if>
-			<if test="commodityNumDecrease != null and commodityNumDecrease != ''">
+			<if test="commodityNumDecrease != null">
 				commodity_num_decrease = #{commodityNumDecrease,jdbcType=INTEGER},
 			</if>
-			<if test="commoditySaleAdd != null and commoditySaleAdd != ''">
+			<if test="commoditySaleAdd != null">
 				commodity_sale_add = #{commoditySaleAdd,jdbcType=INTEGER},
 			</if>
 		</set>

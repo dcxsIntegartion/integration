@@ -1,5 +1,7 @@
 package team.union.business.store.model;
 
+import java.util.Date;
+
 public class BisStore {
     private Long id;
 
@@ -20,6 +22,10 @@ public class BisStore {
     private Long storeUserId;
 
     private Long storeSortNum;
+
+    private Date storeCreatTime;
+
+    private Integer storeStatus;
 
     public Long getId() {
         return id;
@@ -99,5 +105,21 @@ public class BisStore {
 
     public void setStoreSortNum(Long storeSortNum) {
         this.storeSortNum = storeSortNum;
+    }
+
+    public Date getStoreCreatTime() {
+        return storeCreatTime;
+    }
+
+    public void setStoreCreatTime(Date storeCreatTime) {
+        this.storeCreatTime = storeCreatTime;
+    }
+
+    public Integer getStoreStatus() {
+        return storeStatus;
+    }
+
+    public void setStoreStatus(Integer storeStatus) {
+        this.storeStatus = storeStatus;
     }
 }
