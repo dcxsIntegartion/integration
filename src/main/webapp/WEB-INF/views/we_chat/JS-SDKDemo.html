@@ -112,8 +112,6 @@
 <script type="text/javascript">
     function jssdk() {
     	var url = location.href.split('#')[0];
-    	alert(url);
-    	alert(url.split('?')[0]+"?"+encodeURIComponent(url.split('?')[1]));
         $.ajax({
             url : "/integration/wechat/config/jssdk",
             type : 'post',
