@@ -1,4 +1,4 @@
-package team.union.nonbusiness.materialType.service.impl;
+package team.union.basic_data.materialType.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,11 +12,10 @@ import com.github.pagehelper.PageHelper;
 import team.union.nonbusiness.com.cfg.BaseConfig;
 import team.union.nonbusiness.com.rs.BsgridVo;
 import team.union.nonbusiness.com.rs.ResultVo;
-import team.union.nonbusiness.materialType.dao.MaterialTypeDao;
-import team.union.nonbusiness.materialType.model.MaterialType;
-import team.union.nonbusiness.materialType.service.IMaterialTypeService;
-import team.union.nonbusiness.materialType.vo.MaterialTypeVo;
-import team.union.nonbusiness.util.ToolsUtil;
+import team.union.basic_data.materialType.dao.MaterialTypeDao;
+import team.union.basic_data.materialType.model.MaterialType;
+import team.union.basic_data.materialType.service.IMaterialTypeService;
+import team.union.basic_data.materialType.vo.MaterialTypeVo;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
@@ -95,11 +94,6 @@ public class MaterialTypeService implements IMaterialTypeService {
 	@Override
 	public ResultVo saveOrUpdateMaterialType(MaterialTypeVo vo) {
 		ResultVo resultVo = new ResultVo();
-		if (ToolsUtil.StringFilter(vo.getMaterialName()).length() != vo.getMaterialName().length()) {
-			resultVo.setInfo("物资名称含有特殊字符！");
-			resultVo.setStatus(BaseConfig.FAILED_STATUS);
-			return resultVo;
-		}
 		if(vo.getMaterialTypeId() != null && vo.getMaterialTypeId() > 0) {
 			this.materialTypeDao.updateByPrimaryKeySelective(extractVo(vo));
 		} else {

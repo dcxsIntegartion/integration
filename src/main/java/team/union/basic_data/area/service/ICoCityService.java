@@ -1,4 +1,4 @@
-package team.union.nonbusiness.area.service;
+package team.union.basic_data.area.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.github.pagehelper.Page;
 
-import team.union.nonbusiness.area.model.NonbisCityCode;
+import team.union.basic_data.area.model.NonbisCityCode;
 
 /**
  * @Author yinyao

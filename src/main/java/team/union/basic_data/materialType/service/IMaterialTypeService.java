@@ -1,11 +1,11 @@
-package team.union.nonbusiness.materialType.service;
+package team.union.basic_data.materialType.service;
 
 import java.util.Map;
 
 import team.union.nonbusiness.com.rs.BsgridVo;
 import team.union.nonbusiness.com.rs.ResultVo;
-import team.union.nonbusiness.materialType.model.MaterialType;
-import team.union.nonbusiness.materialType.vo.MaterialTypeVo;
+import team.union.basic_data.materialType.model.MaterialType;
+import team.union.basic_data.materialType.vo.MaterialTypeVo;
 
 
 public interface IMaterialTypeService {

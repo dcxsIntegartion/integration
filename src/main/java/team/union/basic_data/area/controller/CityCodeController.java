@@ -1,4 +1,4 @@
-package team.union.nonbusiness.area.controller;
+package team.union.basic_data.area.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.Page;
 
-import team.union.nonbusiness.area.model.NonbisCityCode;
-import team.union.nonbusiness.area.service.ICoCityService;
+import team.union.basic_data.area.model.NonbisCityCode;
+import team.union.basic_data.area.service.ICoCityService;
 import team.union.nonbusiness.com.rs.BsgridVo;
 import team.union.nonbusiness.com.rs.ResultVo;
 import team.union.nonbusiness.util.ToolsUtil;

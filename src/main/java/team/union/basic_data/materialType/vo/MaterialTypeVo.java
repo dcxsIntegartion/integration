@@ -1,4 +1,4 @@
-package team.union.nonbusiness.materialType.vo;
+package team.union.basic_data.materialType.vo;
 
 import java.util.List;
 

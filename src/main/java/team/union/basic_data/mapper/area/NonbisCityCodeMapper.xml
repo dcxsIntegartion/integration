@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="team.union.nonbusiness.area.dao.NonbisCityCodeDao" >
-  <resultMap id="BaseResultMap" type="team.union.nonbusiness.area.model.NonbisCityCode" >
+<mapper namespace="team.union.basic_data.area.dao.NonbisCityCodeDao" >
+  <resultMap id="BaseResultMap" type="team.union.basic_data.area.model.NonbisCityCode" >
     <id column="CITY_ID" property="cityId" jdbcType="BIGINT" />
     <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
     <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
@@ -34,7 +34,7 @@
     delete from nonbis_city_code
     where CITY_ID = #{cityId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="team.union.nonbusiness.area.model.NonbisCityCode" >
+  <insert id="insert" parameterType="team.union.basic_data.area.model.NonbisCityCode" >
     insert into nonbis_city_code (CITY_ID, CITY_CODE, CITY_NAME, 
       CITY_FULL_NAME, CITY_FULL_CODE, CITY_PARENT_CODE, 
       SORT_ID, ALL_SPELL_CODE, SIMPLE_SPELL_CODE, 
@@ -48,7 +48,7 @@
       #{childSize,jdbcType=INTEGER}, #{openTime,jdbcType=TIMESTAMP}, #{openStutas,jdbcType=INTEGER}, 
       #{closeTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="team.union.nonbusiness.area.model.NonbisCityCode" >
+  <insert id="insertSelective" parameterType="team.union.basic_data.area.model.NonbisCityCode" >
     insert into nonbis_city_code
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cityId != null" >
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="team.union.nonbusiness.area.model.NonbisCityCode" >
+  <update id="updateByPrimaryKeySelective" parameterType="team.union.basic_data.area.model.NonbisCityCode" >
     update nonbis_city_code
     <set >
       <if test="cityCode != null" >
@@ -202,7 +202,7 @@
     </set>
     where CITY_ID = #{cityId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="team.union.nonbusiness.area.model.NonbisCityCode" >
+  <update id="updateByPrimaryKey" parameterType="team.union.basic_data.area.model.NonbisCityCode" >
     update nonbis_city_code
     set CITY_CODE = #{cityCode,jdbcType=VARCHAR},
       CITY_NAME = #{cityName,jdbcType=VARCHAR},

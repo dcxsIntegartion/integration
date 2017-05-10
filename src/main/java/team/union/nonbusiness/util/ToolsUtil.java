@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import team.union.nonbusiness.com.excp.CommonRunTimeException;
 import team.union.nonbusiness.com.excp.ExcptionEnums;
@@ -93,19 +90,6 @@ public class ToolsUtil {
 		}
 		return tempList;
 	}
-	/**
-	 * 特殊字符过滤
-	 * @param str
-	 * @return
-	 * @throws PatternSyntaxException
-	 */
-	public static String StringFilter(String   str) throws PatternSyntaxException {      
-		  // 清除掉所有特殊字符   
-		  String regEx="[`~@#$%^&*()+=|{}''\\[\\]<>/~@#￥%……&*（）——+|{}【】‘”“’]";//"[`~$^()=''[]<>~@#￥%&*（）——+|{}【】]";   
-		  Pattern   p   =   Pattern.compile(regEx);      
-		  Matcher   m   =   p.matcher(str);      
-		  return   m.replaceAll("").trim();      
-	}  
 	/**
 	 * 判断是不是特别行政区
 	 * 是返回true 不是返回false

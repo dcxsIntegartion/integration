@@ -1,4 +1,4 @@
-package team.union.nonbusiness.area.model;
+package team.union.basic_data.area.model;
 
 import java.util.ArrayList;
 import java.util.Date;

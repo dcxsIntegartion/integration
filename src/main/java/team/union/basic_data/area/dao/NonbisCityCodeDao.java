@@ -1,9 +1,9 @@
-package team.union.nonbusiness.area.dao;
+package team.union.basic_data.area.dao;
 
 import java.util.HashMap;
 import java.util.List;
 
-import team.union.nonbusiness.area.model.NonbisCityCode;
+import team.union.basic_data.area.model.NonbisCityCode;
 
 public interface NonbisCityCodeDao {
 

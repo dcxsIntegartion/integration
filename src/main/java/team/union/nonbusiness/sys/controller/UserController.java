@@ -48,8 +48,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private UsersDao usersDao;
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/list")

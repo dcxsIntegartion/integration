@@ -1,4 +1,4 @@
-package team.union.nonbusiness.area.service.impl;
+package team.union.basic_data.area.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.nonbusiness.area.dao.NonbisCityCodeDao;
-import team.union.nonbusiness.area.model.NonbisCityCode;
-import team.union.nonbusiness.area.service.ICoCityService;
+import team.union.basic_data.area.dao.NonbisCityCodeDao;
+import team.union.basic_data.area.model.NonbisCityCode;
+import team.union.basic_data.area.service.ICoCityService;
 import team.union.nonbusiness.com.cfg.BaseConfig;
 import team.union.nonbusiness.util.ToolsUtil;
 

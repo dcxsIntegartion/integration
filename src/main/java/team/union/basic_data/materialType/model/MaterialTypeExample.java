@@ -1,4 +1,4 @@
-package team.union.nonbusiness.materialType.model;
+package team.union.basic_data.materialType.model;
 
 import java.util.ArrayList;
 import java.util.List;

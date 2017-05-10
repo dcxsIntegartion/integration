@@ -1,4 +1,4 @@
-package team.union.nonbusiness.materialType.controller;
+package team.union.basic_data.materialType.controller;
 
 
 import java.util.HashMap;
@@ -19,9 +19,9 @@ import com.google.gson.Gson;
 import team.union.nonbusiness.com.cfg.BaseConfig;
 import team.union.nonbusiness.com.rs.BsgridVo;
 import team.union.nonbusiness.com.rs.ResultVo;
-import team.union.nonbusiness.materialType.model.MaterialType;
-import team.union.nonbusiness.materialType.service.IMaterialTypeService;
-import team.union.nonbusiness.materialType.vo.MaterialTypeVo;
+import team.union.basic_data.materialType.model.MaterialType;
+import team.union.basic_data.materialType.service.IMaterialTypeService;
+import team.union.basic_data.materialType.vo.MaterialTypeVo;
 import team.union.nonbusiness.sys.model.Users;
 import team.union.nonbusiness.sys.utils.WebUtils;
 import team.union.nonbusiness.util.IPUtil;
