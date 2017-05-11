@@ -254,7 +254,31 @@
 		0,#{commoditySaleAdd,jdbcType=INTEGER},0)
 	</insert>
 	
-	
+	<!-- Shuqianli活动接口：获取未选择的商品 -->
+	<select id="getavtivityCommodity" parameterType="hashmap" resultType="hashmap">
+	select id, 
+		commodity_name commodityName, 
+		commodity_price commodityPrice, 
+		commodity_old_price commodityOldPrice,
+		commodity_store_id commodityStoreId, 
+		commodity_num commodityNum,
+		commodity_status commodityStatus,
+		commodity_type_id commodityTypeId,
+		commodity_number commodityNumber,
+		commodity_sale_num commoditySaleNum
+	from bis_commodity
+	<where>
+		<if test="storeId != null">
+		and commodity_store_id = #{storeId}
+		</if>
+		<if test="idList != null">
+				and id not in
+				<foreach collection="idList" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+	</where>
+	</select>
 	<!-- 以下暂时不需要 -->
 	<!-- 
 	<insert id="insertSelective" parameterType="team.union.business.commodity.model.BisCommodity">

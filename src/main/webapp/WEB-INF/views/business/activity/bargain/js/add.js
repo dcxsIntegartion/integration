@@ -47,13 +47,19 @@ $(function(){
 			/** 上传图片字段赋值 **/
 			model.activityPic=saveRel(activityPic);
 			model.sharePic=saveRel(sharePic);
-			/** 所在区域赋值 **/
-			model.machArea=selectedcityfullname;
-			model.machAreaCode=selectedcityCode;
+			//活动商品列表
+			var bisActivityCommodityRList=[];
+			bisActivityCommodityRList = gridObj2.getAllRecords();
+			//接口body
+			var vo={
+					bisActivityBargain:model,
+					bisActivityCommodityRList:bisActivityCommodityRList
+			};
+			console.log("requestBody",vo);
 			$.ajax({
 	            type: "post",
 	            url:  view_url+type,
-	            data: JSON.stringify(model),
+	            data: JSON.stringify(vo),
 	            contentType:"application/json",
 	            dataType: "json",
 	            success: function(data){
@@ -164,25 +170,28 @@ function removeCommodity(record){
 }
 
 /***门店选择弹出框***/
-$('#activityStoreName').click(function () {
-	layer.open({
-	    type: 2,
-	    title: '门店选择',
-	    shadeClose: true,
-	    maxmin: true, //开启最大化最小化按钮
-	    shade: 0.8,
-	    area: ['500px', '99%'],
-	    content: "../../../commonSelect/storeSelect.html" //iframe的url
-	}); 
-});
+//$('#activityStoreName').click(function () {
+//	layer.open({
+//	    type: 2,
+//	    title: '门店选择',
+//	    shadeClose: true,
+//	    maxmin: true, //开启最大化最小化按钮
+//	    shade: 0.8,
+//	    area: ['500px', '99%'],
+//	    content: "../../commonSelect/storeSelect.html" //iframe的url
+//	}); 
+//});
 /***门店选择回调函数****/
-function fnLoadStore(storeId,storeName){
+function fnLoadStore(storeId, storeName){
 	$("#activityStoreId").val(storeId);
 	$("#activityStoreName").val(storeName);
 	//清空选择的商品列表
 	selectedCommodities=[];
 	//请求/重新请求商品列表
 	updateCommidities();
+}
+function aaaa(){
+	alert(11111111);
 }
 	//商品选择步骤：
 	//1·每选择一个弹出输入数量和价格框
