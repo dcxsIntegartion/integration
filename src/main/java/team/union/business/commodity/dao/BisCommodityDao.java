@@ -81,4 +81,12 @@ public interface BisCommodityDao extends IDao<BisCommodity>{
 	* @Create Date:   2017年5月7日
 	 */
 	void offSaleAuto();
+
+	/**
+	 * 活动接口：
+	 * 查询未选择的商品
+	 * @param param
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getavtivityCommodity(HashMap<String, Object> param);
 }

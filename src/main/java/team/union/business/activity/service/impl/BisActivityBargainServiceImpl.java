@@ -105,20 +105,20 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 		try {
 			//活动图片
 			BisActivityBargain bisActivityBargain = vo.getBisActivityBargain();
-			List<NonbizUpload> activityPicList = bisActivityBargain.getActivityPicList();
-			String activityPic = iUploadService.banding(activityPicList);
-			bisActivityBargain.setActivityPic(activityPic);
-			//分享图片
-			List<NonbizUpload> sharePicList = bisActivityBargain.getSharePicList();
-			String sharePic = iUploadService.banding(sharePicList);
-			bisActivityBargain.setSharePic(sharePic);
+//			List<NonbizUpload> activityPicList = bisActivityBargain.getActivityPicList();
+//			String activityPic = iUploadService.banding(activityPicList);
+//			bisActivityBargain.setActivityPic(activityPic);
+//			//分享图片
+//			List<NonbizUpload> sharePicList = bisActivityBargain.getSharePicList();
+//			String sharePic = iUploadService.banding(sharePicList);
+//			bisActivityBargain.setSharePic(sharePic);
 			//添加活动
 			bisActivityBargainDao.insert(bisActivityBargain);
 			//添加活动-商品关联
 			List<BisActivityCommodityR> bisActivityCommodityRList = vo.getBisActivityCommodityRList();
 			for (BisActivityCommodityR bisActivityCommodityR : bisActivityCommodityRList) {
-				bisActivityCommodityR.setActivityId(bisActivityBargain.getId());
-				bisActivityCommodityR.setActivityType(ACTIVITY_TYPE.BARGAIN.getNumber());
+				bisActivityCommodityR.setActivityId(bisActivityBargain.getId());//活动id
+				bisActivityCommodityR.setActivityType(ACTIVITY_TYPE.BARGAIN.getNumber());//活动类型
 				bisActivityCommodityRDao.insert(bisActivityCommodityR);
 			}
 			result.setData(vo.getBisActivityBargain());

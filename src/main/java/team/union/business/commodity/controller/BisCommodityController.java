@@ -1,5 +1,6 @@
 package team.union.business.commodity.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
@@ -95,5 +98,20 @@ public class BisCommodityController {
 	public Result batchOff(@RequestParam Long[] ids,HttpServletRequest req){
 		List<Long> list = Arrays.asList(ids);
 		return commodityService.batchOffSale(list);
+	}
+	
+	/*******************活动商品接口**************************/
+	@RequestMapping(method = RequestMethod.POST, value = "/getavtivityCommodity")
+	@ResponseBody
+	public BsgridVo<HashMap<String, Object>> getavtivityCommodity(
+			@RequestParam(defaultValue = "1") int curPage,
+			@RequestParam(defaultValue = "10") int pageSize,
+			HttpServletRequest req){
+		Gson gson = new Gson();
+		String selectedCommodities = req.getParameter("selectedCommodities");
+		@SuppressWarnings("unchecked")
+		List<BisCommodity> selectedCommoditiesList = 
+				gson.fromJson(selectedCommodities, ArrayList.class);
+		return commodityService.getavtivityCommodity(selectedCommoditiesList, curPage, pageSize);
 	}
 }

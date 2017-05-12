@@ -1,7 +1,8 @@
 /** start 需要修改的 **/
 /** 图片上传处理 **/
 var img_url = basePath+"/upload/";
-var machImg = [];
+var activityPic = [];
+var sharePic = [];
 /** end   **/
 
 $.ajaxSetup({
@@ -30,8 +31,8 @@ function selFiles(name,initFiles){
 	}
 	return initFiles;
 }
-/** start 需要修改的 **/
-Dropzone.options.machImg = {
+/** 活动图片上传 **/
+Dropzone.options.activityPic = {
       paramName: "file", // The name that will be used to transfer the file
       url:img_url+"img",
       addRemoveLinks: true,
@@ -48,18 +49,18 @@ Dropzone.options.machImg = {
       init: function() {
           this.on("success", function(file, response) {
         	if(response){
-        	  img_upload_success(machImg,response);
+        	  img_upload_success(activityPic,response);
         	}
           });
           this.on("removedfile", function(file) { 
-        	img_remove(machImg,file);
+        	img_remove(activityPic,file);
             if ($.inArray(file.name, mockFilesNames) > -1) {//如果删除的是已存在的图片，则需要更新maxFiles的设置
               this.options.maxFiles++;
             };
           });
           //如果要显示已上传的文件，就需要以下的代码初始化
-          machImg = selFiles("machImg",machImg);
-          var mockFiles = machImg,mockFilesNames = [];
+          activityPic = selFiles("activityPic",activityPic);
+          var mockFiles = activityPic,mockFilesNames = [];
           for (var i = 0; i < mockFiles.length; i++) {
               this.emit("addedfile", mockFiles[i]);
               this.emit("thumbnail", mockFiles[i] , mockFiles[i].url);
@@ -71,6 +72,48 @@ Dropzone.options.machImg = {
           this.options.maxFiles = this.options.maxFiles - existingFileCount;
       }
   };
+
+/** 分享图片上传 **/
+Dropzone.options.sharePic = {
+		paramName: "file2", // The name that will be used to transfer the file
+		url:img_url+"img",
+		addRemoveLinks: true,
+		maxFilesize: 2, // MB
+		maxFiles: 8,
+		acceptedFiles: 'image/*',
+		dictDefaultMessage: '拖动图片到这里，或者点击上传',
+		dictInvalidFileType: '请上传jpg,jpeg,png,gif等图片格式的文件',
+		dictFileTooBig: '文件过大，请上传小于2M的文件',
+		dictRemoveFile: '删除',
+		dictCancelUpload: '取消',
+		dictCancelUploadConfirmation: '您确定要取消上传吗？',
+		dictMaxFilesExceeded: '最多只能上传8个文件',
+		init: function() {
+			this.on("success", function(file, response) {
+				if(response){
+					img_upload_success(sharePic,response);
+				}
+			});
+			this.on("removedfile", function(file) { 
+				img_remove(sharePic,file);
+				if ($.inArray(file.name, mockFilesNames) > -1) {//如果删除的是已存在的图片，则需要更新maxFiles的设置
+					this.options.maxFiles++;
+				};
+			});
+			//如果要显示已上传的文件，就需要以下的代码初始化
+			sharePic = selFiles("sharePic",sharePic);
+			var mockFiles = sharePic,mockFilesNames = [];
+			for (var i = 0; i < mockFiles.length; i++) {
+				this.emit("addedfile", mockFiles[i]);
+				this.emit("thumbnail", mockFiles[i] , mockFiles[i].url);
+				this.emit("complete", mockFiles[i]);
+				mockFilesNames.push(mockFiles[i].name);//存储初始时已有文件的name
+			};
+			// 规定了最大文件数，在这里要减去已存在的文件数 If you use the maxFiles option, make sure you adjust it to the correct amount:
+			var existingFileCount = mockFiles.length; // The number of files already uploaded
+			this.options.maxFiles = this.options.maxFiles - existingFileCount;
+		}
+};
 
 /** start 需要修改的 **/
 function img_upload_success(imgs,response){
