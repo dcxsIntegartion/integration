@@ -5,13 +5,11 @@
 package team.union.nonbusiness.interceptor;
 
 import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import team.union.nonbusiness.sys.utils.WebUtils;
@@ -24,6 +22,7 @@ import team.union.nonbusiness.sys.utils.WebUtils;
  */
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
@@ -33,12 +32,11 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			if(uri.endsWith("/wechat/config/jssdk")|| uri.endsWith("/receiveShortMessage") || uri.endsWith("/sendShortMessage")){
 			 	return true;
 			}
-			
 	        // 判断路径是登出还是登录验证，是这两者之一的话执行Controller中定义的方法
 	        if(uri.endsWith("/login") || uri.endsWith("/login_out") || uri.endsWith("au/fail") ) {
-	            return true;
+	        	return true;
 	        }
-						
+	        
 			HandlerMethod actionHandler = (HandlerMethod) handler;
 			if(isAccessable(request)){
 				return super.preHandle(request, response, handler);
@@ -80,14 +78,4 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
 	}
 
-
-
-	@Override
-	public void postHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		//HandlerMethod actionHandler = (HandlerMethod) handler;
-	
-		super.postHandle(request, response, handler, modelAndView);
-	}
 }
