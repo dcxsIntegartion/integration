@@ -9,6 +9,28 @@ var modelUtils = new ModelUtils(field);
 /** 提交按钮 **/
 var submitHtml = $('#saveBtn').html();
 $(function(){
+	gridObj = $.fn.bsgrid.init('searchTable', {
+		   url : basePath+"/bis/commodity/getavtivityCommodity",
+	       pageSizeSelect: true,
+	       stripeRows: true,
+//	       otherParames: {
+//	       	storeId:storeId,
+//	       	selectedCommodities:JSON.stringify(selectedCommodities)
+//	       },
+	       pageSize: 10,
+	       pagingLittleToolbar:false
+	  });
+		gridObj2 = $.fn.bsgrid.init('selectedTable', {
+			url : basePath+"/bis/commodity/getavtivityCommodity",
+//			localData: selectedCommoditiesInfo,
+			pageAll: true,
+			extend: {
+	            settings: {
+	                supportGridEdit: true, 
+	                supportGridEditTriggerEvent: 'rowClick' 
+	            }
+	        }
+		});
 	/** 时间插件 **/
 	$('#activityStartTime')
 	 .datetimepicker({
@@ -94,51 +116,56 @@ function submitToggle(status, submitHtml) {
 }
 /** 页面数据加载控制器 **/
 function viewLoadControlle(){
-/** 加载数据 **/
-if(type=="view" || type=="update"){
-	if(type=="view")submitToggle(2,submitHtml);
-	$.ajax({
-        type: "post",
-        async:false,
-        url:  view_url+"view?id="+id,
-        success: function(data){
-        	if(data.state==1){
-        		$("#areaCode").val(data.data.machAreaCode);
-        		modelUtils.fillData(data.data);
-        	}
-		},
-		error:function(data) {
-		}
-    });
+	/** 加载数据 **/
+	if(type=="view" || type=="update"){
+		if(type=="view")submitToggle(2,submitHtml);
+		$.ajax({
+	        type: "post",
+	        async:false,
+	        url:  view_url+"view?id="+id,
+	        success: function(data){
+	        	if(data.state==1){
+	        		$("#areaCode").val(data.data.machAreaCode);
+	        		modelUtils.fillData(data.data);
+	        	}
+			},
+			error:function(data) {
+			}
+	    });
+	}
+	//商品选择步骤：
+	//1·每选择一个弹出输入数量和价格框
+	//2.每选择一次将商品id传入后台刷新列表，将选中的商品、价格、数量显示在选中列表
 }
 
-var selectedCommodities = [];//已选择的商品列表
+var selectedCommodities = [];//已选择的商品列表id
+//var selectedCommoditiesInfo = [ {commodityNumber: "001", commodityOldPrice: 100, commodityStoreId: 2, commodityStatus: 2}];//已选择的商品详情
 
 var gridObj;//商品选择列表
 var gridObj2;//已选择商品列表
 /***更新商品列表****/
 function updateCommidities(){
-	gridObj = $.fn.bsgrid.init('searchTable', {
-		 url : view_url+"获取未选择的商品列表",
-        pageSizeSelect: true,
-        stripeRows: true,
-        otherParames: {
-        	selectedCommodities:selectedCommodities
-        },
-        pageSize: 10,
-        pagingLittleToolbar:false
-   });
-	gridObj2 = $.fn.bsgrid.init('selectedTable', {
-		localData: selectedCommodities,
-		pageSize: 10,
-		pagingLittleToolbar:false
-	});
+	gridObj.options.otherParames = {
+			selected: 'false',
+			storeId:storeId,
+        	selectedCommodities:JSON.stringify(selectedCommodities)
+	};
+	gridObj.page(1);
+	gridObj2.options.otherParames ={
+			selected: 'true',
+			storeId:storeId,
+        	selectedCommodities:JSON.stringify(selectedCommodities)
+	};
+	gridObj2.page(1);
 }
 /** 列表操作按钮 **/
 function operate(record, rowIndex, colIndex, options) {
 	var op_html ='';
 //	var state = record.mach_state;
-	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-primary btn-xs mhx" onclick="selectCommodity(\'' + record + '\');">选择</a>';
+	var commodity = JSON.stringify(record);
+	console.log("commodity",record);
+	console.log("rowIndex",rowIndex);
+	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-primary btn-xs mhx" onclick="selectCommodity(\'' + rowIndex + '\');">选择</a>';
 	return op_html;
 };
 function operate2(record, rowIndex, colIndex, options) {
@@ -149,9 +176,13 @@ function operate2(record, rowIndex, colIndex, options) {
 };
 
 /** 选择商品 **/
-function selectCommodity(record){
+function selectCommodity(rowIndex){
+//	alert(111);
+	record = gridObj.getRecord(rowIndex);
+	console.log("record", record);
 	//将商品加入集合
-	selectedCommodities.push(record);
+	selectedCommodities.push(record.id);
+//	selectedCommoditiesInfo.push(record);
 	//刷新列表
 	updateCommidities();
 }
@@ -181,19 +212,14 @@ function removeCommodity(record){
 //	    content: "../../commonSelect/storeSelect.html" //iframe的url
 //	}); 
 //});
-/***门店选择回调函数****/
-function fnLoadStore(storeId, storeName){
-	$("#activityStoreId").val(storeId);
+/***店铺选择***/
+var storeId = "";
+function fnLoadStore(selectStoreId, storeName){
+	storeId =selectStoreId;
+	$("#activityStoreName").val(storeId);
 	$("#activityStoreName").val(storeName);
-	//清空选择的商品列表
-	selectedCommodities=[];
-	//请求/重新请求商品列表
 	updateCommidities();
 }
 function aaaa(){
 	alert(11111111);
-}
-	//商品选择步骤：
-	//1·每选择一个弹出输入数量和价格框
-	//2.每选择一次将商品id传入后台刷新列表，将选中的商品、价格、数量显示在选中列表
 }

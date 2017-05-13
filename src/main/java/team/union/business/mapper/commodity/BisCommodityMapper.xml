@@ -271,12 +271,18 @@
 		<if test="storeId != null">
 		and commodity_store_id = #{storeId}
 		</if>
-		<if test="idList != null">
-				and id not in
-				<foreach collection="idList" item="item" open="(" close=")" separator=",">
-					#{item}
-				</foreach>
-			</if>
+		<if test="idList != null and selected == false">
+			and id not in
+			<foreach collection="idList" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		<if test="idList != null and selected == true">
+			and id in
+			<foreach collection="idList" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
 	</where>
 	</select>
 	<!-- 以下暂时不需要 -->
