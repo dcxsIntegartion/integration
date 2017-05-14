@@ -10,6 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import team.union.nonbusiness.filter.util.BodyReaderWrapper;
 import team.union.nonbusiness.filter.util.XssShieldUtil;
+import team.union.nonbusiness.util.ToolsUtil;
 
 
 /**
@@ -37,9 +38,13 @@ public class RequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain chain) throws IOException, ServletException{
-		XssShieldUtil.reqParmSFilter(request);
-		ServletRequest requestWrapper = new BodyReaderWrapper(request);
-        chain.doFilter(requestWrapper, response);
-        
+		String uri = request.getRequestURI();
+		if(ToolsUtil.isNotEmpty(uri) && XssShieldUtil.skipUrl(uri)){
+			chain.doFilter(request, response);
+		}else{
+			XssShieldUtil.reqParmSFilter(request);
+			ServletRequest requestWrapper = new BodyReaderWrapper(request);
+	        chain.doFilter(requestWrapper, response);
+		}
 	}
 }

@@ -33,7 +33,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			 	return true;
 			}
 	        // 判断路径是登出还是登录验证，是这两者之一的话执行Controller中定义的方法
-	        if(uri.endsWith("/login") || uri.endsWith("/login_out") || uri.endsWith("au/fail") ) {
+	        if(uri.endsWith("/login") || uri.endsWith("/login_out")) {
 	        	return true;
 	        }
 	        

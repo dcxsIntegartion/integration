@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import team.union.nonbusiness.com.cfg.BaseConfig.NO_NEED_FILTER_URL;
 import team.union.nonbusiness.util.ToolsUtil;
 
 /**
@@ -112,8 +113,8 @@ public class XssShieldUtil {
      * @return
      */
     public static String reqBodyFilter(String body){
-      if(ToolsUtil.isNotEmpty(body)){
-      	   Gson gson = new Gson();
+    	Gson gson = new Gson();
+      if(ToolsUtil.isNotEmpty(body) && gson.equals(body)){
            Map<String, String> parameters = gson.fromJson(body, new TypeToken<Map<String, String>>() {
            }.getType());
            for (Map.Entry<String, String> entry : parameters.entrySet()) {
@@ -158,7 +159,21 @@ public class XssShieldUtil {
                 }
             }
         }
-        return reqBodyFilter(sb.toString());
+        return stripXss(sb.toString());
+    }
+    
+    /**
+     * 跳过不需要过滤的url请求
+     * @param requesUrl
+     * @return
+     */
+    public static boolean skipUrl(String requesUrl){
+    	for(NO_NEED_FILTER_URL url :NO_NEED_FILTER_URL.values()){
+    		if(requesUrl.endsWith(url.getValue())){
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     public static void main(String[] args) {
