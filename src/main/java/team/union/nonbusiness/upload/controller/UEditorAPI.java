@@ -36,14 +36,14 @@ public class UEditorAPI {
 		return result;
 	}
 	@ResponseBody
-	@RequestMapping(value="/Img")
+	@RequestMapping(value="/img")
 	public UEditorRs uploadImg(HttpServletRequest request) throws Exception{
 		WebImagesUploader uploader = new WebImagesUploader(request);
 		uploadService.uplodImg(uploader);
 		return UEditorRs.isSuccess(uploader.getUrl(), uploader.getOriginalName());
 	}
 	@ResponseBody
-	@RequestMapping(value="/File")
+	@RequestMapping(value="/file")
 	public UEditorRs uploadFile(HttpServletRequest request) throws Exception{
 		WebImagesUploader uploader = new WebImagesUploader(request);
 		uploadService.uplodFile(uploader);

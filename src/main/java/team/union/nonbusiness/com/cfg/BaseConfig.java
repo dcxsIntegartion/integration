@@ -87,7 +87,8 @@ public class BaseConfig {
 		
 	public static enum NO_NEED_FILTER_URL{
 		IMG("/img"),
-		FILE("/file");
+		FILE("/file"),
+		UEDITOR("/Config");
 		private NO_NEED_FILTER_URL(String value){
 			this.value=value;
 		}
