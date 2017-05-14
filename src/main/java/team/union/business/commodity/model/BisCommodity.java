@@ -60,6 +60,8 @@ public class BisCommodity implements Serializable{
     private Integer commoditySaleAdd;			//基础销量  （虚构的额外销量）
     
     private Integer commodityDel;				//是否已删除 0：正常 1：已删除
+    
+    private String commodityTypeName;		//所属类型名称，非数据库数据
 
 	public Long getId() {
 		return id;
@@ -67,6 +69,14 @@ public class BisCommodity implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getCommodityTypeName() {
+		return commodityTypeName;
+	}
+
+	public void setCommodityTypeName(String commodityTypeName) {
+		this.commodityTypeName = commodityTypeName;
 	}
 
 	public String getCommodityName() {

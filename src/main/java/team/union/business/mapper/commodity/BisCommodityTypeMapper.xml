@@ -20,7 +20,7 @@
 		from 
 		bis_commodity_type
 		order by
-			type_level desc
+			type_level ASC 
 	</select>
 	
 	<select id="queryByParam" parameterType="hashmap"
@@ -28,7 +28,7 @@
 		select 
 		<include refid="Base_Column_List" />
 		from 
-		bis_commodity_type
+		bis_commodity_type  
 		<where>
 			<if test="parTypeId != null">
 				and par_type_id = #{parTypeId,jdbcType=DECIMAL}
@@ -41,7 +41,7 @@
 			</if>
 		</where>
 		order by
-			type_level desc
+			type_level ASC
 	</select>
 	
 	<select id="findById" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
@@ -68,7 +68,7 @@
 			#{typeDes,jdbcType=VARCHAR},
 			#{parTypeId,jdbcType=DECIMAL},
 			NOW(),
-			#{typeLevel,jdbcType=INTEGER},
+			#{typeLevel,jdbcType=INTEGER}
 		)
 	</insert>
 	

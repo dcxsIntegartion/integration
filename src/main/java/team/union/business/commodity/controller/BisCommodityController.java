@@ -59,6 +59,12 @@ public class BisCommodityController {
 			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req){
 		Map<String, Object> map = new  HashMap<>();
+		String commodityName = req.getParameter("commodityName");
+		String commodityType = req.getParameter("commodityType");
+		String commodityStatus = req.getParameter("commodityStatus");
+		map.put("commodityStatus", commodityStatus);
+		map.put("commodityType", commodityType);
+		map.put("commodityName", commodityName);
 		return commodityService.paging(map, curPage, pageSize);
 	}
 	

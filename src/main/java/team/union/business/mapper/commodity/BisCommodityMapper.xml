@@ -42,6 +42,9 @@
 		<result column="commodity_sale_num" property="commoditySaleNum" jdbcType="INTEGER" />
 		<result column="commodity_sale_add" property="commoditySaleAdd" jdbcType="INTEGER" />
 		<result column="commodity_del" property="commodityDel" jdbcType="INTEGER" />
+		
+		<result column="type_name" property="commodityTypeName"
+			jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, commodity_name, commodity_price, commodity_old_price,
@@ -98,8 +101,11 @@
 		parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
-		from bis_commodity
+		,ty.type_name
+		from bis_commodity,
+		bis_commodity_type ty
 		where id = #{id,jdbcType=BIGINT}
+		and ty.type_id = commodity_type_id
 	</select>
 	<!-- 批量操作：删除，上架，下架 -->
 	<update id="batchOpearate" parameterType="hashmap">
@@ -271,18 +277,12 @@
 		<if test="storeId != null">
 		and commodity_store_id = #{storeId}
 		</if>
-		<if test="idList != null and selected == false">
-			and id not in
-			<foreach collection="idList" item="item" open="(" close=")" separator=",">
-				#{item}
-			</foreach>
-		</if>
-		<if test="idList != null and selected == true">
-			and id in
-			<foreach collection="idList" item="item" open="(" close=")" separator=",">
-				#{item}
-			</foreach>
-		</if>
+		<if test="idList != null">
+				and id not in
+				<foreach collection="idList" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
 	</where>
 	</select>
 	<!-- 以下暂时不需要 -->

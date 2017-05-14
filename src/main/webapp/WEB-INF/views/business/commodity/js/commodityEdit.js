@@ -82,6 +82,8 @@ function initPageData(){
 }
 //单选按钮填充
 function radioFill(data){
+	//所属分类
+	$("#viewForm #commodityTypeName").val(data.commodityTypeName);
 	if(data.commodityNumDecrease == 0 ||
 			data.commodityNumDecrease == "0"){
 		$("#first").parent().addClass("checked");
