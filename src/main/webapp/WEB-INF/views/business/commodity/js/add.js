@@ -3,8 +3,8 @@ var view_url = basePath+"/bis/commodity/";
 var submitHtml = $('#saveBtn').html();
 var field = ["id","commodityName","commodityPrice","commodityOldPrice",
 	"commoditySaleAdd","commodityNum","commodityNumber",
-	"commoditySortNum","timingBegain","timingOff","commodityIntroduction",
-	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];
+	"commoditySortNum","timingBegain","timingOff",
+	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];//"commodityIntroduction",
 var modelUtils = new ModelUtils(field);
 var treeAddObj = null;
 $(function(){
@@ -44,6 +44,8 @@ $(function(){
 			model.homepageShow = $(".checked input[name='homepageShow']").val();
 			model.isTiming = $(".checked input[name='isTiming']").val();
 			model.commodityTypeId = $("#viewForm #commodityTypeId").val();
+			
+			model.commodityIntroduction = getAllHtml();
 			
 			var selectNode = treeAddObj.getSelectedNodes();
 			if(selectNode.length == 0){

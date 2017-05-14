@@ -2,6 +2,7 @@
 <html class="no-js">
 	<head>
 	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<title>商品新增</title>
 	<meta name="keywords" content="">
     <meta name="description" content="">
@@ -30,17 +31,21 @@
 	<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
 	<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
     <!-- common end -->
-    
+    <!-- tree -->
     <link rel="stylesheet" type="text/css"
 		href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
 	<script src="../../new_ui/scripts/vendor/modernizr.js"></script>
 	<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<script src="../../new_ui/scripts/plugins/zTree_v3/jquery.ztree.all-3.5.js"></script>
 	<script src="../../new_ui/scripts/plugins/jquery.formautofill.js"></script>
-    
+    <!-- ueditor -->
+    <script src="../../support/uediter/ueditor.config.js"></script>
+    <script src="../../support/uediter/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../support/uediter/lang/zh-cn/zh-cn.js"></script>
     <!-- page js -->
-    <script type="text/javascript" src="js/add.js"></script>
     <script type="text/javascript" src="js/upload.js"></script>
+    <script type="text/javascript" src="js/ueditor.js"></script>
+    <script type="text/javascript" src="js/add.js"></script>
 	</head>
 <body>
 	<div class="wrapper wrapper-content animated fadeInUp">
@@ -219,13 +224,11 @@
 													<div class="Validform_checktip"></div>
 											</div>
 											<div class="form-group">
-												<!-- 富文本框，待处理 -->
-													<label class="col-md-3 control-label">商品描述：</label>
-													<div class="col-md-8">
-														<textarea  id="commodityIntroduction" name="commodityIntroduction">
-														</textarea>
-													</div>
-													<div class="Validform_checktip"></div>
+												<label class="control-label" style="margin-bottom:1em;">商品描述：</label>
+												<div class="">
+													<script id="editor" type="text/plain" 
+														style="width:1024px;height:500px;"></script> 
+												</div>
 											</div>
 										</div>
 									</div>
