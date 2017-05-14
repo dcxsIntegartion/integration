@@ -126,7 +126,7 @@
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
-	<insert id="insert"
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
 		parameterType="team.union.business.activity.model.BisActivityBargain">
 		insert into bis_activity_bargain (id, activity_name,
 		activity_start_time,

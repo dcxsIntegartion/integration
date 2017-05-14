@@ -35,14 +35,46 @@ function del(id){
 		}
     });
 }
+
+/** 修改状态 **/
+function changeStatus(id,status){
+	var vo = {
+			id:id,
+			activityStatus:status
+	};
+	$.ajax({
+		type: "post",
+		url:  grid_url+"updateStatus",
+		data: JSON.stringify(vo),
+		contentType:"application/json",
+		dataType: "json",
+		success: function(data){
+			if(data.state==1){
+				gridObj.page(1);
+			}else{
+				layer.msg(data.msg);
+			}
+		},
+		error:function(data) {
+		},
+		complete:function(){
+		}
+	});
+}
 /** 列表操作按钮 **/
 function operate(record, rowIndex, colIndex, options) {
 	var op_html ='';
 	var id = record.id;
+	var status = record.activity_status;
 //	var state = record.mach_state;
 	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-primary btn-xs mhx" onclick="view(\'' + id + '\');">查看</a>';
 	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-warning btn-xs mhx" onclick="edite(\'' + id + '\');">编辑</a>';
 	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-danger btn-xs mhx" onclick="del(\'' + id + '\');">删除</a>';
+	if (status == 1) {
+		op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-danger btn-xs mhx" onclick="changeStatus(\'' + id + '\',\'' + 2 + '\');">关闭</a>';
+	}else if(status == 2){
+		op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-danger btn-xs mhx" onclick="changeStatus(\'' + id + '\',\'' + 1 + '\');">开启</a>';
+	}
 	return op_html;
 };
 /** 活动状态 **/
@@ -50,9 +82,9 @@ function activity_status(record, rowIndex, colIndex, options) {
 	var op_html ='';
 	var activity_status = record.activity_status;
 	if (activity_status == 1) {
-		op_html+= "<span>开启</span>"
+		op_html+= "<span>已开启</span>"
 	}else if (activity_status == 2) {
-		op_html+= "<span>关闭</span>"
+		op_html+= "<span>已关闭</span>"
 	}else if (activity_status == 3) {
 	op_html+= "<span>已结束</span>"
 	}

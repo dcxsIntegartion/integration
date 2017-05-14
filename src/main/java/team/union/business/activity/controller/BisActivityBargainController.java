@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
+import team.union.business.activity.model.BisActivityBargain;
 import team.union.business.activity.service.IBisActivityBargainService;
 import team.union.business.activity.vo.BisActivityBargainVo;
 import team.union.business.com.interf.IController;
@@ -78,6 +79,11 @@ public class BisActivityBargainController implements IController<BisActivityBarg
 	@RequestMapping(method = RequestMethod.POST, value = "/updateById")
 	public Result update(@RequestBody BisActivityBargainVo vo, HttpServletRequest req) {
 		return iBisActivityBargainService.update(vo);
+	}
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST, value = "/updateStatus")
+	public Result updateStatus(@RequestBody BisActivityBargain vo, HttpServletRequest req) {
+		return iBisActivityBargainService.updateStatus(vo);
 	}
 
 }

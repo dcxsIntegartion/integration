@@ -245,4 +245,31 @@
 		commodity_num = #{commodityNum,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	<!-- 活动-商品关联基本查询 -->
+	<select id="baseSelect" parameterType="hashmap" resultType="hashmap">
+	select id, 
+	activity_id activityId, 
+	activity_type activityType, 
+	commodity_id commodityId, 
+	activity_price activityPrice,
+	commodity_num commodityNum
+	from bis_activity_commodity_r
+	<where>
+		<if test="activityId != null">
+			and activity_id = #{activityId}
+		</if>
+		<if test="activityType != null">
+			and activity_type = #{activityType}
+		</if>
+		<if test="commodityId != null">
+			and commodity_id = #{commodityId}
+		</if>
+	</where>
+	</select>
+	<!-- 删除活动关联商品 -->
+	<delete id="deleteByactivity" parameterType="hashmap">
+		delete from bis_activity_commodity_r
+		where activity_id=#{avtivityId}
+		and activity_type = #{avtivityType}
+	</delete>
 </mapper>
