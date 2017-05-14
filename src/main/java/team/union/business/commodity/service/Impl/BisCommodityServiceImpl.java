@@ -1,6 +1,5 @@
 package team.union.business.commodity.service.Impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,15 +162,15 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 		return null;
 	}
 	@Override
-	public BsgridVo<HashMap<String, Object>> getavtivityCommodity(List<BisCommodity> list,
+	public BsgridVo<HashMap<String, Object>> getavtivityCommodity(HashMap<String, Object> param,
 			int curPage, int pageSize) {
-		HashMap<String, Object> param = new HashMap<>();
-		List<Long> idList = new ArrayList<>();
-		for (BisCommodity bisCommodity : list) {
-			idList.add(bisCommodity.getId());
-		}
-		param.put("storeId", list.get(0).getCommodityStoreId());
-		param.put("idList", idList);
+//		HashMap<String, Object> param = new HashMap<>();
+//		List<Long> idList = new ArrayList<>();
+//		for (BisCommodity bisCommodity : list) {
+//			idList.add(bisCommodity.getId());
+//		}
+//		param.put("storeId", list.get(0).getCommodityStoreId());
+//		param.put("idList", idList);
 		PageHelper.startPage(curPage, pageSize);
 		List<HashMap<String, Object>> data =  commodityDao.getavtivityCommodity(param);
 		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;

@@ -15,7 +15,7 @@ function operate(record, rowIndex, colIndex, options) {
  */
 //var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 function forStoreChoose(storeId, storeName) {
-	console.log("parent",parent.frames);
+//	console.log("parent",parent.frames);
 	parent.frames[0].fnLoadStore(storeId, storeName);
 	parent.$.fancybox.close();
 	return false;

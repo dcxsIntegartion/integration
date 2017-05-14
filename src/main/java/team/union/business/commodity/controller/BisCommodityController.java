@@ -22,6 +22,7 @@ import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.commodity.model.BisCommodity;
 import team.union.business.commodity.service.IBisCommodityService;
+import team.union.nonbusiness.util.ToolsUtil;
 
 /**
  * 
@@ -101,6 +102,7 @@ public class BisCommodityController {
 	}
 	
 	/*******************活动商品接口**************************/
+	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST, value = "/getavtivityCommodity")
 	@ResponseBody
 	public BsgridVo<HashMap<String, Object>> getavtivityCommodity(
@@ -108,10 +110,29 @@ public class BisCommodityController {
 			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req){
 		Gson gson = new Gson();
+		HashMap<String, Object> param = new HashMap<>();
 		String selectedCommodities = req.getParameter("selectedCommodities");
-		@SuppressWarnings("unchecked")
-		List<BisCommodity> selectedCommoditiesList = 
-				gson.fromJson(selectedCommodities, ArrayList.class);
-		return commodityService.getavtivityCommodity(selectedCommoditiesList, curPage, pageSize);
+		String storeId = req.getParameter("storeId");
+		String selected = req.getParameter("selected");//查询类型ture:获取选中的商品详情，false:获取未选择的商品详情
+		List<Long> selectedCommoditiesList = new ArrayList<>();
+		//店铺id
+		if (ToolsUtil.isNotEmpty(storeId) && ToolsUtil.isNotEmpty(selected)) {
+			param.put("storeId", Long.parseLong(storeId));
+			param.put("selected", Boolean.parseBoolean(selected));
+		}else{
+			return null;
+		}
+		//商品id
+		if (ToolsUtil.isNotEmpty(selectedCommodities) && !"[]".equals(selectedCommodities)){
+			selectedCommoditiesList =  gson.fromJson(selectedCommodities, ArrayList.class);
+			param.put("idList", selectedCommoditiesList);
+		}else if (Boolean.parseBoolean(selected)) {
+			return null;
+		}
+		//插件bug
+		if (Boolean.parseBoolean(selected)) {
+			pageSize++;
+		}
+		return commodityService.getavtivityCommodity(param, curPage, pageSize);
 	}
 }

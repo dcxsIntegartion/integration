@@ -18,6 +18,6 @@ public interface IBisCommodityService extends IService<BisCommodity>{
 	//批量下架
 	Result batchOffSale(List<Long> ids);
 	//Shuqianli:查询尚未选中的商品
-	BsgridVo<HashMap<String, Object>> getavtivityCommodity(List<BisCommodity> list,
+	BsgridVo<HashMap<String, Object>> getavtivityCommodity(HashMap<String, Object> param,
 			int curPage, int pageSize);
 }
