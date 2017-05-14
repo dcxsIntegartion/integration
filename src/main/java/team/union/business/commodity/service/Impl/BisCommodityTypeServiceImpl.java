@@ -123,7 +123,6 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		for(BisCommodityType type:list){
 			if (type.getParTypeId() == null) {
 				tree.add(type);
-				list.remove(type);
 			}
 		}
 		for(BisCommodityType p:tree){
@@ -135,8 +134,8 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 	private List<BisCommodityType> children(List<BisCommodityType> list,BigDecimal parId){
 		List<BisCommodityType> chList = new ArrayList<>();
 		for(BisCommodityType type:list){
-			if (type.getParTypeId() == parId) {
-				children(list, type.getTypeId());
+			if (type.getParTypeId() == parId || parId.equals(type.getParTypeId())) {
+			children(list, type.getTypeId());
 				chList.add(type);
 			}
 		}

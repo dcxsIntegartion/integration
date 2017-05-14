@@ -1,7 +1,7 @@
 $(function() {
 	 $('input, textarea').placeholder();//让IE8，IE9支持placeholder
 	 //初始化商品分类下拉框
-//	 initCommodityTypeSelect();
+	 initCommodityTypeSelect();
 	 window.fnStatus = function(record, rowIndex, colIndex, options){
 		 switch(record.commodity_status){
 		 case 1:
@@ -40,7 +40,7 @@ $(function() {
 function initCommodityTypeSelect(){
 	$.ajax({
 		type:"post",
-		url:basePath+"/bis/commodity/typeSelect",
+		url:basePath+"/bis/commodityType/listAll",
 		contentType:"application/x-www-form-urlencoded",
     	dataType: "json",
     	success:function(re){
@@ -49,8 +49,8 @@ function initCommodityTypeSelect(){
     			var parent = $("#commodityType");
     			$.each(data,function(index,item){
     				var option = $("<option/>");
-    				option.attr("value",item.material_type_id);
-    				option.text(item.material_name);
+    				option.attr("value",item.typeId);
+    				option.text(item.typeName);
     				parent.append(option);
     			});
     		}else{

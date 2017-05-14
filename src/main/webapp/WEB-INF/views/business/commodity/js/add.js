@@ -6,12 +6,15 @@ var field = ["id","commodityName","commodityPrice","commodityOldPrice",
 	"commoditySortNum","timingBegain","timingOff","commodityIntroduction",
 	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];
 var modelUtils = new ModelUtils(field);
+var treeAddObj = null;
 $(function(){
 	$("#first").parent().addClass("checked");
 	$("#commodityStatusfirst").parent().addClass("checked");
 	$("#homepageShowsecond").parent().addClass("checked");
 	$("#isTimingsecond").parent().addClass("checked");
 	datePickerTool();
+	//初始化树
+	initPage();
 	//
 	var org_form = $('#viewForm').Validform({
 		tiptype:function(msg,o,cssctl){
@@ -40,7 +43,14 @@ $(function(){
 			model.commodityStatus = $("#commodityStatusDiv .checked input[name='commodityStatus']").val();
 			model.homepageShow = $(".checked input[name='homepageShow']").val();
 			model.isTiming = $(".checked input[name='isTiming']").val();
-			addAjax(model);
+			model.commodityTypeId = $("#viewForm #commodityTypeId").val();
+			
+			var selectNode = treeAddObj.getSelectedNodes();
+			if(selectNode.length == 0){
+				layer.msg("请选择所属分类");
+			}else{
+				addAjax(model);
+			}
 		}
 	});
 });
@@ -91,4 +101,51 @@ function datePickerTool(){
     todayHighlight: true,
     format: 'yyyy-mm-dd hh:ii'
   });	
+}
+function initPage(){
+	$.ajax({
+		type: "post",
+        url: basePath+"/bis/commodityType/tree",
+        contentType:"application/json",
+        dataType: "json",
+        success: function(data){
+        		if(data.state==1 || data.state == 'y'){
+        			initTree(data.data);
+        		}else{
+        			layer.msg(data.msg);
+        		}
+		},
+		error:function(data) {
+			layer.msg("服务器异常");
+		}
+	});
+}
+function initTree(data){
+	var setting = {
+		data:{
+			key:{
+				children:"children",
+				name:"typeName",
+				title:"typeName"
+			},
+			simpleData:{
+				idKey:"typeId",
+				pIdKey:"parTypeId",
+				enable:true
+			}
+		},
+		callback:{
+			onClick:function(event, treeId, treeNode){
+				treeNodeClick(treeId, treeNode);
+			}
+		}
+	};
+	treeAddObj = $.fn.zTree.init($("#resource_view"), setting, data);
+	treeAddObj.expandAll(true);
+}
+function treeNodeClick(treeId, treeNode){
+	if(treeNode.children == null){
+		$("#viewForm #commodityTypeId").val(treeNode.typeId);
+		$("#viewForm #commodityTypeName").val(treeNode.typeName);
+	}
 }

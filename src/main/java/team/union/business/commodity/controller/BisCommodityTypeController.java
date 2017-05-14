@@ -1,12 +1,17 @@
 package team.union.business.commodity.controller;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import team.union.basic_data.com.rs.Result;
@@ -52,25 +57,36 @@ public class BisCommodityTypeController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/findOne")
 	@ResponseBody
-	public Result findDetail(BigDecimal id){
+	public Result findDetail(@RequestParam BigDecimal id){
 		return typeService.findOne(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	@ResponseBody
-	public Result update(BisCommodityType type){
+	public Result update(@RequestBody BisCommodityType type){
 		return typeService.update(type);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/add")
 	@ResponseBody
-	public Result create(BisCommodityType type){
+	public Result create(@RequestBody BisCommodityType type){
 		return typeService.insert(type);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/delete")
+	@RequestMapping(method = RequestMethod.GET, value = "/addPage")
+	public String addPage(@RequestParam BigDecimal parId,ModelMap map){
+		BisCommodityType type = new BisCommodityType();
+		type = (BisCommodityType) typeService.findOne(parId).getData();
+		type.setTypeLevel(type.getTypeLevel()+1);
+		map.put("parent", type);
+		return "business/commodity/addType.html";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/delete/{id}")
 	@ResponseBody
-	public Result deleteByIds(BigDecimal[] ids){
-		return typeService.delete(Arrays.asList(ids));
+	public Result deleteByIds(@PathVariable BigDecimal id){
+		List<BigDecimal> list = new ArrayList<>();
+		list.add(id);
+		return typeService.delete(list);
 	}
 }

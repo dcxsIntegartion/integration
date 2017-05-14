@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+	<meta charset="UTF-8">
+	<title>商品分类管理</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <!-- common start -->
+    <link rel="stylesheet" href="../../new_ui/styles/vendor.css">
+    <!-- page plugin -->
+    <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
+    <!-- page plugin end -->
+    <link rel="stylesheet" href="../../new_ui/styles/main.css">
+    <link rel="stylesheet" href="../../new_ui/scripts/lib/validform/style.css">	
+    <script src="../../new_ui/scripts/vendor.js"></script>
+    <!-- page plugin -->
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+    <!-- page plugin end -->
+    <script src="../../new_ui/scripts/main.js"></script>
+    <!-- page plugin end -->
+	<script src="../../new_ui/scripts/jquery.placeholder.js"></script>
+	
+	<script type="text/javascript" src="../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="../../support/web_support.js"></script>
+	<script type="text/javascript" src="../../new_ui/layerui/layer/layer.js"></script>
+	<script type="text/javascript" src="../../new_ui/scripts/plugins/dropzone.min.js"></script>
+	<link rel="stylesheet" href="../../new_ui/styles/plugins/dropzone.css">
+    <!-- common end -->
+    <!-- ztree -->
+    <link rel="stylesheet" type="text/css"
+		href="../../new_ui/styles/plugins/zTree_v3/zTreeStyle/zTreeStyle.css">
+	<script src="../../new_ui/scripts/vendor/modernizr.js"></script>
+	<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<script src="../../new_ui/scripts/plugins/zTree_v3/jquery.ztree.all-3.5.js"></script>
+	<script src="../../new_ui/scripts/plugins/jquery.formautofill.js"></script>
+    <!-- page js -->
+    <script type="text/javascript" src="js/comType.js"></script>
+	</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<ol class="breadcrumb">
+			<li>您的位置：</li>
+			<li><a href="/index.html">主页</a></li>
+			<li class="active">商品</li>
+			<li class="active">商品分类</li>
+		</ol>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							<i class="fa fa-building-o"></i>商品/ 商品分类管理
+						</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4"><!-- tree显示区域 -->
+								<ul id="resource_view" class="ztree"></ul>
+							</div>
+							<div class="col-sm-8">
+								<form id="resource_form"  action="#" class="form-horizontal">
+									<div class="form-body">
+										<input type="hidden" id="typeId" name="typeId">
+										<input type="hidden" id="parTypeId" name="parTypeId">
+										<div class="form-group">
+											<label class="col-md-3 control-label">分类名称</label>
+											<div class="col-md-5">
+												<input type="text" value="" name="typeName" id="typeName" class="form-control input-sm" placeholder="" maxlength="20"  datatype="*1-20" nullmsg="请输入分类名称,1~20字！" errormsg="请输入分类名称,1~20字！"/>
+											</div>
+											<div class="Validform_checktip"></div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">是否启用</label>
+											<div class="col-md-5">
+												<div class="radio-list">
+													<label class="radio-inline">
+														<input type="radio" value="0" name="typeState" class="i-checks" name="flat-radio-2" />启用
+													</label>
+													<label class="radio-inline">
+														<input type="radio" value="1" name="typeState" class="i-checks" name="flat-radio-2" />停用 
+													</label>
+												</div>
+											</div>
+											<div class="Validform_checktip"></div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">分类描述</label>
+											<div class="col-md-5">
+												<textarea id="typeDes" name="typeDes" class="form-control input-sm" rows="3"
+													maxlength="100"  datatype="*0-100" errormsg="请输入分类描述,0~100字！"></textarea>
+											</div>
+											<div class="Validform_checktip"></div>
+										</div>
+
+										<div class="form-actions">
+											<!-- <div class="row">
+												<div class="col-md-offset-3 col-md-9">
+													<button id="moveUp" type="button" class="btn btn-default">&lt;</button>
+													<button id="moveUpTop" type="button" class="btn btn-default">&lt;&lt;</button>
+													<button id="moveDownBottom" type="button" class="btn btn-default">&gt;&gt;</button>
+													<button id="moveDown" type="button" class="btn btn-default">&gt;</button>
+												</div>
+											</div> -->
+											<div class="row">
+												&nbsp;
+											</div>
+											<div class="row">
+												<div class="col-md-offset-3 col-md-9">
+													<button id="btnUpdate" type="submit" class="btn btn-default"><i class="fa fa-save"></i>保存</button>
+													<button id="btnAdd" type="button" onclick="addNode()" class="btn btn-default"><i class="fa fa-plus-square"></i>新增</button>
+													<button id="btnDelete" onclick="deleNode()" type="button" class="btn btn-default"><i class="fa fa-trash-o"></i>删除</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+</body>
+</html>
