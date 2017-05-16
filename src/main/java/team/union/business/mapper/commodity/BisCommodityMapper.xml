@@ -271,22 +271,22 @@
 		bc.commodity_status commodityStatus,
 		bc.commodity_type_id commodityTypeId,
 		bc.commodity_number commodityNumber,
-		bc.commodity_sale_num commoditySaleNum,
-		bac.activity_price activityPrice,
-		bac.commodity_num  activityNum
+		bc.commodity_sale_num commoditySaleNum
+<!-- 		bac.activity_price activityPrice, -->
+<!-- 		bac.commodity_num  activityNum -->
 	from  bis_commodity bc 
-	left join bis_activity_commodity_r bac
-	on bc.id = bac.commodity_id
+<!-- 	left join bis_activity_commodity_r bac -->
+<!-- 	on bc.id = bac.commodity_id -->
 	<where>
 		<if test="storeId != null">
 		and bc.commodity_store_id = #{storeId}
 		</if>
-		<if test="activityId != null">
-		and bac.activity_id = #{activityId}
-		</if>
-		<if test="activityType != null">
-		and bac.activity_type = #{activityType}
-		</if>
+<!-- 		<if test="activityId != null"> -->
+<!-- 		and bac.activity_id = #{activityId} -->
+<!-- 		</if> -->
+<!-- 		<if test="activityType != null"> -->
+<!-- 		and bac.activity_type = #{activityType} -->
+<!-- 		</if> -->
 		<if test="idList != null and selected == false">
 			and bc.id not in
 			<foreach collection="idList" item="item" open="(" close=")" separator=",">

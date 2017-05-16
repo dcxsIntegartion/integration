@@ -60,13 +60,15 @@ $(function() {
 			}
 		},
 		callback : function($form) {
-			submitToggle(1, submitHtml);
 			var model = modelUtils.initModel();
 			/** 上传图片字段赋值 * */
 			model.activityPic = saveRel(activityPic);
 			model.sharePic = saveRel(sharePic);
 			// 活动商品列表
 			var bisActivityCommodityRList = getActivityCommodityRList();
+			if (bisActivityCommodityRList == false) {
+				return;
+			}
 			// 接口body
 			var vo = {
 				bisActivityBargain : model,
@@ -74,6 +76,7 @@ $(function() {
 			};
 			console.log("requestBody", vo);
 			console.log("requestBodyStr", JSON.stringify(vo));
+			submitToggle(1, submitHtml);
 			$.ajax({
 				type : "post",
 				url : view_url + "/updateById",
@@ -215,35 +218,47 @@ function getActivityCommodityRList() {
 	var bisActivityCommodityRList=[];
 	var getChangedRowsIndexs = gridObj2.getChangedRowsIndexs();// 修改过的行
 
-	var getChangedRowsOldRecords = gridObj2.getChangedRowsOldRecords();// 原来的值
-	//未修改过的活动商品
-	for (var i = 0; i < getChangedRowsOldRecords.length; i++) {
-		if ($.inArray(i, getChangedRowsIndexs) == -1) {
-			var activityCommodity = {
-				commodityId : getChangedRowsOldRecords[i].id,
-				activityPrice : getChangedRowsOldRecords[i].activityPrice,
-				commodityNum : getChangedRowsOldRecords[i].commodityNum
-			};
+//	var getChangedRowsOldRecords = gridObj2.getChangedRowsOldRecords();// 原来的值
+	//所有商品
+	for (var i = 0; i < selectedCommodities.length; i++) {
+		var commodityId = gridObj2.getRecord(i).id;
+		var activityPrice = gridObj2.getRecord(i).activityPrice;
+		var commodityNum = gridObj2.getRecord(i).activityNum;
+		var commoditTotleNum = gridObj2.getRecord(i).activityNum;
+		//库存判断
+		if (commodityNum > commoditTotleNum) {
+			var commodityName = gridObj2.getRecord(i).commodityName;
+			layer.msg("商品"+commodityName+"库存不足！");
+			return false;
 		}
-	}
-
-	var getRowsChangedColumnsValue = gridObj2.getRowsChangedColumnsValue();
-	console.log("getRowsChangedColumnsValue", getRowsChangedColumnsValue);// 新的值
-	// 封装修改过的活动商品
-	for (var i = 0; i < getChangedRowsIndexs.length; i++) {
-		var activityPrice = getRowsChangedColumnsValue["row_" + i].activityPrice;
-		var commodityNum = getRowsChangedColumnsValue["row_" + i].activityNum;
 		if (activityPrice == "" || activityPrice == undefined
-				|| commodityNum == "" || commodityNum == undefined) {
+				|| activityNum == "" || activityNum == undefined) {
 			layer.msg("活动商品未填写完全：第" + i + "行");
-			return;
+			return false;
 		}
 		var activityCommodity = {
-			commodityId : gridObj2.getRecord(getChangedRowsIndexs[i]).id,
+			commodityId : commodityId,
 			activityPrice : activityPrice,
 			commodityNum : commodityNum
 		};
 		bisActivityCommodityRList.push(activityCommodity);
 	}
+
+//	var getRowsChangedColumnsValue = gridObj2.getRowsChangedColumnsValue();
+//	console.log("getRowsChangedColumnsValue", getRowsChangedColumnsValue);// 新的值
+//	// 修改过的活动商品
+//	for (var i = 0; i < getChangedRowsIndexs.length; i++) {
+//		var activityPrice = getRowsChangedColumnsValue["row_" + getChangedRowsIndexs[i]].activityPrice;
+//		var commodityNum = getRowsChangedColumnsValue["row_" + getChangedRowsIndexs[i]].activityNum;
+//		if (activityPrice == "" || activityPrice == undefined
+//				|| commodityNum == "" || commodityNum == undefined) {
+//			layer.msg("活动商品未填写完全：第" + i + "行");
+//			return;
+//		}
+//		var activityCommodity = bisActivityCommodityRList[i];
+//		activityCommodity.activityPrice = activityPrice;
+//		activityCommodity.commodityNum = commodityNum;
+//		bisActivityCommodityRList.push(activityCommodity);
+//	}
 	return bisActivityCommodityRList;
 }

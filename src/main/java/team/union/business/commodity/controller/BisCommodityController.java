@@ -132,12 +132,12 @@ public class BisCommodityController {
 		}
 		//活动id
 		if (ToolsUtil.isNotEmpty(activityId)) {
-			param.put("activityId", activityId);
+			param.put("activityId", Long.parseLong(activityId));
 			
 		}
 		//活动类型
 		if (ToolsUtil.isNotEmpty(activityType)) {
-			param.put("activityType", activityType);
+			param.put("activityType", Byte.parseByte(activityType));
 			
 		}
 		//商品id
