@@ -63,7 +63,7 @@ public class BisCommodityController {
 		String commodityType = req.getParameter("commodityType");
 		String commodityStatus = req.getParameter("commodityStatus");
 		map.put("commodityStatus", commodityStatus);
-		map.put("commodityType", commodityType);
+		map.put("commodityTypeId", commodityType);
 		map.put("commodityName", commodityName);
 		return commodityService.paging(map, curPage, pageSize);
 	}

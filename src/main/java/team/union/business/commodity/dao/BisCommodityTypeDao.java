@@ -43,4 +43,6 @@ public interface BisCommodityTypeDao {
 	void deleteByIds(List<BigDecimal> list);
 	
 	void update(BisCommodityType type);
+	
+	List<BisCommodityType> querySelect();
 }

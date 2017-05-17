@@ -23,6 +23,14 @@
 			type_level ASC 
 	</select>
 	
+	<select id="querySelect" resultMap="BaseResultMap">
+		SELECT a.* FROM bis_commodity_type a
+		WHERE a.type_id NOT IN(
+			SELECT DISTINCT b.par_type_id from bis_commodity_type b 
+			WHERE b.par_type_id IS NOT NULL
+		)
+	</select>
+	
 	<select id="queryByParam" parameterType="hashmap"
 		resultMap="BaseResultMap">
 		select 

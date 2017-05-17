@@ -107,6 +107,21 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		}
 		return result;
 	}
+	
+	@Override
+	public Result listSelect() {
+		Result result = new Result();
+		try {
+			List<BisCommodityType> list = typeDao.querySelect();
+			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setData(list);
+		} catch (Exception e) {
+			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg("查找下拉框失败");
+		}
+		return result;
+	}
 
 	/**
 	 * 
@@ -141,4 +156,5 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		}
 		return chList;
 	}
+
 }
