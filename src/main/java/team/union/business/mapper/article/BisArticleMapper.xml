@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.union.business.article.dao.BisArticleDao">
+	<resultMap id="BaseResultMap" type="team.union.business.article.model.BisArticle">
+		<id column="artId" property="art_id" jdbcType="BIGINT"/>
+		<result property="artTitle" column="art_title" jdbcType="VARCHAR" />
+		<result property="artContent" column="art_content" jdbcType="CLOB" />
+		<result property="artCreateTime" column="art_create_time" jdbcType="TIMESTAMP" />
+		<result property="artPlace" column="art_place" jdbcType="VARCHAR" />
+		<result property="artTop" column="art_top" jdbcType="INTEGER" />
+		<result property="artSort" column="art_sort" jdbcType="INTEGER" />
+		<result property="artAdmire" column="art_admire" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		art_id,art_title,art_content,art_create_time,art_place,art_top,
+		art_sort,art_admire
+	</sql>
+	<!-- 分页查询 -->
+	<select id="selMap" resultType="hashmap" parameterType="hashmap">
+		select 
+		<include refid="Base_Column_List" />
+		from bis_article
+		<where>
+			<if test="artTitle != null and artTitle != ''">
+				and art_title like CONCAT('%',#{artTitle,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="artPlace != null and artPlace != ''">
+				and art_place like CONCAT('%',#{artPlace,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="artTop != null">
+				and art_top = #{artTop,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				and  unix_timestamp(art_create_time) &gt;=  unix_timestamp(#{startDate,jdbcType=TIMESTAMP})
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and  unix_timestamp(art_create_time) &lt;=  unix_timestamp(#{endDate,jdbcType=TIMESTAMP})
+			</if>
+		</where>
+		ORDER BY
+			art_top DESC,art_sort DESC
+	</select>
+	
+	<select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from bis_article
+		where
+			art_id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<update id="update" parameterType="team.union.business.article.model.BisArticle">
+		update bis_article
+		<set>
+			<if test="artTitle != null and artTitle != ''">
+				art_title =#{artTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="artContent != null and artContent != ''">
+				art_content =#{artContent,jdbcType=CLOB},
+			</if>
+			<if test="artPlace != null and artPlace != ''">
+				art_place = #{artPlace,jdbcType=VARCHAR},
+			</if>
+			<if test="artTop != null">
+				art_top = #{artTop,jdbcType=INTEGER},
+			</if>
+			<if test="artSort != null">
+				art_sort = #{artSort,jdbcType=INTEGER},
+			</if>
+			<if test="artAdmire != null">
+				art_admire = #{artAdmire,jdbcType=INTEGER},
+			</if>
+		</set>
+		where art_id = #{artId,jdbcType=BIGINT}
+	</update>
+	
+	<insert id="insert" parameterType="team.union.business.article.model.BisArticle">
+		insert bis_article(
+			art_id,art_title,art_content,art_create_time,art_place,art_top,
+			art_sort,art_admire
+		)values(
+			#{artId,jdbcType=BIGINT},
+			#{artTitle,jdbcType=VARCHAR},
+			#{artContent,jdbcType=CLOB},
+			NOW(),
+			#{artPlace,jdbcType=VARCHAR},
+			#{artTop,jdbcType=INTEGER},
+			#{artSort,jdbcType=INTEGER},
+			0
+		)
+	</insert>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from bis_article where artId = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>
