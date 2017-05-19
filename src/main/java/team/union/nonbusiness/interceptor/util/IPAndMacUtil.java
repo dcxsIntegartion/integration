@@ -1,8 +1,10 @@
-package team.union.nonbusiness.util;
+package team.union.nonbusiness.interceptor.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class IPUtil {
+import team.union.nonbusiness.util.ToolsUtil;
+
+public class IPAndMacUtil {
 	
 	public static String getIp2(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
