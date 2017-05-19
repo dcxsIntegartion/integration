@@ -1,5 +1,7 @@
 package team.union.business.activity.service;
 
+import team.union.basic_data.com.rs.Result;
+import team.union.business.activity.model.BisActivityBargain;
 import team.union.business.activity.vo.BisActivityBargainVo;
 import team.union.business.com.interf.IService;
 
@@ -10,5 +12,8 @@ import team.union.business.com.interf.IService;
  * Describe:
  */
 public interface IBisActivityBargainService extends IService<BisActivityBargainVo>{
+
+	/***修改活动状态***/
+	Result updateStatus(BisActivityBargain vo);
 
 }

@@ -58,6 +58,36 @@ public class BisConfig {
 		}
 	}
 	
+	/**
+	 * 活动状态
+	 * @author Shuqianli
+	 * @date 2017年4月30日
+	 * Describe:
+	 */
+	public static enum ACTIVITY_STATUS{
+		CLOSE(1,"开启"),
+		OPEN(2,"关闭"),
+		TIME_PASE(3,"已结束");
+		private Integer number;
+		private String name;
+		private ACTIVITY_STATUS(Integer number,String name){
+			this.number=number;
+			this.name=name;
+		}
+		public Integer getNumber() {
+			return number;
+		}
+		public void setNumber(Integer number) {
+			this.number = number;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+	}
+	
 	
 	
 	

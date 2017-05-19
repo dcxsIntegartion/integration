@@ -63,7 +63,7 @@ public class BisCommodityController {
 		String commodityType = req.getParameter("commodityType");
 		String commodityStatus = req.getParameter("commodityStatus");
 		map.put("commodityStatus", commodityStatus);
-		map.put("commodityType", commodityType);
+		map.put("commodityTypeId", commodityType);
 		map.put("commodityName", commodityName);
 		return commodityService.paging(map, curPage, pageSize);
 	}
@@ -119,6 +119,8 @@ public class BisCommodityController {
 		HashMap<String, Object> param = new HashMap<>();
 		String selectedCommodities = req.getParameter("selectedCommodities");
 		String storeId = req.getParameter("storeId");
+		String activityId = req.getParameter("activityId");//活动id
+		String activityType = req.getParameter("activityType");//活动类型
 		String selected = req.getParameter("selected");//查询类型ture:获取选中的商品详情，false:获取未选择的商品详情
 		List<Long> selectedCommoditiesList = new ArrayList<>();
 		//店铺id
@@ -127,6 +129,16 @@ public class BisCommodityController {
 			param.put("selected", Boolean.parseBoolean(selected));
 		}else{
 			return null;
+		}
+		//活动id
+		if (ToolsUtil.isNotEmpty(activityId)) {
+			param.put("activityId", Long.parseLong(activityId));
+			
+		}
+		//活动类型
+		if (ToolsUtil.isNotEmpty(activityType)) {
+			param.put("activityType", Byte.parseByte(activityType));
+			
 		}
 		//商品id
 		if (ToolsUtil.isNotEmpty(selectedCommodities) && !"[]".equals(selectedCommodities)){

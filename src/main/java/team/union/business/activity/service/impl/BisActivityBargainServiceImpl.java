@@ -1,11 +1,15 @@
 package team.union.business.activity.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -18,10 +22,11 @@ import team.union.business.activity.model.BisActivityBargain;
 import team.union.business.activity.model.BisActivityCommodityR;
 import team.union.business.activity.service.IBisActivityBargainService;
 import team.union.business.activity.vo.BisActivityBargainVo;
+import team.union.business.com.cfg.BisConfig.ACTIVITY_STATUS;
 import team.union.business.com.cfg.BisConfig.ACTIVITY_TYPE;
 import team.union.business.com.cfg.BisConfig.RESULT_STATE;
-import team.union.nonbusiness.upload.model.NonbizUpload;
-import team.union.nonbusiness.upload.service.IUploadService;
+import team.union.business.store.dao.BisStoreDao;
+import team.union.business.store.model.BisStore;
 
 /**
  * 特价活动业务层
@@ -30,6 +35,7 @@ import team.union.nonbusiness.upload.service.IUploadService;
  * Describe:
  */
 @Repository
+@Transactional(rollbackFor = Exception.class)
 public class BisActivityBargainServiceImpl implements IBisActivityBargainService {
 
 	@Autowired
@@ -37,23 +43,12 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 	@Autowired
 	private BisActivityCommodityRDao bisActivityCommodityRDao;
 	@Autowired
-	private IUploadService iUploadService;
+	private BisStoreDao bisStoreDao;
 	
 	@Override
 	public BsgridVo<HashMap<String, Object>> paging(Map<String, Object> parm, int curPage, int pageSize) {
 		PageHelper.startPage(curPage, pageSize);
 		List<HashMap<String, Object>> data =  bisActivityBargainDao.selectPage(parm);
-		//获取图片
-//		for (HashMap<String, Object> hashMap : data) {
-//			//活动图片
-//			String activityPic = (String) hashMap.get("activity_pic");
-//			List<NonbizUpload> activityPicList = iUploadService.selVoLst(activityPic);
-//			hashMap.put("activityPicList", activityPicList);
-//			//分享图片
-//			String sharePic = (String) hashMap.get("share_pic");
-//			List<NonbizUpload> sharePicList = iUploadService.selVoLst(sharePic);
-//			hashMap.put("sharePicList", sharePicList);
-//		}
 		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;
 		BsgridVo<HashMap<String, Object>> bsgridVo = new BsgridVo<HashMap<String, Object>>();
 		bsgridVo.setCurPage(curPage);
@@ -78,21 +73,35 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 	@Override
 	public Result selById(Long Id) {
 		Result result = new Result();
-		BisActivityBargain bargain = bisActivityBargainDao.selectByPrimaryKey(Id);
-		if (bargain != null) {
-			//活动图片
-			String activityPic = bargain.getActivityPic();
-			List<NonbizUpload> activityPicList = iUploadService.selVoLst(activityPic);
-			bargain.setActivityPicList(activityPicList);
-			//分享图片
-			String sharePic = bargain.getSharePic();
-			List<NonbizUpload> sharePicList = iUploadService.selVoLst(sharePic);
-			bargain.setSharePicList(sharePicList);
-			
-			result.setData(bargain);
+		HashMap<String, Object> dataMap = new HashMap<>();
+		HashMap<String, Object> selectMap = new HashMap<>();
+		try {
+			BisActivityBargain bargain = bisActivityBargainDao.selectByPrimaryKey(Id);
+			Long storeId = bargain.getActivityStoreId();
+			//活动时间
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			bargain.setActivityStartTimeStr(format.format(bargain.getActivityStartTime()));
+			bargain.setActivityEndTimeStr(format.format(bargain.getActivityEndTime()));
+			//活动店铺
+			BisStore bisStore = bisStoreDao.selectByPrimaryKey(storeId);
+			bargain.setActivityStoreName(bisStore.getStoreName());
+			dataMap.put("activity", bargain);
+			//关联商品
+			selectMap.put("activityId", Id);
+			selectMap.put("activityType", ACTIVITY_TYPE.BARGAIN.getNumber());
+			List<HashMap<String, Object>> activityCommodityR =  bisActivityCommodityRDao.baseSelect(selectMap);
+			//只取关联商品id
+			List<Long> activityCommodityId = new ArrayList<>();
+			for (HashMap<String, Object> hashMap : activityCommodityR) {
+				Long commodityId = (Long) hashMap.get("commodityId");
+				activityCommodityId.add(commodityId);
+			}
+			dataMap.put("activityCommodityId", activityCommodityId);
+			result.setData(dataMap);
 			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
 			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-		}else{
+		} catch (Exception e) {
+			e.printStackTrace();
 			result.setMsg(RESULT_STATE.FAIL.getMsg());
 			result.setState(RESULT_STATE.FAIL.getNumber().toString());
 		}
@@ -105,13 +114,12 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 		try {
 			//活动图片
 			BisActivityBargain bisActivityBargain = vo.getBisActivityBargain();
-//			List<NonbizUpload> activityPicList = bisActivityBargain.getActivityPicList();
-//			String activityPic = iUploadService.banding(activityPicList);
-//			bisActivityBargain.setActivityPic(activityPic);
-//			//分享图片
-//			List<NonbizUpload> sharePicList = bisActivityBargain.getSharePicList();
-//			String sharePic = iUploadService.banding(sharePicList);
-//			bisActivityBargain.setSharePic(sharePic);
+			//活动时间
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			bisActivityBargain.setActivityStartTime(format.parse(bisActivityBargain.getActivityStartTimeStr()));
+			bisActivityBargain.setActivityEndTime(format.parse(bisActivityBargain.getActivityEndTimeStr()));
+			bisActivityBargain.setActivityCreatTime(new Date());
+			bisActivityBargain.setActivityStatus(ACTIVITY_STATUS.CLOSE.getNumber());//活动状态
 			//添加活动
 			bisActivityBargainDao.insert(bisActivityBargain);
 			//添加活动-商品关联
@@ -136,7 +144,20 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 	public Result update(BisActivityBargainVo vo) {
 		Result result = new Result();
 		try {
-			bisActivityBargainDao.updateByPrimaryKey(vo.getBisActivityBargain());
+			BisActivityBargain bisActivityBargain = vo.getBisActivityBargain();
+			bisActivityBargainDao.updateByPrimaryKeySelective(bisActivityBargain);
+			//删除之前的关联商品
+			HashMap<String, Object> deleteMap = new HashMap<>();
+			deleteMap.put("avtivityId", bisActivityBargain.getId());
+			deleteMap.put("avtivityType", ACTIVITY_TYPE.BARGAIN.getNumber());
+			bisActivityCommodityRDao.deleteByactivity(deleteMap);
+			//添加活动-商品关联
+			List<BisActivityCommodityR> bisActivityCommodityRList = vo.getBisActivityCommodityRList();
+			for (BisActivityCommodityR bisActivityCommodityR : bisActivityCommodityRList) {
+				bisActivityCommodityR.setActivityId(bisActivityBargain.getId());//活动id
+				bisActivityCommodityR.setActivityType(ACTIVITY_TYPE.BARGAIN.getNumber());//活动类型
+				bisActivityCommodityRDao.insert(bisActivityCommodityR);
+			}
 			result.setData(vo.getBisActivityBargain());
 			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
 			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
@@ -150,7 +171,6 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 
 	@Override
 	public Result updateBySelective(BisActivityBargainVo vo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -166,6 +186,14 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 			result.setState(RESULT_STATE.FAIL.getNumber().toString());
 			e.printStackTrace();
 		}
+		return result;
+	}
+
+	@Override
+	public Result updateStatus(BisActivityBargain vo) {
+		Result result = new Result();
+		bisActivityBargainDao.updateByPrimaryKeySelective(vo);
+		result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
 		return result;
 	}
 

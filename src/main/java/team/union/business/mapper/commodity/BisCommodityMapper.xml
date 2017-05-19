@@ -25,7 +25,7 @@
 		<result column="commodity_sort_num" property="commoditySortNum"
 			jdbcType="INTEGER" />
 		<result column="commodity_introduction" property="commodityIntroduction"
-			jdbcType="VARCHAR" />
+			jdbcType="CLOB" />
 		<result column="commodity_status" property="commodityStatus"
 			jdbcType="INTEGER" />
 		<result column="homepage_show" property="homepageShow"
@@ -190,7 +190,7 @@
 				commodity_sort_num = #{commoditySortNum,jdbcType=INTEGER},
 			</if>
 			<if test="commodityIntroduction != null and commodityIntroduction != ''">
-				commodity_introduction = #{commodityIntroduction,jdbcType=VARCHAR},
+				commodity_introduction = #{commodityIntroduction,jdbcType=CLOB},
 			</if>
 			<if test="commodityStatus != null">
 				commodity_status = #{commodityStatus,jdbcType=INTEGER},
@@ -251,7 +251,7 @@
 		#{commodityPic2,jdbcType=VARCHAR},
 		#{commodityPic3,jdbcType=VARCHAR},
 		#{commoditySortNum,jdbcType=INTEGER},
-		#{commodityIntroduction,jdbcType=VARCHAR},
+		#{commodityIntroduction,jdbcType=CLOB},
 		#{commodityStatus,jdbcType=INTEGER},
 		#{homepageShow,jdbcType=INTEGER}, #{timingOff,jdbcType=TIMESTAMP}, #{timingBegain,jdbcType=TIMESTAMP},
 		#{isTiming,jdbcType=INTEGER},
@@ -262,27 +262,43 @@
 	
 	<!-- Shuqianli活动接口：获取未选择的商品 -->
 	<select id="getavtivityCommodity" parameterType="hashmap" resultType="hashmap">
-	select id, 
-		commodity_name commodityName, 
-		commodity_price commodityPrice, 
-		commodity_old_price commodityOldPrice,
-		commodity_store_id commodityStoreId, 
-		commodity_num commodityNum,
-		commodity_status commodityStatus,
-		commodity_type_id commodityTypeId,
-		commodity_number commodityNumber,
-		commodity_sale_num commoditySaleNum
-	from bis_commodity
+	select bc.id, 
+		bc.commodity_name commodityName, 
+		bc.commodity_price commodityPrice, 
+		bc.commodity_old_price commodityOldPrice,
+		bc.commodity_store_id commodityStoreId, 
+		bc.commodity_num commodityNum,
+		bc.commodity_status commodityStatus,
+		bc.commodity_type_id commodityTypeId,
+		bc.commodity_number commodityNumber,
+		bc.commodity_sale_num commoditySaleNum
+<!-- 		bac.activity_price activityPrice, -->
+<!-- 		bac.commodity_num  activityNum -->
+	from  bis_commodity bc 
+<!-- 	left join bis_activity_commodity_r bac -->
+<!-- 	on bc.id = bac.commodity_id -->
 	<where>
 		<if test="storeId != null">
-		and commodity_store_id = #{storeId}
+		and bc.commodity_store_id = #{storeId}
 		</if>
-		<if test="idList != null">
-				and id not in
-				<foreach collection="idList" item="item" open="(" close=")" separator=",">
-					#{item}
-				</foreach>
-			</if>
+<!-- 		<if test="activityId != null"> -->
+<!-- 		and bac.activity_id = #{activityId} -->
+<!-- 		</if> -->
+<!-- 		<if test="activityType != null"> -->
+<!-- 		and bac.activity_type = #{activityType} -->
+<!-- 		</if> -->
+		<if test="idList != null and selected == false">
+			and bc.id not in
+			<foreach collection="idList" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		<if test="idList != null and selected == true">
+			and bc.id in
+			<foreach collection="idList" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
 	</where>
 	</select>
 	<!-- 以下暂时不需要 -->

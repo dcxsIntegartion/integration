@@ -40,7 +40,7 @@ $(function() {
 function initCommodityTypeSelect(){
 	$.ajax({
 		type:"post",
-		url:basePath+"/bis/commodityType/listAll",
+		url:basePath+"/bis/commodityType/listSelect",
 		contentType:"application/x-www-form-urlencoded",
     	dataType: "json",
     	success:function(re){

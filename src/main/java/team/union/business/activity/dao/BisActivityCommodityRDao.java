@@ -1,5 +1,6 @@
 package team.union.business.activity.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import team.union.business.activity.model.BisActivityCommodityR;
@@ -33,4 +34,10 @@ public interface BisActivityCommodityRDao {
     int updateByPrimaryKeySelective(BisActivityCommodityR record);
 
     int updateByPrimaryKey(BisActivityCommodityR record);
+    
+    /***活动-商品关联基本查询*****/
+    List<HashMap<String, Object>> baseSelect(HashMap<String, Object> map);
+
+    /***删除活动关联商品***/
+	void deleteByactivity(HashMap<String, Object> deleteMap);
 }

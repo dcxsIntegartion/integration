@@ -14,6 +14,9 @@ import com.github.pagehelper.PageHelper;
 import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
+import team.union.business.activity.dao.BisActivityCommodityRDao;
+import team.union.business.activity.model.BisActivityCommodityR;
+import team.union.business.activity.model.BisActivityCommodityRExample;
 import team.union.business.commodity.dao.BisCommodityDao;
 import team.union.business.commodity.model.BisCommodity;
 import team.union.business.commodity.service.IBisCommodityService;
@@ -24,6 +27,8 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 
 	@Autowired
 	private BisCommodityDao commodityDao;
+	@Autowired
+	private BisActivityCommodityRDao bisActivityCommodityRDao;
 	
 	@Override
 	public BsgridVo<HashMap<String, Object>> paging(Map<String, Object> parm, int curPage, int pageSize) {
@@ -164,21 +169,40 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 	@Override
 	public BsgridVo<HashMap<String, Object>> getavtivityCommodity(HashMap<String, Object> param,
 			int curPage, int pageSize) {
-//		HashMap<String, Object> param = new HashMap<>();
-//		List<Long> idList = new ArrayList<>();
-//		for (BisCommodity bisCommodity : list) {
-//			idList.add(bisCommodity.getId());
-//		}
-//		param.put("storeId", list.get(0).getCommodityStoreId());
-//		param.put("idList", idList);
-		PageHelper.startPage(curPage, pageSize);
-		List<HashMap<String, Object>> data =  commodityDao.getavtivityCommodity(param);
-		Page<HashMap<String, Object>> pageData = (Page<HashMap<String, Object>>) data;
+		//获取商品的类型
+		List<HashMap<String, Object>> data;
+		Page<HashMap<String, Object>> pageData;
 		BsgridVo<HashMap<String, Object>> bsgridVo = new BsgridVo<HashMap<String, Object>>();
-		bsgridVo.setCurPage(curPage);
-		bsgridVo.setData(pageData);
+		if (param.get("activityType") != null && param.get("selected") != null 
+				&& param.get("activityId") != null) {//已选择商品
+			data =  commodityDao.getavtivityCommodity(param);
+			//查询条件
+			for (HashMap<String, Object> hashMap : data) {
+				Long commodityId = (Long) hashMap.get("id");
+				//是否为关联商品
+				BisActivityCommodityRExample example = new BisActivityCommodityRExample();
+				BisActivityCommodityRExample.Criteria  criteria= example.createCriteria();
+				criteria.andActivityTypeEqualTo((Byte)param.get("activityType"));
+				criteria.andActivityIdEqualTo((Long)param.get("activityId"));
+				criteria.andCommodityIdEqualTo(commodityId);
+				List<BisActivityCommodityR> rCommodityRs = bisActivityCommodityRDao.selectByExample(example);
+				if (rCommodityRs != null && rCommodityRs.size() == 1) {
+					hashMap.put("activityPrice", rCommodityRs.get(0).getActivityPrice());
+					hashMap.put("activityNum", rCommodityRs.get(0).getCommodityNum());
+				}
+			}
+			bsgridVo.setCurPage(1);
+			bsgridVo.setData(data);
+			bsgridVo.setTotalRows((long)data.size());
+		}else{//未选中的商品
+			PageHelper.startPage(curPage, pageSize);
+			data =  commodityDao.getavtivityCommodity(param);
+			pageData = (Page<HashMap<String, Object>>) data;
+			bsgridVo.setCurPage(curPage);
+			bsgridVo.setData(pageData);
+			bsgridVo.setTotalRows(pageData.getTotal());
+		}
 		bsgridVo.setSuccess(true);
-		bsgridVo.setTotalRows(pageData.getTotal());
 		return bsgridVo;
 	}
 }

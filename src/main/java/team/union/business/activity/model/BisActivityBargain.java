@@ -33,9 +33,38 @@ public class BisActivityBargain {
     private List<NonbizUpload> activityPicList;
     //分享图片
     private List<NonbizUpload> sharePicList;
+    //活动开始时间String
+    private String activityStartTimeStr;
+    //活动结束时间string
+    private String activityEndTimeStr;
+    //活动店铺名称
+    private String activityStoreName;
 
-    
-    public List<NonbizUpload> getActivityPicList() {
+    public String getActivityStoreName() {
+		return activityStoreName;
+	}
+
+	public void setActivityStoreName(String activityStoreName) {
+		this.activityStoreName = activityStoreName;
+	}
+
+	public String getActivityStartTimeStr() {
+		return activityStartTimeStr;
+	}
+
+	public void setActivityStartTimeStr(String activityStartTimeStr) {
+		this.activityStartTimeStr = activityStartTimeStr;
+	}
+
+	public String getActivityEndTimeStr() {
+		return activityEndTimeStr;
+	}
+
+	public void setActivityEndTimeStr(String activityEndTimeStr) {
+		this.activityEndTimeStr = activityEndTimeStr;
+	}
+
+	public List<NonbizUpload> getActivityPicList() {
 		return activityPicList;
 	}
 

@@ -4,8 +4,9 @@ var commodityId = getQueryString("commodityId");
 var submitHtml = $('#saveBtn').html();
 var field = ["id","commodityName","commodityPrice","commodityOldPrice",
 	"commoditySaleAdd","commodityNum","commodityNumber",
-	"commoditySortNum","timingBegain","timingOff","commodityIntroduction",
-	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];
+	"commodityPic","commodityPic2","commodityPic3",
+	"commoditySortNum","timingBegain","timingOff",
+	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];//"commodityIntroduction",
 var modelUtils = new ModelUtils(field);
 $(function(){
 	initPageData();
@@ -37,6 +38,8 @@ $(function(){
 			model.commodityStatus = $("#commodityStatusDiv .checked input[name='commodityStatus']").val();
 			model.homepageShow = $(".checked input[name='homepageShow']").val();
 			model.isTiming = $(".checked input[name='isTiming']").val();
+			
+			model.commodityIntroduction = getAllHtml();
 			editAjax(model);
 		}
 	});
@@ -74,6 +77,8 @@ function initPageData(){
         	if(data.state==1){
         		modelUtils.fillData(data.data);
         		radioFill(data.data);
+        		initEditor();
+        		insertHtml(data.data.commodityIntroduction);
         	}
 		},
 		error:function(data) {

@@ -20,5 +20,5 @@ public interface IBisCommodityTypeService {
 	
 	public Result delete(List<BigDecimal> ids);
 	
-	
+	public Result listSelect();
 }

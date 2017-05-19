@@ -88,7 +88,10 @@ public class BaseConfig {
 	public static enum NO_NEED_FILTER_URL{
 		IMG("/img"),
 		FILE("/file"),
-		UEDITOR("/Config");
+		UEDITOR("/Config"),
+		COMMODITYADD("/add"), //商品新增
+		COMMODITYEDIT("/update"),	//商品编辑
+		FINDONE("/findOne");
 		private NO_NEED_FILTER_URL(String value){
 			this.value=value;
 		}
