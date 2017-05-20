@@ -2,8 +2,8 @@
 /** 图片上传处理 **/
 var img_url = basePath+"/upload/";
 var commodityPic = [];
-var commodityPic2 = [];
-var commodityPic3 = [];
+/*var commodityPic2 = [];
+var commodityPic3 = [];*/
 /** end   **/
 
 $.ajaxSetup({
@@ -38,7 +38,7 @@ Dropzone.options.commodityPic = {
       url:img_url+"img",
       addRemoveLinks: true,
       maxFilesize: 2, // MB
-      maxFiles: 1,
+      maxFiles: 3,
       acceptedFiles: 'image/*',
       dictDefaultMessage: '拖动图片到这里，或者点击上传',
       dictInvalidFileType: '请上传jpg,jpeg,png,gif等图片格式的文件',
@@ -46,7 +46,7 @@ Dropzone.options.commodityPic = {
       dictRemoveFile: '删除',
       dictCancelUpload: '取消',
       dictCancelUploadConfirmation: '您确定要取消上传吗？',
-      dictMaxFilesExceeded: '最多只能上传1个文件',
+      dictMaxFilesExceeded: '最多只能上传3个文件',
       init: function() {
           this.on("success", function(file, response) {
         	if(response){
@@ -73,6 +73,7 @@ Dropzone.options.commodityPic = {
           this.options.maxFiles = this.options.maxFiles - existingFileCount;
       }
   };
+/*
 Dropzone.options.commodityPic2 = {
 	      paramName: "file", // The name that will be used to transfer the file
 	      url:img_url+"img",
@@ -153,7 +154,7 @@ Dropzone.options.commodityPic3 = {
 	          this.options.maxFiles = this.options.maxFiles - existingFileCount;
 	      }
 	  };
-
+*/
 /** start 需要修改的 **/
 function img_upload_success(imgs,response){
 	if(response){
