@@ -15,8 +15,8 @@ $(function() {
     //操作
     window.operate =function(record, rowIndex, colIndex, options) {
     	var op_html ='';
-    	op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'coupon_id') + '\');">编辑</a>';
-    	op_html+= '<a  href="javascript:void(0);" class="btn btn-warning btn-xs mhx" onclick="forDetail(\'' + gridObj.getRecordIndexValue(record, 'coupon_id') + '\');">详情</a>';
+    	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'coupon_id') + '\');">编辑</a>';
+    	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-warning btn-xs mhx" onclick="forDetail(\'' + gridObj.getRecordIndexValue(record, 'coupon_id') + '\');">详情</a>';
     	op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-danger btn-xs mhx" onclick="del(\'' + gridObj.getRecordIndexValue(record, 'coupon_id') + '\');">删除</a>';
 		return op_html;
     }

@@ -4,9 +4,10 @@ var commodityId = getQueryString("commodityId");
 var submitHtml = $('#saveBtn').html();
 var field = ["id","commodityName","commodityPrice","commodityOldPrice",
 	"commoditySaleAdd","commodityNum","commodityNumber",
-	"commodityPic","commodityPic2","commodityPic3",
+	"commodityPic",
 	"commoditySortNum","timingBegain","timingOff",
 	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];//"commodityIntroduction",
+	//"commodityPic2","commodityPic3",
 var modelUtils = new ModelUtils(field);
 $(function(){
 	initPageData();
@@ -23,8 +24,8 @@ $(function(){
 			var model = modelUtils.initModel();
 			/** 上传图片字段赋值 **/
 			model.commodityPic=saveRel(commodityPic);
-			model.commodityPic2=saveRel(commodityPic2);
-			model.commodityPic3=saveRel(commodityPic3);
+			/*model.commodityPic2=saveRel(commodityPic2);
+			model.commodityPic3=saveRel(commodityPic3);*/
 			
 			if(model.timingBegain != undefined && model.timingBegain != null 
 					&& model.timingBegain != ""){
@@ -41,6 +42,7 @@ $(function(){
 			
 			model.commodityIntroduction = getAllHtml();
 			editAjax(model);
+			return false;
 		}
 	});
 });

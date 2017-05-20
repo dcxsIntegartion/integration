@@ -60,10 +60,14 @@ public class BisArticleServiceImpl implements IBisArticleService {
 	public Result update(BisArticle article) {
 		Result result = new Result();
 		try {
+			if (article.getArtId() == null) {
+				throw new Exception();
+			}
 			articleDao.update(article);
 			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
 			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.setState(RESULT_STATE.FAIL.getNumber().toString());
 			result.setMsg("编辑文章失败");
 		}
