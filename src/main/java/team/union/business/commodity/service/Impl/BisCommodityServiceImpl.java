@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.HtmlUtils;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -192,9 +191,10 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 					hashMap.put("activityNum", rCommodityRs.get(0).getCommodityNum());
 				}
 			}
+			pageData = (Page<HashMap<String, Object>>) data;
 			bsgridVo.setCurPage(1);
-			bsgridVo.setData(data);
-			bsgridVo.setTotalRows((long)data.size());
+			bsgridVo.setData(pageData);
+			bsgridVo.setTotalRows(pageData.getTotal());
 		}else{//未选中的商品
 			PageHelper.startPage(curPage, pageSize);
 			data =  commodityDao.getavtivityCommodity(param);
