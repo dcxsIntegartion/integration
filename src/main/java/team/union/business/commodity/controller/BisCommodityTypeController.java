@@ -49,6 +49,12 @@ public class BisCommodityTypeController {
 		return typeService.listAll();
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, value = "/listSelect")
+	@ResponseBody
+	public Result queryCommoSelect(){
+		return typeService.listSelect();
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/tree")
 	@ResponseBody
 	public Result getTree(){

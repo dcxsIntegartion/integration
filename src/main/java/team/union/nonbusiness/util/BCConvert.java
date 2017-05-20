@@ -1,7 +1,4 @@
 package team.union.nonbusiness.util;
-
-import org.springframework.util.StringUtils;
-
 /**  
 * <PRE>  
 * 提供对字符串的全角->半角，半角->全角转换  

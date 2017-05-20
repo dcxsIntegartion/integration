@@ -22,9 +22,6 @@ import team.union.nonbusiness.com.rs.ResultVo;
 import team.union.basic_data.materialType.model.MaterialType;
 import team.union.basic_data.materialType.service.IMaterialTypeService;
 import team.union.basic_data.materialType.vo.MaterialTypeVo;
-import team.union.nonbusiness.sys.model.Users;
-import team.union.nonbusiness.sys.utils.WebUtils;
-import team.union.nonbusiness.util.IPUtil;
 
 @Controller
 @RequestMapping("/nonbis/materialType")
@@ -51,9 +48,6 @@ public class MaterialTypeController {
 	public ResultVo saveOrUpdate(@RequestBody MaterialTypeVo vo,HttpServletRequest req) {
 		ResultVo resultVo = new ResultVo();
 		try {
-			Users users = WebUtils.getUser(req);
-			vo.setIp(IPUtil.getIp2(req));
-			vo.setUsers(users);
 			resultVo = materialTypeService.saveOrUpdateMaterialType(vo);
 		}
 		catch (Exception e) {
@@ -82,9 +76,6 @@ public class MaterialTypeController {
 	public ResultVo addToGroup(@RequestBody Map<String, Object> params,HttpServletRequest req) {
 		ResultVo resultVo = new ResultVo();
 		try {
-			Users users = WebUtils.getUser(req);
-			params.put("userId", users.getUserId());
-			params.put("ip", IPUtil.getIp2(req));
 			resultVo = materialTypeService.addToGroup(params);
 		}
 		catch (Exception e) {
@@ -99,9 +90,6 @@ public class MaterialTypeController {
 	public ResultVo removeFromGroup(@RequestBody Map<String, Object> params,HttpServletRequest req) {
 		ResultVo resultVo = new ResultVo();
 		try {
-			Users users = WebUtils.getUser(req);
-			params.put("userId", users.getUserId());
-			params.put("ip", IPUtil.getIp2(req));
 			resultVo = materialTypeService.removeFromGroup(params);
 		}
 		catch (Exception e) {
