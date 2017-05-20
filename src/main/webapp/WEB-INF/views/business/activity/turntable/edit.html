@@ -1,0 +1,205 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>新增特价活动</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="../../../new_ui/styles/vendor.css">
+<link rel="stylesheet" href="../../../new_ui/scripts/lib/validform/style.css">	
+<link rel="stylesheet" href="../../../new_ui/styles/main.css">
+<link rel="stylesheet" href="../../../new_ui/styles/plugins/dropzone.css">
+
+<script type="text/javascript" src="../../../new_ui/scripts/vendor.js"></script>
+<script type="text/javascript" src="../../../new_ui/scripts/plugins/dropzone.min.js"></script>
+<script type="text/javascript" src="../../../new_ui/scripts/lib/validform/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="../../../new_ui/scripts/main.js"></script>
+<script type="text/javascript" src="../../../support/web_support.js"></script>
+<script type="text/javascript" src="../../../new_ui/layerui/layer/layer.js"></script>
+<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../../new_ui/scripts/plugins/grid/bsgrid.all.min.js"></script>
+
+
+<script type="text/javascript" src="js/upload.js"></script>
+<script type="text/javascript" src="js/edit.js"></script>
+
+</head>
+<body onunload="unload()">
+	<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>
+									<i class="fa fa-sliders"></i> 特价活动
+								</h5>
+							</div>
+							<div class="ibox-content form">
+								<form id ="viewForm" class="form-horizontal">
+									<div class="modal-body">
+										<div class="form-body">
+											<input type="hidden" id="id" name="id" value="">
+											<div class="form-group">
+												<label class="col-md-3 control-label">活动名称：</label>
+												<div class="col-md-4">
+													<input datatype="*2-15" maxlength="15" nullmsg="请输入活动名称！"
+														errormsg="输入活动名称，2~15字！" id="activityName" name="activityName" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入活动名称，2~15字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">活动开始时间：</label>
+												<div class="col-md-4">
+													<div class="input-daterange input-group" id="datetime_01">
+								                      <input required="required" type="text" onfocus="this.blur();" class="input-sm form-control date" id="activityStartTimeStr" name="activityStartTimeStr" placeholder="点击选择开始日期"/>
+								                    </div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">活动结束时间：</label>
+												<div class="col-md-4">
+													<div class="input-daterange input-group" id="datetime_01">
+								                      <input required="required" type="text" onfocus="this.blur();" class="input-sm form-control date" id="activityEndTimeStr" name="activityEndTimeStr" placeholder="点击选择开始日期"/>
+								                    </div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">活动店铺：</label>
+												<div class="col-md-4">
+													<a class="fancybox_iframe" href="../../commonSelect/storeSelect.html">
+													<input  nullmsg="请选择活动店铺！" onfocus="this.blur();"
+														errormsg="请选择活动店铺！" id="activityStoreName" name="activityStoreName" type="text" class="form-control input-sm">
+														<input type="hidden" id="activityStoreId" name="activityStoreId" value="">
+													</a>
+												</div>
+												<div class="Validform_checktip">请选择活动店铺！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">活动说明：</label>
+												<div class="col-md-4">
+													<textarea datatype="*4-15" maxlength="150"  nullmsg="请输入活动说明！"
+														errormsg="输入活动说明，4~150字！" id="activityExplain" name="activityExplain" type="text"  class="form-control input-sm" rows="3">
+													</textarea>
+												</div>
+												<div class="Validform_checktip">请输入活动说明，4~150字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">每个用户每天抽奖次数：</label>
+												<div class="col-md-4">
+													<input datatype="/^\d+$/" maxlength="15" nullmsg="请输每个用户每天抽奖次数！"
+														errormsg="输入每个用户每天抽奖次数！" id="prizeDayTime" name="prizeDayTime" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入每个用户每天抽奖次数！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">每个用户总共抽奖次数：</label>
+												<div class="col-md-4">
+													<input datatype="/^\d+$/" maxlength="15" nullmsg="请输每个用户总共抽奖次数！"
+														errormsg="输入每个用户总共抽奖次数！" id="prizeTotleTime" name="prizeTotleTime" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入每个用户总共抽奖次数题！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">每个用户总共中奖次数：</label>
+												<div class="col-md-4">
+													<input datatype="/^\d+$/" maxlength="15" nullmsg="请输每个用户总共中奖次数！"
+														errormsg="输入每个用户总共中奖次数！" id="prizeTotleNum" name="prizeTotleNum" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入每个用户总共中奖次数！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">同一奖品中奖间隔时间：</label>
+												<div class="col-md-4">
+													<input datatype="/^\d+$/" maxlength="15" nullmsg="请输同一奖品中奖间隔时间，单位（分钟）！"
+														errormsg="输入同一奖品中奖间隔时间，单位（分钟）！" id="intervalTime" name="intervalTime" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入同一奖品中奖间隔时间，单位（分钟）！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">分享标题：</label>
+												<div class="col-md-4">
+													<input datatype="*2-15" maxlength="15" nullmsg="请输分享标题！"
+														errormsg="输入分享标题，2~15字！" id="shareTitle" name="shareTitle" type="text" class="form-control input-sm">
+												</div>
+												<div class="Validform_checktip">请输入分享标题，2~15字！</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">分享描述：</label>
+												<div class="col-md-4">
+													<textarea datatype="*4-15" maxlength="150"  nullmsg="请输入分享描述！"
+														errormsg="输入分享描述，4~150字！" id="shareDescribe" name="shareDescribe" type="text"  class="form-control input-sm" rows="3">
+													</textarea>
+												</div>
+												<div class="Validform_checktip">请输入分享描述，4~150字！</div>
+											</div>
+											<div  class="dropzone" id="activityPic">
+									                                   活动图片：<input type="hidden" name="activityPic" value="">
+									            <div class="fallback">
+									                <input name="file" type="file" multiple />
+									            </div>
+									        </div>
+											<div  class="dropzone" id="sharePic">
+									                                  分享图片：<input type="hidden" name="sharePic" value="">
+									            <div class="fallback">
+									                <input name="file2" type="file" multiple />
+									            </div>
+									        </div>
+									        <!-- 未选择的商品 -->
+									        <div class="grid_wrapper">
+								                <div class="mbm">
+								                  <input type="hidden" id="ids">
+								                  <button id="btn_refresh" type="button" class="btn btn-sm btn-primary">刷新</button>
+								                </div>
+								                <table id="searchTable" class="table table-condensed table-bordered table-striped table-hover">
+								                  <tr>
+								                    <th w_index="commodityName" width="15%;">商品名称</th>
+								                    <th w_index="commodityNumber" width="15%;">货号</th>
+								                    <th w_index="commodityPrice" width="15%;">价格</th>
+								                    <th w_index="commodityNum" width="15%;">库存</th>
+								                    <th w_index="commoditySaleNum" width="15%;">销量</th>
+								                    <th w_render="operate" width="10%;">操作</th>
+								                  </tr>
+								                </table>
+							              </div>
+							              <!-- 已选择的商品 -->
+									        <div class="grid_wrapper">
+								                <table id="selectedTable" class="table table-condensed table-bordered table-striped table-hover">
+								                  <tr>
+								                    <th w_hidden="true" w_index="id" width="15%;">商品Id</th>
+								                    <th w_index="commodityName" width="15%;">商品名称</th>
+								                    <th w_index="commodityNumber" width="15%;">货号</th>
+								                    <th w_index="commodityPrice" width="15%;">原价</th>
+								                    <th w_edit="text" w_index="activityPrice" width="15%;">抽取积分</th>
+								                    <th w_index="commodityNum" width="15%;">库存</th>
+								                    <th w_edit="text" w_index="activityNum" width="15%;">活动库存</th>
+								                    <th w_render="operate2" width="10%;">操作</th>
+								                  </tr>
+								                </table>
+							              </div>
+										</div>
+									</div>
+									<div class="form-actions">
+				                      <div class="row">
+				                        <div class="col-md-offset-3 col-md-9">
+				                          <button onclick="javascript:window.history.back(-1);" type="button" class="btn btn-default"
+											data-dismiss="modal">取消</button>
+										  <button type="submit" id="saveBtn" class="btn btn-primary">确定</button>
+				                        </div>
+				                      </div>
+				                    </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

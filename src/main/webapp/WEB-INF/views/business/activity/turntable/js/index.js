@@ -1,5 +1,5 @@
 var gridObj;
-var grid_url = basePath+"/bis/activityBargain/";
+var grid_url = basePath+"/bis/activityTurntable/";
 /** 新增 **/
 function add(){
 	window.location.href = "add.html";
@@ -100,7 +100,7 @@ function doSearch(){
 /***列表***/
 $(function(){
 	gridObj = $.fn.bsgrid.init('searchTable', {
-		 url : basePath+"/bis/activityBargain/page",
+		 url : basePath+"/bis/activityTurntable/page",
          pageSizeSelect: true,
          stripeRows: true,
          otherParames: $("#search_form").serializeArray(),

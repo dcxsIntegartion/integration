@@ -1,5 +1,5 @@
 var gridObj;
-var grid_url = basePath+"/bis/activityBargain/";
+var grid_url = basePath+"/bis/activitySeckil/";
 /** 新增 **/
 function add(){
 	window.location.href = "add.html";
@@ -87,6 +87,15 @@ function activity_status(record, rowIndex, colIndex, options) {
 	return op_html;
 };
 
+/** 活动状态 **/
+function activity_day_time(record, rowIndex, colIndex, options) {
+	var op_html ='';
+	var activity_day_time = record.activity_day_time;
+	var activity_point_time = record.activity_point_time;
+	op_html+= "<span>"+activity_day_time+"  "+activity_point_time+"</span>"
+	return op_html;
+};
+
 
 /** 查询 **/
 function doSearch(){
@@ -100,7 +109,7 @@ function doSearch(){
 /***列表***/
 $(function(){
 	gridObj = $.fn.bsgrid.init('searchTable', {
-		 url : basePath+"/bis/activityBargain/page",
+		 url : basePath+"/bis/activitySeckil/page",
          pageSizeSelect: true,
          stripeRows: true,
          otherParames: $("#search_form").serializeArray(),

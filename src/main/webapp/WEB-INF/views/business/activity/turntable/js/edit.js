@@ -1,12 +1,11 @@
 var id = getQueryString("id");
 var type = getQueryString("type");
-var view_url = basePath + "/bis/activityBargain/";
+var view_url = basePath + "/bis/activityTurntable/";
 /** 页面数据封装 填充 * */
 var model = {};
-var field = [ "id", "activityName", "activityStartTimeStr",
-		"activityEndTimeStr", "activityStoreId", "activityStoreName",
-		"activityExplain", "shareTitle", "shareDescribe", "activityPic",
-		"sharePic" ];
+var field =["id", "activityName", "activityStartTimeStr", "activityEndTimeStr","prizeDayTime","prizeTotleTime","activityStoreName",
+	"prizeTotleNum","intervalTime","activityStoreId", "activityExplain", "shareTitle", "shareDescribe",
+	"activityPic", "sharePic" ];
 var modelUtils = new ModelUtils(field);
 /** 提交按钮 * */
 var submitHtml = $('#saveBtn').html();
@@ -71,7 +70,7 @@ $(function() {
 			}
 			// 接口body
 			var vo = {
-				bisActivityBargain : model,
+				bisActivityTurntable : model,
 				bisActivityCommodityRList : bisActivityCommodityRList
 			};
 			console.log("requestBody", vo);
@@ -156,7 +155,7 @@ function updateCommidities() {
 		selected : 'true',
 		storeId : storeId,
 		activityId : id,
-		activityType : 1,
+		activityType : 4,
 		selectedCommodities : JSON.stringify(selectedCommodities)
 	};
 	gridObj2.page(1);
@@ -251,5 +250,6 @@ function getActivityCommodityRList() {
 		bisActivityCommodityRList.push(activityCommodity);
 	}
 
+	return bisActivityCommodityRList;
 	return bisActivityCommodityRList;
 }

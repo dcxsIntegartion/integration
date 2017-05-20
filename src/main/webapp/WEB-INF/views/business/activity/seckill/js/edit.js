@@ -1,10 +1,10 @@
 var id = getQueryString("id");
 var type = getQueryString("type");
-var view_url = basePath + "/bis/activityBargain/";
+var view_url = basePath + "/bis/activitySeckil/";
 /** 页面数据封装 填充 * */
 var model = {};
-var field = [ "id", "activityName", "activityStartTimeStr",
-		"activityEndTimeStr", "activityStoreId", "activityStoreName",
+var field = [ "id", "activityName", "activityDayTimeStr",
+		"activityPointTime", "activityStoreId", "activityStoreName",
 		"activityExplain", "shareTitle", "shareDescribe", "activityPic",
 		"sharePic" ];
 var modelUtils = new ModelUtils(field);
@@ -30,24 +30,13 @@ $(function() {
 		}
 	});
 	/** 时间插件 * */
-	$('#activityStartTimeStr').datetimepicker({
+	$('#activityDayTimeStr').datetimepicker({
 		clearBtn : true,
 		keyboardNavigation : false,
 		language : "zh-CN",
 		autoclose : true,
 		todayHighlight : true,
-		format : 'yyyy-mm-dd hh:ii'
-	}).on('changeDate', function(ev) {
-		var value = $(this).val();
-		$('#couponValidityEnd').datetimepicker('setStartDate', value);
-	});
-	$('#activityEndTimeStr').datetimepicker({
-		clearBtn : true,
-		keyboardNavigation : false,
-		language : "zh-CN",
-		autoclose : true,
-		todayHighlight : true,
-		format : 'yyyy-mm-dd hh:ii'
+		format : 'yyyy-mm-dd'
 	});
 	/** 查、改、增页面控制 * */
 	viewLoadControlle();
@@ -71,7 +60,7 @@ $(function() {
 			}
 			// 接口body
 			var vo = {
-				bisActivityBargain : model,
+				bisActivitySeckil : model,
 				bisActivityCommodityRList : bisActivityCommodityRList
 			};
 			console.log("requestBody", vo);
@@ -156,7 +145,7 @@ function updateCommidities() {
 		selected : 'true',
 		storeId : storeId,
 		activityId : id,
-		activityType : 1,
+		activityType : 3,
 		selectedCommodities : JSON.stringify(selectedCommodities)
 	};
 	gridObj2.page(1);

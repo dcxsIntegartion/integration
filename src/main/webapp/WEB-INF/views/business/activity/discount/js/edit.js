@@ -1,6 +1,6 @@
 var id = getQueryString("id");
 var type = getQueryString("type");
-var view_url = basePath + "/bis/activityBargain/";
+var view_url = basePath + "/bis/activityDiscount/";
 /** 页面数据封装 填充 * */
 var model = {};
 var field = [ "id", "activityName", "activityStartTimeStr",
@@ -67,11 +67,11 @@ $(function() {
 			// 活动商品列表
 			var bisActivityCommodityRList = getActivityCommodityRList();
 			if (bisActivityCommodityRList == false) {
-				return;
+				return false;
 			}
 			// 接口body
 			var vo = {
-				bisActivityBargain : model,
+				bisActivityDiscount : model,
 				bisActivityCommodityRList : bisActivityCommodityRList
 			};
 			console.log("requestBody", vo);
@@ -156,7 +156,7 @@ function updateCommidities() {
 		selected : 'true',
 		storeId : storeId,
 		activityId : id,
-		activityType : 1,
+		activityType : 2,
 		selectedCommodities : JSON.stringify(selectedCommodities)
 	};
 	gridObj2.page(1);

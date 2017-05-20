@@ -37,7 +37,11 @@ public class BisConfig {
 	 * Describe:
 	 */
 	public static enum ACTIVITY_TYPE{
-		BARGAIN(1,"特价");
+		//（1特价，2折扣，3秒杀，4转盘）
+		BARGAIN(1,"特价"),
+		DISCOUNT(2,"折扣"),
+		SECKILL(3,"秒杀"),
+		TURNTABLE(4,"转盘");
 		private Integer number;
 		private String name;
 		private ACTIVITY_TYPE(Integer number,String name){
