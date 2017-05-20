@@ -44,6 +44,10 @@ public class BisArticleController {
 		String artTitle = req.getParameter("artTitle");
 		String artPlace = req.getParameter("artPlace");
 		String artTop = req.getParameter("artTop");
+		Integer top = null;
+		if (StringUtils.isNotBlank(artTop)) {
+			top = Integer.parseInt(artTop);
+		}
 		String startDate = req.getParameter("startDate");
 		String endDate = req.getParameter("endDate");
 		if (!StringUtils.isEmpty(startDate)) {
@@ -54,7 +58,7 @@ public class BisArticleController {
 		}
 		map.put("artTitle", artTitle);
 		map.put("artPlace", artPlace);
-		map.put("artTop", artTop);
+		map.put("artTop", top);
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		return articleService.selMap(map, curPage, pageSize);

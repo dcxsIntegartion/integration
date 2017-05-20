@@ -41,6 +41,7 @@ $(function(){
 			
 			model.commodityIntroduction = getAllHtml();
 			editAjax(model);
+			return false;
 		}
 	});
 });

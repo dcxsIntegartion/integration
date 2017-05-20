@@ -4,7 +4,7 @@
 	<resultMap id="BaseResultMap" type="team.union.business.article.model.BisArticle">
 		<id column="artId" property="art_id" jdbcType="BIGINT"/>
 		<result property="artTitle" column="art_title" jdbcType="VARCHAR" />
-		<result property="artContent" column="art_content" jdbcType="CLOB" />
+		<result property="artContent" column="art_content" jdbcType="CLOB" javaType="java.lang.String"/>
 		<result property="artCreateTime" column="art_create_time" jdbcType="TIMESTAMP" />
 		<result property="artPlace" column="art_place" jdbcType="VARCHAR" />
 		<result property="artTop" column="art_top" jdbcType="INTEGER" />

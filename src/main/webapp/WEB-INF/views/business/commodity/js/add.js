@@ -53,6 +53,7 @@ $(function(){
 			}else{
 				addAjax(model);
 			}
+			return false;
 		}
 	});
 });
