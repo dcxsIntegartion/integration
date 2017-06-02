@@ -1,36 +1,39 @@
 package team.union.nonbusiness.interceptor.util;
 
+import java.io.IOException;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
-
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.interfaces.RSAPrivateKey;
-
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.HashMap;
-
-import java.util.Map;
-
 import javax.crypto.Cipher;
-
 import sun.misc.BASE64Decoder;  
-
 import sun.misc.BASE64Encoder;
-
+import team.union.nonbusiness.com.cfg.BaseConfig;
+/**
+ * Title: Rsa加密
+ * Description: 
+ * 加密解密两种方式：
+ * 1.公钥加密 -- 私钥解密
+ * 2.私钥加密 -- 公钥加密
+ * 私钥格式 PKCS#1 PKCS#8对前端js解析影响,都需要拼接密钥头和尾
+ * PKCS#1 -- "-----BEGIN RSA PRIVATE KEY-----"+privateKey+"-----END RSA PRIVATE KEY-----"
+ * PKCS#8 -- "-----BEGIN PRIVATE KEY-----"+privateKey+"-----END PRIVATE KEY-----"
+ * @author chens
+ * @date 2017年5月21日
+ * @version 1.0
+ */
 public class Encrypt {
-
 	public static enum RSA{
 		KEY_RSA("RSA"),
-		SIGNATURE_ALGORITHM("MD5withRSA"),
-		PUBLIC_KEY("RSAPublicKey"),
-		PRIVATE_KEY("RSAPrivateKey");
+		SIGNATURE_ALGORITHM("MD5withRSA");
 		private  RSA(String value){
 			this.value=value;
 		}
@@ -43,22 +46,26 @@ public class Encrypt {
 		}
 	}
 
-	static{
-		try {
-			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(RSA.KEY_RSA.getValue());
-			keyPairGen.initialize(1024);
-			KeyPair keyPair = keyPairGen.generateKeyPair();
-			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-			RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-			RSA.PUBLIC_KEY.setValue(getPublicKey(publicKey));
-			RSA.PRIVATE_KEY.setValue(getPrivateKey(privateKey));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-    }
+//	static{
+//		try {
+//			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(RSA.KEY_RSA.getValue());
+//			keyPairGen.initialize(1024);
+//			KeyPair keyPair = keyPairGen.generateKeyPair();
+//			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+//			RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+//			RSA.PUBLIC_KEY.setValue(getPublicKey(publicKey));
+//			RSA.PRIVATE_KEY.setValue(getPrivateKey(privateKey));
+//			
+//			keyPair = keyPairGen.generateKeyPair();
+//			publicKey = (RSAPublicKey) keyPair.getPublic();
+//			privateKey = (RSAPrivateKey) keyPair.getPrivate();
+//			RSA.PUBLIC_KEY_TWO.setValue(getPublicKey(publicKey));
+//			RSA.PRIVATE_KEY_TWO.setValue(getPrivateKey(privateKey));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//    }
     
-	
 	  /** 
      * 用私钥对信息生成数字签名 
      * @param data 加密数据 
@@ -86,7 +93,7 @@ public class Encrypt {
         }  
         return str;  
     }  
-  
+    
     /** 
      * 校验数字签名 
      * @param data 加密数据 
@@ -129,9 +136,10 @@ public class Encrypt {
      * BASE64 解密 
      * @param key 需要解密的字符串 
      * @return 字节数组 
+	 * @throws IOException 
      * @throws Exception 
      */
-    public static byte[] decryptBASE64(String key) throws Exception {               
+    public static byte[] decryptBASE64(String key) throws IOException{               
         return (new BASE64Decoder()).decodeBuffer(key);               
     }                                 
     /** 
@@ -143,7 +151,6 @@ public class Encrypt {
     public static String encryptBASE64(byte[] key) throws Exception {               
         return (new BASE64Encoder()).encodeBuffer(key);               
     }       
-    
     
     /** 
      * 公钥加密 
@@ -240,36 +247,103 @@ public class Encrypt {
         }  
         return result;  
     }  
-  
     
-    public static void main(String[] args) throws Exception {
-    	
-    	String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZSDto7+FqOBiwEjyzjydWNw0tjcwDaBlQRMoH2t2nJtRlZltRYS8BLVpEZ2+3opikI4MrKmFbgTGq7oPGqRWvZpEeb0jydAqQ0V0rVeA6twHnnaCW8wCOrL+cjWcwJ6MR63p3uh0aSp/ALDNLVdYxCUhvuOPdRu/LHnM23NNmCwIDAQAB";
-    	String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJlIO2jv4Wo4GLASPLOPJ1Y3DS2N"+
-							"zANoGVBEygfa3acm1GVmW1FhLwEtWkRnb7eimKQjgysqYVuBMarug8apFa9mkR5vSPJ0CpDRXStV"+
-							"4Dq3AeedoJbzAI6sv5yNZzAnoxHrene6HRpKn8AsM0tV1jEJSG+4491G78seczbc02YLAgMBAAEC"+
-							"gYBBzwI6vmqP+P+YcGwBR1/DIyWUPkGt4L6leLMohi4Nup0L39Mq8EeHANq1bZdIRxWzus9w8+QS"+
-							"rjgNxBNtcmCtXhDx04T3DPDvKcQB39twf0N73Z/0Jj6P6+lwuk187+BjxEzRAT1p0mYBrlK5W4Ur"+
-							"nl/BkMUbMhXXtEW+PJmFaQJBAOrhMEYBCievq1DS5yhUWpgJ6hVwUrIuo3aMeNFbrh2qZwQQRCqp"+
-							"5b1VHCR761WGny2C/qSp61iqtcnj7razJt0CQQCnELXY73K6+Qr7HIQtR5kqbHdUmkOrSpkA/5wg"+
-							"SdtRUUw6vcH+jh4bp6SsUd4jbPTFS4GdcP/Zdiu4ZEdIDk4HAkBCN3IQikJ+pbu6cXrRl9ZifokL"+
-							"ujrWGOfkh/2XqC0SF/Qq5RsSnAs0sUXZ00WpOuatQfzgFzdOK/JMFII7543RAkAUVQxMoper+bNE"+
-							"bGwJtrUFXL4JJd0mc6W7YWB27YYrl2FXpNB/UnyHkReRgUUvuorvmAjmSGJa7O7VOh8SverxAkEA"+
-							"gWBIRZ3r18loGNkp7dEZpA+disVbHWKcMavwM1CNh+BuYboPd4+DayGoCvLv1J/jDIVuT7cMzDjw"+
-							"3dDgDtdPWQ==";
-    	String privateK2 = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJMKbnWSEoS4OaSYj9F3WMBapjAA6mflMTqZA4X8etYFE3uK2BUHOrS+xQtC+dCMbIlYW9tXDvre0X5BA4RtNVfHqceajGH1YKZHIOSDd9OLclY8NFDh0OIpyYHADTM9YkaQAx3MT89M8GyP9Mp5JpWpX8sxsHQApzC5dymTwOrNAgMBAAECgYATKkLndBiRz+lDeNcV+DZLLAWJMDVdQVQ/TP5Wkmf4SUUWzywG4aBXOp44L4ycEBF9fVTLq/c535zylcq9kfZnvTS7EhANoUOHQEeJil2ag+hmmcivOWpE8qxxH9AmcdJkqOzgVtWbWTFZYAJMF1vBqNEZTGKqxWGzl2x6sWZdAQJBAOdDIQMKo7WbawtE1BfET6gQn/M5/N9mFKEkBBxBqFbyb3eAN/Qcl8R9dxREGeHB/nJhjYH4G3by6oGs/L9ozyECQQCixPyUp+8ABTsepUkBkx8lKto+NdFHe3R+9GBxG7vAWbVPfUkcxaSJzodk7FOEKDOULP1ydp4viqW6J7yRLkItAkBuUnfNG6Y9XIcUOSF0tRHK+yNSxLb9W5U7yhKr6CaGU+EZAPGwYnOEKNZFtLckG4dmyWLYPaPcesWkVwG7ziQBAkEAiJobhELf4LuDHzgF6i1nkRDCsj0GUyB352f+XE6zJj3jXT+/EUeJzCGpHXj8qkf26Z9MYTjNjwakCXP53DnfTQJAdY0w477+RstaupdRL11W/UGfASKdJx34IF+jaUXXjWlsT3k8x8l5daW0JpSRWyFNnLo6OdpPdCOmk06mhN1MXQ==";
-    	
-    	String str = "jkuxHEYQdlwC3VGNAk2I7ePhPQmbAvuU6V82RRJ9C8PyGR9XC0YXUjNjviZdJfCtBAWWdbBCpll84z5lEJoV7o2FKh+mb2OnIzxzuQdB+Y/Cf3ZnPKxVrG4uexEPICGZvNsXnQFp73BU/MdIkXub/h9M1I3W3bHnjmU1pCUzdaM=";
-    	String jia = new String(encryptByPublicKey("123".getBytes("UTF-8"),publicKey));
-    	System.out.println(jia);
-    	System.out.println(new String(decryptByPrivateKey(decryptBASE64(str),privateKey)));
-    	String sig =  sign("1".getBytes(),privateKey); 
-    	System.out.println(sig);
-    	System.out.println(verify("1".getBytes(),publicKey,sig));
-    	
-    	
-    	
-	}
+    /**
+     * 字符串转换unicode
+     */
+    public static String string2Unicode(String string) {
+        StringBuffer unicode = new StringBuffer();
+        for (int i = 0; i < string.length(); i++) {
+            // 取出每一个字符
+            char c = string.charAt(i);
+            // 转换为unicode
+            unicode.append("\\u" + Integer.toHexString(c));
+        }
+        return unicode.toString();
+    }
     
-
+    
+    /**
+     * unicode 转字符串
+     */
+    public static String unicode2String(String ori) {
+    	char aChar;
+        int len = ori.length();
+        StringBuffer outBuffer = new StringBuffer(len);
+        for (int x = 0; x < len;) {
+            aChar = ori.charAt(x++);
+            if (aChar == '\\') {
+                aChar = ori.charAt(x++);
+                if (aChar == 'u') {
+                    // Read the xxxx
+                    int value = 0;
+                    for (int i = 0; i < 4; i++) {
+                        aChar = ori.charAt(x++);
+                        switch (aChar) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            value = (value << 4) + aChar - '0';
+                            break;
+                        case 'a':
+                        case 'b':
+                        case 'c':
+                        case 'd':
+                        case 'e':
+                        case 'f':
+                            value = (value << 4) + 10 + aChar - 'a';
+                            break;
+                        case 'A':
+                        case 'B':
+                        case 'C':
+                        case 'D':
+                        case 'E':
+                        case 'F':
+                            value = (value << 4) + 10 + aChar - 'A';
+                            break;
+                        default:
+                            throw new IllegalArgumentException(
+                                    "Malformed   \\uxxxx   encoding.");
+                        }
+                    }
+                    outBuffer.append((char) value);
+                } else {
+                    if (aChar == 't')
+                        aChar = '\t';
+                    else if (aChar == 'r')
+                        aChar = '\r';
+                    else if (aChar == 'n')
+                        aChar = '\n';
+                    else if (aChar == 'f')
+                        aChar = '\f';
+                    outBuffer.append(aChar);
+                }
+            } else
+                outBuffer.append(aChar);
+ 
+        }
+        return outBuffer.toString();
+    }
+    public static void main(String[] args) throws Exception{
+//    	KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(RSA.KEY_RSA.getValue());
+//		keyPairGen.initialize(1024);
+//		KeyPair keyPair = keyPairGen.generateKeyPair();
+//		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+//		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+//		System.out.println(getPublicKey(publicKey));
+//		System.out.println(getPrivateKey(privateKey));
+    	String str = "H4sIAAAAAAAAA1WPvQ7CMAyE3yUzkeLiNi4rUwd4ApYkdn+Q+qPQsiDenQQQEp583/l08kMNrA6K1E6tcZOzGyXJy1ZXSEWCSz9PmQBZMu/JdJjuwyrxtPw5kJxOJpaYcQ7H+SphbfirRwm9m4bb+CO9OG7GLikXkEusrQYir9GUrCkAaCHDFn3LaOy7eY3zJ2H3NqBUhaaCWo0goj0BasJaDIIHb3OFi+LS9Xc7zpzfUc8XrXS4i/kAAAA=";
+    	System.err.println(str.getBytes().length);
+    	System.err.println(new String(encryptByPublicKey(str.substring(0, 116).getBytes(),BaseConfig.PUBLIC_KEY)));
+    
+    
+    }
+    
 }

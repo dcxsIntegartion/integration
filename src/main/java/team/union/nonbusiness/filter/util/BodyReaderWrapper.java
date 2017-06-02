@@ -19,9 +19,9 @@ public class BodyReaderWrapper extends HttpServletRequestWrapper {
 
 	private final byte[] body;
 
-    public BodyReaderWrapper(HttpServletRequest request) throws IOException {
+    public BodyReaderWrapper(HttpServletRequest request,String bodyData) throws IOException {
         super(request);
-        body = XssShieldUtil.getRequestBody(request).getBytes(Charset.forName("UTF-8"));
+        body = bodyData.getBytes(Charset.forName("UTF-8"));
     }
 
     @Override

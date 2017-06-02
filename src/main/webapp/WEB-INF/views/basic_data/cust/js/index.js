@@ -46,7 +46,12 @@ $(function(){
 		 url : grid_url,
          pageSizeSelect: true,
          stripeRows: true,
-         otherParames: $("#search_form").serializeArray(),
+         beforeSend: function(xhr,options){
+			 xhr.setRequestHeader("sign", options.sign);
+			 xhr.setRequestHeader("str", options.str);
+			 xhr.setRequestHeader("times", options.times);
+		 },
+		 data: $("#search_form").serializeArray(),//{"data":data.data}
          pageSize: 10,
          pagingLittleToolbar:false
     });
@@ -75,3 +80,6 @@ $(function(){
      format: 'yyyy-mm-dd hh:ii'
    });	
 });
+
+
+

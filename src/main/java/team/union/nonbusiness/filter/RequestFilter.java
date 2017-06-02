@@ -10,6 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import team.union.nonbusiness.filter.util.BodyReaderWrapper;
 import team.union.nonbusiness.filter.util.XssShieldUtil;
+import team.union.nonbusiness.interceptor.util.Decrypt;
 import team.union.nonbusiness.util.ToolsUtil;
 
 
@@ -42,8 +43,7 @@ public class RequestFilter extends OncePerRequestFilter {
 		if(ToolsUtil.isNotEmpty(uri) && XssShieldUtil.skipUrl(uri)){
 			chain.doFilter(request, response);
 		}else{
-			XssShieldUtil.reqParmSFilter(request);
-			ServletRequest requestWrapper = new BodyReaderWrapper(request);
+			ServletRequest requestWrapper = Decrypt.DecryptData(request);
 	        chain.doFilter(requestWrapper, response);
 		}
 	}

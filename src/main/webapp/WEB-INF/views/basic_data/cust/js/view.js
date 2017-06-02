@@ -27,10 +27,12 @@ $(function(){
 			/** 所在区域赋值 **/
 			model.area=selectedcityfullname;
 			model.areaCode=selectedcityCode;
+			var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 			$.ajax({
 	            type: "post",
+	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
 	            url:  view_url+type,
-	            data: JSON.stringify(model),
+	            data: data.data,
 	            contentType:"application/json",
 	            dataType: "json",
 	            success: function(data){

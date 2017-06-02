@@ -134,11 +134,11 @@ public class BiiwayHttpClient {
 		}
 		return result;
 	}
-	public Object sendGet(String path, Map<String, String> params){
+	public String sendGet(String path, Map<String, String> params){
 		return this.doGet(path, params);
 	}
-	private Object doGet(String path, Map<String, String> params){
-		Object result = new Object();
+	private String doGet(String path, Map<String, String> params){
+		String result = new String();
 		String url = path;
 		List<NameValuePair> nvps = this.parseMapToParamPair(params);
 		if(nvps.size()>0){
@@ -157,12 +157,10 @@ public class BiiwayHttpClient {
 			if(response.getStatusLine().getStatusCode() == 200){
 				/* 将参数转化成 json ***/
 				HttpEntity entity = response.getEntity();
-				Object obj =  EntityUtils.toString(entity, "utf-8");
-				result = obj;
+				result =  EntityUtils.toString(entity, "utf-8");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = ResMapUtils.buildUnknownErrorMsg();
 		} finally{
 			if(response != null){
 				try {

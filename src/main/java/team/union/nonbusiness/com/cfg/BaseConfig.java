@@ -63,6 +63,18 @@ public class BaseConfig {
 	}
 	
 	/*********************** 系统静态开始*******************/
+	/** 系统缓存签名验证条件--条数 **/
+	public static final int MAX_CACHE_COUNT = 5000;
+	/** 系统缓存签名验证条件--间隔时间 **/
+	public static final long MAX_TIMESTAMP_COUNT = 60*1000;
+	
+	/**第一组rsa钥匙  ：使用公钥在前端加密参数**/
+	public static final String PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDE6iE68s8YrsJ435rkHgmmJQhl1/yHY7zUzvyEDhKJC+d1wTO8d3+Ibw88X6egVI+05Rq79ANhOv5uVt9fValspSQRnzKLGd7JkW0kPMHdaU6Sae1ft3xVUl8Qw3VDzHh2UKKmxu8LbU4k10V5Rs9K6zD3W+wELOZKrqj9SbZcLQIDAQAB";
+	public static final String PRIVATE_KEY = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMTqITryzxiuwnjfmuQeCaYlCGXX/IdjvNTO/IQOEokL53XBM7x3f4hvDzxfp6BUj7TlGrv0A2E6/m5W319VqWylJBGfMosZ3smRbSQ8wd1pTpJp7V+3fFVSXxDDdUPMeHZQoqbG7wttTiTXRXlGz0rrMPdb7AQs5kquqP1JtlwtAgMBAAECgYEAtJWa3/qpHhO22S8HV0iMxMeVigCn4GoBVJB2V4yoRvKZ1A3YqnBUjwR6zn1StuCV4elxuQiwyMxXZU1aEI34jsR80M29Rbp3OtNyidnIV9cwBFaGTvwHg7JVDVY7zXBm9KJhst0CaUONPWrivjyw/kIneRLan7X2k+xMRMX0nWkCQQDmFCfzoHxSVlaO+GpDc1KS6L8BpIgCIGWpWJcrrsJ7rWXoQQRj1jXvFWTK7gRx3vsBURwQJv8TBeFFWJfcFoZXAkEA2xl3Jh9WLVIX7oHs1qsXvcU2ofRURQcFfHfwX89q0QI+qv0mMBBMAemWwb3J3o9N0CPf2iesoVvz34D3VGK3GwJAGBf+Qw4IVtsBv4EWJ7AY8pd7ASIIuChKXRyQ4Bsx9J+o71R3sDjLdxkHcBTS1FXkdTPYO3zJ82UHPSrU5FBbiwJALr2PAo36125E9re269DSHsTcs84o0BUAYZ5ApF/eXLpK3jVlGSnQ3TOU2r3/O8B8jCOrFKIUHNQ+AXdEzDbG8wJBAIcdmEQVk8Y0D8YjrynAW9YbmK8Ui6vx1XeQUxsZ88wqZRb9bhN1RaSyb17NpQjfJJyBTGUiougqGYZUlupMqJE=";
+	/**第二组rsa钥匙  ： 使用密钥在前端生成签名**/
+	public static final String PUBLIC_KEY_TWO = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCN/K7/yFTtoS7e40rF76tNMx4NvmiDm7Y4zPLyqiYDXOMs23DpTxC824REI40df2WrB3z/AvWw3FyO9LU4nO58vAvafzGb3pqEmTqBX1+abSITzn+bnVs27alssXlt+83my5YFe9dsGfnWaQ309OWNCuzNrNELoAi0XLVuzKkWWQIDAQAB";
+	public static final String PRIVATE_KEY_TWO = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAI38rv/IVO2hLt7jSsXvq00zHg2+aIObtjjM8vKqJgNc4yzbcOlPELzbhEQjjR1/ZasHfP8C9bDcXI70tTic7ny8C9p/MZvemoSZOoFfX5ptIhPOf5udWzbtqWyxeW37zebLlgV712wZ+dZpDfT05Y0K7M2s0QugCLRctW7MqRZZAgMBAAECgYAoeQOFI5yZ090haZaxzzx8F/sUHdd61FLf5APIihml0b9r1O1dg80YmFYeeifKZbscQlkt87EHBflYQoa5qXoNIyo3CUeaHAP6pYr/nPaxu7PANI0ZnrpjW1t1Xe02GWd6p3joFbcWUhCGcfMfEa2hXHwFHOVZIA2bHqaxZ4pZxQJBAOopiARiLSleqc2TkBnW8SbLaYlXaRRF1/eAqdsv/zphRq9fEg0c9eY/7FQuLR+ua5IhW57qZmEmQKM2mMkTsiMCQQCbOofSWtlloJ+BgYPuB/Wq9Wko0D6K1mMlCtX51xaMubVTBaMbM5o9qd++DZQMkahCr+EKz7D/ex+Q9liDASdTAkA1EcaO38VGe/rV6ZyeDpXG6hD4HIRnINEqedGFKKKak5NWiaBosmiUj2Y7Sd/WL0yX6NF/+bXMTMQXeXc1Ey6rAkBdHYo2HDtGpEiqdhe+5NVwfRBc5DZwMFR+9vYOjgC/3/KuX7ZM7fJ7RPirWBfURlfJ0RlM0/OX/bKc0bmctEdzAkEAmAP5NAy7RdcB80yx+Jy/fVNd9HWTv3orl1skoh1XgtxYyKmdQPZ4L/Kwl0WUbJUW0kIRN4SqR/+Ht/J5+toiSQ==";
+	
 	/**1成功*/
 	public static final int SUCCESS_STATUS = 1; 
 	/**0失败 */
@@ -88,10 +100,7 @@ public class BaseConfig {
 	public static enum NO_NEED_FILTER_URL{
 		IMG("/img"),
 		FILE("/file"),
-		UEDITOR("/Config"),
-		COMMODITYADD("/add"), //商品新增
-		COMMODITYEDIT("/update"),	//商品编辑
-		FINDONE("/findOne");
+		UEDITOR("/Config");
 		private NO_NEED_FILTER_URL(String value){
 			this.value=value;
 		}
@@ -104,30 +113,4 @@ public class BaseConfig {
 		}
 	}
 	
-	public static enum CHARSET{
-		 /** 7位ASCII字符，也叫作ISO646-US、Unicode字符集的基本拉丁块 */
-		US_ASCII("US-ASCII"),
-		 /** ISO 拉丁字母表 No.1，也叫作 ISO-LATIN-1 */
-		ISO_8859_1("ISO-8859-1"),
-		 /** 8 位 UCS 转换格式 */
-		UTF_8("UTF-8"),
-		 /** 16 位 UCS 转换格式，Big Endian（最低地址存放高位字节）字节顺序 */
-		UTF_16BE("UTF-16BE"),
-		 /** 16 位 UCS 转换格式，Little-endian（最高地址存放低位字节）字节顺序 */
-		UTF_16LE("UTF-16LE"),
-		/** 16 位 UCS 转换格式，字节顺序由可选的字节顺序标记来标识 */
-		UTF_16("UTF-16"),
-		 /** 中文超大字符集 */
-		GBK("GBK");
-		private CHARSET(String value){
-			this.value=value;
-		}
-		private String value;
-		public String getValue() {
-			return value;
-		}
-		public void setValue(String value) {
-			this.value = value;
-		}
-	}
 }

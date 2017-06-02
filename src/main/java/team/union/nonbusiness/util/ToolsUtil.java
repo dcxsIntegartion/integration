@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import team.union.nonbusiness.com.excp.CommonRunTimeException;
 import team.union.nonbusiness.com.excp.ExcptionEnums;
 
@@ -117,6 +119,33 @@ public class ToolsUtil {
 	  * @return
 	  * @throws UnsupportedEncodingException
 	  */
+	 public static enum CHARSET{
+		 /** 7位ASCII字符，也叫作ISO646-US、Unicode字符集的基本拉丁块 */
+		US_ASCII("US-ASCII"),
+		 /** ISO 拉丁字母表 No.1，也叫作 ISO-LATIN-1 */
+		ISO_8859_1("ISO-8859-1"),
+		 /** 8 位 UCS 转换格式 */
+		UTF_8("UTF-8"),
+		 /** 16 位 UCS 转换格式，Big Endian（最低地址存放高位字节）字节顺序 */
+		UTF_16BE("UTF-16BE"),
+		 /** 16 位 UCS 转换格式，Little-endian（最高地址存放低位字节）字节顺序 */
+		UTF_16LE("UTF-16LE"),
+		/** 16 位 UCS 转换格式，字节顺序由可选的字节顺序标记来标识 */
+		UTF_16("UTF-16"),
+		 /** 中文超大字符集 */
+		GBK("GBK");
+		private CHARSET(String value){
+			this.value=value;
+		}
+		private String value;
+		public String getValue() {
+			return value;
+		}
+		public void setValue(String value) {
+			this.value = value;
+		}
+	}
+	 
 	 public static String changeCharset(String str, String oldCharset, String newCharset)
 	   throws UnsupportedEncodingException {
 	  if (str != null) {
@@ -127,7 +156,16 @@ public class ToolsUtil {
 	  }
 	  return null;
 	 }
-	
+	 /** 
+     * 根据json字符串返回Map对象 
+     * @param json 
+     * @return 
+     */  
+    public static Map<String, Object> gsonToMap(String json){
+    Gson gson = new Gson();
+    Map<String, Object> map = new HashMap<String, Object>();
+    return gson.fromJson(json, map.getClass());
+    }
 	
 	/**
 	 * 判断是不是特别行政区

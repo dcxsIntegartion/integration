@@ -101,13 +101,9 @@ if(typeof(pidCrypt) != 'undefined') {
     var S21=5, S22=9 , S23=14, S24=20;
     var S31=4, S32=11, S33=16, S34=23;
     var S41=6, S42=10, S43=15, S44=21;
-
     //	string = Utf8Encode(string); #function call removed
-
     x = ConvertToWordArray(string);
-
     a = 0x67452301; b = 0xEFCDAB89; c = 0x98BADCFE; d = 0x10325476;
-
     for (k=0;k<x.length;k+=16) {
       AA=a; BB=b; CC=c; DD=d;
       a=FF(a,b,c,d,x[k+0], S11,0xD76AA478);

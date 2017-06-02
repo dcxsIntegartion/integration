@@ -47,15 +47,11 @@ public class XssShieldUtil {
     }
 
     private static List<Pattern> getPatterns() {
-
         if (patterns == null) {
-
             List<Pattern> list = new ArrayList<Pattern>();
-
             String regex = null;
             Integer flag = null;
             int arrLength = 0;
-
             for(Object[] arr : getXssPatternList()) {
                 arrLength = arr.length;
                 for(int i = 0; i < arrLength; i++) {
@@ -64,18 +60,14 @@ public class XssShieldUtil {
                     list.add(Pattern.compile(regex, flag));
                 }
             }
-
             patterns = list;
         }
-
         return patterns;
     }
 
     public static String stripXss(String value) {
         if(StringUtils.isNotBlank(value)) {
-
             Matcher matcher = null;
-
             for(Pattern pattern : getPatterns()) {
                 matcher = pattern.matcher(value);
                 // 匹配
@@ -84,13 +76,10 @@ public class XssShieldUtil {
                     value = matcher.replaceAll("");
                 }
             }
-
             value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
         }
-
 //      if (LOG.isDebugEnabled())
 //          LOG.debug("strip value: " + value);
-
         return value;
     }
     /**
@@ -103,7 +92,6 @@ public class XssShieldUtil {
 	    for(Enumeration<String> e=paraNames;e.hasMoreElements();){
 	          String thisName=e.nextElement().toString();
 	          String thisValue=req.getParameter(thisName);
-	          System.out.println("param的key:"+thisName+"--------------param的value:"+thisValue);
 	          req.setAttribute(thisName, stripXss(thisValue));
 	    }
 	}
@@ -126,7 +114,7 @@ public class XssShieldUtil {
        return body;
     }
     /**
-     * 读取body并过滤
+     * 读取body
      * @param request
      * @return
      */
@@ -159,7 +147,7 @@ public class XssShieldUtil {
                 }
             }
         }
-        return stripXss(sb.toString());
+        return sb.toString();
     }
     
     /**
@@ -215,7 +203,7 @@ public class XssShieldUtil {
         value = XssShieldUtil.stripXss("<img src=x<!--'<\"-->>");
         System.out.println("type-12: '" + value + "'");
 
-        value = XssShieldUtil.stripXss("<img src=# onerror=alert(");
+        value = XssShieldUtil.stripXss("<img src=# onerror=alert(%2F");
         System.out.println("type-13: '" + value + "'");
         
     }

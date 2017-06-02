@@ -420,8 +420,9 @@ public class DateUtil {
      */
     public static void main(String args[]) {
     	String dateString="2014-12-10";
-        System.out.println(getSpecifiedDayBefore(dateString));
-        System.out.println(getMonthFirstDay("yyyy-MM-dd"));
+        System.out.println(getCurrTimestamp());
+        System.out.println(convertStrToDate("2014-12-10 15:30:00","yyyy-MM-dd HH:mm").getTime());
+        System.out.println(convertStrToDate("2014-12-10 15:31:15","yyyy-MM-dd HH:mm").getTime());
     }
 
 }

@@ -13,6 +13,22 @@
     <link rel="stylesheet" type="text/css" href="../../new_ui/styles/plugins/grid/bsgrid.all.min.css">
     <!-- page plugin end -->
     <link rel="stylesheet" href="../../new_ui/styles/main.css">
+    
+    <script src="../../support/encrypt/js/pako.min.js" /></script>
+	<!-- 使用md5、rsa、sha256公共js -->
+	<script src="../../support/encrypt/js/pidcrypt.js" /></script>
+	<script src="../../support/encrypt/js/pidcrypt_util.js" /></script>
+	<script src="../../support/encrypt/js/asn1.js" /></script>
+	<script src="../../support/encrypt/js/jsbn.js" /></script>
+	<script src="../../support/encrypt/js/rng.js" /></script>
+	<script src="../../support/encrypt/js/prng4.js" /></script>
+	<script src="../../support/encrypt/js/rsa.js" /></script>
+	<!-- 生成签名 -->
+	<script src="../../support/encrypt/js/jsrsasign-all-min.js" /></script>
+	<script src="../../support/encrypt/js/keyutil-1.0.js" /></script>
+	<script src="../../support/encrypt/js/encrypt.js" /></script>
+    
+    
     <script src="../../new_ui/scripts/vendor.js"></script>
     <!-- page plugin -->
     <script type="text/javascript" src="../../new_ui/scripts/plugins/grid/grid.zh-CN.min.js"></script>
@@ -45,10 +61,10 @@
               <form action="#" id="search_form" class="form-inline mbl">
                 <div class="form-body">
                   <div class="form-group">
-                    <input type="text" class="form-control input-sm" placeholder="文本输入框">
+                    <input id="userName" name="userName" type="text" class="form-control input-sm" placeholder="用户姓名">
                   </div>
                   <div class="form-group">
-                    <select class="form-control input-sm" placeholder="审核状态">
+                    <select class="form-control input-sm" name="" placeholder="审核状态">
                       <option value="">审核状态</option>
                       <option>Option 1</option>
                       <option>Option 2</option>
@@ -81,12 +97,13 @@
                     <div class="input-daterange input-group" id="datetime_01">
                       <input type="text" class="input-sm form-control date" name="start" placeholder="申请日期"/>
                       <span class="input-group-addon">到</span>
-                      <input type="text" class="input-sm form-control date" name="end" placeholder="申请日期"/>
+                      <input type="text" class="input-sm form-control date"  name="end" placeholder="申请日期"/>
                     </div>
                   </div>
                   <div class="form-group">
-                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>搜索</button>
-                    <button type="reset" class="btn btn-sm mls">重置</button>
+                    <button type="button" onclick="doSearch()" class="btn btn-sm btn-primary">
+									<i class="fa fa-search"></i>搜索</button>
+					<button type="reset" class="btn btn-sm mls">重置</button>
                   </div>
                 </div>
               </form>

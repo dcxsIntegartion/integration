@@ -2,11 +2,8 @@
  * 
  */
 package team.union.nonbusiness.sys.utils;
-
 import javax.servlet.http.HttpServletRequest;
-
 import team.union.nonbusiness.sys.model.Users;
-
 
 
 /**
@@ -18,5 +15,4 @@ public class WebUtils {
 		Users user = (Users) req.getSession().getAttribute("user");
 		return user;
 	}
-	
 }
