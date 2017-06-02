@@ -1,7 +1,7 @@
 var artId = getQueryString("artId");
 var submitHtml = $('#saveBtn').html();
 var field = ["artId","artTitle","artPlace","artCreateTime",
-	"artTop","artSort"];
+	"artTop","artSort","artContent"];
 var modelUtils = new ModelUtils(field);
 $(function(){
 	if(artId != 'add'){
@@ -30,17 +30,19 @@ $(function(){
 			}else{
 				editAjax(model);
 			}
+			//阻止表单的自动提交，防止页面跳转过快导致ajax statu为0
+			return false;
 		}
 	});
 });
 function add(model){
 	$.ajax({
         type: "post",
-        url:  basePath+'/bis/article/add',
+        url:  basePath+"/bis/article/add",
         data: JSON.stringify(model),
         contentType:"application/json",
         dataType: "json",
-        success: function(data){
+        success:function(data){
         		if(data.state==1){
         			layer.msg("添加文章成功！");
         			//返回上一页
@@ -60,12 +62,13 @@ function add(model){
 function editAjax(model){
 	$.ajax({
         type: "post",
-        url:  basePath+'/bis/article/update',
+        url:  basePath+"/bis/article/update",
         data: JSON.stringify(model),
         contentType:"application/json",
+        timeout: 20000,
         dataType: "json",
-        success: function(data){
-        		if(data.state==1){
+        success:function(data){
+        		if(data.state==1 || data.state == 'y'){
         			layer.msg("修改文章成功！");
         			//返回上一页
             		window.history.back(-1);
@@ -73,10 +76,11 @@ function editAjax(model){
         			layer.msg(data.msg);
         		}
 		},
-		error:function(data) {
+		error:function(data,re,da) {
 			layer.msg("服务器异常");
 		},
-		complete:function(){
+		complete:function(da){
+			console.log(da);
 		}
 	});
 }
@@ -91,12 +95,12 @@ function initPageData(){
         	if(data.state==1){
         		modelUtils.fillData(data.data);
         		$('#viewForm input[name="artId"]').val(data.data.artId);
-        		insertHtml(data.data.artContent);
         		if(data.data.artTop == 0 || data.data.artTop == "0"){
         			$("#first").parent().addClass("checked");
         		}else{
         			$("#second").parent().addClass("checked");
         		}
+        		insertHtml(data.data.artContent);
         	}
 		},
 		error:function(data) {

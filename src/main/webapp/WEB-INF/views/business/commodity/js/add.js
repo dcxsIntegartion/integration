@@ -28,8 +28,8 @@ $(function(){
 			var model = modelUtils.initModel();
 			/** 上传图片字段赋值 **/
 			model.commodityPic=saveRel(commodityPic);
-			model.commodityPic2=saveRel(commodityPic2);
-			model.commodityPic3=saveRel(commodityPic3);
+			/*model.commodityPic2=saveRel(commodityPic2);
+			model.commodityPic3=saveRel(commodityPic3);*/
 			
 			if(model.timingBegain != undefined && model.timingBegain != null 
 					&& model.timingBegain != ""){
@@ -53,6 +53,7 @@ $(function(){
 			}else{
 				addAjax(model);
 			}
+			return false;
 		}
 	});
 });

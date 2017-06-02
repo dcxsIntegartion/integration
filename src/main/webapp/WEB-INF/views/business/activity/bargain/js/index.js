@@ -16,11 +16,7 @@ function edite(id){
 function del(id){
 	$.ajax({
         type: "post",
-        url:  grid_url+"deleteById",
-        data: {
-        		Id:id
-        	},
-        contentType:"application/json",
+        url:  grid_url+"deleteById?Id=" + id,
         dataType: "json",
         success: function(data){
         		if(data.state==1){

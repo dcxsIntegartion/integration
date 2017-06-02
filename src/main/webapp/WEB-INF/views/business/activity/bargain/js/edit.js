@@ -216,15 +216,22 @@ function fnLoadStore(selectStoreId, storeName) {
  */
 function getActivityCommodityRList() {
 	var bisActivityCommodityRList=[];
-	var getChangedRowsIndexs = gridObj2.getChangedRowsIndexs();// 修改过的行
-
-//	var getChangedRowsOldRecords = gridObj2.getChangedRowsOldRecords();// 原来的值
+	var getRowsChangedColumnsValue = gridObj2.getRowsChangedColumnsValue();//修改过的行数据
+	var getChangedRowsOldRecords = gridObj2.getChangedRowsOldRecords();// 修改过的行原来的值
 	//所有商品
 	for (var i = 0; i < selectedCommodities.length; i++) {
 		var commodityId = gridObj2.getRecord(i).id;
+		//活动价格
 		var activityPrice = gridObj2.getRecord(i).activityPrice;
+		if (activityPrice == undefined && getRowsChangedColumnsValue["row_"+ i] != undefined) {//价格修改过
+			activityPrice = getRowsChangedColumnsValue["row_"+ i].activityPrice;
+		}
+		//活动库存
 		var commodityNum = gridObj2.getRecord(i).activityNum;
-		var commoditTotleNum = gridObj2.getRecord(i).activityNum;
+		if (commodityNum == undefined && getRowsChangedColumnsValue["row_"+ i] != undefined) {//库存修改过
+			commodityNum = getRowsChangedColumnsValue["row_"+ i].activityNum;
+		}
+		var commoditTotleNum = gridObj2.getRecord(i).commodityNum;//总库存
 		//库存判断
 		if (commodityNum > commoditTotleNum) {
 			var commodityName = gridObj2.getRecord(i).commodityName;
@@ -232,7 +239,7 @@ function getActivityCommodityRList() {
 			return false;
 		}
 		if (activityPrice == "" || activityPrice == undefined
-				|| activityNum == "" || activityNum == undefined) {
+				|| commodityNum == "" || commodityNum == undefined) {
 			layer.msg("活动商品未填写完全：第" + i + "行");
 			return false;
 		}
@@ -244,21 +251,5 @@ function getActivityCommodityRList() {
 		bisActivityCommodityRList.push(activityCommodity);
 	}
 
-//	var getRowsChangedColumnsValue = gridObj2.getRowsChangedColumnsValue();
-//	console.log("getRowsChangedColumnsValue", getRowsChangedColumnsValue);// 新的值
-//	// 修改过的活动商品
-//	for (var i = 0; i < getChangedRowsIndexs.length; i++) {
-//		var activityPrice = getRowsChangedColumnsValue["row_" + getChangedRowsIndexs[i]].activityPrice;
-//		var commodityNum = getRowsChangedColumnsValue["row_" + getChangedRowsIndexs[i]].activityNum;
-//		if (activityPrice == "" || activityPrice == undefined
-//				|| commodityNum == "" || commodityNum == undefined) {
-//			layer.msg("活动商品未填写完全：第" + i + "行");
-//			return;
-//		}
-//		var activityCommodity = bisActivityCommodityRList[i];
-//		activityCommodity.activityPrice = activityPrice;
-//		activityCommodity.commodityNum = commodityNum;
-//		bisActivityCommodityRList.push(activityCommodity);
-//	}
 	return bisActivityCommodityRList;
 }

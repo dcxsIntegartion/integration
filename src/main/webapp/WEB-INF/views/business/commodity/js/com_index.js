@@ -13,12 +13,12 @@ $(function() {
 	 //操作
 	 window.operate =function(record, rowIndex, colIndex, options) {
 	    var op_html ='';
-	    op_html+= '<a  href="javascript:void(0);" class="btn btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'id') + '\');">编辑</a>';
+	    op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-primary btn-xs mhx" onclick="forUpdate(\'' + gridObj.getRecordIndexValue(record, 'id') + '\');">编辑</a>';
 	    op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-danger btn-xs mhx" onclick="forDel(\'' + gridObj.getRecordIndexValue(record, 'id') + '\');">删除</a>';
 	    var isSale = gridObj.getRecordIndexValue(record, 'commodity_status')==1?"下架":"上架";
 	    var statue = gridObj.getRecordIndexValue(record, 'commodity_status');
 	    var style = statue == 1?"btn-warning":"btn-success";
-	    op_html+= '<a  href="javascript:void(0);" class="btn btn-xs mhx '+style+'" onclick="forChangeStatus(\'' + gridObj.getRecordIndexValue(record, 'id') + '\','+statue+');">'+isSale+'</a>';
+	    op_html+= '<a  href="javascript:void(0);" class="btn btn-outline btn-xs mhx '+style+'" onclick="forChangeStatus(\'' + gridObj.getRecordIndexValue(record, 'id') + '\','+statue+');">'+isSale+'</a>';
 		return op_html;
 	 }
 	//搜索

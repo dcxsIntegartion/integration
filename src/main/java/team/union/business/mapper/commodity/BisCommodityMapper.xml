@@ -25,7 +25,7 @@
 		<result column="commodity_sort_num" property="commoditySortNum"
 			jdbcType="INTEGER" />
 		<result column="commodity_introduction" property="commodityIntroduction"
-			jdbcType="CLOB" />
+			jdbcType="CLOB" javaType="java.lang.String"/>
 		<result column="commodity_status" property="commodityStatus"
 			jdbcType="INTEGER" />
 		<result column="homepage_show" property="homepageShow"

@@ -191,6 +191,7 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 					hashMap.put("activityNum", rCommodityRs.get(0).getCommodityNum());
 				}
 			}
+//			pageData = (Page<HashMap<String, Object>>) data;
 			bsgridVo.setCurPage(1);
 			bsgridVo.setData(data);
 			bsgridVo.setTotalRows((long)data.size());

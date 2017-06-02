@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.Page;
 import com.google.gson.Gson;
 
 import team.union.basic_data.com.rs.BsgridVo;
@@ -115,6 +116,15 @@ public class BisCommodityController {
 			@RequestParam(defaultValue = "1") int curPage,
 			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req){
+		//初始化列表对象
+		BsgridVo<HashMap<String, Object>> bsgridVo = new BsgridVo<>();
+//		List<HashMap<String, Object>> data = (List)new ArrayList<>();
+		Page<HashMap<String, Object>> page = new Page<>(curPage, pageSize);//(Page<HashMap<String, Object>>) data;
+		bsgridVo.setCurPage(1);
+		bsgridVo.setData(page);
+		bsgridVo.setTotalRows(page.getTotal());
+		bsgridVo.setSuccess(true);
+		//参数封装
 		Gson gson = new Gson();
 		HashMap<String, Object> param = new HashMap<>();
 		String selectedCommodities = req.getParameter("selectedCommodities");
@@ -123,34 +133,33 @@ public class BisCommodityController {
 		String activityType = req.getParameter("activityType");//活动类型
 		String selected = req.getParameter("selected");//查询类型ture:获取选中的商品详情，false:获取未选择的商品详情
 		List<Long> selectedCommoditiesList = new ArrayList<>();
-		//店铺id
-		if (ToolsUtil.isNotEmpty(storeId) && ToolsUtil.isNotEmpty(selected)) {
+		if (ToolsUtil.isNotEmpty(storeId) && ToolsUtil.isNotEmpty(selected)) {//店铺id、查询类型
 			param.put("storeId", Long.parseLong(storeId));
 			param.put("selected", Boolean.parseBoolean(selected));
 		}else{
-			return null;
+			return bsgridVo;
 		}
-		//活动id
-		if (ToolsUtil.isNotEmpty(activityId)) {
+		if (ToolsUtil.isNotEmpty(activityId)) {//活动id
 			param.put("activityId", Long.parseLong(activityId));
 			
 		}
-		//活动类型
-		if (ToolsUtil.isNotEmpty(activityType)) {
+		if (ToolsUtil.isNotEmpty(activityType)) {//活动类型
 			param.put("activityType", Byte.parseByte(activityType));
 			
 		}
-		//商品id
 		if (ToolsUtil.isNotEmpty(selectedCommodities) && !"[]".equals(selectedCommodities)){
+			//商品id
 			selectedCommoditiesList =  gson.fromJson(selectedCommodities, ArrayList.class);
 			param.put("idList", selectedCommoditiesList);
 		}else if (Boolean.parseBoolean(selected)) {
-			return null;
+			return bsgridVo;
 		}
-		//插件bug
 		if (Boolean.parseBoolean(selected)) {
+			//插件bug
 			pageSize++;
 		}
-		return commodityService.getavtivityCommodity(param, curPage, pageSize);
+		//数据查询
+		bsgridVo = commodityService.getavtivityCommodity(param, curPage, pageSize);
+		return bsgridVo;
 	}
 }
