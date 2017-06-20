@@ -32,6 +32,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			if(uri.endsWith("/wechat/config/jssdk")|| uri.endsWith("/receiveShortMessage") || uri.endsWith("/sendShortMessage")){
 			 	return true;
 			}
+			System.out.println(request.getSession().getId());
 	        // 判断路径是登出还是登录验证，是这两者之一的话执行Controller中定义的方法
 	        if(uri.endsWith("/login") || uri.endsWith("/login_out")) {
 	        	return true;

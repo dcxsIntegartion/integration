@@ -56,9 +56,13 @@ public class BisCommodityController {
 	@RequestMapping(method = RequestMethod.POST, value = "/allPaging")
 	@ResponseBody
 	public BsgridVo<HashMap<String, Object>> queryCoupon(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req){
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
 		Map<String, Object> map = new  HashMap<>();
 		String commodityName = req.getParameter("commodityName");
 		String commodityType = req.getParameter("commodityType");
@@ -113,9 +117,14 @@ public class BisCommodityController {
 	@RequestMapping(method = RequestMethod.POST, value = "/getavtivityCommodity")
 	@ResponseBody
 	public BsgridVo<HashMap<String, Object>> getavtivityCommodity(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req){
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
+		
 		//初始化列表对象
 		BsgridVo<HashMap<String, Object>> bsgridVo = new BsgridVo<>();
 //		List<HashMap<String, Object>> data = (List)new ArrayList<>();

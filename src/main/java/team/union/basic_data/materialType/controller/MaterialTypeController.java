@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -62,9 +61,17 @@ public class MaterialTypeController {
 	@ResponseBody
 	@RequestMapping(value = "/listByWorkProcedureId",method = RequestMethod.POST)
 	public BsgridVo<MaterialType> listByWorkProcedureId(
-			@RequestParam(defaultValue = "-1") Long workProcedureId,
-			@RequestParam(defaultValue = "10") Integer pageSize, 
-			@RequestParam(defaultValue = "1") Integer curPage) throws Exception {
+			HttpServletRequest req) throws Exception {
+		int curPage = 1;
+		int pageSize = 10;
+		Long workProcedureId = -1L;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
+		if(null!=req.getAttribute("workProcedureId")){
+			workProcedureId = (long) Double.parseDouble(req.getAttribute("workProcedureId").toString());
+		}
 		Map<String, Object> queryArgs = new HashMap<String,Object>();
 		queryArgs.put("workProcedureId", workProcedureId);
 

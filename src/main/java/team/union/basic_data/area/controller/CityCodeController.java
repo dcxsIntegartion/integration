@@ -107,10 +107,14 @@ public class CityCodeController {
 	@ResponseBody
 	@RequestMapping(value = "/page")
 	public Object selectPage(
-			@RequestParam(defaultValue = "10") Integer pageSize, 
-			@RequestParam(defaultValue = "1") Integer curPage,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=request.getAttribute("curPage") && null!=request.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(request.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(request.getAttribute("pageSize").toString());
+		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String openStart = request.getParameter("openStart");
 		String openEnd = request.getParameter("openEnd");

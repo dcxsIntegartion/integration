@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import team.union.nonbusiness.filter.util.BodyReaderWrapper;
 import team.union.nonbusiness.filter.util.XssShieldUtil;
 import team.union.nonbusiness.interceptor.util.Decrypt;
 import team.union.nonbusiness.util.ToolsUtil;

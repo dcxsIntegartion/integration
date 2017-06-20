@@ -28,9 +28,13 @@ public class CustModelLvController implements IController<CustModelLv>{
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/page")
 	public BsgridVo<HashMap<String, Object>> paging(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req) {
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
 		Map<String, Object> parm = new HashMap<String,Object>();
 		return custModelLvService.paging(parm, curPage, pageSize);
 	}

@@ -20,8 +20,6 @@ public interface IController<E>{
 
 	/** 分页 **/
 	public BsgridVo<HashMap<String, Object>> paging(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req);
 	/** 页面详情 **/
 	public Result viwe(@RequestParam Long Id, HttpServletRequest req);

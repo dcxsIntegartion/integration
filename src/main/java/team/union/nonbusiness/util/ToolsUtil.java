@@ -145,7 +145,7 @@ public class ToolsUtil {
 			this.value = value;
 		}
 	}
-	 
+	 /** 修改字符串编码 **/
 	 public static String changeCharset(String str, String oldCharset, String newCharset)
 	   throws UnsupportedEncodingException {
 	  if (str != null) {
@@ -166,7 +166,21 @@ public class ToolsUtil {
     Map<String, Object> map = new HashMap<String, Object>();
     return gson.fromJson(json, map.getClass());
     }
-	
+    /**
+     * 执行cmd
+     * @return
+     */
+    public static boolean execCmd(String cmd){
+	   Runtime run = Runtime.getRuntime();
+       Process process = null;
+       try {
+           process = run.exec(cmd); // 执行cmd命令
+           process.waitFor();
+       } catch (Exception e) {
+    	   return false;
+       }
+       return true;
+    } 
 	/**
 	 * 判断是不是特别行政区
 	 * 是返回true 不是返回false

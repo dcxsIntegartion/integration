@@ -45,7 +45,29 @@ public class XssShieldUtil {
         ret.add(new Object[]{"<+\\s*\\w*\\s*(oncontrolselect|oncopy|oncut|ondataavailable|ondatasetchanged|ondatasetcomplete|ondblclick|ondeactivate|ondrag|ondragend|ondragenter|ondragleave|ondragover|ondragstart|ondrop|onerror=|onerroupdate|onfilterchange|onfinish|onfocus|onfocusin|onfocusout|onhelp|onkeydown|onkeypress|onkeyup|onlayoutcomplete|onload|onlosecapture|onmousedown|onmouseenter|onmouseleave|onmousemove|onmousout|onmouseover|onmouseup|onmousewheel|onmove|onmoveend|onmovestart|onabort|onactivate|onafterprint|onafterupdate|onbefore|onbeforeactivate|onbeforecopy|onbeforecut|onbeforedeactivate|onbeforeeditocus|onbeforepaste|onbeforeprint|onbeforeunload|onbeforeupdate|onblur|onbounce|oncellchange|onchange|onclick|oncontextmenu|onpaste|onpropertychange|onreadystatechange|onreset|onresize|onresizend|onresizestart|onrowenter|onrowexit|onrowsdelete|onrowsinserted|onscroll|onselect|onselectionchange|onselectstart|onstart|onstop|onsubmit|onunload)+\\s*=+", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL});
         return ret;
     }
-
+    /**
+     * sql关键字过滤
+     * @param sqlStr
+     * @return
+     */
+    public static String SafeSql(String sqlStr){
+    	sqlStr = Pattern.compile("exec",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#101;xec");
+        sqlStr = Pattern.compile("xp_cmdshell",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#120;p_cmdshell");
+        sqlStr = Pattern.compile("select",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#115;elect");
+        sqlStr = Pattern.compile("insert",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#105;nsert");
+        sqlStr = Pattern.compile("update",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#117;pdate");
+        sqlStr = Pattern.compile("delete",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#100;elete");
+        sqlStr = Pattern.compile("drop",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#100;rop");
+        sqlStr = Pattern.compile("create",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#99;reate");
+        sqlStr = Pattern.compile("rename",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#114;ename");
+        sqlStr = Pattern.compile("truncate",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#116;runcate");
+        sqlStr = Pattern.compile("alter",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#97;lter");
+        sqlStr = Pattern.compile("exists",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#101;xists");
+        sqlStr = Pattern.compile("master",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#109;aster.");
+        sqlStr = Pattern.compile("restore",Pattern.CASE_INSENSITIVE).matcher(sqlStr).replaceAll("&#114;estore");
+        return sqlStr;
+    }
+    
     private static List<Pattern> getPatterns() {
         if (patterns == null) {
             List<Pattern> list = new ArrayList<Pattern>();
@@ -77,6 +99,7 @@ public class XssShieldUtil {
                 }
             }
             value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            value = SafeSql(value);
         }
 //      if (LOG.isDebugEnabled())
 //          LOG.debug("strip value: " + value);
@@ -106,7 +129,6 @@ public class XssShieldUtil {
            Map<String, String> parameters = gson.fromJson(body, new TypeToken<Map<String, String>>() {
            }.getType());
            for (Map.Entry<String, String> entry : parameters.entrySet()) {
-           	   System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
            	   entry.setValue(stripXss(entry.getValue()));
            	  }
            body = gson.toJson(parameters);
@@ -206,5 +228,8 @@ public class XssShieldUtil {
         value = XssShieldUtil.stripXss("<img src=# onerror=alert(%2F");
         System.out.println("type-13: '" + value + "'");
         
+        value = XssShieldUtil.stripXss("<img deletenet src=# onerror=alert(%2F");
+        System.out.println("type-14: '" + value + "'");
+        System.out.println(SafeSql("select * from user"));
     }
 }

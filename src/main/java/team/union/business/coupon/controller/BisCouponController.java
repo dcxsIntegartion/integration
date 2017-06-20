@@ -62,9 +62,13 @@ public class BisCouponController {
 	@RequestMapping(method = RequestMethod.POST, value = "/queryAll")
 	@ResponseBody
 	public BsgridVo<HashMap<String, Object>> queryCoupon(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req){
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
 		String couponName = req.getParameter("couponName");
 		String couponStatus = req.getParameter("couponStatus");
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -139,9 +143,13 @@ public class BisCouponController {
 	@RequestMapping(method = RequestMethod.POST, value = "/queryReceiveRecord")
 	@ResponseBody
 	public BsgridVo<HashMap<String, Object>> queryCouponUserReceive(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req) throws Exception{
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
 		String startDate = req.getParameter("startDate");
 		String endDate = req.getParameter("endDate");
 		String couponName = req.getParameter("couponName");
@@ -164,9 +172,13 @@ public class BisCouponController {
 	@RequestMapping(method = RequestMethod.POST, value = "/queryUseRecord")
 	@ResponseBody
 	public BsgridVo<HashMap<String, Object>> queryUseRecord(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req) throws Exception{
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
 		String startDate = req.getParameter("startDate");
 		String endDate = req.getParameter("endDate");
 		String couponName = req.getParameter("couponName");

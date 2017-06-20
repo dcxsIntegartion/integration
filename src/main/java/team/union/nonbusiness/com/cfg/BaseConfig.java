@@ -112,5 +112,30 @@ public class BaseConfig {
 			this.value = value;
 		}
 	}
+	public static enum DECRYPT_ERROR{
+		REQUEST_TIMEOUT(1,"解析失败：超时"),
+		REPLAY_DATA(2,"解析失败：重放数据"),
+		INVALID_SIGNATURE(3,"解析失败：签名无效");
+		private int value;
+		private String msg;
+		private DECRYPT_ERROR(int value,String msg){
+			this.value = value;
+			this.msg = msg;
+		}
+		public int getValue() {
+			return value;
+		}
+		public void setValue(int value) {
+			this.value = value;
+		}
+		public String getMsg() {
+			return msg;
+		}
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+	}
+	
+	
 	
 }

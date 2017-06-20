@@ -37,9 +37,13 @@ public class BisArticleController {
 	@RequestMapping(method = RequestMethod.POST, value = "/paging")
 	@ResponseBody
 	public BsgridVo<HashMap<String, Object>> queryCoupon(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req){
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
 		Map<String, Object> map = new  HashMap<>();
 		String artTitle = req.getParameter("artTitle");
 		String artPlace = req.getParameter("artPlace");

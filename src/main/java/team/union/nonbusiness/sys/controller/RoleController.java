@@ -4,6 +4,8 @@
 package team.union.nonbusiness.sys.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,8 +37,15 @@ public class RoleController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/list")
-	public BsgridVo<Roles> list(@RequestParam(defaultValue = "") String roleName,
-			@RequestParam(defaultValue = "1") int curPage, @RequestParam(defaultValue = "10") int pageSize) {
+	public BsgridVo<Roles> list(
+			HttpServletRequest req) {
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
+		String roleName = null!=req.getAttribute("roleName")?req.getAttribute("roleName").toString():"";
 		RolesCriteria rolesCriteria = new RolesCriteria();
 		RolesCriteria.Criteria criteria = rolesCriteria.createCriteria();
 		criteria.andRoleIdNotEqualTo(1l);

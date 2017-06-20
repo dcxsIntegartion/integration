@@ -28,7 +28,6 @@ import team.union.nonbusiness.com.rs.BsgridVo;
 import team.union.nonbusiness.com.rs.ResultVo;
 import team.union.nonbusiness.sys.controller.domain.UserAccountDomain;
 import team.union.nonbusiness.sys.controller.domain.UserPasswordDomain;
-import team.union.nonbusiness.sys.dao.UsersDao;
 import team.union.nonbusiness.sys.model.Account;
 import team.union.nonbusiness.sys.model.Users;
 import team.union.nonbusiness.sys.service.UserService;
@@ -52,10 +51,15 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/list")
 	public BsgridVo<HashMap<String, Object>> list(@RequestParam(defaultValue = "") String userName,
-			@RequestParam(defaultValue = "") String roleName,
-			@RequestParam(defaultValue = "") String accountLoginName, 
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize) throws Exception {
+			HttpServletRequest req) throws Exception {
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
+		String roleName = null!=req.getAttribute("roleName")?req.getAttribute("roleName").toString():"";
+		String accountLoginName = null!=req.getAttribute("accountLoginName")?req.getAttribute("accountLoginName").toString():"";
 		Map<String, Object> queryArgs = new HashMap<String,Object>();
 		if(ToolsUtil.isNotEmpty(userName)){
 			queryArgs.put("user_name","%"+ userName+"%");
@@ -71,11 +75,15 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/roleLeftUserslist")
 	public BsgridVo<HashMap<String, Object>> roleLeftUserslist(
-			@RequestParam(defaultValue = "") String roleName,
-			@RequestParam(defaultValue = "") String sortName,
-			@RequestParam(defaultValue = "") String sortOrder,
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize) throws Exception {
+			HttpServletRequest req) throws Exception {
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
+		String roleName = null!=req.getAttribute("roleName")?req.getAttribute("roleName").toString():"";
+		
 		HashMap<String, Object> queryArgs = new HashMap<String,Object>();
 		if(ToolsUtil.isNotEmpty(roleName)){
 			queryArgs.put("roleName","%"+ roleName+"%");

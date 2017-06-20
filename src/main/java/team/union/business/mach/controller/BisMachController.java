@@ -30,9 +30,13 @@ public class BisMachController implements IController<BisMach>{
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/page")
 	public BsgridVo<HashMap<String, Object>> paging(
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = "10") int pageSize,
 			HttpServletRequest req) {
+		int curPage = 1;
+		int pageSize = 10;
+		if(null!=req.getAttribute("curPage") && null!=req.getAttribute("pageSize")){
+			curPage = (int) Double.parseDouble(req.getAttribute("curPage").toString());
+			pageSize = (int) Double.parseDouble(req.getAttribute("pageSize").toString());
+		}
 		String areaCode = req.getParameter("areaCode");
 		Map<String, Object> parm = new HashMap<String,Object>();
 		if(ToolsUtil.isNotEmpty(areaCode)){

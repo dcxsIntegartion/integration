@@ -339,9 +339,9 @@ public class Encrypt {
 //		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 //		System.out.println(getPublicKey(publicKey));
 //		System.out.println(getPrivateKey(privateKey));
-    	String str = "H4sIAAAAAAAAA1WPvQ7CMAyE3yUzkeLiNi4rUwd4ApYkdn+Q+qPQsiDenQQQEp583/l08kMNrA6K1E6tcZOzGyXJy1ZXSEWCSz9PmQBZMu/JdJjuwyrxtPw5kJxOJpaYcQ7H+SphbfirRwm9m4bb+CO9OG7GLikXkEusrQYir9GUrCkAaCHDFn3LaOy7eY3zJ2H3NqBUhaaCWo0goj0BasJaDIIHb3OFi+LS9Xc7zpzfUc8XrXS4i/kAAAA=";
-    	System.err.println(str.getBytes().length);
-    	System.err.println(new String(encryptByPublicKey(str.substring(0, 116).getBytes(),BaseConfig.PUBLIC_KEY)));
+    	String str = "H4sIAAAAAAAAA1WPzQ7CIBCE34WzJED5q1dPPegTeIFla2vS0iD1Ynx3oTYmzmnnm51s9kXGQI7EkAPJacWLm7DY69pqaXmByxDnSrg1lm2qdJyfY8Z0";
+    	System.err.println(str.length());
+    	System.err.println(new String(encryptByPublicKey(str.getBytes(),BaseConfig.PUBLIC_KEY)));
     
     
     }
