@@ -38,10 +38,12 @@ function changeStatus(id,status){
 			id:id,
 			activityStatus:status
 	};
+	var data= encrypt(JSON.stringify(vo),publicKey,privateKey,"md5");
 	$.ajax({
 		type: "post",
 		url:  grid_url+"updateStatus",
-		data: JSON.stringify(vo),
+		headers:{'sign': data.sign,'str':data.str,'times':data.times},
+        data: data.data,
 		contentType:"application/json",
 		dataType: "json",
 		success: function(data){
@@ -103,7 +105,12 @@ $(function(){
 		 url : basePath+"/bis/activityBargain/page",
          pageSizeSelect: true,
          stripeRows: true,
-         otherParames: $("#search_form").serializeArray(),
+         beforeSend: function(xhr,options){
+			 xhr.setRequestHeader("sign", options.sign);
+			 xhr.setRequestHeader("str", options.str);
+			 xhr.setRequestHeader("times", options.times);
+		 },
+		 data: $("#search_form").serializeArray(),
          pageSize: 10,
          pagingLittleToolbar:false
     });

@@ -13,13 +13,14 @@
 		<param-name>log4jRefreshInterval</param-name>
 		<param-value>6000</param-value>
 	</context-param>
+	
 	<!-- xss过滤  放在过滤器第一个位子-->
 	<filter>
-	    <filter-name>sessionFilter</filter-name>
+	    <filter-name>requestFilter</filter-name>
 	    <filter-class>team.union.nonbusiness.filter.RequestFilter</filter-class>
 	</filter>
 	<filter-mapping>
-	    <filter-name>sessionFilter</filter-name>
+	    <filter-name>requestFilter</filter-name>
 	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
@@ -41,6 +42,26 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<filter>
+	  <description>配置压缩过滤器</description>
+      <filter-name>GzipFilter</filter-name>
+      <filter-class>team.union.nonbusiness.filter.util.ResponseWrapper</filter-class>
+    </filter>
+	<!--js文件的输出的内容都经过压缩过滤器压缩后才输出 -->
+	<filter-mapping>
+	    <filter-name>GzipFilter</filter-name>
+	    <url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<!--css文件的输出的内容都经过压缩过滤器压缩后才输出 -->
+	<filter-mapping>
+	    <filter-name>GzipFilter</filter-name>
+	    <url-pattern>*.css</url-pattern>
+	</filter-mapping>
+	<!--html文件的输出的内容都经过压缩过滤器压缩后才输出 -->
+	<filter-mapping>
+	    <filter-name>GzipFilter</filter-name>
+	    <url-pattern>*.html</url-pattern>
+	</filter-mapping> 
 	 
 	<!-- Spring监听器 -->  
     <listener>  
@@ -50,7 +71,22 @@
     <listener>  
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  
     </listener>
-
+    
+	<!-- http转https Authorization setting for SSL 
+	<login-config>    
+     <auth-method>CLIENT-CERT</auth-method>    
+     <realm-name>Client Cert Users-only Area</realm-name>    
+	</login-config>    
+	<security-constraint>    
+	     <web-resource-collection >    
+	     <web-resource-name >SSL</web-resource-name>    
+	     <url-pattern>/*</url-pattern>    
+	     </web-resource-collection>    
+	     <user-data-constraint>    
+	     <transport-guarantee>CONFIDENTIAL</transport-guarantee>    
+	     </user-data-constraint>    
+	</security-constraint> 
+	-->
 	<servlet>
 		<servlet-name>mvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -66,7 +102,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-
+	
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener
 		</listener-class>
@@ -74,5 +110,4 @@
 	<welcome-file-list>
        <welcome-file>/index</welcome-file>
  </welcome-file-list>
-
 </web-app>

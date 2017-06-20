@@ -19,7 +19,7 @@
 <!-- page plugin end -->
 <link rel="stylesheet" href="../../new_ui/styles/main.css">
 <script src="../../new_ui/scripts/vendor/modernizr.js"></script>
-
+<script src="../../support/encrypt/js/encrypt-all-1.0.js" /></script>
 
 <!--[if lt IE 9]>
     <script src="../../new_ui/scripts/ie9.js"></script>
@@ -113,10 +113,12 @@
 					model.roleDescription =$("#roleDescription").val()||$("#roleDescription").val();
 					model.roleParentId =1;
 					model.roleId = $("#roleId").val();
+					var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 					$.ajax({
 	    	            type: "PUT",
 	    	            url: basePath+"/sys/role/update",
-	    	            data: JSON.stringify(model),
+	    	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+	    	            data: data.data,
 	    	            contentType:"application/json",
 	    	            dataType: "json",
 	    	            success: function(data){

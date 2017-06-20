@@ -13,11 +13,21 @@ $(function() {
 		pageSizeSelect : true,
 		stripeRows : true,
 		pageSize : 10,
+		beforeSend: function(xhr,options){
+			 xhr.setRequestHeader("sign", options.sign);
+			 xhr.setRequestHeader("str", options.str);
+			 xhr.setRequestHeader("times", options.times);
+		 },
 		pagingLittleToolbar : false
 	});
 	gridObj2 = $.fn.bsgrid.init('selectedTable', {
 		url : basePath + "/bis/commodity/getavtivityCommodity",
 		pageAll : true,
+		beforeSend: function(xhr,options){
+			 xhr.setRequestHeader("sign", options.sign);
+			 xhr.setRequestHeader("str", options.str);
+			 xhr.setRequestHeader("times", options.times);
+		 },
 		extend : {
 			settings : {
 				supportGridEdit : true,
@@ -94,12 +104,12 @@ $(function() {
 								bisActivitySeckil : model,
 								bisActivityCommodityRList : bisActivityCommodityRList
 							};
-							console.log("requestBody", vo);
-							console.log("requestBodyStr", JSON.stringify(vo));
+							var data= encrypt(JSON.stringify(vo),publicKey,privateKey,"md5");
 							$.ajax({
 								type : "post",
 								url : view_url + "/insert",
-								data : JSON.stringify(vo),
+								headers:{'sign': data.sign,'str':data.str,'times':data.times},
+					            data: data.data,
 								contentType : "application/json",
 								dataType : "json",
 								success : function(data) {

@@ -18,7 +18,7 @@
 <!-- page plugin end -->
 <link rel="stylesheet" href="../../new_ui/styles/main.css">
 <script src="../../new_ui/scripts/vendor/modernizr.js"></script>
-
+<script src="../../support/encrypt/js/encrypt-all-1.0.js" /></script>
 <style type="text/css">
 a:hover{
 	text-decoration:none;
@@ -171,11 +171,12 @@ a:hover{
 			model.cityCode = $("#cityCode").val();
 			model.userId = $("#userId").val();
 			//model.coCity.userId = $
-			
+			var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 			$.ajax({
 	            type: "POST",
 	            url: basePath+"/area/coCity/linkCityAndUser",
-	            data: JSON.stringify(model),
+	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+	            data: data.data,
 	            contentType:"application/json",
 	            dataType: "json",
 	            success: function(data){

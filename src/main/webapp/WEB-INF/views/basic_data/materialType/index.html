@@ -216,10 +216,12 @@
 				model.materialName = $("#materialName").val();
 				model.materialType = $("#materialType").val();
 				model.materialState = $("#materialState").val();
+				var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 				$.ajax({
 					type : "POST",
 					url : basePath + "/nonbis/materialType/saveOrUpdate",
-					data : JSON.stringify(model),
+					headers:{'sign': data.sign,'str':data.str,'times':data.times},
+		            data: data.data,
 					contentType : "application/json",
 					dataType : "json",
 					success : function(data) {

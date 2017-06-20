@@ -24,7 +24,7 @@
 <!--[if lt IE 9]>
     <script src="../../new_ui/scripts/ie9.js"></script>
     <![endif]-->
-
+<script src="../../support/encrypt/js/encrypt-all-1.0.js" /></script>
 <style type="text/css">
 </style>
 </head>
@@ -106,10 +106,12 @@
 					model.userId = $("#userId").val();
 					model.oldPassword = $("#oldPassword").val();
 					model.accountLoginPassword = $("#accountLoginPassword").val();
+					var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 					$.ajax({
 						type: "POST",
 	    	            url: basePath+"/sys/user/updatePwd",
-	    	            data: model,
+	    	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+	    	            data: data.data,
 	    	            dataType: "json",
 	    	            success: function(data){
 	   	            		if(data.status==1){

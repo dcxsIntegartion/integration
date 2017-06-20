@@ -24,7 +24,7 @@
 <!--[if lt IE 9]>
     <script src="../../new_ui/scripts/ie9.js"></script>
     <![endif]-->
-
+<script src="../../support/encrypt/js/encrypt-all-1.0.js" /></script>
 <style type="text/css">
 .info {
 	border: 1px solid #ccc;
@@ -128,9 +128,12 @@
 					model.userId = $("#userId").val();
 					model.userMobilephone =$("#userMobilephone").val();
 					model.userName =$("#userName").val();
+					var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 					$.ajax({
 	    	            type: "put",
 	    	            url: basePath+"/sys/user/update",
+	    	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+	    	            data: data.data,
 	    	            data: JSON.stringify(model),
 	    	            contentType:"application/json",
 	    	            dataType: "json",

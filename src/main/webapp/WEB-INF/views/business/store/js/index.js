@@ -61,7 +61,12 @@ $(function(){
 		 url : grid_url+"page",
          pageSizeSelect: true,
          stripeRows: true,
-         otherParames: $("#search_form").serializeArray(),
+         beforeSend: function(xhr,options){
+			 xhr.setRequestHeader("sign", options.sign);
+			 xhr.setRequestHeader("str", options.str);
+			 xhr.setRequestHeader("times", options.times);
+		 },
+		 data: $("#search_form").serializeArray(),
          pageSize: 10,
          pagingLittleToolbar:false
     });

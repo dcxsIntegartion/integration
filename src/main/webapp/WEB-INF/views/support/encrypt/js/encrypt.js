@@ -110,11 +110,7 @@ function encrypt(data,publicKey,privateKey,hashAlg){
 	var encryptData = "";
 	var subStrLength = 110;
 	for(var i=0;i<Math.ceil(DataZip.length/subStrLength);i++){
-		if(encryptData){
-			encryptData += ",110,"+doEncryptByPublicKey(publicKey,DataZip.substring(i*subStrLength,subStrLength*(i+1)));
-		}else{
-			encryptData += doEncryptByPublicKey(publicKey,DataZip.substring(i*subStrLength,subStrLength*(i+1)));
-		}
+		encryptData += doEncryptByPublicKey(publicKey,DataZip.substring(i*subStrLength,subStrLength*(i+1)));
 	}
 	var randomStr = genRandomPass(32);
 	var firstnNum  = getFirstNum(randomStr);
@@ -129,3 +125,4 @@ function encrypt(data,publicKey,privateKey,hashAlg){
 }
 
 
+	

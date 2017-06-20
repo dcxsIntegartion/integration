@@ -24,7 +24,7 @@
 <!--[if lt IE 9]>
     <script src="../scripts/ie9.js"></script>
     <![endif]-->
-
+<script src="../../support/encrypt/js/encrypt-all-1.0.js" /></script>
 
 </head>
 <body style="min-width: 400px">
@@ -93,11 +93,12 @@
 				var model ={};
 				model.userId = $("#userId").val();
 				model.rolesId = rolesId;
-				
+				var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 				$.ajax({
     	            type: "post",
     	            url: basePath+"/sys/user_role/save",
-    	            data: JSON.stringify(model),
+    	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+    	            data: data.data,
     	            contentType:"application/json",
     	            dataType: "json",
     	            success: function(data){

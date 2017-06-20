@@ -21,11 +21,14 @@ $(function(){
 })
 //提交修改
 function doSearch(){
-	var ban = $(".checked input[name='couponIsBan']").val();
+	var model = {};
+	    model.couponIsBan=$(".checked input[name='couponIsBan']").val();
+	var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 	$.ajax({
         type: "post",
         url:  basePath+'/bis/coupon/isBan',
-        data: {"couponIsBan":ban},
+        headers:{'sign': data.sign,'str':data.str,'times':data.times},
+        data: data.data,
         contentType:"application/x-www-form-urlencoded",
         dataType: "json",
         success: function(data){

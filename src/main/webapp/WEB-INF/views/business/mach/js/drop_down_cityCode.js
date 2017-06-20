@@ -58,13 +58,15 @@ function getProvinces(selectedCode) {
  * 根据省份ID查询城市
  */
 function getCitys(provinceCode,selectedCode) {
+	var model = {};
+		model.cityParentCode = provinceCode;
+		model.levelNumber = 2;
+	var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 	$.ajax({
 		type : "POST",
 		url : basePath + "/nonbis/cityCode/selectByCodeCityNodes",
-		data : {
-			cityParentCode : provinceCode,
-			levelNumber : 2
-		},
+		 headers:{'sign': data.sign,'str':data.str,'times':data.times},
+         data: data.data,
 		// contentType:"application/json",
 		dataType : "json",
 		success : function(data) {

@@ -23,7 +23,12 @@ $(function() {
 		   url : basePath+'/bis/coupon/queryUseRecord',
 		   pageSizeSelect: true,
 		   stripeRows: true,
-		   otherParames: $("#role_search_form").serializeArray(),
+		   beforeSend: function(xhr,options){
+				 xhr.setRequestHeader("sign", options.sign);
+				 xhr.setRequestHeader("str", options.str);
+				 xhr.setRequestHeader("times", options.times);
+			 },
+			 data: $("#role_search_form").serializeArray(),
 		   pageSize: 10,
 		   pagingLittleToolbar:false
 	});

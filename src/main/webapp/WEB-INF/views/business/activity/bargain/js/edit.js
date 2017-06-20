@@ -74,13 +74,13 @@ $(function() {
 				bisActivityBargain : model,
 				bisActivityCommodityRList : bisActivityCommodityRList
 			};
-			console.log("requestBody", vo);
-			console.log("requestBodyStr", JSON.stringify(vo));
 			submitToggle(1, submitHtml);
+			var data= encrypt(JSON.stringify(vo),publicKey,privateKey,"md5");
 			$.ajax({
 				type : "post",
 				url : view_url + "/updateById",
-				data : JSON.stringify(vo),
+				headers:{'sign': data.sign,'str':data.str,'times':data.times},
+	            data: data.data,
 				contentType : "application/json",
 				dataType : "json",
 				success : function(data) {

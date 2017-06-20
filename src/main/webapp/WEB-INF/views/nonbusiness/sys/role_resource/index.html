@@ -23,7 +23,7 @@
 <!--[if lt IE 9]>
     <script src="../scripts/ie9.js"></script>
     <![endif]-->
-
+<script src="../../support/encrypt/js/encrypt-all-1.0.js" /></script>
 
 </head>
 <body style="min-width: 400px">
@@ -64,7 +64,6 @@
 	<script src="../../new_ui/layerui/layer/layer.js"></script>
 	<script type="text/javascript">
 		$(function(){
-		
 			/**
 			 * 处理服务器返回的树形节点
 			 */
@@ -93,8 +92,6 @@
 				}
 			   	return result;
 			};
-			
-			
 			$("#resource_view").tree({
 				checkbox:true,
 				url:basePath+"/sys/role_resource/loadResorucesByRoleId?roleId=${roleId}",
@@ -123,7 +120,6 @@
 					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
        				parent.layer.close(index);
 			});
-			
 			$("#btnSave").click(function(){
 				var nodes = $('#resource_view').tree('getChecked','self');	
 				var model ={};
@@ -133,11 +129,12 @@
 				{
 					model.resourcesIds.push(nodes[i].id);
 				}
-				
+				var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 				$.ajax({
     	            type: "POST",
     	            url: basePath+"/sys/role_resource/update",
-    	            data: JSON.stringify(model),
+    	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+    	            data: data.data,
     	            contentType:"application/json",
     	            dataType: "json",
     	            success: function(data){

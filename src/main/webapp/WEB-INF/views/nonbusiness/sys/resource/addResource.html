@@ -132,17 +132,17 @@
 			callback:function($form){
 				submitToggle(1,submitHtml);
 				var model ={};
-				
 				model.resourcesParentId =$("#resourcesParentId").val();
 				model.resourcesName =$("#resourcesName").val();
 				model.resourcesIsUse =$('input[name="resourcesIsUse"]:checked').val();
 				model.resourcesUrl =$("#resourcesUrl").val();
 				model.resourcesDescription =$("#resourcesDescription").val()||$("#resourcesDescription").text();
-				
+				var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 				$.ajax({
     	            type: "POST",
     	            url: basePath+"/sys/resource/save",
-    	            data: JSON.stringify(model),
+    	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+    	            data: data.data,
     	            contentType:"application/json",
     	            dataType: "json",
     	            success: function(data){

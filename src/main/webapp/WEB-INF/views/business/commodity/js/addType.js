@@ -21,11 +21,12 @@ $(function(){
 			da.typeDes  = $('#resource_form #typeDes').val();
 			da.typeLevel  = $('#resource_form #typeLevel').val();
 			da.typeState  = $("#resource_form .checked input[name='typeState']").val();
-			
+			var data= encrypt(JSON.stringify(da),publicKey,privateKey,"md5");
 			$.ajax({
 	            type: "POST",
 	            url: basePath+"/bis/commodityType/add",
-	            data: JSON.stringify(da),
+	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+	            data: data.data,
 	            contentType:"application/json",
 	            dataType: "json",
 	            success: function(data){

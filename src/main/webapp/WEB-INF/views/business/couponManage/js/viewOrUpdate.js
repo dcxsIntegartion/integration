@@ -20,10 +20,12 @@ $(function(){
 		callback:function($form){
 			submitToggle(1,submitHtml);
 			var model = modelUtils.initModel();
+			var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 			$.ajax({
 	            type: "post",
 	            url:  view_url+type,
-	            data: JSON.stringify(model),
+	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
+	            data: data.data,
 	            contentType:"application/json",
 	            dataType: "json",
 	            success: function(data){

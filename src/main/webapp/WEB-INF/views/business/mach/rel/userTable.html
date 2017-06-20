@@ -20,7 +20,7 @@
 <!--[if lt IE 9]>
     <script src="../scripts/ie9.js"></script>
     <![endif]-->
-
+<script src="../../../support/encrypt/js/encrypt-all-1.0.js" /></script> 
 
 </head>
 <body style="min-width: 90%;">
@@ -198,7 +198,12 @@
              url : basePath+'/sys/user/list',
              pageSizeSelect: true,
              stripeRows: true,
-             otherParames: $("#user_search_form").serializeArray(),
+             beforeSend: function(xhr,options){
+    			 xhr.setRequestHeader("sign", options.sign);
+    			 xhr.setRequestHeader("str", options.str);
+    			 xhr.setRequestHeader("times", options.times);
+    		 },
+    		 data: $("#user_search_form").serializeArray(),
              pageSize: 10,
              pagingLittleToolbar:false
          });

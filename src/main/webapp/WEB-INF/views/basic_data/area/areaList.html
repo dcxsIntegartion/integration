@@ -20,7 +20,7 @@
     <!--[if lt IE 9]>
     <script src="../scripts/ie9.js"></script>
     <![endif]-->
-    
+    <script src="../../support/encrypt/js/encrypt-all-1.0.js" /></script>
     
   </head>
   <body>
@@ -166,21 +166,19 @@
     function openlish(idCode){
    	 var openUrl = "";
    	 idCode = idCode.split(",");
-   	 var id = idCode[0];
-   	 var levelNumber = idCode[1];
-   	 var cityCode = idCode[2];
-   	 var status = idCode[3];
 	 openUrl = basePath+"/nonbis/cityCode/updataStatus";
+	 var model = {};
+	 model.status =  idCode[3];
+	 model.id = idCode[0];
+	 model.levelNumber = idCode[1];
+	 model.cityCode = idCode[2];
+	 var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 	$.ajax({
 		url: openUrl,
 		dataType: "json",
 		type : "post",
-		data:{
-			"status":status,
-			"cityId":id,
-			"levelNumber":levelNumber,
-			"cityCode":cityCode
-		},
+		headers:{'sign': data.sign,'str':data.str,'times':data.times},
+		data: data.data,
 		success: function(data){
 			doFresh();
 		}
@@ -218,7 +216,12 @@
       	  url : basePath+'/nonbis/cityCode/page',
             pageSizeSelect: true,
             stripeRows: true,
-            otherParames: $("#search_form").serializeArray(),
+            beforeSend: function(xhr,options){
+   			 xhr.setRequestHeader("sign", options.sign);
+   			 xhr.setRequestHeader("str", options.str);
+   			 xhr.setRequestHeader("times", options.times);
+   		 	},
+   		 	data: $("#search_form").serializeArray(),
             pageSize: 10,
             pagingLittleToolbar:false
         });   

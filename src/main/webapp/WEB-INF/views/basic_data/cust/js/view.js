@@ -31,8 +31,8 @@ $(function(){
 			$.ajax({
 	            type: "post",
 	            headers:{'sign': data.sign,'str':data.str,'times':data.times},
-	            url:  view_url+type,
 	            data: data.data,
+	            url:  view_url+type,
 	            contentType:"application/json",
 	            dataType: "json",
 	            success: function(data){

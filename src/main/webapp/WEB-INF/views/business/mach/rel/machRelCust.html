@@ -18,7 +18,7 @@
 <script src="../../../new_ui/scripts/main.js"></script>
 <script src="../../../new_ui/layerui/layer/layer.js"></script>
 <script src="../../../new_ui/scripts/plugins/jquery-ui.min.js"></script>
-
+<script src="../../../support/encrypt/js/encrypt-all-1.0.js" /></script> 
 </head>
 <body>
 	<div class="wrapper wrapper-content animated fadeInUp">
@@ -260,7 +260,12 @@ $(function(){
 		 url : basePath+"/cust/modelLv/page",
          pageSizeSelect: true,
          stripeRows: true,
-         otherParames: {areaCode:$("#areaCode").val()},
+         beforeSend: function(xhr,options){
+			 xhr.setRequestHeader("sign", options.sign);
+			 xhr.setRequestHeader("str", options.str);
+			 xhr.setRequestHeader("times", options.times);
+		 },
+		 data: {areaCode:$("#areaCode").val()},
          pageSize: 3,
          pagingLittleToolbar:false
     });
