@@ -96,7 +96,26 @@ public class BaseConfig {
 	
 	/**token有效时间（毫秒） 毫秒*秒钟*分钟*小时*天 */
 	public static final long EFFECTIVE_TIME = 1000*60*60*24*10;
-		
+	
+	
+	public static enum NO_NEED_INTERCEPTOR_URL{
+		WE_CHAT_JSSDK("/wechat/config/jssdk"),
+		RECEIVE_SHORT_MESSAGE("/receiveShortMessage"),
+		BLD_INFO("/bld/selOne"),
+		SEND_SHORT_MESSAGE("/sendShortMessage"),
+		LOGIN("/login"),
+		LOGIN_OUT("/login_out");
+		private NO_NEED_INTERCEPTOR_URL(String value){
+			this.value=value;
+		}
+		private String value;
+		public String getValue() {
+			return value;
+		}
+		public void setValue(String value) {
+			this.value = value;
+		}
+	}
 	public static enum NO_NEED_FILTER_URL{
 		IMG("/img"),
 		FILE("/file"),

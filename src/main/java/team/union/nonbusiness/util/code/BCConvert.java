@@ -1,4 +1,4 @@
-package team.union.nonbusiness.util;
+package team.union.nonbusiness.util.code;
 /**  
 * <PRE>  
 * 提供对字符串的全角->半角，半角->全角转换  

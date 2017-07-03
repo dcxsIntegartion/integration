@@ -2,6 +2,8 @@ package team.union.business.com.rs;
 
 import java.io.Serializable;
 
+import team.union.business.com.cfg.BisConfig.RESULT_STATE;
+
 /**
  * Title: 基础数据  操作返回
  * @author chenS
@@ -23,6 +25,16 @@ public class Result implements Serializable{
 	public Result() {
 	}
 
+	public void isError(){
+		this.msg = RESULT_STATE.FAIL.getMsg();
+		this.state = RESULT_STATE.FAIL.getNumber().toString();
+		
+	}
+	public void isSuccess(){
+		this.msg = RESULT_STATE.SUCCESS.getMsg();
+		this.state= RESULT_STATE.SUCCESS.getNumber().toString();
+	}
+	
 	public String getMsg() {
 		return msg;
 	}

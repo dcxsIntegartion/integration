@@ -33,7 +33,6 @@ public class WeChatController {
            @RequestParam(value = "url", required = true) String url) {
        try {
            Map<String, String> configMap = JSSDK_Config.jsSDK_Sign(url);
-           System.out.println("----------------------------------------------------------------------");
            return WeChatRS.success(configMap);
        } catch (Exception e) {
            return WeChatRS.error();

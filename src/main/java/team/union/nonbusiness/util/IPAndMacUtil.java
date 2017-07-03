@@ -1,4 +1,4 @@
-package team.union.nonbusiness.interceptor.util;
+package team.union.nonbusiness.util;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import team.union.nonbusiness.filter.util.XssShieldUtil;
-import team.union.nonbusiness.interceptor.util.Decrypt;
 import team.union.nonbusiness.util.ToolsUtil;
+import team.union.nonbusiness.util.RSA.RSADecrypt;
 
 
 /**
@@ -42,7 +42,7 @@ public class RequestFilter extends OncePerRequestFilter {
 		if(ToolsUtil.isNotEmpty(uri) && XssShieldUtil.skipUrl(uri)){
 			chain.doFilter(request, response);
 		}else{
-			ServletRequest requestWrapper = Decrypt.DecryptData(request);
+			ServletRequest requestWrapper = RSADecrypt.DecryptData(request);
 	        chain.doFilter(requestWrapper, response);
 		}
 	}

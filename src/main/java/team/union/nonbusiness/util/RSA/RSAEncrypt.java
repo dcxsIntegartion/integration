@@ -1,4 +1,4 @@
-package team.union.nonbusiness.interceptor.util;
+package team.union.nonbusiness.util.RSA;
 
 import java.io.IOException;
 import java.security.Key;
@@ -30,7 +30,7 @@ import team.union.nonbusiness.com.cfg.BaseConfig;
  * @date 2017年5月21日
  * @version 1.0
  */
-public class Encrypt {
+public class RSAEncrypt {
 	public static enum RSA{
 		KEY_RSA("RSA"),
 		SIGNATURE_ALGORITHM("MD5withRSA");
@@ -248,102 +248,5 @@ public class Encrypt {
         return result;  
     }  
     
-    /**
-     * 字符串转换unicode
-     */
-    public static String string2Unicode(String string) {
-        StringBuffer unicode = new StringBuffer();
-        for (int i = 0; i < string.length(); i++) {
-            // 取出每一个字符
-            char c = string.charAt(i);
-            // 转换为unicode
-            unicode.append("\\u" + Integer.toHexString(c));
-        }
-        return unicode.toString();
-    }
-    
-    
-    /**
-     * unicode 转字符串
-     */
-    public static String unicode2String(String ori) {
-    	char aChar;
-        int len = ori.length();
-        StringBuffer outBuffer = new StringBuffer(len);
-        for (int x = 0; x < len;) {
-            aChar = ori.charAt(x++);
-            if (aChar == '\\') {
-                aChar = ori.charAt(x++);
-                if (aChar == 'u') {
-                    // Read the xxxx
-                    int value = 0;
-                    for (int i = 0; i < 4; i++) {
-                        aChar = ori.charAt(x++);
-                        switch (aChar) {
-                        case '0':
-                        case '1':
-                        case '2':
-                        case '3':
-                        case '4':
-                        case '5':
-                        case '6':
-                        case '7':
-                        case '8':
-                        case '9':
-                            value = (value << 4) + aChar - '0';
-                            break;
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                        case 'd':
-                        case 'e':
-                        case 'f':
-                            value = (value << 4) + 10 + aChar - 'a';
-                            break;
-                        case 'A':
-                        case 'B':
-                        case 'C':
-                        case 'D':
-                        case 'E':
-                        case 'F':
-                            value = (value << 4) + 10 + aChar - 'A';
-                            break;
-                        default:
-                            throw new IllegalArgumentException(
-                                    "Malformed   \\uxxxx   encoding.");
-                        }
-                    }
-                    outBuffer.append((char) value);
-                } else {
-                    if (aChar == 't')
-                        aChar = '\t';
-                    else if (aChar == 'r')
-                        aChar = '\r';
-                    else if (aChar == 'n')
-                        aChar = '\n';
-                    else if (aChar == 'f')
-                        aChar = '\f';
-                    outBuffer.append(aChar);
-                }
-            } else
-                outBuffer.append(aChar);
- 
-        }
-        return outBuffer.toString();
-    }
-    public static void main(String[] args) throws Exception{
-//    	KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(RSA.KEY_RSA.getValue());
-//		keyPairGen.initialize(1024);
-//		KeyPair keyPair = keyPairGen.generateKeyPair();
-//		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-//		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-//		System.out.println(getPublicKey(publicKey));
-//		System.out.println(getPrivateKey(privateKey));
-    	String str = "H4sIAAAAAAAAA1WPzQ7CIBCE34WzJED5q1dPPegTeIFla2vS0iD1Ynx3oTYmzmnnm51s9kXGQI7EkAPJacWLm7DY69pqaXmByxDnSrg1lm2qdJyfY8Z0";
-    	System.err.println(str.length());
-    	System.err.println(new String(encryptByPublicKey(str.getBytes(),BaseConfig.PUBLIC_KEY)));
-    
-    
-    }
     
 }

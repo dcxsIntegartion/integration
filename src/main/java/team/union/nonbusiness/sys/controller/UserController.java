@@ -1,6 +1,3 @@
-/**
- * 
- */
 package team.union.nonbusiness.sys.controller;
 
 import java.util.HashMap;
@@ -26,12 +23,12 @@ import team.union.nonbusiness.com.cfg.BaseConfig;
 import team.union.nonbusiness.com.excp.BusinessException;
 import team.union.nonbusiness.com.rs.BsgridVo;
 import team.union.nonbusiness.com.rs.ResultVo;
+import team.union.nonbusiness.interceptor.utils.InterceptorUtils;
 import team.union.nonbusiness.sys.controller.domain.UserAccountDomain;
 import team.union.nonbusiness.sys.controller.domain.UserPasswordDomain;
 import team.union.nonbusiness.sys.model.Account;
 import team.union.nonbusiness.sys.model.Users;
 import team.union.nonbusiness.sys.service.UserService;
-import team.union.nonbusiness.sys.utils.WebUtils;
 import team.union.nonbusiness.util.ToolsUtil;
 
 
@@ -50,7 +47,7 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/list")
-	public BsgridVo<HashMap<String, Object>> list(@RequestParam(defaultValue = "") String userName,
+	public BsgridVo<HashMap<String, Object>> list(
 			HttpServletRequest req) throws Exception {
 		int curPage = 1;
 		int pageSize = 10;
@@ -60,6 +57,8 @@ public class UserController {
 		}
 		String roleName = null!=req.getAttribute("roleName")?req.getAttribute("roleName").toString():"";
 		String accountLoginName = null!=req.getAttribute("accountLoginName")?req.getAttribute("accountLoginName").toString():"";
+		String userName = null!=req.getAttribute("userName")?req.getAttribute("userName").toString():"";
+		
 		Map<String, Object> queryArgs = new HashMap<String,Object>();
 		if(ToolsUtil.isNotEmpty(userName)){
 			queryArgs.put("user_name","%"+ userName+"%");
@@ -114,6 +113,7 @@ public class UserController {
 			UserAccountDomain userAccountDomain = userService.login(account);
 			req.getSession().setAttribute("user", userAccountDomain.getUsers());
 			req.getSession().setAttribute("account", userAccountDomain.getAccount());
+			InterceptorUtils.newSession(req);
 			resultVo.setStatus(1);
 		} catch (BusinessException e) {
 			resultVo.setStatus(0);
@@ -214,7 +214,7 @@ public class UserController {
 	@RequestMapping(value = "/forUpdatePwd", method = RequestMethod.GET)
 	public String forUpdatePwd(HttpServletRequest request,HttpServletResponse response) {
 		try {
-			Users user = WebUtils.getUser(request);
+			Users user = InterceptorUtils.getUser(request);
 			request.setAttribute("users_account", userService.find(user.getUserId()));
 		} catch (BusinessException e) {
 			logger.error(e.getMessage(),e);

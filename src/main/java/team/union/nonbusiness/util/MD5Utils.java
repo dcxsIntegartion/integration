@@ -1,7 +1,6 @@
 package team.union.nonbusiness.util;
 
 import java.security.MessageDigest;
-import java.util.Random;
 import java.util.UUID;
 
 /**

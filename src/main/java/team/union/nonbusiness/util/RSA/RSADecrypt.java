@@ -1,4 +1,4 @@
-package team.union.nonbusiness.interceptor.util;
+package team.union.nonbusiness.util.RSA;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -20,9 +20,10 @@ import team.union.nonbusiness.com.cfg.BaseConfig.DECRYPT_ERROR;
 import team.union.nonbusiness.filter.util.RequestWrapper;
 import team.union.nonbusiness.filter.util.XssShieldUtil;
 import team.union.nonbusiness.util.ToolsUtil;
+import team.union.nonbusiness.util.code.UnicodeUtils;
 import team.union.nonbusiness.util.ZipUtils;
 
-public class Decrypt {
+public class RSADecrypt {
 	/**
 	 * 存储使用过的签名
 	 */
@@ -49,7 +50,6 @@ public class Decrypt {
 		}
 		return false;
 	}
-
 
 	/**
 	 * 解密数据
@@ -126,14 +126,14 @@ public class Decrypt {
 		int ciphertextSubsection = ToolsUtil.isNotEmpty(data)?data.length()/ciphertextLength:0;
 		StringBuffer decryptData = new StringBuffer();
 		for(int i=0;i<ciphertextSubsection;i++){
-			decryptData.append(new String(Encrypt.decryptByPrivateKey(Encrypt.decryptBASE64(data.substring(i*ciphertextLength, (i+1)*ciphertextLength)), privateKey),"utf-8"));
+			decryptData.append(new String(RSAEncrypt.decryptByPrivateKey(RSAEncrypt.decryptBASE64(data.substring(i*ciphertextLength, (i+1)*ciphertextLength)), privateKey),"utf-8"));
 		}
 		String unZipData = ZipUtils.gunzip(decryptData.toString().replaceAll("%2B", "+").replaceAll("%2F","/"));
-		String unicodeData = Encrypt.unicode2String(unZipData);
+		String unicodeData = UnicodeUtils.unicode2String(unZipData);
 		Map<String, Object> map=  ToolsUtil.gsonToMap(XssShieldUtil.stripXss(unicodeData));
 		String signStr = data+times+str;
 		String signData = signStr.substring(firstNum, signStr.length());
-		boolean state = Encrypt.verify(signData.getBytes(),publicKey,sign);
+		boolean state = RSAEncrypt.verify(signData.getBytes(),publicKey,sign);
 		if(!state){
 			request.setAttribute("error", DECRYPT_ERROR.INVALID_SIGNATURE.getMsg());
 		}

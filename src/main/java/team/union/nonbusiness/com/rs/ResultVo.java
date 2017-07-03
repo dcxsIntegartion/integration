@@ -2,6 +2,8 @@ package team.union.nonbusiness.com.rs;
 
 import java.io.Serializable;
 
+import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
+
 /**
  * 控制器返回结果到前台对象
  * 
@@ -24,7 +26,16 @@ public class ResultVo implements Serializable{
 
 	public ResultVo() {
 	}
-
+	
+	public void isError(){
+		this.info = RESULT_STATE.FAIL.getMsg();
+		this.status = RESULT_STATE.FAIL.getNumber().toString();
+		
+	}
+	public void isSuccess(){
+		this.info = RESULT_STATE.SUCCESS.getMsg();
+		this.status= RESULT_STATE.SUCCESS.getNumber().toString();
+	}
 	public String getInfo() {
 		return info;
 	}

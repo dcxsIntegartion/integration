@@ -35,8 +35,6 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.google.gson.Gson;
-
 
 /**
  * @ClassName: BiiwayHttpClient 

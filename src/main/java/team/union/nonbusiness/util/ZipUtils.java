@@ -100,27 +100,27 @@ public class ZipUtils {
 	ZipOutputStream zout = null;
 	String compressedStr = null;
 	try {
-	out = new ByteArrayOutputStream();
-	zout = new ZipOutputStream(out);
-	zout.putNextEntry(new ZipEntry("0"));
-	zout.write(str.getBytes());
-	zout.closeEntry();
-	compressed = out.toByteArray();
-	compressedStr = new sun.misc.BASE64Encoder().encodeBuffer(compressed);
+		out = new ByteArrayOutputStream();
+		zout = new ZipOutputStream(out);
+		zout.putNextEntry(new ZipEntry("0"));
+		zout.write(str.getBytes());
+		zout.closeEntry();
+		compressed = out.toByteArray();
+		compressedStr = new sun.misc.BASE64Encoder().encodeBuffer(compressed);
 	} catch (IOException e) {
-	compressed = null;
+		compressed = null;
 	} finally {
 	if (zout != null) {
 	try {
-	zout.close();
+		zout.close();
 	} catch (IOException e) {
-	}
+		}
 	}
 	if (out != null) {
 	try {
-	out.close();
+		out.close();
 	} catch (IOException e) {
-	}
+		}
 	}
 	}
 	return compressedStr;
@@ -133,7 +133,7 @@ public class ZipUtils {
 	*/
 	public static final String unzip(String compressedStr) {
 	if (compressedStr == null) {
-	return null;
+		return null;
 	}
 
 	ByteArrayOutputStream out = null;
@@ -141,39 +141,39 @@ public class ZipUtils {
 	ZipInputStream zin = null;
 	String decompressed = null;
 	try {
-	byte[] compressed = new sun.misc.BASE64Decoder().decodeBuffer(compressedStr);
-	out = new ByteArrayOutputStream();
-	in = new ByteArrayInputStream(compressed);
-	zin = new ZipInputStream(in);
-	zin.getNextEntry();
-	byte[] buffer = new byte[1024];
-	int offset = -1;
-	while ((offset = zin.read(buffer)) != -1) {
-	out.write(buffer, 0, offset);
-	}
-	decompressed = out.toString();
+		byte[] compressed = new sun.misc.BASE64Decoder().decodeBuffer(compressedStr);
+		out = new ByteArrayOutputStream();
+		in = new ByteArrayInputStream(compressed);
+		zin = new ZipInputStream(in);
+		zin.getNextEntry();
+		byte[] buffer = new byte[1024];
+		int offset = -1;
+		while ((offset = zin.read(buffer)) != -1) {
+			out.write(buffer, 0, offset);
+		}
+		decompressed = out.toString();
 	} catch (IOException e) {
-	decompressed = null;
+		decompressed = null;
 	} finally {
 	if (zin != null) {
-	try {
-	zin.close();
-	} catch (IOException e) {
-	}
+		try {
+			zin.close();
+		} catch (IOException e) {
+		}
 	}
 	if (in != null) {
-	try {
-	in.close();
-	} catch (IOException e) {
-	}
+		try {
+			in.close();
+		} catch (IOException e) {
+		}
 	}
 	if (out != null) {
-	try {
-	out.close();
-	} catch (IOException e) {
+		try {
+			out.close();
+		} catch (IOException e) {
+			}
+		}
 	}
-	}
-	}
-	return decompressed;
+		return decompressed;
 	}
 }
