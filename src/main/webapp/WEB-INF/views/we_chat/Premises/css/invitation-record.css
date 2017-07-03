@@ -1,0 +1,129 @@
+ul.top-record{
+	padding:0.2rem 0 0.3rem 0;
+	width:100%;
+	overflow: hidden;
+	border-bottom: 1px solid #c4c4c4
+}
+ul.top-record li{
+	float: left;
+	width:33.33%;
+	height:1.3rem;
+	border-right:1px solid #c4c4c4;
+	box-sizing: border-box;
+}
+ul.top-record li:last-child{
+	border:none;
+}
+ul.top-record li dl{
+	width:100%;
+	text-align:center;
+}
+ul.top-record li dl dt{
+	font-size:0.48rem;
+	color:#ad8e4e;
+	line-height:0.6rem;
+}
+ul.top-record li dl dd{
+	font-size:0.36rem;
+	color:#999;
+	line-height:0.7rem;
+}
+nav{
+	margin:0.3rem 0.3rem 0 0.3rem;
+}
+nav ul{
+	width:100%;
+	overflow: hidden;
+	border:1px solid #a89774;
+	border-radius:1rem;
+	line-height:0.96rem;
+}
+nav ul li{
+	float: left;
+	width:33.33%;
+	color:#bfbfbf;
+	font-size:0.4rem;
+	text-align:center;
+	border-right:1px solid #a89774;
+	box-sizing: border-box;
+}
+nav ul li:last-child{
+	border:none;
+}
+nav ul li.active{
+	color: #fff;
+	background:#a89774;
+}
+.mesg{
+	margin:0 0.5rem 0.3rem 0.5rem;
+}
+.mesg .none-to{
+	position: absolute;
+	top:8rem;
+	left: 50%;
+	margin-left:-0.9rem;
+}
+.mesg .none-to img{
+	width:1.8rem;
+	height:1.8rem;
+}
+.mesg .none-to p{
+	margin-top:0.2rem;
+	width:100%;
+	text-align: center;
+	font-size:0.4rem;
+	color:#999;
+}
+.mesg .have-to{
+	width:100%;
+}
+.mesg .have-to ul li{
+	padding-top:0.3rem;
+	padding-bottom:0.3rem;
+	border-bottom:1px solid #ccc;
+}
+
+.mesg .have-to ul li .one-line{
+	overflow: hidden;
+	line-height:0.6rem;
+}
+.mesg .have-to ul li .one-line img{
+	margin-top:0.1rem;
+	float: left;
+	width:0.4rem;
+	height:0.4rem;
+}
+.mesg .have-to ul li .one-line p{
+	margin-left:0.3rem;
+	float: left;
+	font-size:0.4rem;
+	color: #666;
+}
+.mesg .have-to ul li .one-line p.timer{
+	color: #999;
+}
+.mesg .have-to ul li .one-line p span{
+	margin-right:0.5rem;
+}
+.mesg .have-to ul li .one-line i{
+	margin-left:0.5rem;
+	float: left;
+	font-size:0.4rem;
+	color: #999;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

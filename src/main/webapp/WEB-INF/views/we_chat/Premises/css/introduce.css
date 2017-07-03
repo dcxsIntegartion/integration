@@ -1,0 +1,40 @@
+body{
+	background:#2e2f2c;
+	min-height:100%;
+}
+.house-mesg{
+	padding:0 0.35rem;
+	border-top:0.1rem solid #b8a580;
+}
+.house-mesg .title{
+	width:100%;
+	overflow: hidden;
+}
+.house-mesg h1{
+	float: left;
+	margin-top:0.4rem;
+	border-bottom:0.03rem solid #b8a580;
+	font-size:0.48rem;
+	line-height:0.8rem;
+	font-weight: bold;
+	color:#ccc;
+}
+.house-mesg h2{
+	margin-top:0.4rem;
+	font-size:0.4rem;
+	line-height:0.6rem;
+	color:#fff;
+	text-indent: 0.4rem;
+	letter-spacing: 0.05rem
+}
+.house-mesg .detail{
+	margin-top:0.6rem;
+	padding-bottom:1rem;
+}
+.house-mesg .detail dl{
+	width:100%;
+	color: #fff;
+	line-height:0.6rem ;
+	font-size:0.4rem;
+}
+

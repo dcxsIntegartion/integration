@@ -1,0 +1,193 @@
+body{
+	background:#fff;
+}
+.lou-bg{
+	width:100%;
+	height:3rem;
+	background:url('../images/loupan-2.jpg') no-repeat;
+	background-size:100% 100%;
+	overflow: hidden;
+}
+.lou-bg p{
+	margin-left:0.6rem;
+	margin-top:0.9rem;
+	font-size:0.44rem;
+	color:#333;
+}
+.lou-bg span{
+	margin-left:0.6rem;
+	margin-top:0.1rem;
+	font-size:0.4rem;
+	color:#333;
+}
+nav{
+	margin:0.5rem auto;
+	width:5.3rem;
+	overflow: hidden;
+}
+nav span{
+	float:left;
+	display:block;
+	width:2.65rem;
+	height:1.05rem;
+	line-height:1.05rem;
+	font-size:0.4rem;
+	color:#3b3b3b;
+	text-align:center;
+	border:1px solid #3b3b3b;
+	box-sizing: border-box;
+}
+nav span.active{
+	background:#3b3b3b;
+	color:#fff;
+}
+nav span:first-child{
+	border-top-left-radius: 0.1rem;
+	border-bottom-left-radius: 0.1rem;
+}
+nav span:last-child{
+	border-top-right-radius: 0.1rem;
+	border-bottom-right-radius: 0.1rem;
+}
+
+.present{
+	margin:0 0.3rem 0.35rem 0.3rem;
+	border:1px solid #ddd;
+	border-radius:0.1rem;
+}
+.present .center{
+	margin:0.4rem;
+}
+.present .center h1{
+	font-size:0.44rem;
+	color:#000 ;
+}
+.present .center h1 i{
+	margin-left:0.2rem;
+	display: inline-block;
+	width:0.4rem;
+	height:0.4rem;
+	border:1px solid #ffac36;
+	border-radius: 50%;
+	vertical-align: bottom;
+}
+.present .center h1 span{
+	margin-left:0.2rem;
+	color:#b3b3b3;
+}
+.present .center p{
+	margin-top:0.2rem;
+	font-size:0.4rem;
+	color: #000;
+	line-height:0.48rem;
+}
+
+.present .center ul{
+	width:100%;
+}
+.present .center ul li{
+	width:100%;
+	line-height:0.65rem;
+}
+.present .center ul li span{
+	font-size:0.4rem;
+	color: #555;
+}
+.present .center ul li i{
+	margin-left:0.3rem;
+	font-size:0.4rem;
+	color: #000;
+}
+
+
+
+/*位置周边*/
+
+
+.address{
+	margin:0 0.3rem 0.35rem 0.3rem;
+	border:1px solid #ddd;
+	border-radius:0.1rem;
+}
+.address .center{
+	margin:0.4rem;
+}
+.address .center .top{
+	overflow: hidden;
+}
+.address .center .top i.addr{
+	display: block;
+	float: left;
+	width:1rem;
+	height:1rem;
+	border:2px solid #ffac36;
+	border-radius:50%;
+	background:url('../images/address-icon.png') no-repeat;
+	background-size:0.6rem 0.6rem;
+	background-position:center;
+}
+.address .center .top i.pt{
+	background:url('../images/peitao-icon.png') no-repeat;
+	background-size:0.6rem 0.6rem;
+	background-position:center;
+}
+.address .center .top i.tra{
+	background:url('../images/bus-icon.png') no-repeat;
+	background-size:0.6rem 0.6rem;
+	background-position:center;
+}
+.address .center .top .detail{
+	float: left;
+	margin-left:0.2rem;
+}
+.address .center .top .detail p{
+	font-size:0.4rem;
+	color:#000;
+}
+.address .center .top .detail span{
+	display: block;
+	font-size:0.36rem;
+	color:#999;
+}
+.address .center .top input{
+	float: right;
+	width:3rem;
+	height:0.8rem;
+	border:1px solid #ffac36;
+	border-radius: 0.1rem;
+	color:#ffac36;
+	font-size:0.4rem;
+	text-indent:0.75rem;
+	background: url('../images/daohang-icon.png') no-repeat;
+	background-size: 0.5rem 0.5rem;
+	background-position: 0.3rem center;
+}
+
+.address .center ul{
+	margin-top:0.2rem;
+}
+.address .center ul li img{
+	margin-top:0.1rem;
+	margin-right:0.2rem;
+	float: left;
+	width:0.4rem;
+	height:0.4rem;
+}
+.address .center ul li span{
+	color: #333;
+	font-size:0.4rem;
+	line-height:0.6rem;
+}
+.address .center .title{
+	margin-top:0.2rem;
+}
+.address .center .title p{
+	font-size:0.4rem;
+	color:#333;
+	line-height:0.6rem;
+}
+
+
+
+
+

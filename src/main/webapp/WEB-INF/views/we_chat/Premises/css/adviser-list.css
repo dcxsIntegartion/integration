@@ -1,0 +1,88 @@
+body{
+	background:#faf9f9;
+}
+
+.content{
+	width:100%;
+	
+}
+.content .center{
+	margin-bottom:0.48rem;
+	border-bottom:1px solid #d9d9d9;
+}
+.content .center:last-child{
+	border:none;
+}
+.content h1{
+	margin: 0 0.6rem;
+	font-size:0.4rem;
+	line-height:1.1rem;
+	color:#aa976d;
+	font-weight:bold;
+}
+.content .center ul{
+	margin: 0 0.6rem;
+	overflow: hidden;
+}
+.content .center ul li{
+	margin-right:1.9rem;
+	float: left;
+	width:1.9rem;
+}
+.content .center ul li:last-child{
+	margin-right:0;
+}
+.content .center ul li dl{
+	width:100%;
+}
+.content .center ul li dl dt{
+	width:1.9rem;
+	height:1.9rem;
+	background:#e6e6e6;
+	border:0.06rem solid #d8d8d8;
+	box-sizing: border-box;
+	border-radius: 50%;
+}
+.content .center ul li dl dt img{
+	width:1.9rem;
+	height:1.9rem;
+}
+.content .center ul li dl dd.name{
+	text-align:center;
+	line-height:0.85rem;
+	font-size:0.36rem;
+	color:#333333;
+}
+.content .center ul li dl dd.theBtn{
+	margin-bottom:0.5rem;
+	width:100%;
+	height:0.75rem;
+	line-height:0.75rem;
+	text-align:center;
+	font-size:0.36rem;
+	color:#ffffff;
+	background:#c1b395;
+	border-radius:1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

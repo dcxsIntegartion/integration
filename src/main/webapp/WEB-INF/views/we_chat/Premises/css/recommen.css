@@ -1,0 +1,131 @@
+.banner{
+	width:100%;
+	height:2.65rem;
+	text-align:center;
+	background:#ffffff;
+	overflow: hidden;
+}
+.banner img{
+	margin:0.525rem auto;
+	width:7.45rem;
+	height:1.5rem;
+}
+
+.user-mesg{
+	width:100%;
+	border-top:1px solid #e4e4e4;
+	background:#ffffff;
+}
+.user-mesg ul{
+	width:100%;
+}
+.user-mesg ul li{
+	padding:0 0.4rem;
+	height:1.3rem;
+	line-height:1.3rem;
+	border-bottom:1px solid #e4e4e4;
+	overflow: hidden;
+}
+.user-mesg ul li label{
+	margin-right:0.25rem;
+	float: left;
+	font-size:0.44rem;
+	color:#333;
+}
+.user-mesg ul li label i{
+	margin-right:0.25rem;
+	color:#ff6630;
+}
+.user-mesg ul li label i.trans{
+	color:transparent;
+}
+.user-mesg ul li input{
+	width:4rem;
+	height:1.3rem;
+	font-size:0.4rem;
+	color:#666;
+}
+.user-mesg ul li.text{
+	height:2.5rem;
+}
+
+.user-mesg ul li.text textarea{
+	margin-top:0.3rem;
+	width:7rem;
+	height:2.5rem;
+	font-size:0.4rem;
+	color:#666;
+	line-height:0.8rem;
+}
+.user-mesg ul li .right{
+	float:right;
+}
+.user-mesg ul li .right p{
+	margin-left:0.5rem;
+	float: left;
+	font-size:0.4rem;
+	color:#222;
+	line-height:1.3rem;
+}
+.user-mesg ul li .right p span{
+	position: relative;
+	margin-top:0.4rem;
+	margin-right: 0.2rem;
+	float:left;
+	display:block;
+	width:0.5rem;
+	height:0.5rem;
+	border:1px solid #b3afb6;
+	border-radius:50%;
+}
+.user-mesg ul li .right p span i{
+	position: absolute;
+	top:0.13rem;
+	left:0.13rem;
+	display:block;
+	width:0.24rem;
+	height:0.24rem;
+	background:#cccccc;
+	border-radius:50%;
+}
+
+.user-mesg ul li .right p span i.active{
+	background:#ff480f;
+}
+.user-mesg .title{
+	margin:0.4rem 0.6rem;
+	font-size:0.36rem;
+	color: #666;
+	line-height:0.55rem;
+}
+.user-mesg .title i{
+	color:#ff6630;
+}
+.user-mesg .btn{
+	margin:1.2rem 0.6rem;
+}
+
+.user-mesg input.sub-btn{
+	width:100%;
+	height:1.35rem;
+	background:#fc7343;
+	color:#fff;
+	font-size:0.48rem;
+	border-radius:0.5rem;
+}
+.user-mesg .see-mine{
+	padding-bottom:0.8rem;
+	display: block;
+	width:100%;
+	text-align:center;
+	font-size:0.48rem;
+	color:#fc7343;
+	text-decoration: underline;
+}
+
+
+
+
+
+
+
