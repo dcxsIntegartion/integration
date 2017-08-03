@@ -1,7 +1,5 @@
 package team.union.we_chat.com.rs;
 
-import java.io.Serializable;
-
 import team.union.we_chat.com.cfg.BaseConfig.RESULT_STATE;
 
 /**
@@ -12,9 +10,8 @@ import team.union.we_chat.com.cfg.BaseConfig.RESULT_STATE;
  * @see 参考类1
  * @Date 2015年5月18日 下午3:20:15
  */
-public class WeChatRS implements Serializable{
-
-	private static final long serialVersionUID = 3507890824241560895L;
+public class WeChatRS{
+	
 	/** 返回信息 */
 	private String info;
 	/** 返回状态*/
@@ -23,37 +20,40 @@ public class WeChatRS implements Serializable{
 	private Object data;
 
 	public WeChatRS() {
+		info = RESULT_STATE.FAIL.getMsg();
+		status = RESULT_STATE.FAIL.getNumber().toString();
 	}
-	public static WeChatRS success(Object data){
-		WeChatRS rs = new WeChatRS();
-		rs.setData(data);
-		rs.setStatus(RESULT_STATE.SUCCESS.getNumber());
-		rs.setInfo(RESULT_STATE.SUCCESS.getMsg());
-		return rs;
+	public void isError(){
+		info = RESULT_STATE.FAIL.getMsg();
+		status = RESULT_STATE.FAIL.getNumber().toString();
+		
 	}
-	public static WeChatRS error(){
-		WeChatRS rs = new WeChatRS();
-		rs.setStatus(RESULT_STATE.FAIL.getNumber());
-		rs.setInfo(RESULT_STATE.FAIL.getMsg());
-		return rs;
+	public void isSuccess(){
+		info = RESULT_STATE.SUCCESS.getMsg();
+		status= RESULT_STATE.SUCCESS.getNumber().toString();
+	}
+	public void isSuccess(Object resultData){
+		info = RESULT_STATE.SUCCESS.getMsg();
+		status= RESULT_STATE.SUCCESS.getNumber().toString();
+		data = resultData;
 	}
 	public String getInfo() {
 		return info;
 	}
-	public void setInfo(String info) {
-		this.info = info;
+	public void setInfo(String infoData) {
+		info = infoData;
 	}
 	public Object getStatus() {
 		return status;
 	}
-	public void setStatus(Object status) {
-		this.status = status;
+	public void setStatus(Object statusData) {
+		status = statusData;
 	}
 	public Object getData() {
 		return data;
 	}
-	public void setData(Object data) {
-		this.data = data;
+	public void setData(Object resultData) {
+		data = resultData;
 	}
 
 }

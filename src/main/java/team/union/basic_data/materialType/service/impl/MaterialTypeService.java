@@ -23,7 +23,7 @@ public class MaterialTypeService implements IMaterialTypeService {
 	@Autowired
 	private MaterialTypeDao materialTypeDao;
 
-	@Override
+	
 	public MaterialTypeVo findAllTreeNode() {
 		List<MaterialType> list = this.materialTypeDao.findAll();
 		List<MaterialTypeVo> voList = new ArrayList<MaterialTypeVo>();
@@ -41,7 +41,7 @@ public class MaterialTypeService implements IMaterialTypeService {
 		return root;
 	}
 
-	@Override
+	
 	public MaterialTypeVo findAllImportantAndUsingTreeNode() {
 		List<MaterialType> list = this.materialTypeDao.findAllImportantAndUsing();
 		List<MaterialTypeVo> voList = new ArrayList<MaterialTypeVo>();
@@ -91,7 +91,7 @@ public class MaterialTypeService implements IMaterialTypeService {
 		return vo;
 	}
 
-	@Override
+	
 	public ResultVo saveOrUpdateMaterialType(MaterialTypeVo vo) {
 		ResultVo resultVo = new ResultVo();
 		if(vo.getMaterialTypeId() != null && vo.getMaterialTypeId() > 0) {
@@ -154,7 +154,7 @@ public class MaterialTypeService implements IMaterialTypeService {
 		return currNumStr;
 	}
 
-	@Override
+	
 	public BsgridVo<MaterialType> list(Map<String, Object> args, int page, int rows) {
 		PageHelper.startPage(page, rows);		
 		List<MaterialType> content = materialTypeDao.list(args);
@@ -168,7 +168,6 @@ public class MaterialTypeService implements IMaterialTypeService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public ResultVo addToGroup(Map<String, Object> params) {
 		ResultVo resultVo = new ResultVo();
 		Long workProcedureId = Long.valueOf(params.get("workProcedureId").toString());
@@ -190,7 +189,7 @@ public class MaterialTypeService implements IMaterialTypeService {
 		return resultVo;
 	}
 
-	@Override
+
 	public ResultVo removeFromGroup(Map<String, Object> params) {
 		ResultVo resultVo = new ResultVo();
 		Long materialTypeId = Long.valueOf(params.get("materialTypeId").toString());

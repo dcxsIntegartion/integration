@@ -1,9 +1,6 @@
 package team.union.nonbusiness.upload.service;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import team.union.nonbusiness.upload.model.NonbizUpload;
 import team.union.nonbusiness.upload.utils.WebImagesUploader;
 

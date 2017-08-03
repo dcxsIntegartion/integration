@@ -7,10 +7,17 @@ package team.union.we_chat.com.cfg;
  */
 public class BaseConfig {
 	public static enum WE_CHAT{
-		Appid("wx1902b2fb914ffc65"),
-		AppSecret("1814e6c7f64333d6d0a11c8958662365"),
+		Appid("wx50e204de25ecc077"),
+		AppSecret("614b5d93f3f0b3e5e2548e143e53bf20"),
+		/** 商户id **/
+		MCH_ID("1448262102"),
+		/** 商户支付调用密匙 **/
+		API_KEY("ASDFGCXZSDHYJGFMHGFT32qwersmkjhx"),
 		tokenUrl("https://api.weixin.qq.com/cgi-bin/token"),
 		ticketUrl("https://api.weixin.qq.com/cgi-bin/ticket/getticket"),
+		userToken("https://api.weixin.qq.com/sns/oauth2/access_token"),
+		userTokenRefresh("https://api.weixin.qq.com/sns/oauth2/refresh_token"),
+		userinfo("https://api.weixin.qq.com/sns/userinfo"),
 		token(""),
 		jsapi_ticket(""),
 		timestamp(""),
@@ -26,6 +33,7 @@ public class BaseConfig {
 			this.value = value;
 		}
 	}
+	
 	public static enum RESULT_STATE{
 		FAIL(0,"操作失败"),
 		SUCCESS(1,"操作成功");

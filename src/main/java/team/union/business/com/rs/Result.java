@@ -22,9 +22,11 @@ public class Result implements Serializable{
 	/** 返回数据 */
 	private Object data;
 
-	public Result() {
-	}
 
+	public Result() {
+		this.msg = RESULT_STATE.FAIL.getMsg();
+		this.state = RESULT_STATE.FAIL.getNumber().toString();
+	}
 	public void isError(){
 		this.msg = RESULT_STATE.FAIL.getMsg();
 		this.state = RESULT_STATE.FAIL.getNumber().toString();

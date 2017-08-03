@@ -7,6 +7,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Title: 文件处理工具
@@ -127,5 +130,35 @@ public class FileUtils {
 			}
 		}
 	}
-	
+	/**
+	 * 依据原始文件名生成新文件名
+	 * 
+	 * @return
+	 */
+	public static String getName(String fileExt) {
+		String random = UUID.randomUUID().toString();
+		return  random + fileExt;
+	}
+
+	/**
+	 * 在系统特定目录下创建文件
+	 * 根据字符串创建本地目录 并按照日期建立子目录创建文件 返回
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public static String getFolder(String filePath,String fileName){
+		SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
+		String relativePath = File.separator + formater.format(new Date())+File.separator+fileName;
+		String _physicalPath = filePath+relativePath;
+		File dir = new File(_physicalPath);
+		if (!dir.exists()) {
+			try {
+				dir.createNewFile();
+			} catch (Exception e) {
+				return "";
+			}
+		}
+		return _physicalPath;
+	}
 }

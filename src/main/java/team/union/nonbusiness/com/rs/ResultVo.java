@@ -25,6 +25,8 @@ public class ResultVo implements Serializable{
 	private Object data;
 
 	public ResultVo() {
+		this.info = RESULT_STATE.FAIL.getMsg();
+		this.status = RESULT_STATE.FAIL.getNumber().toString();
 	}
 	
 	public void isError(){

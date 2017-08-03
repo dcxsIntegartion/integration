@@ -23,6 +23,8 @@ public class Result implements Serializable{
 	private Object data;
 
 	public Result() {
+		this.msg = RESULT_STATE.FAIL.getMsg();
+		this.state = RESULT_STATE.FAIL.getNumber().toString();
 	}
 	public void isError(){
 		this.msg = RESULT_STATE.FAIL.getMsg();

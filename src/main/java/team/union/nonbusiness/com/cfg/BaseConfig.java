@@ -100,7 +100,9 @@ public class BaseConfig {
 	
 	public static enum NO_NEED_INTERCEPTOR_URL{
 		WE_CHAT_JSSDK("/wechat/config/jssdk"),
-		RECEIVE_SHORT_MESSAGE("/receiveShortMessage"),
+		WE_CHAT_USERINFO("/wechat/config/userInfo"),
+		CHECK_INVITER_NUM("/checkInviterNumber"),
+		CUST_ADD("/cust/modelLv/add"),
 		BLD_INFO("/bld/selOne"),
 		SEND_SHORT_MESSAGE("/sendShortMessage"),
 		LOGIN("/login"),

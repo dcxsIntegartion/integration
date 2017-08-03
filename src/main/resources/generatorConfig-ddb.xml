@@ -20,7 +20,7 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!-- 实体 -->
-		 <javaModelGenerator targetPackage="team.union.nonbusiness.twotabrel.model"
+		 <javaModelGenerator targetPackage="team.union.basic_data.cust.model"
 			targetProject="integration/src/main/java">
 			<!--enableSubPackages:是否让schema作为包的后缀  -->
 			<property name="enableSubPackages" value="true" />
@@ -28,17 +28,17 @@
 			<property name="trimStrings" value="true" />
 		 </javaModelGenerator>
 		<!-- xml -->
-		<sqlMapGenerator targetPackage="team.union.nonbusiness.mapper.twotabrel"
+		<sqlMapGenerator targetPackage="team.union.basic_data.mapper.cust"
 			targetProject="integration/src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- mapper -->
-	    <javaClientGenerator type="XMLMAPPER" targetPackage="team.union.nonbusiness.twotabrel.dao" 
+	    <javaClientGenerator type="XMLMAPPER" targetPackage="team.union.basic_data.cust.dao" 
 			targetProject="integration/src/main/java"> 
 			<property name="enableSubPackages" value="true"/> 
 		</javaClientGenerator>
 		
-	    <table tableName="nonbis_two_tab_rel" modelType="flat"/>
+	    <table tableName="cust_model_lv" modelType="flat"/>
 		
 	</context>
 </generatorConfiguration>
