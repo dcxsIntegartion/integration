@@ -4,16 +4,16 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<title>hello</title>
+	<title>楼盘相册</title>
 	<link rel="stylesheet" href="../css/pubilc.css">
 	<link rel="stylesheet" type="text/css" href="../css/photo.css">
 </head>
 <body>
-	<header>
-		<img src="../images/del-icon-white.png" alt="">
-		<span>楼盘相册</span>
-		<i></i>
-	</header>
+<!-- 	<header> -->
+<!-- 		<img src="../images/del-icon-white.png" alt=""> -->
+<!-- 		<span>楼盘相册</span> -->
+<!-- 		<i></i> -->
+<!-- 	</header> -->
 	<div class="nav">导航</div>
 	<div class="title">
 		<h1>
@@ -37,5 +37,40 @@
 	</div>
 
 	<script type="text/javascript" src="../js/auto-size.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../support/encrypt/js/encrypt-all-1.0.js" /></script>
+	<script type="text/javascript">
+	var bldInfo = {};
+	function getBldInfo(){
+		var model = {};
+		model.buildId=9;
+		var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
+		$.ajax({
+			type: "get",
+		    headers:{'sign': data.sign,'str':data.str,'times':data.times},
+		    url:  basePath+"/dcxs/bld/selOne",
+		    data: {data:data.data},
+		    contentType:"application/json",
+		    success: function(data){
+		    	if(data.status==1){
+		    		data.data = JSON.parse(data.data);
+		    		bldInfo.info= data.data.info;
+		    		bldInfo.sellPoint= data.data.sellPoint;
+		    		bldInfo.houseType= data.data.houseType;
+		    		var planChartLst= eval(data.data.planChartLst);
+		    		var supportingLst= eval(data.data.supportingLst);
+		    		var realMapLst= eval(data.data.realMapLst);
+		    		var designSketch= eval(data.data.designSketch);
+		    		var imgs= designSketch.concat(realMapLst).concat(supportingLst).concat(planChartLst);
+		    	}
+			},
+			error:function(data) {
+			}
+		});
+	}
+	$(function(){
+		getBldInfo();
+	});
+	</script>
 </body>
 </html>

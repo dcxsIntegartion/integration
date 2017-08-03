@@ -25,6 +25,7 @@
 </ul>    
 </div>    
 <div class="lbox_close wxapi_form">    
+<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1902b2fb914ffc65&redirect_uri=http%3A%2F%2Fwww.amaj.net.cn%2Fintegration%2Fwe_chat%2FPremises%2Fbuilding%2Fsubject.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">获取openId3</a>
 <h3 id="menu-basic">基础接口</h3>    
 <span class="desc">判断当前客户端是否支持指定JS接口</span>    
 <button class="btn btn_primary" id="checkJsApi">checkJsApi</button>    
@@ -110,15 +111,17 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript">
+	//url.split('?')[0]+"?"+encodeURIComponent(url.split('?')[1])
+	//location.href.split('#')[0]
+	//location.href
+	var url = location.href;
     function jssdk() {
-    	var url = location.href.split('#')[0];
         $.ajax({
             url : "/integration/wechat/config/jssdk",
             type : 'post',
             contentType : "application/x-www-form-urlencoded; charset=utf-8",
             data : {
-                'url' : location.href
-          		//url.split('?')[0]+"?"+encodeURIComponent(url.split('?')[1])
+                'url' : url
             },
             success : function(data) {
                 wx.config({
@@ -145,7 +148,9 @@
             }
         });
     }
- 
+    function getUserInfo(){
+    	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1902b2fb914ffc65&redirect_uri=amaj.net.cn%2fintegration%2fwe_chat%2fPremises%2fbuilding%2fsubject.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
+    }
     function isWeiXin5() {
         var ua = window.navigator.userAgent.toLowerCase();
         var reg = /MicroMessenger\/[5-9]/i;
