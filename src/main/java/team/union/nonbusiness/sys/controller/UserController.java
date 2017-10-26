@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package team.union.nonbusiness.sys.controller;
 
 import java.util.HashMap;
@@ -23,12 +26,12 @@ import team.union.nonbusiness.com.cfg.BaseConfig;
 import team.union.nonbusiness.com.excp.BusinessException;
 import team.union.nonbusiness.com.rs.BsgridVo;
 import team.union.nonbusiness.com.rs.ResultVo;
-import team.union.nonbusiness.interceptor.utils.InterceptorUtils;
 import team.union.nonbusiness.sys.controller.domain.UserAccountDomain;
 import team.union.nonbusiness.sys.controller.domain.UserPasswordDomain;
 import team.union.nonbusiness.sys.model.Account;
 import team.union.nonbusiness.sys.model.Users;
 import team.union.nonbusiness.sys.service.UserService;
+import team.union.nonbusiness.sys.utils.WebUtils;
 import team.union.nonbusiness.util.ToolsUtil;
 
 
@@ -113,7 +116,7 @@ public class UserController {
 			UserAccountDomain userAccountDomain = userService.login(account);
 			req.getSession().setAttribute("user", userAccountDomain.getUsers());
 			req.getSession().setAttribute("account", userAccountDomain.getAccount());
-			InterceptorUtils.newSession(req);
+			WebUtils.newSession(req);
 			resultVo.setStatus(1);
 		} catch (BusinessException e) {
 			resultVo.setStatus(0);
@@ -214,7 +217,7 @@ public class UserController {
 	@RequestMapping(value = "/forUpdatePwd", method = RequestMethod.GET)
 	public String forUpdatePwd(HttpServletRequest request,HttpServletResponse response) {
 		try {
-			Users user = InterceptorUtils.getUser(request);
+			Users user = WebUtils.getUser(request);
 			request.setAttribute("users_account", userService.find(user.getUserId()));
 		} catch (BusinessException e) {
 			logger.error(e.getMessage(),e);

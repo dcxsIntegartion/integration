@@ -1,7 +1,5 @@
 package team.union.we_chat.config;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.UUID;
@@ -37,9 +35,9 @@ public class JSSDK_Config {
        jssdk.put("timestamp", WE_CHAT.timestamp.getValue());
        jssdk.put("nonceStr", nonce_str);
        jssdk.put("signature", signature);
-       jssdk.put("access_token", WE_CHAT.access_token.getValue());
        return jssdk;
    }
+  
    private static String byteToHex(final byte[] hash) {
        Formatter formatter = new Formatter();
        for (byte b : hash) {

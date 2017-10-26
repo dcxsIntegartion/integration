@@ -24,33 +24,28 @@ import javax.servlet.http.HttpServletResponseWrapper;
 public class ResponseWrapper implements Filter{
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		//System.out.println("----过滤器开始----");
+		System.out.println("----过滤器开始----");
 	}
 	@Override
     public void doFilter(ServletRequest req, ServletResponse resp,
             FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
+
         BufferResponse myresponse = new BufferResponse(response);
         chain.doFilter(request, myresponse);
-        //判断客户端是否接受gzip压缩
-        if(null!=request.getHeader("Accept-Encoding")){
-        	 String AcceptEncoding = request.getHeader("Accept-Encoding");
-        	 if( AcceptEncoding.split("gzip").length>1){
-        		//拿出缓存中的数据，压缩后再打给浏览器
-        	        byte out[] = myresponse.getBuffer();
-        	        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        	        //压缩输出流中的数据
-        	        GZIPOutputStream gout = new GZIPOutputStream(bout);
-        	        gout.write(out);
-        	        gout.close();
-        	        byte gzip[] = bout.toByteArray();
-        	        response.setHeader("content-encoding", "gzip");
-        	        response.setContentLength(gzip.length);
-        	        response.getOutputStream().write(gzip);
-        	 }
-        }
-        
+        //拿出缓存中的数据，压缩后再打给浏览器
+        byte out[] = myresponse.getBuffer();
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        //压缩输出流中的数据
+        GZIPOutputStream gout = new GZIPOutputStream(bout);
+        gout.write(out);
+        gout.close();
+        byte gzip[] = bout.toByteArray();
+        response.setHeader("content-encoding", "gzip");
+        response.setContentLength(gzip.length);
+        response.getOutputStream().write(gzip);
     }
     @Override
     public void destroy() {
@@ -58,8 +53,8 @@ public class ResponseWrapper implements Filter{
     }
 	
 }
-
 /*** 过滤器结束  **/
+
 class BufferResponse extends HttpServletResponseWrapper{
     private ByteArrayOutputStream bout = new ByteArrayOutputStream();
     private PrintWriter pw;
@@ -93,6 +88,7 @@ class BufferResponse extends HttpServletResponseWrapper{
     }
 }
 /*** response封装结束 **/
+
 class MyServletOutputStream extends ServletOutputStream{
 
     private ByteArrayOutputStream bout;

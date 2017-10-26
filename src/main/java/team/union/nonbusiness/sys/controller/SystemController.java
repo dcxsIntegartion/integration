@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import team.union.nonbusiness.com.rs.ResultVo;
-import team.union.nonbusiness.interceptor.utils.InterceptorUtils;
 import team.union.nonbusiness.sys.model.Users;
 import team.union.nonbusiness.sys.service.ResourceService;
 import team.union.nonbusiness.sys.utils.Tree;
+import team.union.nonbusiness.sys.utils.WebUtils;
 
 
 
@@ -34,7 +34,8 @@ public class SystemController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(ModelMap map,HttpServletRequest req) {
-		Users user = InterceptorUtils.getUser(req);
+		Users user =WebUtils.getUser(req);
+		
 		Tree tree = resourceService.findMenuByUserId(user.getUserId());
 		map.put("menu", tree);
 		return  "index.html";

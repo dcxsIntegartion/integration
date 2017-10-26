@@ -7,8 +7,6 @@ public class CustModelLv {
 
     private Long userId;
 
-    private Long contrrolerId;
-
     private String wechatId;
 
     private String wechatName;
@@ -59,8 +57,6 @@ public class CustModelLv {
 
     private Date joinTime;
 
-    private String remarks;
-
     private Integer state;
 
     public Long getId() {
@@ -77,14 +73,6 @@ public class CustModelLv {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Long getContrrolerId() {
-        return contrrolerId;
-    }
-
-    public void setContrrolerId(Long contrrolerId) {
-        this.contrrolerId = contrrolerId;
     }
 
     public String getWechatId() {
@@ -285,14 +273,6 @@ public class CustModelLv {
 
     public void setJoinTime(Date joinTime) {
         this.joinTime = joinTime;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
     }
 
     public Integer getState() {

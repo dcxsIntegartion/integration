@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import team.union.nonbusiness.interceptor.utils.InterceptorUtils;
-
-
+import team.union.nonbusiness.sys.utils.WebUtils;
 
 
 /**
@@ -30,9 +28,16 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 		if (handler instanceof HandlerMethod) {
 			String uri = request.getRequestURI();
-	        if(InterceptorUtils.skipUrl(uri)){
+			//微信jssdk/接收短信/发送短信/修改密码
+			if(uri.endsWith("/wechat/config/jssdk")|| uri.endsWith("/receiveShortMessage") || uri.endsWith("/sendShortMessage")){
+			 	return true;
+			}
+			
+	        // 判断路径是登出还是登录验证，是这两者之一的话执行Controller中定义的方法
+	        if(uri.endsWith("/login") || uri.endsWith("/login_out")) {
 	        	return true;
 	        }
+	        
 			HandlerMethod actionHandler = (HandlerMethod) handler;
 			if(isAccessable(request)){
 				return super.preHandle(request, response, handler);
@@ -54,7 +59,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 	 * */
 	public boolean isAccessable(HttpServletRequest req)
 			throws IOException {
-		if(InterceptorUtils.getUser(req)!=null){
+		if(WebUtils.getUser(req)!=null){
 			return true;
 		}
 		return false;
