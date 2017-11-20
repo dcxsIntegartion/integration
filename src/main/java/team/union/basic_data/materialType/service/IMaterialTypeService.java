@@ -2,8 +2,8 @@ package team.union.basic_data.materialType.service;
 
 import java.util.Map;
 
-import team.union.nonbusiness.com.rs.BsgridVo;
-import team.union.nonbusiness.com.rs.ResultVo;
+import team.union.sys_sp.com.rs.BsgridVo;
+import team.union.sys_sp.com.rs.ResultVo;
 import team.union.basic_data.materialType.model.MaterialType;
 import team.union.basic_data.materialType.vo.MaterialTypeVo;
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import team.union.basic_data.materialType.model.MaterialType;
-import team.union.nonbusiness.com.interf.Mapper;
+import team.union.sys_sp.com.interf.Mapper;
 
 public interface MaterialTypeDao extends Mapper<MaterialType>{
 	public List<MaterialType> findAll();

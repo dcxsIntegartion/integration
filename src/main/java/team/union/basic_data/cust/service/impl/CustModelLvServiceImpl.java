@@ -19,7 +19,7 @@ import team.union.basic_data.com.rs.Result;
 import team.union.basic_data.cust.dao.CustModelLvDao;
 import team.union.basic_data.cust.model.CustModelLv;
 import team.union.basic_data.cust.service.ICustModelLvService;
-import team.union.nonbusiness.util.ToolsUtil;
+import team.union.sys_sp.util.ToolsUtil;
 /**
  * Title: 客户分层级
  * @author chenS

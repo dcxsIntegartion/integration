@@ -3,7 +3,7 @@ package team.union.business.activity.model;
 import java.util.Date;
 import java.util.List;
 
-import team.union.nonbusiness.upload.model.NonbizUpload;
+import team.union.sys_sp.upload.model.NonbizUpload;
 
 public class BisActivityDiscount {
     /**

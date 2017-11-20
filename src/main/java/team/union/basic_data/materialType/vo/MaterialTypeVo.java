@@ -2,7 +2,7 @@ package team.union.basic_data.materialType.vo;
 
 import java.util.List;
 
-import team.union.nonbusiness.sys.model.Users;
+import team.union.sys_sp.sys.model.Users;
 
 
 public class MaterialTypeVo {

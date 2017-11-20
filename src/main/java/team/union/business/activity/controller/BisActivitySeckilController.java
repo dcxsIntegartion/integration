@@ -19,7 +19,7 @@ import team.union.business.activity.model.BisActivitySeckil;
 import team.union.business.activity.service.IBisActivitySeckilService;
 import team.union.business.activity.vo.BisActivitySeckilVo;
 import team.union.business.com.interf.IController;
-import team.union.nonbusiness.util.ToolsUtil;
+import team.union.sys_sp.util.ToolsUtil;
 
 /**
  * 特价活动Controller层
