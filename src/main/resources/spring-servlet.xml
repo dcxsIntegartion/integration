@@ -91,6 +91,6 @@
         <property name="defaultStatusCode" value="500"/>
     </bean>
     <mvc:interceptors>  
-    	<bean class="team.union.nonbusiness.interceptor.SecurityInterceptor"/>
+    	<bean class="team.union.sys_sp.interceptor.SecurityInterceptor"/>
     </mvc:interceptors>
 </beans>

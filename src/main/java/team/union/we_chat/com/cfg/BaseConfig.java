@@ -7,8 +7,14 @@ package team.union.we_chat.com.cfg;
  */
 public class BaseConfig {
 	public static enum WE_CHAT{
-		Appid("wx1902b2fb914ffc65"),
-		AppSecret("1814e6c7f64333d6d0a11c8958662365"),
+		//测试账号
+//		Appid("wx1902b2fb914ffc65"),
+//		AppSecret("1814e6c7f64333d6d0a11c8958662365"),
+		//正式账号
+		Appid("wx50e204de25ecc077"),
+		AppSecret("39b6e13f720656e1b90ec191b5ee580f"),
+		
+		
 		tokenUrl("https://api.weixin.qq.com/cgi-bin/token"),
 		ticketUrl("https://api.weixin.qq.com/cgi-bin/ticket/getticket"),
 		token(""),

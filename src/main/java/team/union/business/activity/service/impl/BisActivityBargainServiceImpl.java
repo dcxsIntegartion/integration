@@ -45,7 +45,7 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 	@Autowired
 	private BisStoreDao bisStoreDao;
 	
-	@Override
+	
 	public BsgridVo<HashMap<String, Object>> paging(Map<String, Object> parm, int curPage, int pageSize) {
 		PageHelper.startPage(curPage, pageSize);
 		List<HashMap<String, Object>> data =  bisActivityBargainDao.selectPage(parm);
@@ -58,19 +58,19 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 		return bsgridVo;
 	}
 
-	@Override
+	
 	public List<HashMap<String, Object>> selMapLst(Map<String, Object> parm) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public List<BisActivityBargainVo> selVoLst(Map<String, Object> parm) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Result selById(Long Id) {
 		Result result = new Result();
 		HashMap<String, Object> dataMap = new HashMap<>();
@@ -108,7 +108,7 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 		return result;
 	}
 
-	@Override
+	
 	public Result add(BisActivityBargainVo vo) {
 		Result result = new Result();
 		try {
@@ -140,7 +140,7 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 		return result;
 	}
 
-	@Override
+	
 	public Result update(BisActivityBargainVo vo) {
 		Result result = new Result();
 		try {
@@ -169,12 +169,12 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 		return result;
 	}
 
-	@Override
+	
 	public Result updateBySelective(BisActivityBargainVo vo) {
 		return null;
 	}
 
-	@Override
+	
 	public Result delById(Long id) {
 		Result result = new Result();
 		try {
@@ -189,7 +189,7 @@ public class BisActivityBargainServiceImpl implements IBisActivityBargainService
 		return result;
 	}
 
-	@Override
+	
 	public Result updateStatus(BisActivityBargain vo) {
 		Result result = new Result();
 		bisActivityBargainDao.updateByPrimaryKeySelective(vo);

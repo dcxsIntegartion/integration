@@ -39,5 +39,4 @@ public class WeChatController {
            return WeChatRS.error();
        }
    }
-
 }

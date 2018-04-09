@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,5 +82,21 @@ public class DcxsController {
 			}
 		}
 		return rs;
+	}
+	public static void main(String[] args) {
+		String xml = "<xml>" + "<appid>" + 31211 + "</appid>" + "<mch_id>"
+				+ 1 + "</mch_id>" + "<nonce_str>" + 2
+				+ "</nonce_str>" + "<sign>" + 3 + "</sign>"
+				+ "<body><![CDATA[" + 4 + "]]></body>" 
+				+ "<out_trade_no>" + 5
+				+ "</out_trade_no>" + "<attach>" + 6 + "</attach>"
+				+ "<total_fee>" + 7 + "</total_fee>"
+				+ "<spbill_create_ip>" + 8
+				+ "</spbill_create_ip>" + "<notify_url>" + 9
+				+ "</notify_url>" + "<trade_type>" + 10
+				+ "</trade_type>" + "<openid>" + 31211 + "</openid>"
+				+ "</xml>";
+		HttpEntity entity = new StringEntity(xml, "UTF-8");
+		System.out.println(entity.toString());
 	}
 }

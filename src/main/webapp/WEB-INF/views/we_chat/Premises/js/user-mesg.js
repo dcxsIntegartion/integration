@@ -60,6 +60,7 @@ $(function(){
 	}else{
 		projectId = getQueryString("projectId").split("|")[0];
 	}
+	alert(openid);
 	saveUserInfo();
 });
 function saveUserInfo(){

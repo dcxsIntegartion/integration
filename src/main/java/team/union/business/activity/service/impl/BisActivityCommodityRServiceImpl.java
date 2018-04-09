@@ -18,48 +18,48 @@ import team.union.business.activity.service.IBisActivityCommodityRService;
  */
 public class BisActivityCommodityRServiceImpl implements IBisActivityCommodityRService {
 	
-	@Override
+	
 	public BsgridVo<HashMap<String, Object>> paging(Map<String, Object> parm, int curPage, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public List<HashMap<String, Object>> selMapLst(Map<String, Object> parm) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public List<BisActivityCommodityR> selVoLst(Map<String, Object> parm) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Result selById(Long Id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Result add(BisActivityCommodityR vo) {
 		return null;
 	}
 
-	@Override
+	
 	public Result update(BisActivityCommodityR vo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Result updateBySelective(BisActivityCommodityR vo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Result delById(Long id) {
 		// TODO Auto-generated method stub
 		return null;

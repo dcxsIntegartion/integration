@@ -1,0 +1,66 @@
+/**
+ * author : tuyuan || 910900645@qq.com;
+ * desc : base
+ */
+
+/*---------------------- css reset ----------------------*/
+
+@charset "utf-8";
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, a, blockquote, th,i,u {margin:0;padding:0;border:0;}
+
+ol,ul{
+	list-style:none;
+}
+
+u,i{
+	font-size:12px; 
+	font-weight:normal; 
+	font-style:normal;
+}
+
+table {
+	border-collapse:collapse; 
+	border-spacing:0px;
+}
+
+fieldset,img{
+	border:0;
+}
+
+a,img{
+    -webkit-touch-callout: none; /* 绂佹闀挎寜閾炬帴涓庡浘鐗囧脊鍑鸿彍鍗� */
+}
+a{
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+img{
+	display:block;
+	width:100%;
+	height: auto;
+
+}
+
+html,body{
+	width:100%; 
+	height:100%;
+	-webkit-user-select: none;   /* 绂佹閫変腑鏂囨湰锛堝鏃犳枃鏈€変腑闇€姹傦紝姝や负蹇呴€夐」锛� */
+    user-select: none;
+}
+
+body{
+	color:#333;
+	background:#fff;
+	font-family:"Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+	font-size:12px;
+}
+input{
+    -webkit-appearance: none;
+}
+/*娓呴櫎娴姩*/
+.clearfix:after {content:".";display:block;height:0;clear:both; visibility:hidden;}
+.clearfix {display:inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix {height:1%;}
+.clearfix {display:block;}
+/* End hide from IE-mac */

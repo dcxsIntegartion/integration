@@ -46,7 +46,7 @@
         <property name="testOnReturn" value="false" />
     </bean>
   
-	<bean id="dataSource" class="team.union.nonbusiness.datasource.DynamicDataSource">
+	<bean id="dataSource" class="team.union.sys_sp.datasource.DynamicDataSource">
         <property name="targetDataSources">  
               <map key-type="java.lang.String">  
                   <!-- write -->
@@ -58,7 +58,7 @@
         <property name="defaultTargetDataSource" ref="masterdataSource"/>  
     </bean>
 	<aop:aspectj-autoproxy />
-	<bean id="manyDataSourceAspect" class="team.union.nonbusiness.datasource.DataSourceAspect" />
+	<bean id="manyDataSourceAspect" class="team.union.sys_sp.datasource.DataSourceAspect" />
 	<aop:config>
 		<aop:aspect order="0" id="c" ref="manyDataSourceAspect">
 			<aop:pointcut id="tx"

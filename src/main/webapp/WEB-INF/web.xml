@@ -17,7 +17,7 @@
 	<!-- xss过滤  放在过滤器第一个位子-->
 	<filter>
 	    <filter-name>requestFilter</filter-name>
-	    <filter-class>team.union.nonbusiness.filter.RequestFilter</filter-class>
+	    <filter-class>team.union.sys_sp.filter.RequestFilter</filter-class>
 	</filter>
 	<filter-mapping>
 	    <filter-name>requestFilter</filter-name>
@@ -45,7 +45,7 @@
 	<filter>
 	  <description>配置压缩过滤器</description>
       <filter-name>GzipFilter</filter-name>
-      <filter-class>team.union.nonbusiness.filter.util.ResponseWrapper</filter-class>
+      <filter-class>team.union.sys_sp.filter.util.ResponseWrapper</filter-class>
     </filter>
 	<!--js文件的输出的内容都经过压缩过滤器压缩后才输出 -->
 	<filter-mapping>

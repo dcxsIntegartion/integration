@@ -182,4 +182,7 @@ public class RSADecrypt {
 		}
 		return pwd.toString();
 	}
+	public static void main(String[] args) {
+		System.out.println(genRandomPass(32));
+	}
 }
