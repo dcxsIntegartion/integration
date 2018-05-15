@@ -99,9 +99,7 @@ public class BaseConfig {
 	
 	
 	public static enum NO_NEED_INTERCEPTOR_URL{
-		WE_CHAT_JSSDK("/wechat/config/jssdk"),
-		WE_CHAT_USERINFO("/wechat/config/userInfo"),
-		CHECK_INVITER_NUM("/checkInviterNumber"),
+		WE_CHART_OAUTH("/we_chat/authorization"),
 		CUST_ADD("/cust/modelLv/add"),
 		BLD_INFO("/bld/selOne"),
 		SEND_SHORT_MESSAGE("/sendShortMessage"),
@@ -119,6 +117,7 @@ public class BaseConfig {
 		}
 	}
 	public static enum NO_NEED_FILTER_URL{
+		WE_CHART_OAUTH("/we_chat/authorization"),
 		IMG("/img"),
 		FILE("/file"),
 		UEDITOR("/Config");
@@ -133,30 +132,5 @@ public class BaseConfig {
 			this.value = value;
 		}
 	}
-	public static enum DECRYPT_ERROR{
-		REQUEST_TIMEOUT(1,"解析失败：超时"),
-		REPLAY_DATA(2,"解析失败：重放数据"),
-		INVALID_SIGNATURE(3,"解析失败：签名无效");
-		private int value;
-		private String msg;
-		private DECRYPT_ERROR(int value,String msg){
-			this.value = value;
-			this.msg = msg;
-		}
-		public int getValue() {
-			return value;
-		}
-		public void setValue(int value) {
-			this.value = value;
-		}
-		public String getMsg() {
-			return msg;
-		}
-		public void setMsg(String msg) {
-			this.msg = msg;
-		}
-	}
-	
-	
 	
 }

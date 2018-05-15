@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.commodity.dao.BisCommodityTypeDao;
 import team.union.business.commodity.model.BisCommodityType;
 import team.union.business.commodity.service.IBisCommodityTypeService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
@@ -26,11 +26,11 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		Result result = new Result();
 		try {
 			List<BisCommodityType> list = typeDao.queryAll();
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(toTree(list));
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("查询商品分类树失败");
 		}
 		return result;
@@ -41,11 +41,11 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		Result result = new Result();
 		try {
 			List<BisCommodityType> list = typeDao.queryAll();
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(list);
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("查询商品分类失败");
 		}
 		return result;
@@ -56,10 +56,10 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		Result result = new Result();
 		try {
 			typeDao.update(type);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("更新商品分类失败");
 		}
 		return result;
@@ -70,10 +70,10 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		Result result = new Result();
 		try {
 			typeDao.insert(type);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("新增商品分类失败");
 		}
 		return result;
@@ -84,10 +84,10 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		Result result = new Result();
 		try {
 			typeDao.deleteByIds(ids);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("删除商品分类失败");
 		}
 		return result;
@@ -98,11 +98,11 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		Result result = new Result();
 		try {
 			BisCommodityType type = typeDao.findById(id);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(type);
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("查找分类失败");
 		}
 		return result;
@@ -113,11 +113,11 @@ public class BisCommodityTypeServiceImpl implements IBisCommodityTypeService {
 		Result result = new Result();
 		try {
 			List<BisCommodityType> list = typeDao.querySelect();
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(list);
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("查找下拉框失败");
 		}
 		return result;

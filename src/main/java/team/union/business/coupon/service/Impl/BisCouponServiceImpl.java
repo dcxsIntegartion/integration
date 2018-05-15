@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.coupon.dao.BisCouponDao;
 import team.union.business.coupon.model.BisCoupon;
 import team.union.business.coupon.service.IBisCouponService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
@@ -54,12 +54,12 @@ public class BisCouponServiceImpl implements IBisCouponService {
 		Result result = new Result();
 		BisCoupon vo = couponDao.selectByPrimaryKey(Id);
 		if(vo!=null){
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(vo);
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -69,11 +69,11 @@ public class BisCouponServiceImpl implements IBisCouponService {
 		Result result = new Result();
 		if(null!=vo && null == vo.getCouponId()){
 			couponDao.insert(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -84,11 +84,11 @@ public class BisCouponServiceImpl implements IBisCouponService {
 		if(null!=vo &&
 			null != couponDao.selectByPrimaryKey(vo.getCouponId())){
 			couponDao.updateByPrimaryKeySelective(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -106,8 +106,8 @@ public class BisCouponServiceImpl implements IBisCouponService {
 			coupon.setCouponId(id);
 			coupon.setCouponIsEnable(1);
 			couponDao.updateByPrimaryKeySelective(coupon);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}
 		return result;
 	}
@@ -122,8 +122,8 @@ public class BisCouponServiceImpl implements IBisCouponService {
 		Result result = new Result();
 		if(null != couponIsBan){
 			couponDao.batchBan(couponIsBan);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}
 		return result;
 	}

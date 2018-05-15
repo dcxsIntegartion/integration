@@ -117,7 +117,7 @@
 	var url = location.href;
     function jssdk() {
         $.ajax({
-            url : "/integration/wechat/config/jssdk",
+            url : "/integration/we_chat/jssdk",
             type : 'post',
             contentType : "application/x-www-form-urlencoded; charset=utf-8",
             data : {
@@ -149,7 +149,7 @@
         });
     }
     function getUserInfo(){
-    	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1902b2fb914ffc65&redirect_uri=amaj.net.cn%2fintegration%2fwe_chat%2fPremises%2fbuilding%2fsubject.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
+    	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx50e204de25ecc077&redirect_uri=amaj.net.cn%2fintegration%2fwe_chat%2fPremises%2fbuilding%2fsubject.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
     }
     function isWeiXin5() {
         var ua = window.navigator.userAgent.toLowerCase();

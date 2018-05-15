@@ -185,9 +185,7 @@ public class XssShieldUtil {
     	}
     	return false;
     }
-    
     public static void main(String[] args) {
-
         String value = null;
         value = XssShieldUtil.stripXss("<script language=text/javascript>alert(document.cookie);</script>");
         System.out.println("type-1: '" + value + "'");

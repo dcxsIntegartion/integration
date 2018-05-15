@@ -12,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.business.com.cfg.BisConfig.RESULT_STATE;
 import team.union.business.com.rs.BsgridVo;
 import team.union.business.com.rs.Result;
 import team.union.business.store.dao.BisStoreDao;
 import team.union.business.store.model.BisStore;
 import team.union.business.store.service.IBisStoreService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 /**
  * 
  *描述：店铺业务层实现
@@ -39,11 +39,11 @@ public class BisStoreServiceImpl implements IBisStoreService {
 			bisStore.setStoreStatus(0);
 			bisStoreDao.insert(bisStore);
 			result.setData(bisStore);
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 		return result;
@@ -74,11 +74,11 @@ public class BisStoreServiceImpl implements IBisStoreService {
 		try {
 			bisStoreDao.updateByPrimaryKey(bisStore);
 			result.setData(bisStore);
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 			
@@ -91,11 +91,11 @@ public class BisStoreServiceImpl implements IBisStoreService {
 		BisStore bisStore = bisStoreDao.selectByPrimaryKey(id);
 		if (bisStore != null) {
 			result.setData(bisStore);
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		}else{
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 		}
 		return result;
 	}

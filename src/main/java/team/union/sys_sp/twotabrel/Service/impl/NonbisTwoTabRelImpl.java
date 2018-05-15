@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 import team.union.sys_sp.twotabrel.Service.INonbisTwoTabRelService;
 import team.union.sys_sp.twotabrel.dao.NonbisTwoTabRelDao;
 import team.union.sys_sp.twotabrel.model.NonbisTwoTabRel;
@@ -59,12 +59,12 @@ public class NonbisTwoTabRelImpl implements INonbisTwoTabRelService{
 		Result result = new Result();
 		NonbisTwoTabRel vo = nonbisTwoTabRelDao.selectByPrimaryKey(id);
 		if(vo!=null){
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(vo);
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -73,11 +73,11 @@ public class NonbisTwoTabRelImpl implements INonbisTwoTabRelService{
 		Result result = new Result();
 		if(null!=vo && null == vo.getId()){
 			nonbisTwoTabRelDao.insert(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -87,11 +87,11 @@ public class NonbisTwoTabRelImpl implements INonbisTwoTabRelService{
 		if(null!=vo && null!=vo.getId() &&
 			null != nonbisTwoTabRelDao.selectByPrimaryKey(vo.getId())){
 			nonbisTwoTabRelDao.updateByPrimaryKey(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -101,11 +101,11 @@ public class NonbisTwoTabRelImpl implements INonbisTwoTabRelService{
 		if(null!=vo && null!=vo.getId() &&
 			null != nonbisTwoTabRelDao.selectByPrimaryKey(vo.getId())){
 			nonbisTwoTabRelDao.updateByPrimaryKeySelective(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -115,11 +115,11 @@ public class NonbisTwoTabRelImpl implements INonbisTwoTabRelService{
 		NonbisTwoTabRel vo = nonbisTwoTabRelDao.selectByPrimaryKey(id);
 		if(null!=vo){
 			nonbisTwoTabRelDao.deleteByPrimaryKey(id);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}

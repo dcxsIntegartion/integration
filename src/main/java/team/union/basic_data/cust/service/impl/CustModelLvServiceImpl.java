@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.basic_data.cust.dao.CustModelLvDao;
 import team.union.basic_data.cust.model.CustModelLv;
 import team.union.basic_data.cust.service.ICustModelLvService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 import team.union.sys_sp.util.ToolsUtil;
 /**
  * Title: 客户分层级
@@ -64,12 +64,12 @@ public class CustModelLvServiceImpl implements ICustModelLvService{
 		Result result = new Result();
 		CustModelLv vo = custModelLvDao.selectByPrimaryKey(id);
 		if(vo!=null){
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(vo);
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -83,11 +83,11 @@ public class CustModelLvServiceImpl implements ICustModelLvService{
 				vo = setCustModelLv(selInviter(vo.getInviterMp()),vo);
 			}
 			custModelLvDao.insert(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -99,11 +99,11 @@ public class CustModelLvServiceImpl implements ICustModelLvService{
 			//邀请电话不能被修改
 			vo.setInviterMp(null);
 			custModelLvDao.updateByPrimaryKeySelective(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -114,11 +114,11 @@ public class CustModelLvServiceImpl implements ICustModelLvService{
 		if(null!=vo && null!=vo.getId() &&
 			null != custModelLvDao.selectByPrimaryKey(vo.getId())){
 			custModelLvDao.updateByPrimaryKeySelective(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -129,11 +129,11 @@ public class CustModelLvServiceImpl implements ICustModelLvService{
 		CustModelLv vo = custModelLvDao.selectByPrimaryKey(id);
 		if(null!=vo){
 			custModelLvDao.deleteByPrimaryKey(id);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}

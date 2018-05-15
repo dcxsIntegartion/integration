@@ -24,9 +24,9 @@ import team.union.business.activity.service.IBisActivityDiscountService;
 import team.union.business.activity.vo.BisActivityDiscountVo;
 import team.union.business.com.cfg.BisConfig.ACTIVITY_STATUS;
 import team.union.business.com.cfg.BisConfig.ACTIVITY_TYPE;
-import team.union.business.com.cfg.BisConfig.RESULT_STATE;
 import team.union.business.store.dao.BisStoreDao;
 import team.union.business.store.model.BisStore;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 
 /**
  * 特价活动业务层
@@ -98,12 +98,12 @@ public class BisActivityDiscountServiceImpl implements IBisActivityDiscountServi
 			}
 			dataMap.put("activityCommodityId", activityCommodityId);
 			result.setData(dataMap);
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 		}
 		return result;
 	}
@@ -130,11 +130,11 @@ public class BisActivityDiscountServiceImpl implements IBisActivityDiscountServi
 				bisActivityCommodityRDao.insert(bisActivityCommodityR);
 			}
 			result.setData(vo.getBisActivityDiscount());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 		return result;
@@ -159,11 +159,11 @@ public class BisActivityDiscountServiceImpl implements IBisActivityDiscountServi
 				bisActivityCommodityRDao.insert(bisActivityCommodityR);
 			}
 			result.setData(vo.getBisActivityDiscount());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 		return result;
@@ -179,11 +179,11 @@ public class BisActivityDiscountServiceImpl implements IBisActivityDiscountServi
 		Result result = new Result();
 		try {
 			BisActivityDiscountDao.deleteByPrimaryKey(id);
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 		return result;
@@ -193,7 +193,7 @@ public class BisActivityDiscountServiceImpl implements IBisActivityDiscountServi
 	public Result updateStatus(BisActivityDiscount vo) {
 		Result result = new Result();
 		BisActivityDiscountDao.updateByPrimaryKeySelective(vo);
-		result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+		result.setState(PROMPT.SUCCESS.getNo());
 		return result;
 	}
 

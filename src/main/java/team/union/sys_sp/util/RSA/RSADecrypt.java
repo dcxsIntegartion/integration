@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 
 import team.union.sys_sp.com.cfg.BaseConfig;
-import team.union.sys_sp.com.cfg.BaseConfig.DECRYPT_ERROR;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 import team.union.sys_sp.filter.util.RequestWrapper;
 import team.union.sys_sp.filter.util.XssShieldUtil;
 import team.union.sys_sp.util.ToolsUtil;
@@ -73,13 +73,13 @@ public class RSADecrypt {
 			long times = Long.parseLong(request.getHeader("times").toString());
 			//时间超过一分钟 请求无效
 			if(new Date().getTime()-times>BaseConfig.MAX_TIMESTAMP_COUNT){
-				request.setAttribute("error", DECRYPT_ERROR.REQUEST_TIMEOUT.getMsg());
+				request.setAttribute("error", PROMPT.REQUEST_TIMEOUT.getMsg());
 				return request;
 			};
 			String sign = request.getHeader("sign").toString();
 			//验证签名是否使用过
 			if(!addNonceMap(sign)){
-				request.setAttribute("error", DECRYPT_ERROR.REPLAY_DATA.getMsg());
+				request.setAttribute("error", PROMPT.REPLAY_DATA.getMsg());
 				return request;
 			}
 			String str =  request.getHeader("str").toString();
@@ -136,7 +136,7 @@ public class RSADecrypt {
 		String signData = signStr.substring(firstNum, signStr.length());
 		boolean state = RSAEncrypt.verify(signData.getBytes(),publicKey,sign);
 		if(!state){
-			request.setAttribute("error", DECRYPT_ERROR.INVALID_SIGNATURE.getMsg());
+			request.setAttribute("error", PROMPT.INVALID_SIGNATURE.getMsg());
 		}
 		return map;
 	}

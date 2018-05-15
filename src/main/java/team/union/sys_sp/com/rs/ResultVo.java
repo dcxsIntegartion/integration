@@ -2,7 +2,8 @@ package team.union.sys_sp.com.rs;
 
 import java.io.Serializable;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
+
 
 /**
  * 控制器返回结果到前台对象
@@ -25,18 +26,18 @@ public class ResultVo implements Serializable{
 	private Object data;
 
 	public ResultVo() {
-		this.info = RESULT_STATE.FAIL.getMsg();
-		this.status = RESULT_STATE.FAIL.getNumber().toString();
+		this.info = PROMPT.FAIL.getMsg();
+		this.status = PROMPT.FAIL.getNo();
 	}
 	
 	public void isError(){
-		this.info = RESULT_STATE.FAIL.getMsg();
-		this.status = RESULT_STATE.FAIL.getNumber().toString();
+		this.info = PROMPT.FAIL.getMsg();
+		this.status = PROMPT.FAIL.getNo();
 		
 	}
 	public void isSuccess(){
-		this.info = RESULT_STATE.SUCCESS.getMsg();
-		this.status= RESULT_STATE.SUCCESS.getNumber().toString();
+		this.info = PROMPT.SUCCESS.getMsg();
+		this.status= PROMPT.SUCCESS.getNo();
 	}
 	public String getInfo() {
 		return info;

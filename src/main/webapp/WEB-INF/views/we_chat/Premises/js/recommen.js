@@ -63,7 +63,7 @@ function getUserInfo(code) {
 	$.ajax({
 		type: "get",
 	    headers:{'sign': data.sign,'str':data.str,'times':data.times},
-	    url:  basePath+"/wechat/config/userInfo",
+	    url:  basePath+"/we_chat/userInfo",
 	    data: {data:data.data},
 	    contentType:"application/json",
 	    success: function(data){

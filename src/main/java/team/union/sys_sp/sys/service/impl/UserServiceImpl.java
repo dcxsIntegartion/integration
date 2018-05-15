@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import team.union.sys_sp.com.cfg.BaseConfig;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 import team.union.sys_sp.com.excp.BusinessException;
 import team.union.sys_sp.com.rs.BsgridVo;
 import team.union.sys_sp.com.rs.ResultVo;
@@ -21,6 +22,9 @@ import team.union.sys_sp.sys.model.AccountCriteria;
 import team.union.sys_sp.sys.model.Users;
 import team.union.sys_sp.sys.service.UserService;
 import team.union.sys_sp.util.MD5Utils;
+import team.union.we_chat.com.rs.WeChatRS;
+import team.union.we_chat.oauth2.WXUserAuth;
+import team.union.we_chat.oauth2.WXUserInfo;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -281,5 +285,47 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		return resultVo;
+	}
+	
+//	/********************** 微信相关查询 *********************/
+	
+	public WeChatRS selByWXopenid(WXUserAuth userAuth){
+		WXUserInfo user = null;
+		if(null != userAuth.getOpenid() && !"".equals(userAuth.getOpenid())){
+			user = usersDao.selByWXopenid(userAuth.getOpenid());
+		}
+		if(null==user){
+			return WeChatRS.error(PROMPT.ACCT_NO_EXISTED.getMsg());
+		}
+		return WeChatRS.success();
+	}
+	@SuppressWarnings("null")
+	public WeChatRS saveWXuser(WXUserAuth wxUserAuth){
+		WXUserInfo wxUserInfo = null;
+		if(null!=wxUserAuth && null!=wxUserAuth.getOpenid() && !"".equals(wxUserAuth.getOpenid())){
+			wxUserInfo = usersDao.selByWXopenid(wxUserAuth.getOpenid());
+		}
+		// 判断账号是否存在
+		if (null!=wxUserInfo) {
+			return WeChatRS.error(PROMPT.ACCT_EXISTED.getMsg());
+		}
+
+		// 保存用户基本信息
+		Users user = new Users();
+		user.setSubscribeTime(wxUserInfo.getSubscribeTime());
+		user.setNickname(wxUserInfo.getNickname());
+		user.setSex(wxUserInfo.getSex());
+		user.setCountry(wxUserInfo.getCountry());
+		user.setProvince(wxUserInfo.getProvince());
+		user.setCity(wxUserInfo.getCity());
+		user.setLanguage(wxUserInfo.getLanguage());
+		user.setHeadimgurl(wxUserInfo.getHeadimgurl());
+		user.setRemark(wxUserInfo.getRemark());
+		user.setGroupid(wxUserInfo.getGroupid());
+		user.setTagidlist(wxUserInfo.getTagidList());
+		user.setUnionid(wxUserInfo.getUnionid());
+		usersDao.insert(user);
+		
+		return  WeChatRS.success();
 	}
 }

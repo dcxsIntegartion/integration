@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.article.dao.BisArticleDao;
 import team.union.business.article.model.BisArticle;
 import team.union.business.article.service.IBisArticleService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
@@ -46,11 +46,11 @@ public class BisArticleServiceImpl implements IBisArticleService {
 				throw new Exception();
 			}
 			BisArticle article = articleDao.findById(id);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(article);
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("查找文章失败");
 		}
 		return result;
@@ -64,11 +64,11 @@ public class BisArticleServiceImpl implements IBisArticleService {
 				throw new Exception();
 			}
 			articleDao.update(article);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("编辑文章失败");
 		}
 		return result;
@@ -79,10 +79,10 @@ public class BisArticleServiceImpl implements IBisArticleService {
 		Result result = new Result();
 		try {
 			articleDao.insert(article);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("新增文章失败");
 		}
 		return result;
@@ -96,10 +96,10 @@ public class BisArticleServiceImpl implements IBisArticleService {
 				throw new Exception();
 			}
 			articleDao.deleteById(id);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		} catch (Exception e) {
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setState(PROMPT.FAIL.getNo());
 			result.setMsg("删除文章失败");
 		}
 		return result;

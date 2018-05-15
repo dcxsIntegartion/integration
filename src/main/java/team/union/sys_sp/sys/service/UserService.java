@@ -12,6 +12,9 @@ import team.union.sys_sp.com.rs.ResultVo;
 import team.union.sys_sp.sys.controller.domain.UserAccountDomain;
 import team.union.sys_sp.sys.model.Account;
 import team.union.sys_sp.sys.model.Users;
+import team.union.we_chat.com.rs.WeChatRS;
+import team.union.we_chat.oauth2.WXUserAuth;
+import team.union.we_chat.oauth2.WXUserInfo;
 
 
 
@@ -62,5 +65,10 @@ public interface UserService {
 	
 	/*****用户关联角色查询*******/
 	public BsgridVo<HashMap<String, Object>> roleLeftUsersList(HashMap<String, Object> para, int curPage, int pageSize);
+	
+	
+	/********************** 以下微信相关查询 *********************/
+	public WeChatRS selByWXopenid(WXUserAuth userAuth);
+	public WeChatRS saveWXuser(WXUserAuth wxUserAuth);
 	
 }

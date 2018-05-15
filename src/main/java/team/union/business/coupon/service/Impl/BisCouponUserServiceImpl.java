@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.coupon.dao.BisCouponUserDao;
 import team.union.business.coupon.model.BisCouponUser;
 import team.union.business.coupon.service.IBisCouponService;
 import team.union.business.coupon.service.IBisCouponUserService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
@@ -78,11 +78,11 @@ public class BisCouponUserServiceImpl implements IBisCouponUserService {
 		Result result = new Result();
 		if(null!=vo ){
 			couponUserDao.insert(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -93,11 +93,11 @@ public class BisCouponUserServiceImpl implements IBisCouponUserService {
 		if(null!=vo &&
 			null != couponUserDao.selectByPrimaryKey(vo.getPonUserId())){
 			couponUserDao.updateByPrimaryKeySelective(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}

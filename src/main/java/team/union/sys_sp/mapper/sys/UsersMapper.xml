@@ -11,7 +11,41 @@
     <result column="android_effective_time" property="androidEffectiveTime" jdbcType="TIMESTAMP" />
     <result column="user_type" property="userType" jdbcType="INTEGER" />
     <result column="img_id" property="imgId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="subscribe" jdbcType="INTEGER" property="subscribe" />
+    <result column="subscribe_time" jdbcType="INTEGER" property="subscribeTime" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="privilege" jdbcType="VARCHAR" property="privilege" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="groupid" jdbcType="VARCHAR" property="groupid" />
+    <result column="tagidList" jdbcType="VARCHAR" property="tagidlist" />
   </resultMap>
+  <resultMap id="WXResult" type="team.union.we_chat.oauth2.WXUserInfo" >
+   <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="subscribe" jdbcType="INTEGER" property="subscribe" />
+    <result column="subscribe_time" jdbcType="INTEGER" property="subscribeTime" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="privilege" jdbcType="VARCHAR" property="privilege" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="groupid" jdbcType="VARCHAR" property="groupid" />
+    <result column="tagidList" jdbcType="VARCHAR" property="tagidlist" />
+  </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -72,7 +106,9 @@
   </sql>
   <sql id="Base_Column_List" >
     user_id, user_name, user_mobilephone, ios_token, android_token, ios_effective_time, 
-    android_effective_time, user_type, img_id
+    android_effective_time, user_type, img_id, state, openid, subscribe, subscribe_time, 
+    nickname, sex, country, province, city, language, headimgurl, unionid, privilege, 
+    remark, groupid, tagidList
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="team.union.sys_sp.sys.model.UsersExample" >
     select
@@ -107,71 +143,177 @@
   <insert id="insert" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId" parameterType="team.union.sys_sp.sys.model.Users" >
     insert into sys_users (user_id, user_name, user_mobilephone, 
       ios_token, android_token, ios_effective_time, 
-      android_effective_time, user_type, img_id
-      )
+      android_effective_time, user_type, img_id, 
+      state, openid, subscribe, 
+      subscribe_time, nickname, sex, 
+      country, province, city, 
+      language, headimgurl, unionid, 
+      privilege, remark, groupid, 
+      tagidList)
     values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userMobilephone,jdbcType=VARCHAR}, 
       #{iosToken,jdbcType=VARCHAR}, #{androidToken,jdbcType=VARCHAR}, #{iosEffectiveTime,jdbcType=TIMESTAMP}, 
-      #{androidEffectiveTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{imgId,jdbcType=VARCHAR}
-      )
+      #{androidEffectiveTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{imgId,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{subscribe,jdbcType=INTEGER}, 
+      #{subscribeTime,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, 
+      #{privilege,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, 
+      #{tagidlist,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="team.union.sys_sp.sys.model.Users" >
     insert into sys_users
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         user_name,
       </if>
-      <if test="userMobilephone != null" >
+      <if test="userMobilephone != null">
         user_mobilephone,
       </if>
-      <if test="iosToken != null" >
+      <if test="iosToken != null">
         ios_token,
       </if>
-      <if test="androidToken != null" >
+      <if test="androidToken != null">
         android_token,
       </if>
-      <if test="iosEffectiveTime != null" >
+      <if test="iosEffectiveTime != null">
         ios_effective_time,
       </if>
-      <if test="androidEffectiveTime != null" >
+      <if test="androidEffectiveTime != null">
         android_effective_time,
       </if>
-      <if test="userType != null" >
+      <if test="userType != null">
         user_type,
       </if>
-      <if test="imgId != null" >
+      <if test="imgId != null">
         img_id,
       </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="subscribe != null">
+        subscribe,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="language != null">
+        language,
+      </if>
+      <if test="headimgurl != null">
+        headimgurl,
+      </if>
+      <if test="unionid != null">
+        unionid,
+      </if>
+      <if test="privilege != null">
+        privilege,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="groupid != null">
+        groupid,
+      </if>
+      <if test="tagidlist != null">
+        tagidList,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
         #{userId,jdbcType=BIGINT},
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="userMobilephone != null" >
+      <if test="userMobilephone != null">
         #{userMobilephone,jdbcType=VARCHAR},
       </if>
-      <if test="iosToken != null" >
+      <if test="iosToken != null">
         #{iosToken,jdbcType=VARCHAR},
       </if>
-      <if test="androidToken != null" >
+      <if test="androidToken != null">
         #{androidToken,jdbcType=VARCHAR},
       </if>
-      <if test="iosEffectiveTime != null" >
+      <if test="iosEffectiveTime != null">
         #{iosEffectiveTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="androidEffectiveTime != null" >
+      <if test="androidEffectiveTime != null">
         #{androidEffectiveTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="userType != null" >
+      <if test="userType != null">
         #{userType,jdbcType=INTEGER},
       </if>
-      <if test="imgId != null" >
+      <if test="imgId != null">
         #{imgId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null">
+        #{subscribe,jdbcType=INTEGER},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null">
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null">
+        #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="tagidlist != null">
+        #{tagidlist,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -183,33 +325,81 @@
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update sys_users
-    <set >
-      <if test="record.userId != null" >
+    <set>
+      <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
-      <if test="record.userName != null" >
+      <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.userMobilephone != null" >
+      <if test="record.userMobilephone != null">
         user_mobilephone = #{record.userMobilephone,jdbcType=VARCHAR},
       </if>
-      <if test="record.iosToken != null" >
+      <if test="record.iosToken != null">
         ios_token = #{record.iosToken,jdbcType=VARCHAR},
       </if>
-      <if test="record.androidToken != null" >
+      <if test="record.androidToken != null">
         android_token = #{record.androidToken,jdbcType=VARCHAR},
       </if>
-      <if test="record.iosEffectiveTime != null" >
+      <if test="record.iosEffectiveTime != null">
         ios_effective_time = #{record.iosEffectiveTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.androidEffectiveTime != null" >
+      <if test="record.androidEffectiveTime != null">
         android_effective_time = #{record.androidEffectiveTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.userType != null" >
+      <if test="record.userType != null">
         user_type = #{record.userType,jdbcType=INTEGER},
       </if>
-      <if test="record.imgId != null" >
+      <if test="record.imgId != null">
         img_id = #{record.imgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribe != null">
+        subscribe = #{record.subscribe,jdbcType=INTEGER},
+      </if>
+      <if test="record.subscribeTime != null">
+        subscribe_time = #{record.subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.country != null">
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null">
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null">
+        headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionid != null">
+        unionid = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privilege != null">
+        privilege = #{record.privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null">
+        groupid = #{record.groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagidlist != null">
+        tagidList = #{record.tagidlist,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -226,37 +416,101 @@
       ios_effective_time = #{record.iosEffectiveTime,jdbcType=TIMESTAMP},
       android_effective_time = #{record.androidEffectiveTime,jdbcType=TIMESTAMP},
       user_type = #{record.userType,jdbcType=INTEGER},
-      img_id = #{record.imgId,jdbcType=VARCHAR}
+      img_id = #{record.imgId,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      subscribe = #{record.subscribe,jdbcType=INTEGER},
+      subscribe_time = #{record.subscribeTime,jdbcType=INTEGER},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      country = #{record.country,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      language = #{record.language,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      unionid = #{record.unionid,jdbcType=VARCHAR},
+      privilege = #{record.privilege,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      groupid = #{record.groupid,jdbcType=VARCHAR},
+      tagidList = #{record.tagidlist,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="team.union.sys_sp.sys.model.Users" >
     update sys_users
-    <set >
-      <if test="userName != null" >
+    <set>
+      <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="userMobilephone != null" >
+      <if test="userMobilephone != null">
         user_mobilephone = #{userMobilephone,jdbcType=VARCHAR},
       </if>
-      <if test="iosToken != null" >
+      <if test="iosToken != null">
         ios_token = #{iosToken,jdbcType=VARCHAR},
       </if>
-      <if test="androidToken != null" >
+      <if test="androidToken != null">
         android_token = #{androidToken,jdbcType=VARCHAR},
       </if>
-      <if test="iosEffectiveTime != null" >
+      <if test="iosEffectiveTime != null">
         ios_effective_time = #{iosEffectiveTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="androidEffectiveTime != null" >
+      <if test="androidEffectiveTime != null">
         android_effective_time = #{androidEffectiveTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="userType != null" >
+      <if test="userType != null">
         user_type = #{userType,jdbcType=INTEGER},
       </if>
-      <if test="imgId != null" >
+      <if test="imgId != null">
         img_id = #{imgId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null">
+        subscribe = #{subscribe,jdbcType=INTEGER},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null">
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null">
+        privilege = #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupid = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="tagidlist != null">
+        tagidList = #{tagidlist,jdbcType=VARCHAR},
       </if>
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
@@ -270,7 +524,23 @@
       ios_effective_time = #{iosEffectiveTime,jdbcType=TIMESTAMP},
       android_effective_time = #{androidEffectiveTime,jdbcType=TIMESTAMP},
       user_type = #{userType,jdbcType=INTEGER},
-      img_id = #{imgId,jdbcType=VARCHAR}
+      img_id = #{imgId,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=INTEGER},
+      subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      privilege = #{privilege,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=VARCHAR},
+      tagidList = #{tagidlist,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
   <select id="findAllUsers" resultMap="BaseResultMap">
@@ -314,4 +584,9 @@
       SELECT * FROM sys_users users
 		WHERE user_mobilephone = #{agentPhone}
   </select>
+  <select id="selByWXopenid" resultMap="WXResult" parameterType="java.lang.String">
+      SELECT * FROM sys_users users
+		WHERE openid = #{WXopenid}
+  </select>
+  
 </mapper>

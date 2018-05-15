@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import team.union.basic_data.com.cfg.BasicDataConfig;
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.coupon.model.BisCoupon;
 import team.union.business.coupon.service.IBisCouponService;
 import team.union.business.coupon.service.IBisCouponUserService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 import team.union.sys_sp.util.ToolsUtil;
 
 /**
@@ -109,12 +109,12 @@ public class BisCouponController {
 		if (pageData != null && pageData.size() > 0) {
 			Integer ban = (Integer) pageData.get(0).get("coupon_isBan");
 			coupon.setCouponIsBan(ban);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(coupon);
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -198,37 +198,5 @@ public class BisCouponController {
 		return couponUserService.usePaging(map, curPage, pageSize);
 	}
 	
-	@RequestMapping(value = "/img/{path}",produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public String showImg(@PathVariable("path")String path,HttpServletRequest req,
-			HttpServletResponse response) {
-		if (!ToolsUtil.isNotEmpty(path)) {
-			return "false";
-		}
-		 /*FileInputStream fis = null;  
-	     OutputStream os = null;
-	     String basePath = "";  //图片储存 文件夹
-	     try {  
-	    	 	path = couponService.getImgUrl(path);
-	    	 	if (ToolsUtil.isNotEmpty(path)) {
-	    	 		fis = new FileInputStream(basePath+path);  
-		            os = response.getOutputStream();  
-		            int count = 0;  
-		            byte[] buffer = new byte[1024 * 8];  
-		            while ((count = fis.read(buffer)) != -1) {  
-		                os.write(buffer, 0, count);  
-		                os.flush();  
-		            }  
-				}
-	        } catch (Exception e) {  
-	            e.printStackTrace();  
-	        }  
-	        try {  
-	            fis.close();  
-	            os.close();  
-	        } catch (IOException e) {  
-	            e.printStackTrace();  
-	        }  */
-	        return "ok";  
-	}
+	
 }

@@ -24,9 +24,9 @@ import team.union.business.activity.service.IBisActivitySeckilService;
 import team.union.business.activity.vo.BisActivitySeckilVo;
 import team.union.business.com.cfg.BisConfig.ACTIVITY_STATUS;
 import team.union.business.com.cfg.BisConfig.ACTIVITY_TYPE;
-import team.union.business.com.cfg.BisConfig.RESULT_STATE;
 import team.union.business.store.dao.BisStoreDao;
 import team.union.business.store.model.BisStore;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 
 /**
  * 特价活动业务层
@@ -98,12 +98,12 @@ public class BisActivitySeckilServiceImpl implements IBisActivitySeckilService {
 			}
 			dataMap.put("activityCommodityId", activityCommodityId);
 			result.setData(dataMap);
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 		}
 		return result;
 	}
@@ -129,11 +129,11 @@ public class BisActivitySeckilServiceImpl implements IBisActivitySeckilService {
 				bisActivityCommodityRDao.insert(bisActivityCommodityR);
 			}
 			result.setData(vo.getBisActivitySeckil());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 		return result;
@@ -158,11 +158,11 @@ public class BisActivitySeckilServiceImpl implements IBisActivitySeckilService {
 				bisActivityCommodityRDao.insert(bisActivityCommodityR);
 			}
 			result.setData(vo.getBisActivitySeckil());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 		return result;
@@ -178,11 +178,11 @@ public class BisActivitySeckilServiceImpl implements IBisActivitySeckilService {
 		Result result = new Result();
 		try {
 			BisActivitySeckilDao.deleteByPrimaryKey(id);
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
 		} catch (Exception e) {
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
+			result.setMsg(PROMPT.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
 			e.printStackTrace();
 		}
 		return result;
@@ -192,7 +192,7 @@ public class BisActivitySeckilServiceImpl implements IBisActivitySeckilService {
 	public Result updateStatus(BisActivitySeckil vo) {
 		Result result = new Result();
 		BisActivitySeckilDao.updateByPrimaryKeySelective(vo);
-		result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
+		result.setState(PROMPT.SUCCESS.getNo());
 		return result;
 	}
 

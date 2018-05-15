@@ -2,7 +2,8 @@ package team.union.we_chat.com.rs;
 
 import java.io.Serializable;
 
-import team.union.we_chat.com.cfg.BaseConfig.RESULT_STATE;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
+
 
 /**
  * 控制器返回结果到前台对象
@@ -27,14 +28,26 @@ public class WeChatRS implements Serializable{
 	public static WeChatRS success(Object data){
 		WeChatRS rs = new WeChatRS();
 		rs.setData(data);
-		rs.setStatus(RESULT_STATE.SUCCESS.getNumber());
-		rs.setInfo(RESULT_STATE.SUCCESS.getMsg());
+		rs.setStatus(PROMPT.SUCCESS.getNo());
+		rs.setInfo(PROMPT.SUCCESS.getMsg());
+		return rs;
+	}
+	public static WeChatRS success(){
+		WeChatRS rs = new WeChatRS();
+		rs.setStatus(PROMPT.SUCCESS.getNo());
+		rs.setInfo(PROMPT.SUCCESS.getMsg());
 		return rs;
 	}
 	public static WeChatRS error(){
 		WeChatRS rs = new WeChatRS();
-		rs.setStatus(RESULT_STATE.FAIL.getNumber());
-		rs.setInfo(RESULT_STATE.FAIL.getMsg());
+		rs.setStatus(PROMPT.FAIL.getNo());
+		rs.setInfo(PROMPT.FAIL.getMsg());
+		return rs;
+	}
+	public static WeChatRS error(String errorMsg){
+		WeChatRS rs = new WeChatRS();
+		rs.setStatus(PROMPT.FAIL.getNo());
+		rs.setInfo(errorMsg);
 		return rs;
 	}
 	public String getInfo() {

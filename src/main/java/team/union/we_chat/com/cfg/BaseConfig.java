@@ -11,16 +11,24 @@ public class BaseConfig {
 //		Appid("wx1902b2fb914ffc65"),
 //		AppSecret("1814e6c7f64333d6d0a11c8958662365"),
 		//正式账号
-		Appid("wx50e204de25ecc077"),
+		Appid("wx50e204de25ecc077"),  //公总号id
 		AppSecret("39b6e13f720656e1b90ec191b5ee580f"),
 		
+		MchID("1448262102"),//商户id
+		APIKey("7b3e300540c54c379f29a77dc65ade0f"),//API 密钥
 		
-		tokenUrl("https://api.weixin.qq.com/cgi-bin/token"),
-		ticketUrl("https://api.weixin.qq.com/cgi-bin/ticket/getticket"),
 		token(""),
 		jsapi_ticket(""),
 		timestamp(""),
-		access_token("");
+		access_token(""),
+		
+		oauth2_access_token("https://api.weixin.qq.com/sns/oauth2/access_token"),
+		oauth2_refresh_token("https://api.weixin.qq.com/sns/oauth2/refresh_token"),
+	    
+		tokenUrl("https://api.weixin.qq.com/cgi-bin/token"),
+		ticketUrl("https://api.weixin.qq.com/cgi-bin/ticket/getticket");
+		
+		
 		private String value;
 		private WE_CHAT(String value){
 			this.value = value;
@@ -32,26 +40,29 @@ public class BaseConfig {
 			this.value = value;
 		}
 	}
-	public static enum RESULT_STATE{
-		FAIL(0,"操作失败"),
-		SUCCESS(1,"操作成功");
-		private Integer number;
-		private String msg;
-		private RESULT_STATE(Integer number,String msg){
-			this.number=number;
-			this.msg=msg;
+	/** 微信网页授权请求地址 **/
+	public static enum OAUTH2{
+		get_code("https://open.weixin.qq.com/connect/oauth2/authorize"),
+		access_token("https://api.weixin.qq.com/sns/oauth2/access_token"),
+		refresh_token("https://api.weixin.qq.com/sns/oauth2/refresh_token"),
+		get_userinfo("https://api.weixin.qq.com/sns/userinfo"),
+		check_access_token("https://api.weixin.qq.com/sns/auth"),
+		
+		refresh_token_time(7200);
+		private String url;
+		private int second;
+		private OAUTH2(String value){
+			this.url = value;
 		}
-		public Integer getNumber() {
-			return number;
+		public String getUrl() {
+			return url;
 		}
-		public void setNumber(Integer number) {
-			this.number = number;
+		public int getSecond() {
+			return second;
 		}
-		public String getMsg() {
-			return msg;
+		private OAUTH2(int second){
+			this.second = second;
 		}
-		public void setMsg(String msg) {
-			this.msg = msg;
-		}
+		
 	}
 }

@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import team.union.basic_data.com.cfg.BasicDataConfig.RESULT_STATE;
 import team.union.basic_data.com.rs.BsgridVo;
 import team.union.basic_data.com.rs.Result;
 import team.union.business.activity.dao.BisActivityCommodityRDao;
@@ -20,6 +19,7 @@ import team.union.business.activity.model.BisActivityCommodityRExample;
 import team.union.business.commodity.dao.BisCommodityDao;
 import team.union.business.commodity.model.BisCommodity;
 import team.union.business.commodity.service.IBisCommodityService;
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
@@ -49,12 +49,12 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 		Result result = new Result();
 		BisCommodity vo = commodityDao.selectByPrimaryKey(Id);
 		if(vo!=null){
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 			result.setData(vo);
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -63,11 +63,11 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 		Result result = new Result();
 		if(null!=vo && null == vo.getId()){
 			commodityDao.insert(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -76,11 +76,11 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 		Result result = new Result();
 		if(null!=vo && null != commodityDao.selectByPrimaryKey(vo.getId())){
 			commodityDao.updateOne(vo);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -93,11 +93,11 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 			map.put("del", "1");
 			map.put("data", ids);
 			commodityDao.batchOpearate(map);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -110,11 +110,11 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 			map.put("onSale", "1");
 			map.put("data", ids);
 			commodityDao.batchOpearate(map);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}
@@ -127,11 +127,11 @@ public class BisCommodityServiceImpl implements IBisCommodityService {
 			map.put("offSale", "1");
 			map.put("data", ids);
 			commodityDao.batchOpearate(map);
-			result.setState(RESULT_STATE.SUCCESS.getNumber().toString());
-			result.setMsg(RESULT_STATE.SUCCESS.getMsg());
+			result.setState(PROMPT.SUCCESS.getNo());
+			result.setMsg(PROMPT.SUCCESS.getMsg());
 		}else{
-			result.setState(RESULT_STATE.FAIL.getNumber().toString());
-			result.setMsg(RESULT_STATE.FAIL.getMsg());
+			result.setState(PROMPT.FAIL.getNo());
+			result.setMsg(PROMPT.FAIL.getMsg());
 		}
 		return result;
 	}

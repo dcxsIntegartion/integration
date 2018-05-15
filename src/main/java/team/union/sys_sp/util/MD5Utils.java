@@ -57,6 +57,9 @@ public class MD5Utils {
 		return UUID.randomUUID().toString().replaceAll("-", "")+
 				(int)(Math.random()*900+100);
 	}
-	
+	public static void main(String[] args) {
+		
+		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+	}
 	
 }

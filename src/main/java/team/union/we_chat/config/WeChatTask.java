@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import team.union.sys_sp.httpClient.BiiwayHttpClientFactory;
 import team.union.sys_sp.util.ToolsUtil;
+import team.union.sys_sp.util.httpClient.BiiwayHttpClientFactory;
 import team.union.we_chat.com.cfg.BaseConfig.WE_CHAT;
 
 
@@ -22,7 +22,7 @@ public class WeChatTask {
     * @author dapengniao
     * @date 2016年3月10日 下午2:04:37
     */
-   public void getTokenAndTicket() throws Exception {
+   public void getTokenAndTicket(){
        Map<String, String> params = new HashMap<String, String>();
        //获取token执行体
        params.put("grant_type", "client_credential");
@@ -44,7 +44,7 @@ public class WeChatTask {
        WE_CHAT.jsapi_ticket.setValue(jsapi_ticket);
        WE_CHAT.timestamp.setValue(Long.toString(System.currentTimeMillis() / 1000));
        System.out.println("jsapi_ticket================================================" + jsapi_ticket);
-       System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"token为=============================="+access_token);
+       System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"access_token为=============================="+access_token);
        
    }
 

@@ -1,5 +1,7 @@
 package team.union.we_chat.config;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.UUID;
@@ -20,16 +22,27 @@ public class JSSDK_Config {
     * @author dapengniao
     * @date 2016年3月19日 下午3:53:23
     */
-   public static HashMap<String, String> jsSDK_Sign(String url) throws Exception {
+   public static HashMap<String, String> jsSDK_Sign(String url){
        String nonce_str = create_nonce_str();
        String jsapi_ticket=WE_CHAT.jsapi_ticket.getValue();
        // 注意这里参数名必须全部小写，且必须有序
        String  string1 = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonce_str
                + "&timestamp=" + WE_CHAT.timestamp.getValue()  + "&url=" + url;
-       MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-       crypt.reset();
-       crypt.update(string1.getBytes("UTF-8"));
-       String signature = byteToHex(crypt.digest());
+       MessageDigest crypt;
+       String signature = "";
+	   try {
+		   crypt = MessageDigest.getInstance("SHA-1");
+		   crypt.reset();
+		   crypt.update(string1.getBytes("UTF-8"));
+		   signature = byteToHex(crypt.digest());
+	   } catch (NoSuchAlgorithmException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+	   } catch (UnsupportedEncodingException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+	   }
+       
        HashMap<String, String> jssdk=new HashMap<String, String>();
        jssdk.put("appId",WE_CHAT.Appid.getValue());
        jssdk.put("timestamp", WE_CHAT.timestamp.getValue());
