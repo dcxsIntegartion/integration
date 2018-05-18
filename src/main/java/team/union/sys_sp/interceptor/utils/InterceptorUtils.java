@@ -38,12 +38,13 @@ public class InterceptorUtils {
 	 * 复制旧的session数据到新的session中
 	 * @param req
 	 */
+    @SuppressWarnings("unchecked")
 	public static final void newSession(HttpServletRequest req){
 		//修改sessionID
 		HttpSession session = req.getSession();
     	//将原session中的数据转移至一临时map中  
         Map<String,Object> tempMap = new HashMap<>();  
-        Enumeration<String> sessionNames = session.getAttributeNames();
+		Enumeration<String> sessionNames = session.getAttributeNames();
         while(sessionNames.hasMoreElements()){  
             String sessionName = sessionNames.nextElement();  
             tempMap.put(sessionName, session.getAttribute(sessionName));  

@@ -13,7 +13,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 import team.union.basic_data.area.dao.NonbisCityCodeDao;
-import team.union.basic_data.area.model.NonbisCityCode;
+import team.union.basic_data.area.model.NbisCityCode;
 import team.union.basic_data.area.service.ICoCityService;
 import team.union.sys_sp.com.cfg.BaseConfig;
 import team.union.sys_sp.util.ToolsUtil;
@@ -29,18 +29,18 @@ public class CoCityServiceImpl implements ICoCityService {
 	@Autowired
 	private NonbisCityCodeDao coCityDao;
 	
-	public List<NonbisCityCode> selectAll() {
+	public List<NbisCityCode> selectAll() {
 		HashMap<String, Object> parm = new HashMap<String, Object>();
 		return coCityDao.selectCityNodes(parm);
 	}	
 	
-	public List<NonbisCityCode> selectProvince() {
+	public List<NbisCityCode> selectProvince() {
 		HashMap<String, Object> parm = new HashMap<String, Object>();
 		parm.put("levelNumber", BaseConfig.CITY_PROVINCE);
 		return coCityDao.selectCityNodes(parm);
 	}
 	
-	public List<NonbisCityCode> getProvinceAndCity() {
+	public List<NbisCityCode> getProvinceAndCity() {
 		return coCityDao.selProvincesAndCity();
 	}
 	
@@ -57,7 +57,7 @@ public class CoCityServiceImpl implements ICoCityService {
 		if(ToolsUtil.isNotEmpty(cityParentCode)){
 			map.put("cityParentCode", cityParentCode);
 		}
-		List<NonbisCityCode> coCitys = coCityDao.selectCityNodes(map);
+		List<NbisCityCode> coCitys = coCityDao.selectCityNodes(map);
 		List<HashMap<String, Object>> cities = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < coCitys.size(); i++) {
 			HashMap<String, Object> cityMap = new HashMap<String, Object>();
@@ -74,7 +74,7 @@ public class CoCityServiceImpl implements ICoCityService {
 		return cities;
 	}
 	
-	public List<NonbisCityCode> selectByCodeCityNodes(
+	public List<NbisCityCode> selectByCodeCityNodes(
 			HttpServletRequest request) {
 		String levelNumber = request.getParameter("levelNumber");
 		String cityParentCode = request.getParameter("cityParentCode");
@@ -87,21 +87,21 @@ public class CoCityServiceImpl implements ICoCityService {
 			map.put("levelNumber", Integer.parseInt(levelNumber));
 		}
 		
-		List<NonbisCityCode> coCitys = coCityDao.selectCityNodes(map);
+		List<NbisCityCode> coCitys = coCityDao.selectCityNodes(map);
 		return coCitys;
 	}
 	
 	
-	public Page<NonbisCityCode> selectPage(HashMap<String, Object> map) {
+	public Page<NbisCityCode> selectPage(HashMap<String, Object> map) {
 		Integer curPage = (Integer) map.get("curPage");
 		Integer pageSize = (Integer) map.get("pageSize");		
 		PageHelper.startPage(curPage, pageSize);
-		List<NonbisCityCode> lst = coCityDao.selectCityNodes(map);
-		Page<NonbisCityCode> page = null; 
+		List<NbisCityCode> lst = coCityDao.selectCityNodes(map);
+		Page<NbisCityCode> page = null; 
 		if(lst != null && lst.size()>0){
-			page = (Page<NonbisCityCode>) lst;
+			page = (Page<NbisCityCode>) lst;
 		}else{
-			page = new Page<NonbisCityCode>(curPage, pageSize);
+			page = new Page<NbisCityCode>(curPage, pageSize);
 		}
 		return page;
 	}
@@ -118,8 +118,8 @@ public class CoCityServiceImpl implements ICoCityService {
 			map.put("cityCode", "%"+cityCode+"%");
 			levelNum = levelNum+judgeLevelNum(cityCode);
 			map.put("levelNumber", levelNum);
-			List<NonbisCityCode> coCities = coCityDao.selectCityNodes(map);
-			for (NonbisCityCode city : coCities) {
+			List<NbisCityCode> coCities = coCityDao.selectCityNodes(map);
+			for (NbisCityCode city : coCities) {
 				Long cityIds =  city.getCityId();
 				updata(cityIds,status);
 			}
@@ -138,7 +138,7 @@ public class CoCityServiceImpl implements ICoCityService {
 	}
 	
 	private void updata(Long cityId,Integer status){
-		NonbisCityCode coCity = new NonbisCityCode();
+		NbisCityCode coCity = new NbisCityCode();
 		coCity.setCityId(cityId);
 		coCity.setOpenStutas(status);
 		if(status==BaseConfig.CLOSE){

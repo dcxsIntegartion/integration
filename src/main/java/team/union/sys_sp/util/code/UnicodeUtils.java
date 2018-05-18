@@ -146,6 +146,7 @@ public class UnicodeUtils {
                 System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
             }
         }
-   	 System.out.println(unicode2String(string2Unicode("ww.micmiu.com不要啊！￥……（）——：；“”‘’《》，。？、???やめて/:;<>,.")));
+   	 System.out.println(unicode2String(string2Unicode("ww.micmiu.com、不要啊！￥……（）——：；“”‘’《》，。？、???やめて/:;<>,.")));
+   	 System.out.println(string2Unicode("、"));
 	}
 }

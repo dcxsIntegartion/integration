@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import team.union.sys_sp.filter.util.XssShieldUtil;
+import team.union.sys_sp.interceptor.utils.InterceptorUtils;
 import team.union.sys_sp.sys.utils.WebUtils;
 import team.union.sys_sp.util.ToolsUtil;
 
@@ -31,7 +31,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		if (handler instanceof HandlerMethod) {
 			String uri = request.getRequestURI();
 			//可以跳过登录拦截的URl
-			if(ToolsUtil.isNotEmpty(uri) && XssShieldUtil.skipUrl(uri)){
+			if(ToolsUtil.isNotEmpty(uri) && InterceptorUtils.skipUrl(uri)){
 				return true;
 			}
 			

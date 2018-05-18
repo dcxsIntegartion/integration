@@ -1,7 +1,8 @@
 "use strict";
 // Custom scripts
 var $body = $('body');
-var basePath = "/integration";
+//var basePath = "/integration";
+var basePath = "";
 function init_comp () {
 	/** bootstrap js组件初始化**/
 	// tooltips

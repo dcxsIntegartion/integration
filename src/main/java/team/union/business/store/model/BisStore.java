@@ -12,6 +12,8 @@ public class BisStore {
     private String storePhone;
 
     private String storePic;
+    
+    private String storeWxQr;
 
     private String storeIntroduction;
 
@@ -122,4 +124,12 @@ public class BisStore {
     public void setStoreStatus(Integer storeStatus) {
         this.storeStatus = storeStatus;
     }
+
+	public String getStoreWxQr() {
+		return storeWxQr;
+	}
+
+	public void setStoreWxQr(String storeWxQr) {
+		this.storeWxQr = storeWxQr;
+	}
 }

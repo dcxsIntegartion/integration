@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import team.union.sys_sp.util.ToolsUtil;
-import team.union.sys_sp.util.httpClient.BiiwayHttpClientFactory;
+import team.union.utils.httpClient.BiiwayHttpClientFactory;
 import team.union.we_chat.com.cfg.BaseConfig.WE_CHAT;
 
 

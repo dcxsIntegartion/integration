@@ -3,7 +3,8 @@ package team.union.business.activity.model;
 import java.util.Date;
 import java.util.List;
 
-import team.union.sys_sp.upload.model.NonbizUpload;
+import team.union.utils.upload.model.NbizUpload;
+
 
 public class BisActivityDiscount {
     /**
@@ -103,9 +104,9 @@ public class BisActivityDiscount {
     private Date activityCreatTime;
     
     //活动图片
-    private List<NonbizUpload> activityPicList;
+    private List<NbizUpload> activityPicList;
     //分享图片
-    private List<NonbizUpload> sharePicList;
+    private List<NbizUpload> sharePicList;
     //活动开始时间String
     private String activityStartTimeStr;
     //活动结束时间string
@@ -114,19 +115,19 @@ public class BisActivityDiscount {
     private String activityStoreName;
     
 
-    public List<NonbizUpload> getActivityPicList() {
+    public List<NbizUpload> getActivityPicList() {
 		return activityPicList;
 	}
 
-	public void setActivityPicList(List<NonbizUpload> activityPicList) {
+	public void setActivityPicList(List<NbizUpload> activityPicList) {
 		this.activityPicList = activityPicList;
 	}
 
-	public List<NonbizUpload> getSharePicList() {
+	public List<NbizUpload> getSharePicList() {
 		return sharePicList;
 	}
 
-	public void setSharePicList(List<NonbizUpload> sharePicList) {
+	public void setSharePicList(List<NbizUpload> sharePicList) {
 		this.sharePicList = sharePicList;
 	}
 

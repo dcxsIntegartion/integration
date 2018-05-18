@@ -14,7 +14,7 @@ function edite(id){
 }
 /** 删除 **/
 function del(id){
-	window.location.href = "view.html?type=del&id="+id;
+	window.location.href = "/bis/mach/del?id="+id;
 }
 /** 列表操作按钮 **/
 function operate(record, rowIndex, colIndex, options) {

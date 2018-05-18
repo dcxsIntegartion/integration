@@ -21,7 +21,7 @@ import team.union.sys_sp.sys.model.Account;
 import team.union.sys_sp.sys.model.AccountCriteria;
 import team.union.sys_sp.sys.model.Users;
 import team.union.sys_sp.sys.service.UserService;
-import team.union.sys_sp.util.MD5Utils;
+import team.union.utils.algorithm.MD5Utils;
 import team.union.we_chat.com.rs.WeChatRS;
 import team.union.we_chat.oauth2.WXUserAuth;
 import team.union.we_chat.oauth2.WXUserInfo;

@@ -38,7 +38,7 @@
 	    where coupon_id = #{id,jdbcType=BIGINT}
 	  </select>
 	<select id="getImgUrl" resultType="java.lang.String" parameterType="java.lang.String">
-	 	select u.url from nonbiz_upload u
+	 	select u.url from nbiz_upload u
 	 		where u.obj_id = #{objId,jdbcType=VARCHAR}
 	</select>
 	<select id="selMap" resultType="hashmap" parameterType="hashmap">

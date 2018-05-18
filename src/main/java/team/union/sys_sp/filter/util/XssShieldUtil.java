@@ -99,7 +99,6 @@ public class XssShieldUtil {
                 }
             }
             value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-            value = SafeSql(value);
         }
 //      if (LOG.isDebugEnabled())
 //          LOG.debug("strip value: " + value);
@@ -185,8 +184,14 @@ public class XssShieldUtil {
     	}
     	return false;
     }
+    
+    
+    
     public static void main(String[] args) {
         String value = null;
+        value = XssShieldUtil.stripXss("storeName");
+        System.out.println("type-1: '" + value + "'");
+        
         value = XssShieldUtil.stripXss("<script language=text/javascript>alert(document.cookie);</script>");
         System.out.println("type-1: '" + value + "'");
 

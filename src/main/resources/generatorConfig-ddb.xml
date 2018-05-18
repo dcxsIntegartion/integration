@@ -38,7 +38,7 @@
 			<property name="enableSubPackages" value="true"/> 
 		</javaClientGenerator>
 		
-	    <table tableName="nonbis_two_tab_rel" modelType="flat"/>
+	    <table tableName="nbis_two_tab_rel" modelType="flat"/>
 		
 	</context>
 </generatorConfiguration>

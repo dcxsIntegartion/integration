@@ -161,7 +161,8 @@ public class ToolsUtil {
      * @param json 
      * @return 
      */  
-    public static Map<String, Object> gsonToMap(String json){
+    @SuppressWarnings("unchecked")
+	public static Map<String, Object> gsonToMap(String json){
     Gson gson = new Gson();
     Map<String, Object> map = new HashMap<String, Object>();
     return gson.fromJson(json, map.getClass());

@@ -10,7 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import team.union.sys_sp.filter.util.XssShieldUtil;
 import team.union.sys_sp.util.ToolsUtil;
-import team.union.sys_sp.util.RSA.RSADecrypt;
+import team.union.utils.RSA.RSADecrypt;
 
 
 /**
@@ -20,7 +20,7 @@ import team.union.sys_sp.util.RSA.RSADecrypt;
  * 	1.过滤器先于拦截器执行
  *  2.request中getInputStream和getReader只能执行一次，需要重写
  *  3.需要将此过滤器放在第一个位子，传递已经封装request
- *  目的 2：过滤request中参数
+ *  目的：过滤request中参数
  * @author chens
  * @date 2017年5月12日
  * @version 1.0

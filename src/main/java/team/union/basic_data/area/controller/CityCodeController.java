@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.Page;
 
-import team.union.basic_data.area.model.NonbisCityCode;
+import team.union.basic_data.area.model.NbisCityCode;
 import team.union.basic_data.area.service.ICoCityService;
 import team.union.sys_sp.com.rs.BsgridVo;
 import team.union.sys_sp.com.rs.ResultVo;
@@ -39,7 +39,7 @@ public class CityCodeController {
 	 */
 	@RequestMapping("/selectProvince")
 	@ResponseBody
-	public List<NonbisCityCode> selectProvince(){
+	public List<NbisCityCode> selectProvince(){
 		return coCityService.selectProvince();
 	}
 	
@@ -51,7 +51,7 @@ public class CityCodeController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getProvinceAndCity",method=RequestMethod.GET)
-	public List<NonbisCityCode> getProvinceAndCity(){
+	public List<NbisCityCode> getProvinceAndCity(){
 		return coCityService.getProvinceAndCity();
 	}
 	/**
@@ -62,7 +62,7 @@ public class CityCodeController {
 	 */
 	@RequestMapping("/selectAll")
 	@ResponseBody
-	public List<NonbisCityCode> selectAll(){
+	public List<NbisCityCode> selectAll(){
 		return coCityService.selectAll();
 	}
 	
@@ -89,7 +89,7 @@ public class CityCodeController {
 	 */
 	@RequestMapping("/selectByCodeCityNodes")
 	@ResponseBody
-	public List<NonbisCityCode> selectByCodeCityNodes(HttpServletRequest request){		
+	public List<NbisCityCode> selectByCodeCityNodes(HttpServletRequest request){		
 		return coCityService.selectByCodeCityNodes(request);
 	}
 	
@@ -155,8 +155,8 @@ public class CityCodeController {
 		map.put("curPage", curPage);
 		map.put("pageSize", pageSize);		
 		
-		Page<NonbisCityCode> page =  coCityService.selectPage(map);
-		BsgridVo<NonbisCityCode>  bsgridVo= new BsgridVo<NonbisCityCode>();  
+		Page<NbisCityCode> page =  coCityService.selectPage(map);
+		BsgridVo<NbisCityCode>  bsgridVo= new BsgridVo<NbisCityCode>();  
 		if(page != null){
 			if(page.getTotal()==0){
 				bsgridVo.setCurPage(0);

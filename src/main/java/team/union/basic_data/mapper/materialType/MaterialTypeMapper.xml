@@ -93,7 +93,7 @@
 			distinct
 		</if>
 		<include refid="Base_Column_List" />
-		from nonbis_material_type
+		from nbis_material_type
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
@@ -105,25 +105,25 @@
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from nonbis_material_type
+		from nbis_material_type
 		where material_type_id =
 		#{materialTypeId,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from
-		nonbis_material_type
+		nbis_material_type
 		where material_type_id =
 		#{materialTypeId,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample"
 		parameterType="team.union.basic_data.materialType.model.MaterialTypeExample">
-		delete from nonbis_material_type
+		delete from nbis_material_type
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
 	<insert id="insert" parameterType="team.union.basic_data.materialType.model.MaterialType">
-		insert into nonbis_material_type
+		insert into nbis_material_type
 		(material_type_id, material_type, material_num,
 		material_name,
 		material_state, superior_material_id,
@@ -137,7 +137,7 @@
 		#{workProcedureId,jdbcType=BIGINT}, #{level,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective" parameterType="team.union.basic_data.materialType.model.MaterialType">
-		insert into nonbis_material_type
+		insert into nbis_material_type
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="materialTypeId != null">
 				material_type_id,
@@ -194,13 +194,13 @@
 	<select id="countByExample"
 		parameterType="team.union.basic_data.materialType.model.MaterialTypeExample"
 		resultType="java.lang.Integer">
-		select count(*) from nonbis_material_type
+		select count(*) from nbis_material_type
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
 	<update id="updateByExampleSelective" parameterType="map">
-		update nonbis_material_type
+		update nbis_material_type
 		<set>
 			<if test="record.materialTypeId != null">
 				material_type_id =
@@ -236,7 +236,7 @@
 		</if>
 	</update>
 	<update id="updateByExample" parameterType="map">
-		update nonbis_material_type
+		update nbis_material_type
 		set material_type_id =
 		#{record.materialTypeId,jdbcType=BIGINT},
 		material_type =
@@ -258,7 +258,7 @@
 		</if>
 	</update>
 	<update id="updateByPrimaryKeySelective" parameterType="team.union.basic_data.materialType.model.MaterialType">
-		update nonbis_material_type
+		update nbis_material_type
 		<set>
 			<if test="materialType != null">
 				material_type = #{materialType,jdbcType=INTEGER},
@@ -287,7 +287,7 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="team.union.basic_data.materialType.model.MaterialType">
 		update
-		nonbis_material_type
+		nbis_material_type
 		set material_type = #{materialType,jdbcType=INTEGER},
 		material_num = #{materialNum,jdbcType=VARCHAR},
 		material_name =
@@ -304,19 +304,19 @@
 	<select id="findAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from nonbis_material_type order by material_num
+		from nbis_material_type order by material_num
 	</select>
 	<select id="findAllImportantAndUsing" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		FROM
-		nonbis_material_type mt
+		nbis_material_type mt
 		WHERE
 		NOT EXISTS (
 		SELECT
 		material_type_id
 		FROM
-		nonbis_material_type t
+		nbis_material_type t
 		WHERE
 		t. LEVEL = 3
 		AND (
@@ -329,7 +329,7 @@
 		material_num
 	</select>
 	<select id="getMaxChildNum" parameterType="hashmap" resultType="String">
-		select MAX(mt.material_num) from nonbis_material_type mt where
+		select MAX(mt.material_num) from nbis_material_type mt where
 		<if test="pid != null">
 			mt.superior_material_id = #{pid,jdbcType=BIGINT}
 		</if>
@@ -341,7 +341,7 @@
 	<select id="list" parameterType="hashmap" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from nonbis_material_type mt
+		from nbis_material_type mt
 		<where>
 			<if test="workProcedureId != null">
 				mt.work_procedure_id = #{workProcedureId,
@@ -351,7 +351,7 @@
 		order by mt.material_num
 	</select>
 	<update id="updateWorkProcedureIdById" parameterType="hashmap">
-		update nonbis_material_type mt
+		update nbis_material_type mt
 		set work_procedure_id = #{workProcedureId,
 		jdbcType=INTEGER}
 		where material_type_id in
@@ -362,6 +362,6 @@
 	</update>
 	<select id="getMaxWorkProcedureId" resultType="Long">
 		select
-		IFNULL(MAX(mt.work_procedure_id),0) from nonbis_material_type mt
+		IFNULL(MAX(mt.work_procedure_id),0) from nbis_material_type mt
 	</select>
 </mapper>

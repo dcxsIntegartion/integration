@@ -7,6 +7,7 @@
     <result column="store_address" jdbcType="VARCHAR" property="storeAddress" />
     <result column="store_phone" jdbcType="VARCHAR" property="storePhone" />
     <result column="store_pic" jdbcType="VARCHAR" property="storePic" />
+    <result column="store_wx_qr" jdbcType="VARCHAR" property="storeWxQr" />
     <result column="store_introduction" jdbcType="VARCHAR" property="storeIntroduction" />
     <result column="store_longitude" jdbcType="VARCHAR" property="storeLongitude" />
     <result column="store_latitude" jdbcType="VARCHAR" property="storeLatitude" />
@@ -74,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, store_name, store_address, store_phone, store_pic, store_introduction, store_longitude, 
+    id, store_name, store_address, store_phone, store_pic,store_wx_qr, store_introduction, store_longitude, 
     store_latitude, store_user_id, store_sort_num, store_creat_time, store_status
   </sql>
   <select id="selectByExample" parameterType="team.union.business.store.model.BisStoreExample" resultMap="BaseResultMap">
@@ -109,12 +110,12 @@
   </delete>
   <insert id="insert" parameterType="team.union.business.store.model.BisStore">
     insert into bis_store (id, store_name, store_address, 
-      store_phone, store_pic, store_introduction, 
+      store_phone, store_pic,store_wx_qr , store_introduction, 
       store_longitude, store_latitude, store_user_id, 
       store_sort_num, store_creat_time, store_status
       )
     values (#{id,jdbcType=BIGINT}, #{storeName,jdbcType=VARCHAR}, #{storeAddress,jdbcType=VARCHAR}, 
-      #{storePhone,jdbcType=VARCHAR}, #{storePic,jdbcType=VARCHAR}, #{storeIntroduction,jdbcType=VARCHAR}, 
+      #{storePhone,jdbcType=VARCHAR}, #{storePic,jdbcType=VARCHAR} #{storeWxQr,jdbcType=VARCHAR}, #{storeIntroduction,jdbcType=VARCHAR}, 
       #{storeLongitude,jdbcType=VARCHAR}, #{storeLatitude,jdbcType=VARCHAR}, #{storeUserId,jdbcType=BIGINT}, 
       #{storeSortNum,jdbcType=BIGINT}, #{storeCreatTime,jdbcType=TIMESTAMP}, #{storeStatus,jdbcType=INTEGER}
       )
@@ -136,6 +137,9 @@
       </if>
       <if test="storePic != null">
         store_pic,
+      </if>
+      <if test="storeWxQr != null">
+        store_wx_qr,
       </if>
       <if test="storeIntroduction != null">
         store_introduction,
@@ -174,6 +178,9 @@
       </if>
       <if test="storePic != null">
         #{storePic,jdbcType=VARCHAR},
+      </if>
+      <if test="storeWxQr != null">
+        #{storeWxQr,jdbcType=VARCHAR},
       </if>
       <if test="storeIntroduction != null">
         #{storeIntroduction,jdbcType=VARCHAR},
@@ -281,6 +288,9 @@
       <if test="storePic != null">
         store_pic = #{storePic,jdbcType=VARCHAR},
       </if>
+      <if test="storeWxQr != null">
+        store_wx_qr = #{storePic,jdbcType=VARCHAR},
+      </if>
       <if test="storeIntroduction != null">
         store_introduction = #{storeIntroduction,jdbcType=VARCHAR},
       </if>
@@ -311,6 +321,7 @@
       store_address = #{storeAddress,jdbcType=VARCHAR},
       store_phone = #{storePhone,jdbcType=VARCHAR},
       store_pic = #{storePic,jdbcType=VARCHAR},
+      store_wx_qr = #{storeWxQr,jdbcType=VARCHAR},
       store_introduction = #{storeIntroduction,jdbcType=VARCHAR},
       store_longitude = #{storeLongitude,jdbcType=VARCHAR},
       store_latitude = #{storeLatitude,jdbcType=VARCHAR},
@@ -326,6 +337,7 @@
   	store_address storeAddress, 
   	store_phone storePhone, 
   	store_pic storePic, 
+  	store_wx_qr storeWxQr,
   	store_introduction storeIntroduction, 
   	store_longitude storeLongitude, 
     store_latitude storeLatitude, 

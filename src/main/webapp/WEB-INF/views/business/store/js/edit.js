@@ -3,7 +3,7 @@ var type = getQueryString("type");
 var view_url = basePath+"/bis/store/";
 /** 页面数据封装 填充 **/
 var model ={};
-var field = ["id","storeName","storeAddress","storePhone","storePic","storeIntroduction"
+var field = ["id","storeName","storeAddress","storePhone","storePic","storeWxQr","storeIntroduction"
 	,"storeLongitude","storeLatitude","storeSortNum","storeStatus","storeUserId"];
 var modelUtils = new ModelUtils(field);
 /** 提交按钮 **/

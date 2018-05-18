@@ -1,7 +1,7 @@
 var view_url = basePath+"/bis/store/";
 /** 页面数据封装 填充 **/
 var model ={};
-var field = ["storeName","storeAddress","storePhone","storePic","storeIntroduction","storeLongitude","storeLatitude","storeSortNum"];
+var field = ["storeName","storeAddress","storePhone","storePic","storeWxQr","storeIntroduction","storeLongitude","storeLatitude","storeSortNum"];
 var modelUtils = new ModelUtils(field);
 /** 提交按钮 **/
 var submitHtml = $('#saveBtn').html();

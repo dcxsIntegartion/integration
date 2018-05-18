@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.github.pagehelper.Page;
 
-import team.union.basic_data.area.model.NonbisCityCode;
+import team.union.basic_data.area.model.NbisCityCode;
 
 /**
  * @Author yinyao
@@ -21,7 +21,7 @@ public interface ICoCityService {
 	 * @author	yinyao
 	 * @Date	2015-12-18 下午3:56:28
 	 */
-	public List<NonbisCityCode> selectAll();
+	public List<NbisCityCode> selectAll();
 	
 	/**
 	 * 查询出所有的省
@@ -29,13 +29,13 @@ public interface ICoCityService {
 	 * @author	yinyao
 	 * @Date	2015-12-18 上午11:25:32
 	 */
-	public List<NonbisCityCode> selectProvince();
+	public List<NbisCityCode> selectProvince();
 	
 	/**
 	 * 得到所有的省和市
 	 * @return
 	 */
-	public List<NonbisCityCode> getProvinceAndCity();
+	public List<NbisCityCode> getProvinceAndCity();
 	
 	/**
 	 * 根据城市code查询，它下面的所有城市
@@ -53,7 +53,7 @@ public interface ICoCityService {
 	 * @author	yinyao
 	 * @Date	2015-12-18 上午11:04:28
 	 */
-	public List<NonbisCityCode> selectByCodeCityNodes(HttpServletRequest request);
+	public List<NbisCityCode> selectByCodeCityNodes(HttpServletRequest request);
 	
 	/**
 	 * 分页查询
@@ -62,7 +62,7 @@ public interface ICoCityService {
 	 * @author	yinyao
 	 * @Date	2016-3-10 上午11:28:47
 	 */
-	public Page<NonbisCityCode> selectPage(HashMap<String, Object> map);
+	public Page<NbisCityCode> selectPage(HashMap<String, Object> map);
 	
 	/**
 	 * 修改
