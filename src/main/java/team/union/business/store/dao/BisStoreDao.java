@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import team.union.business.store.model.BisStore;
-import team.union.business.store.model.BisStoreExample;
 
 /**
  * 店铺持久层
@@ -15,9 +13,6 @@ import team.union.business.store.model.BisStoreExample;
  * Describe:
  */
 public interface BisStoreDao {
-    int countByExample(BisStoreExample example);
-
-    int deleteByExample(BisStoreExample example);
 
     int deleteByPrimaryKey(Long id);
 
@@ -25,13 +20,7 @@ public interface BisStoreDao {
 
     int insertSelective(BisStore record);
 
-    List<BisStore> selectByExample(BisStoreExample example);
-
     BisStore selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") BisStore record, @Param("example") BisStoreExample example);
-
-    int updateByExample(@Param("record") BisStore record, @Param("example") BisStoreExample example);
 
     int updateByPrimaryKeySelective(BisStore record);
 
@@ -43,4 +32,10 @@ public interface BisStoreDao {
      * @return
      */
 	List<HashMap<String, Object>> selectPage(Map<String, Object> parm);
+	/**
+	 * @param subDomain 二级域名开头部分
+	 * @return
+	 */
+	public BisStore selBySubDomain(String subDomain);
+	
 }

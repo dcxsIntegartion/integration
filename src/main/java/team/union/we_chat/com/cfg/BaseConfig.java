@@ -65,4 +65,20 @@ public class BaseConfig {
 		}
 		
 	}
+	
+	public static enum WX_USER_TYPE{
+		tourist(0),
+		staff(1);
+		private int no;
+		
+		public int getNo() {
+			return no;
+		}
+		private WX_USER_TYPE(int no){
+			this.no = no;
+		}
+		
+	}
+	
+	
 }

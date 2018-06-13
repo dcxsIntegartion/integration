@@ -15,82 +15,20 @@
     <result column="store_sort_num" jdbcType="BIGINT" property="storeSortNum" />
     <result column="store_creat_time" jdbcType="TIMESTAMP" property="storeCreatTime" />
     <result column="store_status" jdbcType="INTEGER" property="storeStatus" />
+    <result column="appid" jdbcType="VARCHAR" property="appid" />
+    <result column="sub_domain" jdbcType="VARCHAR" property="subDomain" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+  
   <sql id="Base_Column_List">
     id, store_name, store_address, store_phone, store_pic,store_wx_qr, store_introduction, store_longitude, 
-    store_latitude, store_user_id, store_sort_num, store_creat_time, store_status
+    store_latitude, store_user_id, store_sort_num, store_creat_time, store_status,appid,sub_domain
   </sql>
-  <select id="selectByExample" parameterType="team.union.business.store.model.BisStoreExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
+ 
+  <select id="selBySubDomain" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
     <include refid="Base_Column_List" />
     from bis_store
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
+    where sub_domain = #{subDomain,jdbcType=VARCHAR}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -98,26 +36,23 @@
     from bis_store
     where id = #{id,jdbcType=BIGINT}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bis_store
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="team.union.business.store.model.BisStoreExample">
-    delete from bis_store
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+  
   <insert id="insert" parameterType="team.union.business.store.model.BisStore">
     insert into bis_store (id, store_name, store_address, 
       store_phone, store_pic,store_wx_qr , store_introduction, 
       store_longitude, store_latitude, store_user_id, 
-      store_sort_num, store_creat_time, store_status
+      store_sort_num, store_creat_time, store_status,appid,sub_domain
       )
     values (#{id,jdbcType=BIGINT}, #{storeName,jdbcType=VARCHAR}, #{storeAddress,jdbcType=VARCHAR}, 
-      #{storePhone,jdbcType=VARCHAR}, #{storePic,jdbcType=VARCHAR} #{storeWxQr,jdbcType=VARCHAR}, #{storeIntroduction,jdbcType=VARCHAR}, 
+      #{storePhone,jdbcType=VARCHAR}, #{storePic,jdbcType=VARCHAR},#{storeWxQr,jdbcType=VARCHAR}, #{storeIntroduction,jdbcType=VARCHAR}, 
       #{storeLongitude,jdbcType=VARCHAR}, #{storeLatitude,jdbcType=VARCHAR}, #{storeUserId,jdbcType=BIGINT}, 
-      #{storeSortNum,jdbcType=BIGINT}, #{storeCreatTime,jdbcType=TIMESTAMP}, #{storeStatus,jdbcType=INTEGER}
+      #{storeSortNum,jdbcType=BIGINT}, #{storeCreatTime,jdbcType=TIMESTAMP}, #{storeStatus,jdbcType=INTEGER},#{appid,jdbcType=VARCHAR}
+      ,#{subDomain,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="team.union.business.store.model.BisStore">
@@ -162,6 +97,12 @@
       <if test="storeStatus != null">
         store_status,
       </if>
+      <if test="appid != null">
+        appid,
+      </if>
+      <if test="subDomain != null">
+        sub_domain,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -203,76 +144,14 @@
       <if test="storeStatus != null">
         #{storeStatus,jdbcType=INTEGER},
       </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="subDomain != null">
+        #{subDomain,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="team.union.business.store.model.BisStoreExample" resultType="java.lang.Integer">
-    select count(*) from bis_store
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update bis_store
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.storeName != null">
-        store_name = #{record.storeName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.storeAddress != null">
-        store_address = #{record.storeAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.storePhone != null">
-        store_phone = #{record.storePhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.storePic != null">
-        store_pic = #{record.storePic,jdbcType=VARCHAR},
-      </if>
-      <if test="record.storeIntroduction != null">
-        store_introduction = #{record.storeIntroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="record.storeLongitude != null">
-        store_longitude = #{record.storeLongitude,jdbcType=VARCHAR},
-      </if>
-      <if test="record.storeLatitude != null">
-        store_latitude = #{record.storeLatitude,jdbcType=VARCHAR},
-      </if>
-      <if test="record.storeUserId != null">
-        store_user_id = #{record.storeUserId,jdbcType=BIGINT},
-      </if>
-      <if test="record.storeSortNum != null">
-        store_sort_num = #{record.storeSortNum,jdbcType=BIGINT},
-      </if>
-      <if test="record.storeCreatTime != null">
-        store_creat_time = #{record.storeCreatTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.storeStatus != null">
-        store_status = #{record.storeStatus,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update bis_store
-    set id = #{record.id,jdbcType=BIGINT},
-      store_name = #{record.storeName,jdbcType=VARCHAR},
-      store_address = #{record.storeAddress,jdbcType=VARCHAR},
-      store_phone = #{record.storePhone,jdbcType=VARCHAR},
-      store_pic = #{record.storePic,jdbcType=VARCHAR},
-      store_introduction = #{record.storeIntroduction,jdbcType=VARCHAR},
-      store_longitude = #{record.storeLongitude,jdbcType=VARCHAR},
-      store_latitude = #{record.storeLatitude,jdbcType=VARCHAR},
-      store_user_id = #{record.storeUserId,jdbcType=BIGINT},
-      store_sort_num = #{record.storeSortNum,jdbcType=BIGINT},
-      store_creat_time = #{record.storeCreatTime,jdbcType=TIMESTAMP},
-      store_status = #{record.storeStatus,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="team.union.business.store.model.BisStore">
     update bis_store
     <set>
@@ -289,7 +168,7 @@
         store_pic = #{storePic,jdbcType=VARCHAR},
       </if>
       <if test="storeWxQr != null">
-        store_wx_qr = #{storePic,jdbcType=VARCHAR},
+        store_wx_qr = #{storeWxQr,jdbcType=VARCHAR},
       </if>
       <if test="storeIntroduction != null">
         store_introduction = #{storeIntroduction,jdbcType=VARCHAR},
@@ -312,6 +191,12 @@
       <if test="storeStatus != null">
         store_status = #{storeStatus,jdbcType=INTEGER},
       </if>
+      <if test="appid != null">
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="subDomain != null">
+        sub_domain = #{subDomain,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -327,7 +212,9 @@
       store_latitude = #{storeLatitude,jdbcType=VARCHAR},
       store_user_id = #{storeUserId,jdbcType=BIGINT},
       store_sort_num = #{storeSortNum,jdbcType=BIGINT},
-      store_status = #{storeStatus,jdbcType=INTEGER}
+      store_status = #{storeStatus,jdbcType=INTEGER},
+      appid = #{appid,jdbcType=VARCHAR},
+      sub_domain = #{subDomain,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <!-- 店铺列表查询 -->
@@ -343,6 +230,8 @@
     store_latitude storeLatitude, 
     store_user_id storeUserId, 
     store_sort_num storeSortNum, 
+    appid,
+    sub_domain subDomain,
     DATE_FORMAT(store_creat_time,'%Y-%m-%d %T') storeCreatTime, 
     store_status storeStatus
   from bis_store
@@ -355,6 +244,9 @@
 	  </if>
 	  <if test="storeStatus != null">
 	  	and store_status=#{storeStatus}
+	  </if>
+	   <if test="appid != null">
+	  	and appid=#{appid}
 	  </if>
   </where>
   </select>

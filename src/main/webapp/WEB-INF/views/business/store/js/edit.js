@@ -4,7 +4,7 @@ var view_url = basePath+"/bis/store/";
 /** 页面数据封装 填充 **/
 var model ={};
 var field = ["id","storeName","storeAddress","storePhone","storePic","storeWxQr","storeIntroduction"
-	,"storeLongitude","storeLatitude","storeSortNum","storeStatus","storeUserId"];
+	,"storeLongitude","storeLatitude","storeSortNum","storeStatus","storeUserId","appid","subDomain"];
 var modelUtils = new ModelUtils(field);
 /** 提交按钮 **/
 var submitHtml = $('#saveBtn').html();
@@ -21,8 +21,9 @@ $(function(){
 		callback:function($form){
 			submitToggle(1,submitHtml);
 			var model = modelUtils.initModel();
-			/** 上传图片字段赋值 **/
+			/**需要修改 上传图片字段赋值 **/
 			model.storePic=saveRel(storePic);
+			model.storeWxQr=saveRel(storeWxQr);
 			var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 			$.ajax({
 	            type: "post",
@@ -71,12 +72,12 @@ function viewLoadControlle(){
 	        type: "post",
 	        async:false,
 	        url:  view_url+"selectById?Id="+id,
-//	        data: {Id:id},
 	        success: function(data){
 	        	if(data.state==1){
-	        		console.log("data",data.data);
+	        		/**需要修改 图片字段赋值 **/
 	        		modelUtils.fillData(data.data);
 	        		selFiles("storePic",storePic);
+	        		selFiles("storeWxQr",storeWxQr);
 	        	}
 			},
 			error:function(data) {

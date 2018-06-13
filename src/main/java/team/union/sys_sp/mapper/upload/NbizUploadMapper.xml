@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="team.union.sys_sp.upload.dao.NbizUploadDao" >
+<mapper namespace="team.union.utils.upload.dao.NbizUploadDao" >
   <resultMap id="BaseResultMap" type="team.union.utils.upload.model.NbizUpload" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="url" property="url" jdbcType="VARCHAR" />
@@ -120,6 +120,12 @@
           <if test="objId!= null" >
 	       obj_id = #{objId,jdbcType=VARCHAR}
 	      </if>
+      </where>
+  </select>
+  <select id="selUrlLst" resultType="String" parameterType="String">
+      select url from nbiz_upload 
+      <where>
+	       obj_id = #{uuid,jdbcType=VARCHAR}
       </where>
   </select>
   <delete id="deleteByUUID" parameterType="java.lang.String">

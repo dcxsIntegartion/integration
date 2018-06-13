@@ -1,7 +1,8 @@
 var view_url = basePath+"/bis/store/";
 /** 页面数据封装 填充 **/
 var model ={};
-var field = ["storeName","storeAddress","storePhone","storePic","storeWxQr","storeIntroduction","storeLongitude","storeLatitude","storeSortNum"];
+var field = ["storeName","storeAddress","storePhone","storePic","storeWxQr","storeIntroduction","storeLongitude",
+	"storeLatitude","storeSortNum","appid","subDomain"];
 var modelUtils = new ModelUtils(field);
 /** 提交按钮 **/
 var submitHtml = $('#saveBtn').html();
@@ -18,7 +19,9 @@ $(function(){
 			submitToggle(1,submitHtml);
 			var model = modelUtils.initModel();
 			/** 上传图片字段赋值 **/
+			/**需要修改 上传图片字段赋值 **/
 			model.storePic=saveRel(storePic);
+			model.storeWxQr=saveRel(storeWxQr);
 			var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
 			$.ajax({
 	            type: "post",

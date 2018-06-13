@@ -6,6 +6,7 @@ package team.union.sys_sp.sys.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import team.union.business.com.rs.Result;
 import team.union.sys_sp.com.excp.BusinessException;
 import team.union.sys_sp.com.rs.BsgridVo;
 import team.union.sys_sp.com.rs.ResultVo;
@@ -69,6 +70,7 @@ public interface UserService {
 	
 	/********************** 以下微信相关查询 *********************/
 	public WeChatRS selByWXopenid(WXUserAuth userAuth);
-	public WeChatRS saveWXuser(WXUserAuth wxUserAuth);
-	
+	public Users saveWXuser(WXUserInfo userInfo);
+	public Result staffScavenging(WXUserInfo userInfo,String subDomain);
+	public Result touristScavenging(WXUserAuth userAuth,String subDomain,Long staffId);
 }

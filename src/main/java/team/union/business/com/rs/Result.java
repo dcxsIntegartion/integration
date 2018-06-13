@@ -2,6 +2,8 @@ package team.union.business.com.rs;
 
 import java.io.Serializable;
 
+import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
+
 /**
  * Title: 基础数据  操作返回
  * @author chenS
@@ -20,6 +22,39 @@ public class Result implements Serializable{
 	/** 返回数据 */
 	private Object data;
 
+	private boolean isSuccess;
+	
+	public static Result success(Object data){
+		Result rs = new Result();
+		rs.setData(data);
+		rs.setState(PROMPT.SUCCESS.getNo());
+		rs.setMsg(PROMPT.SUCCESS.getMsg());
+		rs.isSuccess = true;
+		return rs;
+	}
+	public static Result success(){
+		Result rs = new Result();
+		rs.setState(PROMPT.SUCCESS.getNo());
+		rs.setMsg(PROMPT.SUCCESS.getMsg());
+		rs.isSuccess = true;
+		return rs;
+	}
+	public static Result error(){
+		Result rs = new Result();
+		rs.setState(PROMPT.FAIL.getNo());
+		rs.setMsg(PROMPT.FAIL.getMsg());
+		rs.isSuccess = false;
+		return rs;
+	}
+	public static Result error(String errorMsg){
+		Result rs = new Result();
+		rs.setState(PROMPT.FAIL.getNo());
+		rs.setMsg(errorMsg);
+		rs.isSuccess = false;
+		return rs;
+	}
+	
+	
 	public Result() {
 	}
 
@@ -53,6 +88,12 @@ public class Result implements Serializable{
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+	public boolean isSuccess() {
+		return isSuccess;
+	}
+	public void setSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
 	}
 
 }

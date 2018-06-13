@@ -4,7 +4,7 @@ var submitHtml = $('#saveBtn').html();
 var field = ["id","commodityName","commodityPrice","commodityOldPrice",
 	"commoditySaleAdd","commodityNum","commodityNumber",
 	"commoditySortNum","timingBegain","timingOff",
-	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];//"commodityIntroduction",
+	"commodityNumDecrease","commodityStatus","homepageShow","isTiming"];
 var modelUtils = new ModelUtils(field);
 var treeAddObj = null;
 $(function(){
@@ -45,7 +45,6 @@ $(function(){
 			model.isTiming = $(".checked input[name='isTiming']").val();
 			model.commodityTypeId = $("#viewForm #commodityTypeId").val();
 			
-			model.commodityIntroduction = getAllHtml();
 			
 			var selectNode = treeAddObj.getSelectedNodes();
 			if(selectNode.length == 0){

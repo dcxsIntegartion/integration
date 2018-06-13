@@ -22,7 +22,7 @@ import team.union.business.com.interf.IController;
 import team.union.sys_sp.util.ToolsUtil;
 
 /**
- * 特价活动Controller层
+ * 转盘活动Controller层
  * @author Shuqianli
  * @date 2017年4月29日
  * Describe:
@@ -90,4 +90,20 @@ public class BisActivityTurntableController implements IController<BisActivityTu
 		return iBisActivityTurntableService.updateStatus(vo);
 	}
 
+	/**
+	 * M-skin美容院
+	 * 1.净水器
+	 * 2.行李箱
+	 * 3.细胞修复膜 
+	 * 4.体验券
+	 * 5.抽纸
+	 * 6.谢谢参与
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST, value = "/lottery")
+	public Result lottery(@RequestBody BisActivityTurntable vo, HttpServletRequest req) {
+		
+		return iBisActivityTurntableService.updateStatus(vo);
+	}
+	
 }

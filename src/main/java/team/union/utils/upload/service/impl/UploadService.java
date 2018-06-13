@@ -41,8 +41,19 @@ public class UploadService implements IUploadService {
 		}
 		return uuid;
 	}
+	public String banding(NbizUpload upload) {
+		String uuid = (ToolsUtil.isNotEmpty(upload.getObjId()))?upload.getObjId():MD5Utils.GetUUID();
+		nbizUploadDao.deleteByUUID(uuid);
+		if(null!=upload && ToolsUtil.isNotEmpty(upload.getUrl())){
+			upload.setObjId(uuid);
+			nbizUploadDao.insert(upload);
+		}
+		return uuid;
+	}
+	
+	
 	/***
-	 * 查询文件（图片）
+	 * 查询文件（图片info）
 	 * 参数：object_id
 	 */
 	public List<NbizUpload> selVoLst(String uuid){
@@ -51,6 +62,14 @@ public class UploadService implements IUploadService {
 			Map<String, Object> parm = new HashMap<String, Object>();
 			parm.put("objId", uuid);
 			lst = nbizUploadDao.selVoLst(parm);
+		}
+		return lst;
+	}
+	
+	public List<String> selUrlLst(String uuid){
+		List<String> lst = new ArrayList<String>();
+		if(ToolsUtil.isNotEmpty(uuid)){
+			lst = nbizUploadDao.selUrlLst(uuid);
 		}
 		return lst;
 	}

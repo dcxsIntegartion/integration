@@ -5,10 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import team.union.business.com.rs.Result;
+import team.union.business.store.dao.BisStoreDao;
+import team.union.business.store.model.BisStore;
+import team.union.business.store.model.MidUsersStore;
+import team.union.business.store.service.IMidUsersStoreService;
 import team.union.sys_sp.com.cfg.BaseConfig;
 import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
 import team.union.sys_sp.com.excp.BusinessException;
@@ -22,6 +28,8 @@ import team.union.sys_sp.sys.model.AccountCriteria;
 import team.union.sys_sp.sys.model.Users;
 import team.union.sys_sp.sys.service.UserService;
 import team.union.utils.algorithm.MD5Utils;
+import team.union.utils.qr.QrcodeUtils;
+import team.union.we_chat.com.cfg.BaseConfig.WX_USER_TYPE;
 import team.union.we_chat.com.rs.WeChatRS;
 import team.union.we_chat.oauth2.WXUserAuth;
 import team.union.we_chat.oauth2.WXUserInfo;
@@ -41,7 +49,10 @@ public class UserServiceImpl implements UserService {
 	private AccountDao accountDao;
 	@Autowired
 	private UsersDao usersDao;
-	
+	@Autowired
+	private BisStoreDao bisStoreDao;
+	@Autowired
+	private IMidUsersStoreService midUsersStoreService;
 	
 	public BsgridVo<HashMap<String, Object>> findByPage(Map<String, Object> args, int curPage, int pageSize) {
 		PageHelper.startPage(curPage, pageSize);
@@ -299,33 +310,90 @@ public class UserServiceImpl implements UserService {
 		}
 		return WeChatRS.success();
 	}
-	@SuppressWarnings("null")
-	public WeChatRS saveWXuser(WXUserAuth wxUserAuth){
+	public Users saveWXuser(WXUserInfo userInfo){
 		WXUserInfo wxUserInfo = null;
-		if(null!=wxUserAuth && null!=wxUserAuth.getOpenid() && !"".equals(wxUserAuth.getOpenid())){
-			wxUserInfo = usersDao.selByWXopenid(wxUserAuth.getOpenid());
-		}
-		// 判断账号是否存在
-		if (null!=wxUserInfo) {
-			return WeChatRS.error(PROMPT.ACCT_EXISTED.getMsg());
-		}
-
-		// 保存用户基本信息
 		Users user = new Users();
-		user.setSubscribeTime(wxUserInfo.getSubscribeTime());
-		user.setNickname(wxUserInfo.getNickname());
-		user.setSex(wxUserInfo.getSex());
-		user.setCountry(wxUserInfo.getCountry());
-		user.setProvince(wxUserInfo.getProvince());
-		user.setCity(wxUserInfo.getCity());
-		user.setLanguage(wxUserInfo.getLanguage());
-		user.setHeadimgurl(wxUserInfo.getHeadimgurl());
-		user.setRemark(wxUserInfo.getRemark());
-		user.setGroupid(wxUserInfo.getGroupid());
-		user.setTagidlist(wxUserInfo.getTagidList());
-		user.setUnionid(wxUserInfo.getUnionid());
-		usersDao.insert(user);
-		
-		return  WeChatRS.success();
+		if(null!=userInfo && null!=userInfo.getOpenid() && !"".equals(userInfo.getOpenid())){
+			wxUserInfo = usersDao.selByWXopenid(userInfo.getOpenid());
+		}
+		// 保存用户基本信息
+		user.setOpenid(userInfo.getOpenid());
+		user.setSubscribeTime(userInfo.getSubscribeTime());
+		user.setUserName(userInfo.getNickname());
+		user.setNickname(userInfo.getNickname());
+		user.setSex(userInfo.getSex());
+		user.setCountry(userInfo.getCountry());
+		user.setProvince(userInfo.getProvince());
+		user.setCity(userInfo.getCity());
+		user.setLanguage(userInfo.getLanguage());
+		user.setHeadimgurl(userInfo.getHeadimgurl());
+		user.setRemark(userInfo.getRemark());
+		user.setGroupid(userInfo.getGroupid());
+		user.setTagidlist(userInfo.getTagidList());
+		user.setUnionid(userInfo.getUnionid());
+		// 判断账号是否存在
+		if (null != wxUserInfo && null != wxUserInfo.getUserId()) {
+			user.setUserId(wxUserInfo.getUserId());
+			usersDao.updateByPrimaryKeySelective(user);
+		}else{
+			usersDao.insert(user);
+		}
+		return  user;
 	}
+	/**
+	 * 1.调用用户保存（修改）
+	 * 2.生成游客扫码url（包含公众号-店铺-员工信息）
+	 * 3.建立商店与员工中间关系
+	 * @param userInfo
+	 * @param subDomain
+	 * @return imgUrl
+	 */
+	public Result staffScavenging(WXUserInfo userInfo,String subDomain){
+		Users wxUser = saveWXuser(userInfo);
+		BisStore bs = bisStoreDao.selBySubDomain(subDomain);
+		if(null!=wxUser && wxUser.getUserId()>0 &&
+				null!=bs && bs.getId()>0){
+			String content = "https://open.weixin.qq.com/connect/oauth2/authorize?"
+			   		+ "appid="+bs.getAppid()
+			   		+ "&redirect_uri="+subDomain
+			   		+ "%2fwe_chat%2f/touristScavenging"
+			   		+ ".&response_type=code&scope=snsapi_userinfo&"
+			   		+ "state="+wxUser.getUserId()+"#wechat_redirect";
+			String imgUrl = QrcodeUtils.staffQr(content);
+		    if(imgUrl!=null){
+			   MidUsersStore midUS = new MidUsersStore();
+			   midUS.setIsTourist(WX_USER_TYPE.staff.getNo());
+			   midUS.setStoreId(bs.getId());
+			   midUS.setUserId(wxUser.getUserId());
+			   midUS.setStoreQrImg(imgUrl);
+			   Result result= midUsersStoreService.saveMidUsersStore(midUS);
+			   if(result.isSuccess()){
+				   return Result.success(imgUrl);
+			   }
+				
+		    }
+		}
+		return Result.error();
+	}
+	/**
+	 * @param userAuth    游客微信信息
+	 * @param subDomain	   二级域名
+	 * @param staffId	   引导游客扫码的店员id
+	 * @return
+	 */
+	public Result touristScavenging(WXUserAuth userAuth,String subDomain,Long staffId){
+		BisStore bs = bisStoreDao.selBySubDomain(subDomain);
+		if(null!=userAuth && StringUtils.isNotEmpty(userAuth.getOpenid()) &&
+				null!=bs && bs.getId()>0){
+			MidUsersStore midUS = new MidUsersStore();
+			   midUS.setIsTourist(WX_USER_TYPE.tourist.getNo());
+			   midUS.setStoreId(bs.getId());
+			   midUS.setUserId(staffId);
+			   midUS.setTouristOpenid(userAuth.getOpenid());
+			   Result result= midUsersStoreService.saveMidUsersStore(midUS);
+			   return result;
+		}
+		return Result.error();
+	}
+	
 }

@@ -33,11 +33,17 @@ public interface IUploadService {
 	 * @Date	2016-4-27 下午11:43:41
 	 */
 	public String banding(List<NbizUpload> list);
+	public String banding(NbizUpload upload);
 	/***
 	 * 查询文件（图片）
 	 * 参数：object_id
 	 */
 	public List<NbizUpload> selVoLst(String uuid);
+	/***
+	 * 查询文件（只获取图片url）
+	 * 参数：object_id
+	 */
+	public List<String> selUrlLst(String uuid);
 	/**
 	 * 物理删除文件
 	 * @param uuid

@@ -1,6 +1,7 @@
 package team.union.business.store.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class BisStore {
     private Long id;
@@ -13,8 +14,12 @@ public class BisStore {
 
     private String storePic;
     
+    private List<String> storePicUrls;
+    
     private String storeWxQr;
 
+    private List<String> storeWxQrUrls;
+    
     private String storeIntroduction;
 
     private String storeLongitude;
@@ -29,6 +34,10 @@ public class BisStore {
 
     private Integer storeStatus;
 
+    private String appid;
+    
+    private String subDomain;
+    
     public Long getId() {
         return id;
     }
@@ -132,4 +141,37 @@ public class BisStore {
 	public void setStoreWxQr(String storeWxQr) {
 		this.storeWxQr = storeWxQr;
 	}
+
+	public String getAppid() {
+		return appid;
+	}
+
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
+
+	public List<String> getStorePicUrls() {
+		return storePicUrls;
+	}
+
+	public void setStorePicUrls(List<String> storePicUrls) {
+		this.storePicUrls = storePicUrls;
+	}
+
+	public List<String> getStoreWxQrUrls() {
+		return storeWxQrUrls;
+	}
+
+	public void setStoreWxQrUrls(List<String> storeWxQrUrls) {
+		this.storeWxQrUrls = storeWxQrUrls;
+	}
+
+	public String getSubDomain() {
+		return subDomain;
+	}
+
+	public void setSubDomain(String subDomain) {
+		this.subDomain = subDomain;
+	}
+	
 }

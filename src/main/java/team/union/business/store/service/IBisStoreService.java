@@ -41,9 +41,11 @@ public interface IBisStoreService {
 	public Result updateById(BisStore bisStore);
 	
 	/**
-	 * 根据id查询
+	 * 根据查询
 	 * @param bisStore
 	 * @return
 	 */
 	public Result selectById(Long id);
+	
+	public Result selByServiceName(String appid);
 }

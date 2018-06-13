@@ -8,6 +8,8 @@ import team.union.utils.upload.model.NbizUpload;
 
 public interface NbizUploadDao extends IDao<NbizUpload>{
 	public List<NbizUpload> selVoLst(Map<String, Object> parm);
+	public List<String> selUrlLst(String uuid);
+	
 	/** 根据uuid删除文件（图片）数据  **/
 	public void deleteByUUID(String uuid);
 }

@@ -29,7 +29,8 @@
     <result column="tagidList" jdbcType="VARCHAR" property="tagidlist" />
   </resultMap>
   <resultMap id="WXResult" type="team.union.we_chat.oauth2.WXUserInfo" >
-   <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="subscribe" jdbcType="INTEGER" property="subscribe" />
     <result column="subscribe_time" jdbcType="INTEGER" property="subscribeTime" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />

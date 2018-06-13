@@ -32,7 +32,7 @@ public class UEditorAPI {
 	public String getConfig(@RequestParam String action){
 		String result = "";
 		if(action.equals("config")){
-			result = ueditorService.readUEditorJson("/team/union/sys_sp/upload/config/UEditor.json");
+			result = ueditorService.readUEditorJson("/team/union/utils/upload/config/UEditor.json");
 		}
 		return result;
 	}

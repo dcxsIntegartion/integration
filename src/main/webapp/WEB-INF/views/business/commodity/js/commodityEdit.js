@@ -10,8 +10,6 @@ var field = ["id","commodityName","commodityPrice","commodityOldPrice",
 	//"commodityPic2","commodityPic3",
 var modelUtils = new ModelUtils(field);
 $(function(){
-	initPageData();
-	datePickerTool();
 	var org_form = $('#viewForm').Validform({
 		tiptype:function(msg,o,cssctl){
 			if(!o.obj.is("form")){
@@ -40,11 +38,12 @@ $(function(){
 			model.homepageShow = $(".checked input[name='homepageShow']").val();
 			model.isTiming = $(".checked input[name='isTiming']").val();
 			
-			model.commodityIntroduction = getAllHtml();
 			editAjax(model);
 			return false;
 		}
 	});
+	initPageData();
+	datePickerTool();
 });
 function editAjax(model){
 	var data= encrypt(JSON.stringify(model),publicKey,privateKey,"md5");
@@ -59,7 +58,7 @@ function editAjax(model){
         		if(data.state==1){
         			layer.msg("商品信息修改成功！");
         			//返回上一页
-            		window.history.back(-1);
+        			window.location.href = "com_index.html";
         		}else{
         			layer.msg(data.msg);
         		}
@@ -81,7 +80,6 @@ function initPageData(){
         	if(data.state==1){
         		modelUtils.fillData(data.data);
         		radioFill(data.data);
-        		initEditor();
         		insertHtml(data.data.commodityIntroduction);
         	}
 		},

@@ -99,12 +99,11 @@ public class BaseConfig {
 	
 	
 	public static enum NO_NEED_INTERCEPTOR_URL{
-		WE_CHART_OAUTH("/we_chat/authorization"),
-		CUST_ADD("/cust/modelLv/add"),
-		BLD_INFO("/bld/selOne"),
+		WE_STAFF_SCANVEN("/we_chat/staffScavenging"),
 		SEND_SHORT_MESSAGE("/sendShortMessage"),
 		LOGIN("/login"),
-		LOGIN_OUT("/login_out");
+		LOGIN_OUT("/login_out"),
+		WX_GETSTORE("/getStore");
 		private NO_NEED_INTERCEPTOR_URL(String value){
 			this.value=value;
 		}
@@ -117,7 +116,7 @@ public class BaseConfig {
 		}
 	}
 	public static enum NO_NEED_FILTER_URL{
-		WE_CHART_OAUTH("/we_chat/authorization"),
+		WE_STAFF_SCANVEN("/we_chat/staffScavenging"),
 		IMG("/img"),
 		FILE("/file"),
 		UEDITOR("/Config");

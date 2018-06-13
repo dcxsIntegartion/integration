@@ -1,10 +1,12 @@
 package team.union.business.store.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import team.union.business.store.dao.BisStoreDao;
 import team.union.business.store.model.BisStore;
 import team.union.business.store.service.IBisStoreService;
 import team.union.sys_sp.com.cfg.PromptMsgConfig.PROMPT;
+import team.union.utils.upload.service.IUploadService;
 /**
  * 
  *描述：店铺业务层实现
@@ -31,22 +34,21 @@ public class BisStoreServiceImpl implements IBisStoreService {
 	@Autowired
 	private BisStoreDao bisStoreDao;
 	
+	@Autowired
+	private IUploadService uploadService;
+	
 	@Override
 	public Result saveStore(BisStore bisStore) {
-		Result result = new Result();
 		try {
 			bisStore.setStoreCreatTime(new Date());
 			bisStore.setStoreStatus(0);
 			bisStoreDao.insert(bisStore);
-			result.setData(bisStore);
-			result.setMsg(PROMPT.SUCCESS.getMsg());
-			result.setState(PROMPT.SUCCESS.getNo());
+			List<String> lst = new ArrayList<String>();
+			lst.get(1);
+			return Result.success(bisStore);
 		} catch (Exception e) {
-			result.setMsg(PROMPT.FAIL.getMsg());
-			result.setState(PROMPT.FAIL.getNo());
-			e.printStackTrace();
+			return Result.error(e.getMessage());
 		}
-		return result;
 	}
 
 	@Override
@@ -100,4 +102,19 @@ public class BisStoreServiceImpl implements IBisStoreService {
 		return result;
 	}
 
+	public Result selByServiceName(String subDomain){
+		if(null!=subDomain && !"".equals(subDomain) && subDomain.split("\\.").length>0){
+			String subDomainS[] = subDomain.split("\\.");
+			BisStore bs= bisStoreDao.selBySubDomain(subDomainS[0]);
+			if(null!=bs){//图片获取封装
+				if(StringUtils.isNotEmpty(bs.getStorePic())){
+					bs.setStorePicUrls(uploadService.selUrlLst(bs.getStorePic()));
+				}
+			}
+			return Result.success(bs);
+		}
+		return Result.error();
+	}
+	
+	
 }

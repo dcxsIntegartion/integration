@@ -65,6 +65,12 @@ public class BisStoreController {
 	public Result viwe(@RequestParam Long Id, HttpServletRequest req) {
 		return iBisStoreService.selectById(Id);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getStore")
+	public Result viwe(HttpServletRequest req){
+		return iBisStoreService.selByServiceName(req.getServerName());
+	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/insert")
